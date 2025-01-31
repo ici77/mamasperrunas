@@ -1,0 +1,29 @@
+<section class="comunidad-section">
+    <div class="container">
+      <!-- Título y subtítulo -->
+      <h2 class="section-title">Con amigos es mejor 🐶</h2>
+      <p class="section-subtitle">
+        Únete a nuestra comunidad y comparte experiencias con otros amantes de los perros.
+      </p>
+      
+      <!-- Tarjetas dinámicas -->
+      <div class="row justify-content-center">
+        <div class="col-md-4 mb-4" *ngFor="let post of communityPosts">
+          <div class="post-card">
+            <h5 class="post-title">{{ post.title }}</h5>
+            <p class="post-excerpt">{{ post.excerpt }}</p>
+            <div class="post-author">
+              <img [src]="post.authorImage" alt="{{ post.author }}" class="author-image">
+              <span>Publicado por {{ post.author }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Botón -->
+      <div class="text-center mt-4">
+        <a href="#" class="btn btn-custom">Únete a la Comunidad</a>
+      </div>
+    </div>
+  </section>
+  

@@ -1,0 +1,71 @@
+.banner-container {
+  position: relative;
+  width: 100%;
+  height: auto; /* Cambia la altura para adaptarse al contenido */
+  overflow: hidden;
+  height: 300px; /* Ajusta la altura del contenedor */ 
+  
+}
+
+.banner-image {
+  width: 100%;
+  height: auto; /* Permite que la imagen ajuste su altura proporcionalmente */
+  object-fit: cover; /* Muestra toda la imagen sin recortarla */
+  object-position: 50% 40%; 
+}
+
+.banner-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.5rem;
+  color: #ffffff; /* Blanco para contraste */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra para legibilidad */
+  text-align: center;
+  z-index: 2; /* Asegura que el título esté encima de la imagen */
+}
+
+.forum-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .grid-item {
+    background-color: #efd0b8; /* Naranja suave */
+    color: black; /* Letra negra */
+    border: 8px solid #f47b22; /* Borde naranja fuerte */
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .grid-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+ 
+  
+  .grid-item h3 {
+    font-family: 'Montserrat', sans-serif; 
+    font-weight: bold; /* Título en negrita */
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  span {
+    font-weight: bold;
+  }
+  

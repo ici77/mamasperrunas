@@ -1,0 +1,125 @@
+@import '../../../styles.css';
+
+
+
+/* Contenedor principal */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Cuadrícula de productos */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Tarjetas */
+.card {
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos dentro de la tarjeta se apilen */
+  justify-content: space-between; /* Espacio uniforme entre elementos */
+  height: 100%; /* Garantiza que todas las tarjetas tengan el mismo tamaño */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagen dentro de las tarjetas */
+.card-img-top {
+  width: 100%; /* La imagen ocupa el ancho completo */
+  height: 200px; /* Altura fija para todas las imágenes */
+  object-fit: contain; /* Ajusta la imagen sin recortarla */
+  object-position: center; /* Centra la parte visible de la imagen */
+  border-radius: 5px; /* Redondea las esquinas */
+}
+
+/* Contenido de la tarjeta */
+.card-body {
+  flex-grow: 1; /* Permite que el contenido ocupe el espacio disponible */
+  text-align: center;
+}
+
+/* Títulos y descripciones */
+.card-title {
+  font-weight: bold;
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.card-text {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+
+
+/* Cuadrícula de categorías */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
+
+/* Tarjetas de categorías */
+.category-card {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  background-color: #fff;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Imagen de categorías */
+.category-card img {
+  width: 100%;
+  height: auto; /* Mantiene la proporción de la imagen */
+  object-fit: contain; /* Muestra toda la imagen sin recortarla */
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* Títulos */
+.category-card h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+/* Botón en categorías */
+.category-card .btn {
+  background-color: #f0c14b;
+  color: #111;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  margin: 10px auto;
+  transition: background-color 0.2s ease;
+  width: 80%; /* Botones del mismo tamaño */
+  max-width: 200px; /* Ancho máximo uniforme */
+  box-sizing: border-box; /* Incluye padding en el tamaño total */
+}
+
+.category-card .btn:hover {
+  background-color: #e6b83d;
+}

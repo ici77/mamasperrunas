@@ -1,0 +1,135 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" routerLink="/">
+      <img src="assets/images/logo.png" alt="Logo" width="40" height="40" class="me-2" />
+      <span>MAMAS PERRUNAS</span>
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav"> 
+      <div class="d-flex flex-grow-1"></div> 
+      <ul class="navbar-nav me-auto"> 
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            routerLink="/products" 
+            id="tiendaDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Tienda
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="tiendaDropdown" id="tiendaMenu"> 
+            <li><a class="dropdown-item" routerLink="/products/Ropa">Ropa</a></li>
+            <li><a class="dropdown-item" routerLink="/products/Accesorios">Accesorios</a></li>
+            <li><a class="dropdown-item" routerLink="/products/Juguetes">Juguetes</a></li>
+            <li><a class="dropdown-item" routerLink="/products/Alimentos">Alimentos</a></li>
+            <li><a class="dropdown-item" routerLink="/products/Camas">Camas</a></li>
+            <li><a class="dropdown-item" routerLink="/products/Paseo">Paseo</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="eventosDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Eventos
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="eventosDropdown" id="eventosMenu"> 
+            <li><a class="dropdown-item" href="#">Cumpleaños</a></li>
+            <li><a class="dropdown-item" href="#">Desfiles</a></li>
+            <li><a class="dropdown-item" href="#">Adopciones</a></li>
+            <li><a class="dropdown-item" href="#">Reuniones</a></li>
+            <li><a class="dropdown-item" href="#">Exposiciones</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="/foro" 
+            id="serviciosDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Servicios
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="serviciosDropdown" id="serviciosMenu"> 
+            <li><a class="dropdown-item" href="#">Veterinaria</a></li>
+            <li><a class="dropdown-item" href="#">Entrenamiento</a></li>
+            <li><a class="dropdown-item" href="#">Estética</a></li>
+            <li><a class="dropdown-item" href="#">Guarderías</a></li>
+            <li><a class="dropdown-item" href="#">Asesoramiento</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="comunidadDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Comunidad
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="comunidadDropdown" id="comunidadMenu"> 
+            <li><a class="dropdown-item" routerLink="/foro">Foros</a></li> <!-- Enlace al foro -->
+            <li><a class="dropdown-item" href="#">Grupos</a></li>
+            <li><a class="dropdown-item" href="#">Historias</a></li>
+            <li><a class="dropdown-item" href="#">Recomendaciones</a></li>
+            <li><a class="dropdown-item" href="#">Encuestas</a></li>
+          </ul>
+        </li>
+        
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="blogDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Blog
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="blogDropdown" id="blogMenu"> 
+            <li><a class="dropdown-item" href="#">Consejos</a></li>
+            <li><a class="dropdown-item" href="#">Noticias</a></li>
+            <li><a class="dropdown-item" href="#">Salud</a></li>
+            <li><a class="dropdown-item" href="#">Lifestyle</a></li>
+            <li><a class="dropdown-item" href="#">Opiniones</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="d-flex flex-grow-1"></div> 
+      <div class="d-flex flex-column align-items-end">
+        <a class="small text-white mb-1" routerLink="/business-area">Área Empresas</a>
+        <div>
+          <a class="btn btn-outline-light me-2" routerLink="/register">Regístrate</a>
+          <a class="btn btn-outline-light" routerLink="/login">Accede</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
