@@ -1,6 +1,0 @@
-com\mp\backend\config\AmazonProperties.class
-com\mp\backend\MibackendApplication.class
-com\mp\backend\service\AmazonApiService.class
-com\mp\backend\HolaMundoController.class
-com\mp\backend\AmazonController.class
-com\mp\backend\model\Usuario.class
