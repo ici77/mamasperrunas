@@ -1,0 +1,52 @@
+
+
+<div class="container-login">
+  <!-- Imagen decorativa -->
+  <div class="login-imagen">
+    <img src="assets/images/login.png" alt="Accede a tu cuenta" />
+
+    
+  </div>
+
+  <!-- Formulario de inicio de sesión -->
+  <div class="card-formulario">
+    <h2>Accede a tu cuenta</h2>
+    <!-- Mensaje de redirección al registro -->
+    <p class="redirect-message">
+      ¿No dispones de cuenta? <a href="http://localhost:4200/registro">Regístrate</a>
+    </p>
+
+    <!-- Casillas de redes sociales -->
+    <div class="social-links">
+      <span class="social-option">Inicia sesión con Facebook</span>
+      <span class="social-option">Inicia sesión con Google</span>
+      <span class="social-option">Inicia sesión con Apple</span>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Campo Email -->
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" formControlName="email" placeholder="tuemail@email.com" />
+        <small class="mensaje-error" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+          {{ getErrorMessage('email') }}
+        </small>
+      </div>
+
+      <!-- Campo Contraseña -->
+      <div class="form-group">
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" formControlName="password" placeholder="Tu contraseña" />
+        <small class="mensaje-error" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+          {{ getErrorMessage('password') }}
+        </small>
+      </div>
+
+      <!-- Botón de Iniciar Sesión -->
+      <button type="submit" [disabled]="loginForm.invalid" class="btn-accion">Iniciar Sesión</button>
+
+      <!-- Mensajes de error -->
+      <p *ngIf="mensajeError" class="mensaje-error">{{ mensajeError }}</p>
+    </form>
+  </div>
+</div>

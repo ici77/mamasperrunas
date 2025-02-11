@@ -1,4 +1,4 @@
-<app-bannerportada></app-bannerportada>
+
 
 <div class="container-registro">
   <!-- Imagen decorativa -->
@@ -39,7 +39,7 @@
       <!-- Campo Contraseña -->
       <div class="form-group">
         <label for="password">Contraseña:</label>
-        <input type="password" id="password" formControlName="password" placeholder="Tu contraseña" />
+        <input type="password" id="password" formControlName="password" placeholder="Mínimo seis caracteres letras y numeros" />
         <small class="mensaje-error" *ngIf="registroForm.get('password')?.touched && registroForm.get('password')?.invalid">
           {{ getErrorMessage('password') }}
         </small>

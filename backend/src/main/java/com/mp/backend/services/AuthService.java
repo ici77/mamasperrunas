@@ -31,14 +31,15 @@ public class AuthService {
      * Verifica si las credenciales del usuario (email y contraseña) son válidas.
      */
     public Optional<Usuario> authenticate(String email, String rawPassword) {
-        Optional<Usuario> userOpt = userRepository.findByEmail(email);
-        if (userOpt.isPresent()) {
-            Usuario user = userOpt.get();
-            // Comparamos la contraseña en texto plano con la encriptada
-            if (passwordEncoder.matches(rawPassword, user.getPassword())) {
-                return Optional.of(user);
-            }
-        }
-        return Optional.empty();
+        return userRepository.findByEmail(email)
+                .map(user -> {
+                    boolean passwordMatch = passwordEncoder.matches(rawPassword, user.getPassword());
+                    System.out.println("Comparación de contraseñas: " + passwordMatch);
+                    System.out.println("Contraseña ingresada: " + rawPassword);
+                    System.out.println("Contraseña almacenada: " + user.getPassword());
+                    return passwordMatch ? user : null;
+                })
+                .filter(user -> user != null);
     }
+    
 }

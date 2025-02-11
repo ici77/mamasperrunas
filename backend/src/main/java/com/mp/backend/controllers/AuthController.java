@@ -6,6 +6,9 @@ import com.mp.backend.utils.JwtTokenUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -31,13 +34,22 @@ public class AuthController {
      * Endpoint para iniciar sesión con email y contraseña.
      */
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Usuario usuario) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody Usuario usuario) {
         return authService.authenticate(usuario.getEmail(), usuario.getPassword())
                 .map(user -> {
                     // Generar el token JWT
                     String token = jwtTokenUtil.generateToken(user);
-                    return ResponseEntity.ok("Bearer " + token);
+                    
+                    // Crear un mapa para devolver el token en formato JSON
+                    Map<String, String> response = new HashMap<>();
+                    response.put("token", "Bearer " + token);
+                    
+                    return ResponseEntity.ok(response);
                 })
-                .orElseGet(() -> ResponseEntity.status(401).body("Credenciales inválidas"));
+                .orElseGet(() -> {
+                    Map<String, String> errorResponse = new HashMap<>();
+                    errorResponse.put("error", "Credenciales inválidas");
+                    return ResponseEntity.status(401).body(errorResponse);
+                });
     }
 }
