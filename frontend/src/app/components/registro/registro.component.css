@@ -1,0 +1,86 @@
+.container-registro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--secondary-green);
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 1100px;
+  margin: 50px auto;
+  gap: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-formulario {
+  flex: 1;
+  background-color: #eaf4e4;
+  padding: 30px;
+  border: 2px solid var(--secondary-green);
+  border-radius: 10px;
+}
+
+h2 {
+  text-align: center;
+  color: var(--secondary-green);
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.social-option {
+  background-color: #fff;
+  color: var(--secondary-green);
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  color: var(--secondary-green);
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  width: 100%;
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e64a19;
+}
+
+.registro-imagen {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registro-imagen img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}

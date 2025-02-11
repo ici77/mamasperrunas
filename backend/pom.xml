@@ -52,13 +52,18 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-
-        <!-- Amazon API Dependencies -->
         <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-core</artifactId>
-            <version>1.12.150</version>
-        </dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+    <version>3.0.2</version> <!-- Puedes ajustar la versión según la tuya -->
+</dependency>
+
+
+         <dependency>
+    <groupId>io.jsonwebtoken</groupId>
+    <artifactId>jjwt</artifactId>
+    <version>0.9.1</version>
+</dependency>
 
         <!-- Jackson -->
         <dependency>
@@ -86,6 +91,8 @@
             <version>4.5.13</version>
         </dependency>
     </dependencies>
+   
+
 
     <repositories>
         <repository>

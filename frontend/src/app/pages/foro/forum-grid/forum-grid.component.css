@@ -9,10 +9,12 @@
 
 .banner-image {
   width: 100%;
-  height: auto; /* Permite que la imagen ajuste su altura proporcionalmente */
-  object-fit: cover; /* Muestra toda la imagen sin recortarla */
-  object-position: 50% 40%; 
+  height: auto;
+  object-fit: cover;
+  object-position: top center; /* Muestra la parte superior */
+  transform: translateY(-50px); /* Ajusta el valor según lo necesites */
 }
+
 
 .banner-title {
   position: absolute;
