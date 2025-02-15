@@ -4,6 +4,16 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
+/**
+ * 📌 Componente `CategoryPageComponent`
+ *
+ * Este componente muestra una página de categoría de productos en la tienda online.
+ * Se encarga de obtener la categoría de la URL y mostrar los productos correspondientes.
+ *
+ * ℹ️ **Uso:** Se utiliza en la tienda para listar productos de una categoría específica.
+ *
+ * 🏷️ **Ejemplo de URL:** `/products/alimentacion` mostrará todos los productos de la categoría "alimentación".
+ */
 @Component({
   selector: 'app-category-page',
   standalone: true,
@@ -26,11 +36,30 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./category-page.component.css'],
 })
 export class CategoryPageComponent implements OnInit {
+  /**
+   * 📌 Categoría actual obtenida de la URL.
+   */
   category: string = '';
+
+  /**
+   * 📌 Lista de productos pertenecientes a la categoría seleccionada.
+   */
   products: any[] = [];
 
+  /**
+   * Constructor del componente.
+   * @param route - Servicio para obtener parámetros de la URL.
+   * @param http - Servicio para hacer peticiones HTTP.
+   */
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
+  /**
+   * 🔹 Método `ngOnInit()`
+   *
+   * - Obtiene la categoría desde la URL.
+   * - Carga los productos desde `assets/products.json` según la categoría.
+   * - Maneja errores en la carga de productos.
+   */
   ngOnInit(): void {
     this.category = this.route.snapshot.paramMap.get('category') || '';
     this.http.get<any[]>('assets/products.json').subscribe({

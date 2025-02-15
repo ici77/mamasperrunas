@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+/**
+ * 📌 `ForumGridComponent`
+ *
+ * Este componente muestra una cuadrícula con las diferentes categorías del foro.
+ * Cada categoría tiene un nombre, una breve descripción y un contador de mensajes.
+ *
+ * ℹ️ **Uso:** Se muestra en la sección de foro para permitir a los usuarios navegar por las categorías.
+ */
 @Component({
   selector: 'app-forum-grid',
   standalone: true,
@@ -9,6 +17,14 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./forum-grid.component.css']
 })
 export class ForumGridComponent {
+  /**
+   * 📌 Lista de categorías del foro.
+   *
+   * Cada categoría contiene:
+   * - `name` (**string**): Nombre de la categoría.
+   * - `description` (**string**): Breve descripción sobre el tema de discusión.
+   * - `messageCount` (**number**): Cantidad de mensajes en la categoría.
+   */
   categories = [
     { name: 'Salud Canina', description: 'Consejos sobre salud y cuidado veterinario.', messageCount: 10 },
     { name: 'Alimentación', description: 'Discute sobre dietas y nutrición canina.', messageCount: 5 },

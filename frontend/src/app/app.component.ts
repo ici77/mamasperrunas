@@ -3,8 +3,16 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { ForumGridComponent } from './pages/foro/forum-grid/forum-grid.component';
 
+/**
+ * 📌 Componente `AppComponent`
+ *
+ * Este es el componente raíz de la aplicación. Se encarga de estructurar la interfaz principal,
+ * incluyendo la barra de navegación (`NavbarComponent`), el área de contenido dinámico (`RouterOutlet`)
+ * y el pie de página (`FooterComponent`).
+ *
+ * ℹ️ **Uso:** Este componente se carga al inicio de la aplicación y permanece visible en todas las rutas.
+ */
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,4 +24,10 @@ import { ForumGridComponent } from './pages/foro/forum-grid/forum-grid.component
   `,
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {}
+export class AppComponent {
+  /**
+   * 📌 Título de la aplicación.
+   * Se utiliza en las pruebas unitarias para verificar su existencia.
+   */
+  title = 'frontend';
+}

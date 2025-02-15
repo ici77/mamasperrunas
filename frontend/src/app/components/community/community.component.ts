@@ -1,14 +1,28 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Importamos CommonModule
+import { CommonModule } from '@angular/common'; 
 
+/**
+ * 📌 Componente `CommunityComponent`
+ *
+ * Este componente muestra una lista de publicaciones dentro de la comunidad, 
+ * permitiendo a los usuarios explorar artículos con consejos, experiencias 
+ * y recomendaciones sobre la convivencia con mascotas.
+ *
+ * ℹ️ **Uso:** Se utiliza en la sección de comunidad para mostrar publicaciones 
+ * relevantes a los usuarios.
+ */
 @Component({
   selector: 'app-community',
-  standalone: true, // Standalone habilitado
-  imports: [CommonModule], // Importamos CommonModule para usar *ngFor
+  standalone: true, 
+  imports: [CommonModule], 
   templateUrl: './community.component.html',
   styleUrls: ['./community.component.css']
 })
 export class CommunityComponent {
+  /**
+   * 📌 Lista de publicaciones dentro de la comunidad.
+   * Cada objeto representa un post con su título, descripción breve, autor y foto del autor.
+   */
   communityPosts = [
     {
       title: 'Consejos para ser social',
