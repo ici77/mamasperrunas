@@ -11,7 +11,19 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Random;
 
-
+/**
+ * 📌 **Controlador RandomUserController**
+ *
+ * Este controlador obtiene usuarios aleatorios desde una API externa (`randomuser.me`)
+ * y los registra en la base de datos con nombres y apellidos españoles generados aleatoriamente.
+ *
+ * 🔹 **Endpoint Disponible:**
+ * - `GET /api/populate-users` → Pobla la base de datos con usuarios ficticios.
+ *
+ * 🔹 **Fuentes de Datos:**
+ * - API de `randomuser.me` para obtener imágenes y datos adicionales.
+ * - Listas predefinidas de nombres y apellidos españoles para personalizar los datos.
+ */
 @RestController
 public class RandomUserController {
 
@@ -20,17 +32,29 @@ public class RandomUserController {
 
     private final Random random = new Random();
 
-    // Listas de nombres y apellidos españoles (sin tildes)
+    /** Lista de nombres españoles sin tildes. */
     private final List<String> nombresEspanoles = List.of(
         "Maria", "Jose", "Antonio", "Lucia", "Francisco", "Ana", "Isabel", "Juan",
         "Miguel", "Manuel", "Carmen", "Rafael", "Jorge", "Pedro", "Santiago"
     );
 
+    /** Lista de apellidos españoles sin tildes. */
     private final List<String> apellidosEspanoles = List.of(
         "Garcia", "Martinez", "Rodriguez", "Lopez", "Hernandez", "Gonzalez", "Perez",
         "Sanchez", "Ramirez", "Torres", "Flores", "Cruz", "Reyes", "Morales"
     );
 
+    /**
+     * 📌 **Endpoint: Poblar la base de datos con usuarios aleatorios**
+     *
+     * 🔹 **Método:** `GET /api/populate-users`
+     *
+     * - Obtiene datos desde `https://randomuser.me/api/?results=10`.
+     * - Genera nombres y apellidos en español de forma aleatoria.
+     * - Registra los usuarios en la base de datos con `AuthService`.
+     *
+     * @return Mensaje de éxito o error en formato `String`.
+     */
     @GetMapping("/api/populate-users")
     public String populateUsers() {
         try {
@@ -73,13 +97,22 @@ public class RandomUserController {
         }
     }
 
-    // Método para obtener un nombre aleatorio
+    /**
+     * 📌 **Genera un nombre español aleatorio.**
+     *
+     * @return Nombre seleccionado aleatoriamente de la lista `nombresEspanoles`.
+     */
     private String getNombreEspanolAleatorio() {
         return nombresEspanoles.get(random.nextInt(nombresEspanoles.size()));
     }
 
-    // Método para obtener un apellido aleatorio
+    /**
+     * 📌 **Genera un apellido español aleatorio.**
+     *
+     * @return Apellido seleccionado aleatoriamente de la lista `apellidosEspanoles`.
+     */
     private String getApellidoEspanolAleatorio() {
         return apellidosEspanoles.get(random.nextInt(apellidosEspanoles.size()));
     }
 }
+ 

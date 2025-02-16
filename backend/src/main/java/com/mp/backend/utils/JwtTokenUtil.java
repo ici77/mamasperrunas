@@ -10,15 +10,36 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 📌 **Utilidad para manejo de Tokens JWT (`JwtTokenUtil`)**
+ *
+ * Esta clase se encarga de generar, extraer y validar tokens JWT utilizados en la autenticación de usuarios.
+ * 
+ * 🔹 **Funciones Principales:**
+ * - Generar un token JWT con información del usuario.
+ * - Extraer el email de un token JWT.
+ * - Verificar si un token ha expirado.
+ */
 @Component
 public class JwtTokenUtil {
 
-    private final String secretKey = "mamasperrunasSecretKeymamasperrunasSecretKey";  // Longitud mínima de 32 caracteres
+    /** Clave secreta para firmar los tokens JWT (mínimo 32 caracteres). */
+    private final String secretKey = "mamasperrunasSecretKeymamasperrunasSecretKey";  
+
+    /** Clave generada a partir de la clave secreta para firmar el token. */
     private final SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
-    private final long expirationTime = 1000 * 60 * 60 * 24;  // Expira en 1 día (24 horas)
+
+    /** Tiempo de expiración del token: 24 horas (en milisegundos). */
+    private final long expirationTime = 1000 * 60 * 60 * 24;  
 
     /**
-     * Genera un token JWT usando los datos del usuario.
+     * 📌 **Genera un token JWT usando los datos del usuario.**
+     *
+     * - Se incluyen en el token datos clave como el ID, email, rol, nombre y foto de perfil del usuario.
+     * - El token tiene una duración de 24 horas.
+     *
+     * @param usuario Objeto `Usuario` con los datos a incluir en el token.
+     * @return `String` con el token JWT generado.
      */
     public String generateToken(Usuario usuario) {
         Map<String, Object> claims = new HashMap<>();
@@ -38,7 +59,12 @@ public class JwtTokenUtil {
     }
 
     /**
-     * Extrae el email del token JWT.
+     * 📌 **Extrae el email de un token JWT.**
+     *
+     * - Se usa para identificar al usuario autenticado a partir del token.
+     *
+     * @param token Token JWT del cual se extraerá el email.
+     * @return `String` con el email del usuario.
      */
     public String getEmailFromToken(String token) {
         return Jwts.parserBuilder()
@@ -50,7 +76,12 @@ public class JwtTokenUtil {
     }
 
     /**
-     * Verifica si el token ha expirado.
+     * 📌 **Verifica si un token JWT ha expirado.**
+     *
+     * - Extrae la fecha de expiración del token y la compara con la fecha actual.
+     *
+     * @param token Token JWT a validar.
+     * @return `boolean` `true` si el token ha expirado, `false` si aún es válido.
      */
     public boolean isTokenExpired(String token) {
         Date expiration = Jwts.parserBuilder()
