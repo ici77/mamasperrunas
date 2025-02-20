@@ -23,7 +23,7 @@ import { RouterModule } from '@angular/router';
       <a routerLink="/products">Tienda</a> &gt;
       <span>{{ category }}</span>
     </nav>
-    <h1>{{ category }}</h1>
+    <h1>{{ category | titlecase }}</h1>
     <div class="product-grid">
       <div *ngFor="let product of products" class="product-card">
         <img [src]="product.image" [alt]="product.name" />
@@ -56,12 +56,23 @@ export class CategoryPageComponent implements OnInit {
   /**
    * 🔹 Método `ngOnInit()`
    *
-   * - Obtiene la categoría desde la URL.
-   * - Carga los productos desde `assets/products.json` según la categoría.
-   * - Maneja errores en la carga de productos.
+   * - Se suscribe a los cambios en la URL para detectar cambios de categoría.
+   * - Carga los productos desde `assets/products.json` según la categoría seleccionada.
    */
   ngOnInit(): void {
-    this.category = this.route.snapshot.paramMap.get('category') || '';
+    this.route.paramMap.subscribe((params) => {
+      this.category = params.get('category') || '';
+      this.loadProducts(); // Recargar productos cada vez que cambia la URL
+    });
+  }
+
+  /**
+   * 📌 Método `loadProducts()`
+   *
+   * - Carga productos desde el archivo `products.json` basado en la categoría actual.
+   * - Maneja errores en la carga de productos.
+   */
+  loadProducts() {
     this.http.get<any[]>('assets/products.json').subscribe({
       next: (data) => {
         const categoryData = data.find((c) => c.category === this.category);
