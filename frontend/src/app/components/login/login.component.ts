@@ -57,10 +57,10 @@ export class LoginComponent {
    */
   onSubmit(): void {
     if (this.loginForm.valid) {
-      this.http.post('http://localhost:8080/auth/login', this.loginForm.value, { responseType: 'text' }).subscribe({
-        next: (token) => {
-          console.log('Token recibido:', token);
-          localStorage.setItem('token', token);  // Almacena el token JWT en el localStorage
+      this.http.post('http://localhost:8080/api/usuarios/login', this.loginForm.value, { responseType: 'json' }).subscribe({
+        next: (response: any) => {
+          console.log('Token recibido:', response.token);
+          localStorage.setItem('token', response.token);  // Guarda el token en localStorage
           this.router.navigate(['/profile']);  // Redirige al perfil del usuario
         },
         error: (err) => {

@@ -6,28 +6,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.dao.DataIntegrityViolationException;
-
 import jakarta.validation.Valid;
+import java.util.Map;
 
 /**
  * 📌 **Controlador de Usuarios (`UsuarioController`)**
  *
- * Maneja el registro de usuarios y endpoints de prueba.
+ * Maneja el registro de usuarios y la autenticación de login.
  *
  * 🔹 **Endpoints:**
  * - `POST /api/usuarios/registro` → Registra un nuevo usuario con contraseña encriptada.
+ * - `POST /api/usuarios/login` → Autentica un usuario y devuelve un token JWT.
  * - `GET /api/usuarios` → Endpoint de prueba.
  */
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
 
-    private final AuthService authService;  // 🔥 Cambio de UsuarioService a AuthService
+    private final AuthService authService;
 
     /**
      * 🔹 **Constructor del controlador**
      *
-     * @param authService Servicio de autenticación para manejar el registro.
+     * @param authService Servicio de autenticación para manejar registro y login.
      */
     public UsuarioController(AuthService authService) {
         this.authService = authService;
@@ -53,13 +54,40 @@ public class UsuarioController {
         }
 
         try {
-            authService.registerUser(usuario);  // 🔥 Ahora usa AuthService para encriptar la contraseña
+            authService.registerUser(usuario); // ✅ Registro con contraseña encriptada
             return ResponseEntity.ok().body("{\"mensaje\": \"Usuario registrado exitosamente\"}");
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.badRequest().body("{\"error\": \"El email ya está registrado.\"}");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("{\"error\": \"Error al registrar el usuario.\"}");
         }
+    }
+
+    /**
+     * 📌 **Iniciar sesión (Autenticación)**
+     *
+     * 🔹 **Endpoint:** `POST /api/usuarios/login`
+     *
+     * - Busca al usuario por email.
+     * - Compara la contraseña encriptada con la ingresada.
+     * - Si es correcta, genera y devuelve un token JWT.
+     * - Si falla, devuelve un mensaje de error.
+     *
+     * @param request JSON con `email` y `password`.
+     * @return `ResponseEntity<String>` con el token JWT o mensaje de error.
+     */
+    @PostMapping(value = "/login", produces = "application/json")
+    public ResponseEntity<String> iniciarSesion(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        String password = request.get("password");
+
+        if (email == null || password == null) {
+            return ResponseEntity.badRequest().body("{\"error\": \"Email y contraseña son obligatorios\"}");
+        }
+
+        return authService.authenticate(email, password)
+                .map(token -> ResponseEntity.ok("{\"token\": \"" + token + "\"}"))
+                .orElseGet(() -> ResponseEntity.status(403).body("{\"error\": \"Credenciales inválidas\"}"));
     }
 
     /**

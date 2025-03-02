@@ -72,7 +72,8 @@ public class AuthService {
      */
     public Optional<String> authenticate(String email, String rawPassword) {
         return userRepository.findByEmail(email)
-            .map(user -> {
+            .filter(user -> {
+                // 🔍 LOGS DE DEPURACIÓN
                 System.out.println("🔍 Buscando usuario con email: " + email);
                 System.out.println("🗄 Usuario encontrado: " + user);
                 System.out.println("🔐 Contraseña ingresada: " + rawPassword);
@@ -82,8 +83,8 @@ public class AuthService {
 
                 System.out.println("✅ ¿Coincide la contraseña?: " + passwordMatch);
 
-                return passwordMatch ? jwtTokenUtil.generateToken(user) : null;
+                return passwordMatch;
             })
-            .filter(token -> token != null);
+            .map(jwtTokenUtil::generateToken); // ✅ Generar el token si la autenticación es exitosa
     }
 }
