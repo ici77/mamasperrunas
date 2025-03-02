@@ -1,72 +1,25 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DogBreedsComponent } from '../../components/dog-breeds/dog-breeds.component';
-import { BlogLayoutComponent } from '../../components/blog-layout/blog-layout.component'; // ✅ Importamos el layout del blog
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-/**
- * @component DogListComponent
- * @description Componente que muestra una lista de razas de perros.
- * 
- * - Recibe datos del componente `DogBreedsComponent`.
- * - Muestra una cantidad inicial de perros y permite cargar más con un botón.
- * - Integra `BlogLayoutComponent` para mantener la estructura del blog.
- * 
- * @selector app-dog-list
- * @standalone true
- * @imports CommonModule, DogBreedsComponent, BlogLayoutComponent
- */
-@Component({
-  selector: 'app-dog-list',
-  standalone: true,
-  imports: [CommonModule, DogBreedsComponent, BlogLayoutComponent], // ✅ Añadir BlogLayoutComponent
-  templateUrl: './dog-list.component.html',
-  styleUrls: ['./dog-list.component.css']
+@Injectable({
+  providedIn: 'root'
 })
-export class DogListComponent {
-  
-  /**
-   * @property {any[]} dogs - Lista completa de razas de perros.
-   */
-  dogs: any[] = [];
+export class DogApiService {
+  private apiUrl = 'https://api.thedogapi.com/v1/breeds'; // API externa
+  private apiKey = 'live_6IpVnEm2JnKGajVTUucJws58ErwUOSDQNKzwkMxNtJR0mhU1nlVuRdD5r4rypFoB'; // API Key
+
+  constructor(private http: HttpClient) { }
 
   /**
-   * @property {any[]} filteredDogs - Lista de perros filtrados que se muestran en pantalla.
+   * Obtiene la lista de razas de perros directamente desde The Dog API.
+   * @returns {Observable<any[]>} Observable con la lista de razas.
    */
-  filteredDogs: any[] = [];
+  getDogBreeds(): Observable<any[]> {
+    const headers = new HttpHeaders({
+      'x-api-key': this.apiKey // Agrega la API Key en los headers
+    });
 
-  /**
-   * @property {number} dogsToShow - Número inicial de perros a mostrar.
-   */
-  dogsToShow = 8;
-
-  /**
-   * @method receiveDogs
-   * @description Recibe la lista de perros desde `DogBreedsComponent` y la almacena localmente.
-   * @param {any[]} dogs - Lista de razas de perros recibida.
-   */
-  receiveDogs(dogs: any[]): void {
-    if (dogs && dogs.length > 0) {
-      this.dogs = [...dogs];
-      this.updateDisplayedDogs();
-    }
-  }
-
-  /**
-   * @method updateDisplayedDogs
-   * @description Actualiza la lista de perros mostrados en pantalla, aplicando el límite `dogsToShow`.
-   */
-  updateDisplayedDogs(): void {
-    this.filteredDogs = this.dogs.slice(0, this.dogsToShow);
-  }
-
-  /**
-   * @method showMore
-   * @description Incrementa la cantidad de perros mostrados en pantalla de 8 en 8.
-   */
-  showMore(): void {
-    if (this.dogsToShow < this.dogs.length) {
-      this.dogsToShow += 8;
-      this.updateDisplayedDogs();
-    }
+    return this.http.get<any[]>(this.apiUrl, { headers });
   }
 }

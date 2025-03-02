@@ -61,26 +61,29 @@ export class RegistroComponent {
    */
   onSubmit(): void {
     if (this.registroForm.valid) {
-      // Agregar la imagen predeterminada antes de enviar los datos
       const usuario = {
         ...this.registroForm.value,
-        fotoPerfil: 'assets/images/avatar.png'  // Imagen predeterminada
+        fotoPerfil: 'assets/images/avatar.png' // Imagen predeterminada
       };
-
-      this.http.post('http://localhost:8080/auth/register', usuario).subscribe({
-        next: (response) => {
-          this.mensajeExito = 'Gracias por registrarte. Inicia sesión.';
-          this.mensajeError = null;
-          this.registroForm.reset();
-        },
-        error: (err) => {
-          this.mensajeError = 'Ocurrió un error al registrarse. Por favor, inténtalo de nuevo.';
-          this.mensajeExito = null;
-        }
-      });
+  
+      // Enviar los datos al backend
+      this.http.post('http://localhost:8080/api/usuarios/registro', usuario, { responseType: 'json' })
+        .subscribe({
+          next: (response) => {
+            console.log('✅ Usuario registrado:', response);
+            this.mensajeExito = 'Registro exitoso. Ahora puedes iniciar sesión.';
+            this.mensajeError = null;
+            this.registroForm.reset();
+          },
+          error: (err) => {
+            console.error('❌ Error en el registro:', err);
+            this.mensajeError = err.error?.error || 'Error en el registro. Inténtalo nuevamente.';
+          }
+        });
     }
   }
-
+  
+  
   /**
    * 📌 Método `getErrorMessage()`
    *

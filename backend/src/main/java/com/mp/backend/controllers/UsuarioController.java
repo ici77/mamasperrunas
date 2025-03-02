@@ -1,64 +1,64 @@
 package com.mp.backend.controllers;
 
 import com.mp.backend.models.Usuario;
-import com.mp.backend.services.UsuarioService;
-
-import jakarta.validation.Valid;
-
+import com.mp.backend.services.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import jakarta.validation.Valid;
+
 /**
- * 📌 **Controlador UsuarioController**
+ * 📌 **Controlador de Usuarios (`UsuarioController`)**
  *
- * Este controlador maneja las operaciones relacionadas con los usuarios, como su registro y prueba de conexión.
+ * Maneja el registro de usuarios y endpoints de prueba.
  *
- * 🔹 **Endpoints Disponibles:**
- * - `POST /api/usuarios/registro` → Registra un nuevo usuario.
+ * 🔹 **Endpoints:**
+ * - `POST /api/usuarios/registro` → Registra un nuevo usuario con contraseña encriptada.
  * - `GET /api/usuarios` → Endpoint de prueba.
- *
- * 🔹 **Dependencias:**
- * - `UsuarioService`: Servicio para manejar la lógica de negocio relacionada con usuarios.
  */
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
 
-    private final UsuarioService usuarioService;
+    private final AuthService authService;  // 🔥 Cambio de UsuarioService a AuthService
 
     /**
      * 🔹 **Constructor del controlador**
      *
-     * @param usuarioService Servicio para manejar la lógica de los usuarios.
+     * @param authService Servicio de autenticación para manejar el registro.
      */
-    public UsuarioController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
+    public UsuarioController(AuthService authService) {
+        this.authService = authService;
     }
 
     /**
      * 📌 **Registrar un nuevo usuario**
      *
      * 🔹 **Endpoint:** `POST /api/usuarios/registro`
-     * 
+     *
      * - Recibe un objeto `Usuario` validado.
-     * - Llama al servicio `UsuarioService` para registrarlo en la base de datos.
-     * - Maneja excepciones en caso de que el email ya esté registrado o si ocurre un error interno.
+     * - Llama a `AuthService` para registrarlo con contraseña encriptada.
+     * - Maneja excepciones en caso de email duplicado o errores en la base de datos.
      *
      * @param usuario Objeto `Usuario` con los datos de registro.
-     * @param result Objeto `BindingResult` para manejar validaciones de entrada.
-     * @return `ResponseEntity<String>` con un mensaje de éxito o error en formato JSON.
+     * @param result Objeto `BindingResult` para manejar validaciones.
+     * @return `ResponseEntity<String>` con mensaje de éxito o error.
      */
     @PostMapping(value = "/registro", produces = "application/json")
     public ResponseEntity<String> registrarUsuario(@Valid @RequestBody Usuario usuario, BindingResult result) {
+        if (result.hasErrors()) {
+            return ResponseEntity.badRequest().body("{\"error\": \"Datos inválidos. Verifica los campos.\"}");
+        }
+
         try {
-            usuarioService.registrarUsuario(usuario);
+            authService.registerUser(usuario);  // 🔥 Ahora usa AuthService para encriptar la contraseña
             return ResponseEntity.ok().body("{\"mensaje\": \"Usuario registrado exitosamente\"}");
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.badRequest().body("{\"error\": \"El email ya está registrado.\"}");
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body("{\"error\": \"Ocurrió un error al registrar el usuario.\"}");
+            return ResponseEntity.internalServerError().body("{\"error\": \"Error al registrar el usuario.\"}");
         }
     }
 
@@ -73,6 +73,6 @@ public class UsuarioController {
      */
     @GetMapping
     public ResponseEntity<String> pruebaEndpoint() {
-        return ResponseEntity.ok("Endpoint de prueba alcanzado correctamente");
+        return ResponseEntity.ok("✅ Endpoint de prueba alcanzado correctamente");
     }
 }

@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Email;
  * 📌 **Entidad Usuario**
  * 
  * Representa a un usuario dentro del sistema. Cada usuario tiene un nombre, 
- * email, contraseña, foto de perfil y un rol determinado.
+ * email, contraseña encriptada, foto de perfil y un rol determinado.
  * 
  * 🔹 **Anotaciones JPA**:
  * - `@Entity`: Define la clase como una entidad JPA.
@@ -44,19 +44,20 @@ public class Usuario {
     @Column(unique = true, nullable = false)
     private String email;
 
-    /** Contraseña del usuario (obligatoria, mínimo 6 caracteres). */
-    @NotBlank(message = "La contraseña es obligatoria")
-    @Size(min = 6, message = "La contraseña debe tener al menos 6 caracteres")
-    @Column(nullable = false)
-    private String password;
+    
+    /** Contraseña encriptada del usuario. */
+@NotBlank(message = "La contraseña es obligatoria")
+@Column(nullable = false, length = 255)  // 🔹 Permitir almacenamiento de contraseñas encriptadas
+private String password;
+
 
     /** URL de la foto de perfil del usuario. */
     @Column(name = "foto_perfil")
     private String fotoPerfil;
 
     /** Rol del usuario (por defecto, "USER"). */
-    @Column(nullable = false, columnDefinition = "VARCHAR(50) DEFAULT 'USER'")
-    private String rol;
+    @Column(nullable = false, length = 50)
+    private String rol = "USER";  // 🔹 Asignamos el rol por defecto en la clase Java
 
     /**
      * 🔹 **Constructor vacío (obligatorio para JPA)**.
@@ -67,19 +68,17 @@ public class Usuario {
     }
 
     /**
-     * 🔹 **Constructor con parámetros**.
+     * 🔹 **Constructor sin contraseña** (Para evitar almacenar texto plano).
      * 
      * @param nombre Nombre del usuario.
      * @param email Email del usuario.
-     * @param password Contraseña del usuario.
      * @param fotoPerfil URL de la foto de perfil.
      */
-    public Usuario(String nombre, String email, String password, String fotoPerfil) {
+    public Usuario(String nombre, String email, String fotoPerfil) {
         this.nombre = nombre;
         this.email = email;
-        this.password = password;
         this.fotoPerfil = fotoPerfil;
-        this.rol = "USER";  // Asignación automática del rol por defecto
+        this.rol = "USER";
     }
 
     // Getters y Setters
@@ -112,6 +111,13 @@ public class Usuario {
         return password;
     }
 
+    /**
+     * 🔐 **Setter para contraseña encriptada**
+     * 
+     * - Este método solo debe ser llamado desde `AuthService`.
+     * 
+     * @param password Contraseña encriptada.
+     */
     public void setPassword(String password) {
         this.password = password;
     }

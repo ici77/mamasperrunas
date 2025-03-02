@@ -1,11 +1,14 @@
 package com.mp.backend.utils;
 
 import com.mp.backend.models.Usuario;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import javax.crypto.SecretKey;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,28 +17,26 @@ import java.util.Map;
  * 📌 **Utilidad para manejo de Tokens JWT (`JwtTokenUtil`)**
  *
  * Esta clase se encarga de generar, extraer y validar tokens JWT utilizados en la autenticación de usuarios.
- * 
+ *
  * 🔹 **Funciones Principales:**
- * - Generar un token JWT con información del usuario.
- * - Extraer el email de un token JWT.
- * - Verificar si un token ha expirado.
+ * ✅ Generar un token JWT con información del usuario.
+ * ✅ Extraer el email de un token JWT.
+ * ✅ Verificar si un token ha expirado.
  */
 @Component
 public class JwtTokenUtil {
 
-    /** Clave secreta para firmar los tokens JWT (mínimo 32 caracteres). */
-    private final String secretKey = "mamasperrunasSecretKeymamasperrunasSecretKey";  
+    /** 🔐 Clave secreta segura (se obtiene desde `application.properties`). */
+    @Value("${jwt.secret}")
+    private String secretKey;
 
-    /** Clave generada a partir de la clave secreta para firmar el token. */
-    private final SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
-
-    /** Tiempo de expiración del token: 24 horas (en milisegundos). */
+    /** ⏳ Tiempo de expiración del token: 24 horas (en milisegundos). */
     private final long expirationTime = 1000 * 60 * 60 * 24;  
 
     /**
      * 📌 **Genera un token JWT usando los datos del usuario.**
      *
-     * - Se incluyen en el token datos clave como el ID, email, rol, nombre y foto de perfil del usuario.
+     * - Incluye ID, email, rol, nombre y foto de perfil del usuario.
      * - El token tiene una duración de 24 horas.
      *
      * @param usuario Objeto `Usuario` con los datos a incluir en el token.
@@ -46,15 +47,18 @@ public class JwtTokenUtil {
         claims.put("id", usuario.getId());
         claims.put("email", usuario.getEmail());
         claims.put("rol", usuario.getRol());
-        claims.put("nombre", usuario.getNombre());  // Agregamos el nombre al token
-        claims.put("foto_perfil", usuario.getFotoPerfil());  // Agregamos la foto de perfil
+        claims.put("nombre", usuario.getNombre());
+        claims.put("foto_perfil", usuario.getFotoPerfil());
+
+        // Crear la clave segura con HMAC SHA256
+        SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
 
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(usuario.getEmail())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
-                .signWith(key)  // Usando la clave segura
+                .signWith(key, SignatureAlgorithm.HS256)  // Firmar con SHA256
                 .compact();
     }
 
@@ -64,15 +68,21 @@ public class JwtTokenUtil {
      * - Se usa para identificar al usuario autenticado a partir del token.
      *
      * @param token Token JWT del cual se extraerá el email.
-     * @return `String` con el email del usuario.
+     * @return `String` con el email del usuario o `null` si el token es inválido.
      */
     public String getEmailFromToken(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+        try {
+            SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
+            return Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getSubject();
+        } catch (Exception e) {
+            System.err.println("⚠️ Error al extraer email del token: " + e.getMessage());
+            return null;
+        }
     }
 
     /**
@@ -84,12 +94,18 @@ public class JwtTokenUtil {
      * @return `boolean` `true` si el token ha expirado, `false` si aún es válido.
      */
     public boolean isTokenExpired(String token) {
-        Date expiration = Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getExpiration();
-        return expiration.before(new Date());
+        try {
+            SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            return claims.getExpiration().before(new Date());
+        } catch (Exception e) {
+            System.err.println("⚠️ Error al verificar expiración del token: " + e.getMessage());
+            return true;
+        }
     }
 }
