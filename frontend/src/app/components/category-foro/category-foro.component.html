@@ -1,0 +1,33 @@
+<h2>{{ categoryName }}</h2>
+
+<!-- Mostrar los 4 posts más votados -->
+<h3>🔥 Posts Destacados</h3>
+<div *ngIf="topPosts.length > 0">
+  <div *ngFor="let post of topPosts" class="post">
+    <h3>{{ post.title }}</h3>
+    <p>{{ post.content }}</p>
+    <small>👍 {{ post.upvotes }} | Publicado por {{ post.user.name }} el {{ post.createdAt | date:'short' }}</small>
+  </div>
+</div>
+
+<!-- Listado de posts con paginación -->
+<h3>📢 Todos los Posts</h3>
+<div *ngIf="allPosts.length > 0">
+  <div *ngFor="let post of allPosts" class="post">
+    <h3>{{ post.title }}</h3>
+    <p>{{ post.content }}</p>
+    <small>Publicado por {{ post.user.name }} el {{ post.createdAt | date:'short' }}</small>
+  </div>
+</div>
+
+<!-- Controles de paginación -->
+<div class="pagination-controls">
+  <button (click)="previousPage()" [disabled]="currentPage === 0">⬅️ Anterior</button>
+  <span>Página {{ currentPage + 1 }} de {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">Siguiente ➡️</button>
+</div>
+
+<div *ngIf="allPosts.length === 0">
+  <p>No hay posts en esta categoría aún.</p>
+</div>
+

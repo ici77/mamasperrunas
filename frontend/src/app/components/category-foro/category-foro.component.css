@@ -1,0 +1,29 @@
+.post {
+    background-color: #f4dfc8;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border-left: 5px solid #f47b20;
+  }
+  
+  .pagination-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  button {
+    background-color: #f47b20;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
