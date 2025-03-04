@@ -3,12 +3,14 @@
   <h1 class="banner-title">Bienvenidos al Foro de Mamás Perrunas</h1>
 </div>
 
-
 <div class="forum-grid">
-    <div *ngFor="let category of categories" class="grid-item">
+  <div *ngFor="let category of categories" class="grid-item">
+    <a [routerLink]="['/foro', category.route]" class="category-card">
       <h3>{{ category.name }}</h3>
       <p>{{ category.description }}</p>
-      <span>{{ category.messageCount }} mensajes</span>
-    </div>
+      <small><strong>{{ category.messageCount }}</strong> mensajes</small>
+    </a>
   </div>
+</div>
+
   

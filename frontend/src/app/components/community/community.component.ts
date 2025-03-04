@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 
 /**
- * 📌 Componente `CommunityComponent`
+ * 📌 Componente `CommunityComponent` de la landing page
  *
  * Este componente muestra una lista de publicaciones dentro de la comunidad, 
  * permitiendo a los usuarios explorar artículos con consejos, experiencias 

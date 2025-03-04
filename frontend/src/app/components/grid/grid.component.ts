@@ -34,7 +34,7 @@ export class GridComponent {
       link: '/events'
     },
     {
-      title: 'Servicios Especializados',
+      title: 'Servicios ',
       description: 'Conoce todos los servicios pensados para ti y tu mascota.',
       image: 'assets/images/landing/servicios.png',
       link: '/services'

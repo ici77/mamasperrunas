@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Component, ViewEncapsulation } from '@angular/core';
+
+
+
 
 /**
  * 📌 `ForumGridComponent`
@@ -13,19 +17,16 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-forum-grid',
   standalone: true,
-  imports: [CommonModule, RouterModule], // Se añade RouterModule para permitir el uso de [routerLink]
+  imports: [CommonModule, RouterModule],
   templateUrl: './forum-grid.component.html',
-  styleUrls: ['./forum-grid.component.css']
+  styleUrls: ['./forum-grid.component.css'], // Asegurar que este archivo está correctamente vinculado
+  encapsulation: ViewEncapsulation.None // 🔹 Esto permitirá que los estilos se apliquen globalmente
 })
+
 export class ForumGridComponent {
+
   /**
    * 📌 Lista de categorías del foro.
-   *
-   * Cada categoría contiene:
-   * - `name` (**string**): Nombre de la categoría.
-   * - `description` (**string**): Breve descripción sobre el tema de discusión.
-   * - `messageCount` (**number**): Cantidad de mensajes en la categoría.
-   * - `route` (**string**): Ruta asociada para navegar a la categoría específica.
    */
   categories = [
     { name: 'Salud Canina', description: 'Consejos sobre salud y cuidado veterinario.', messageCount: 10, route: 'salud-canina' },

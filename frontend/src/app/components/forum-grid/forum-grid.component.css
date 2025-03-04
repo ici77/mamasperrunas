@@ -30,27 +30,45 @@
 }
 
 .forum-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .grid-item {
-    background-color: #efd0b8; /* Naranja suave */
-    color: black; /* Letra negra */
-    border: 8px solid #f47b22; /* Borde naranja fuerte */
-    border-radius: 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .grid-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-  }
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  gap: 20px !important;
+  padding: 20px !important;
+}
+/* Cambiar el color de los enlaces dentro de las tarjetas del foro */
+.forum-grid a {
+  color: black !important; /* Asegura que el texto de los enlaces sea negro */
+  text-decoration: none !important; /* Elimina el subrayado de los enlaces */
+}
+
+/* Cambiar el color de los títulos de las categorías */
+.grid-item h3 {
+  color: black !important;
+}
+
+/* Cambiar el color de las descripciones y conteo de mensajes */
+.grid-item p,
+.grid-item small {
+  color: black !important;
+}
+
+
+.grid-item {
+  background-color: #efd0b8 !important;
+  color: black !important;
+  border: 8px solid #f47b22 !important;
+  border-radius: 30px !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  padding: 20px !important;
+  text-align: center !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.grid-item:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
   
  
   

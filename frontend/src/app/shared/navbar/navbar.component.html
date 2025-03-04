@@ -20,17 +20,17 @@
         <!-- TIENDA -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="tiendaDropdown" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false"[routerLink]="['/products']">
+            aria-expanded="false">
             Tienda
           </a>
           <ul class="dropdown-menu" aria-labelledby="tiendaDropdown">
+            <li><a class="dropdown-item" [routerLink]="['/products']">Tienda</a></li>
             <li><a class="dropdown-item" [routerLink]="['/products', 'Ropa']">Ropa</a></li>
             <li><a class="dropdown-item" [routerLink]="['/products', 'Accesorios']">Accesorios</a></li>
             <li><a class="dropdown-item" [routerLink]="['/products', 'Juguetes']">Juguetes</a></li>
             <li><a class="dropdown-item" [routerLink]="['/products', 'Alimentos']">Alimentos</a></li>
             <li><a class="dropdown-item" [routerLink]="['/products', 'Camas']">Camas</a></li>
             <li><a class="dropdown-item" [routerLink]="['/products', 'Paseo']">Paseo</a></li>
-            
           </ul>
         </li>
 
@@ -82,10 +82,11 @@
         <!-- BLOG -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="blogDropdown" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false" [routerLink]="['/blog']">
+            aria-expanded="false">
             Blog
           </a>
           <ul class="dropdown-menu" aria-labelledby="blogDropdown">
+            <li><a class="dropdown-item" [routerLink]="['/blog']">Blog</a></li>
             <li><a class="dropdown-item" [routerLink]="['/blog/experts']">Hablan nuestros expertos</a></li>
             <li><a class="dropdown-item" [routerLink]="['/blog/news']">Noticias</a></li>
             <li><a class="dropdown-item" [routerLink]="['/blog/tips']">Consejos</a></li>
@@ -95,15 +96,25 @@
         </li>
       </ul>
 
-      <!-- BOTONES DERECHA -->
       <div class="d-flex flex-grow-1"></div>
       <div class="d-flex flex-column align-items-end">
         <a class="small text-white mb-1" routerLink="/business-area">Área Empresas</a>
-        <div>
-          <a class="btn btn-outline-light me-2" routerLink="/registro">Regístrate</a>
-          <a class="btn btn-outline-light" routerLink="/login">Accede</a>
-        </div>
+      
+        <!-- ✅ Mostrar perfil y botón de cerrar sesión si está autenticado -->
+        <ng-container *ngIf="isAuthenticated; else authButtons">
+          <div class="d-flex align-items-center">
+            <img [src]="fotoPerfil || 'assets/images/default-avatar.png'" alt="Foto de perfil" width="40" height="40" class="rounded-circle me-2">
+            <span class="text-white me-2">¡Hola, {{ nombreUsuario }}!</span>
+            <button class="btn btn-danger btn-sm" (click)="logout()">Cerrar sesión</button>
+          </div>
+        </ng-container>
+      
+        <!-- ❌ Mostrar botones de login y registro si NO está autenticado -->
+        <ng-template #authButtons>
+          <div>
+            <a class="btn btn-outline-light me-2" routerLink="/registro">Regístrate</a>
+            <a class="btn btn-outline-light" routerLink="/login">Accede</a>
+          </div>
+        </ng-template>
       </div>
-    </div>
-  </div>
-</nav>
+      

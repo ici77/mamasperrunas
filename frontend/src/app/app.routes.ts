@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
+import { AuthGuard } from './guards/auth.guard';  // Importa el guard
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { CategoryPageComponent } from './components/category-page/category-page.component';
-import { ForumGridComponent } from './pages/foro/forum-grid/forum-grid.component';
+import { ForumGridComponent } from './components/forum-grid/forum-grid.component';
 import { CategoryForoComponent } from './components/category-foro/category-foro.component'; // ✅ Agregado
 import { RegistroComponent } from './components/registro/registro.component';
 import { LoginComponent } from './components/login/login.component';
