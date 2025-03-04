@@ -1,60 +1,44 @@
 <h2>{{ categoryName }}</h2>
 
-<!-- Botón para crear un nuevo post (Solo para usuarios registrados) -->
-<div *ngIf="isLoggedIn" class="create-post-container">
-  <button class="create-post-btn" (click)="goToCreatePost()">
+<!-- Sección para crear un nuevo post -->
+<div class="create-post-container">
+  <button *ngIf="isLoggedIn" class="create-post-btn" (click)="goToCreatePost()">
     ✍️ Crear nuevo post
   </button>
-</div>
-
-<!-- Mensaje para invitados -->
-<div *ngIf="!isLoggedIn" class="guest-message">
-  <p>🔒 Debes <a routerLink="/registro">registrarte</a> o <a routerLink="/login">iniciar sesión</a> para publicar o responder posts.</p>
-</div>
-
-<!-- Sección de posts destacados -->
-<h3>🔥 Posts Destacados</h3>
-<div *ngIf="topPosts.length > 0">
-  <div *ngFor="let post of topPosts" class="post">
-    <h3>{{ post.title }}</h3>
-    <p>{{ post.content }}</p>
-    <small>👍 {{ post.upvotes }} | Publicado por {{ post.user.name }} el {{ post.createdAt | date:'short' }}</small>
-
-    <!-- Botón para responder (Solo usuarios autenticados) -->
-    <button *ngIf="isLoggedIn" (click)="goToReply(post.id)">Responder</button>
+  <div *ngIf="!isLoggedIn" class="guest-message">
+    <p>🔒 <a routerLink="/registro">Regístrate</a> o <a routerLink="/login">inicia sesión</a> para participar.</p>
   </div>
 </div>
 
-<!-- Sección de todos los posts con paginación -->
+<!-- Sección de Posts Destacados -->
+<h3>🔥 Posts Destacados</h3>
+<div *ngIf="topPosts.length > 0; else noTopPosts">
+  <div *ngFor="let post of topPosts" class="post post-highlight">
+    <h3>{{ post.title }}</h3>
+    <p>{{ post.content }}</p>
+    <small>👍 {{ post.upvotes }} | Publicado por {{ post.user.name }} el {{ post.createdAt | date:'short' }}</small>
+    <button *ngIf="isLoggedIn" (click)="goToReply(post.id)" class="btn btn-secondary">💬 Responder</button>
+  </div>
+</div>
+<ng-template #noTopPosts>
+  <p>No hay posts destacados en esta categoría.</p>
+</ng-template>
+
+<!-- Sección de Todos los Posts -->
 <h3>📢 Todos los Posts</h3>
-<div *ngIf="allPosts.length > 0">
+<div *ngIf="allPosts.length > 0; else noPosts">
   <div *ngFor="let post of allPosts" class="post">
     <h3>{{ post.title }}</h3>
     <p>{{ post.content }}</p>
     <small>Publicado por {{ post.user.name }} el {{ post.createdAt | date:'short' }}</small>
-
-    <!-- Botón para responder (Solo usuarios autenticados) -->
-    <button *ngIf="isLoggedIn" (click)="goToReply(post.id)">Responder</button>
+    <button *ngIf="isLoggedIn" (click)="goToReply(post.id)" class="btn btn-primary">💬 Responder</button>
   </div>
 </div>
-<!-- Mostrar solo si el usuario está autenticado -->
-<button *ngIf="isLoggedIn" (click)="goToCreatePost()" class="btn btn-primary">
-  Publicar Nuevo Post
-</button>
-
-<!-- Mostrar mensaje si el usuario no está autenticado -->
-<div *ngIf="!isLoggedIn">
-  <p>Debes iniciar sesión para publicar un post.</p>
-  <a routerLink="/login">Iniciar sesión</a>
-</div>
-
-
-<!-- Mensaje cuando no hay posts -->
-<div *ngIf="allPosts.length === 0">
+<ng-template #noPosts>
   <p>No hay posts en esta categoría aún.</p>
-</div>
+</ng-template>
 
-<!-- Controles de paginación -->
+<!-- Controles de Paginación -->
 <div class="pagination-controls">
   <button (click)="previousPage()" [disabled]="currentPage === 0">⬅️ Anterior</button>
   <span>Página {{ currentPage + 1 }} de {{ totalPages }}</span>

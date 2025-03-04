@@ -26,4 +26,50 @@
     background-color: #ccc;
     cursor: not-allowed;
   }
+  h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .create-post-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .create-post-btn {
+    background-color: #f47b22;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .create-post-btn:hover {
+    background-color: #d96b1e;
+  }
+  
+  .guest-message {
+    color: #555;
+  }
+  
+  .post {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+  
+  .post-highlight {
+    background: #fff5e1;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  
+  .pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
   

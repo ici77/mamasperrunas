@@ -28,25 +28,27 @@ public class SecurityConfig {
      *
      * - Habilita CORS para permitir peticiones desde el frontend.
      * - Desactiva CSRF (para permitir peticiones desde Angular sin tokens CSRF).
-     * - Permite acceso público a `/api/usuarios/registro` y `/api/usuarios/login`.
+     * - Permite acceso público a `/api/usuarios/registro`, `/api/usuarios/login` y `/api/posts/**`.
      * - Protege las rutas que requieren autenticación.
      *
      * @param http Configuración de seguridad de Spring.
      * @return `SecurityFilterChain`
      */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ CORS configurado correctamente
-            .csrf(csrf -> csrf.disable()) // ⚠️ Deshabilitar CSRF en desarrollo (en producción, configurar correctamente)
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/usuarios/registro", "/api/usuarios/login").permitAll() // ✅ Permitir acceso público a login y registro
-                .anyRequest().authenticated() // 🔒 Bloquear el resto sin autenticación
-            )
-            .logout(logout -> logout.permitAll());  // ✅ Permitir logout sin autenticación
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+        .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ CORS Configurado
+        .csrf(csrf -> csrf.disable()) // ❌ Deshabilitamos CSRF para evitar bloqueos
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/api/usuarios/registro", "/api/usuarios/login").permitAll() // ✅ Login y registro accesibles
+            .requestMatchers("/api/posts/**").permitAll() // ✅ Permitir acceso público a los posts
+            .anyRequest().authenticated() // 🔒 Bloquear el resto sin autenticación
+        )
+        .logout(logout -> logout.permitAll());  // ✅ Permitir logout
 
-        return http.build();
-    }
+    return http.build();
+}
+
 
     /**
      * 📌 **Bean para encriptar contraseñas**

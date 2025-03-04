@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PostService } from '../../services/post.service';
-import { AuthService } from '../../services/auth.service'; 
+import { AuthService } from '../../services/auth.service'; // ✅ Importado correctamente
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-category-foro',
@@ -23,7 +24,7 @@ export class CategoryForoComponent implements OnInit {
   fotoPerfil?: string;
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private router: Router,
     private postService: PostService,
     private authService: AuthService
@@ -33,13 +34,13 @@ export class CategoryForoComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.categoryName = params.get('category') || '';
 
-      if (this.categoryName) { 
+      if (this.categoryName) {
         this.loadTopPosts();
         this.loadAllPosts();
       }
     });
 
-    // ✅ SOLUCIÓN: Suscribirse a los cambios en la autenticación y obtener datos del usuario
+    // ✅ Suscribirse a cambios en la autenticación y obtener datos del usuario
     this.authService.getUserDataObservable().subscribe(userData => {
       this.isLoggedIn = !!userData; // Si hay datos de usuario, está autenticado
       this.nombreUsuario = userData?.nombre;
@@ -48,21 +49,41 @@ export class CategoryForoComponent implements OnInit {
   }
 
   /**
-   * 📌 Carga los 4 posts más votados en la categoría actual.
+   * 📌 Carga los 4 posts más votados en la categoría actual con manejo de errores.
    */
   loadTopPosts() {
-    this.postService.getTopPostsByCategory(this.categoryName).subscribe(data => {
-      this.topPosts = data;
+    this.postService.getTopPostsByCategory(this.categoryName).subscribe({
+      next: data => {
+        this.topPosts = data;
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('❌ Error al cargar los posts destacados:', error);
+        if (error.status === 403) {
+          console.error('⛔ No tienes permisos para ver estos posts.');
+        } else if (error.status === 401) {
+          console.error('⚠️ Debes iniciar sesión para acceder.');
+        }
+      }
     });
   }
 
   /**
-   * 📌 Carga los posts de la categoría con paginación.
+   * 📌 Carga los posts de la categoría con paginación y manejo de errores.
    */
   loadAllPosts() {
-    this.postService.getPaginatedPosts(this.categoryName, this.currentPage, this.pageSize).subscribe(response => {
-      this.allPosts = response.content;
-      this.totalPages = response.totalPages;
+    this.postService.getPaginatedPosts(this.categoryName, this.currentPage, this.pageSize).subscribe({
+      next: response => {
+        this.allPosts = response.content;
+        this.totalPages = response.totalPages;
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('❌ Error al cargar los posts:', error);
+        if (error.status === 403) {
+          console.error('⛔ Acceso prohibido a los posts.');
+        } else if (error.status === 401) {
+          console.error('⚠️ Debes iniciar sesión para ver los posts.');
+        }
+      }
     });
   }
 
@@ -99,7 +120,7 @@ export class CategoryForoComponent implements OnInit {
 
   /**
    * 📌 Redirige al usuario autenticado a la página de respuesta de un post.
-   * 
+   *
    * @param postId ID del post al que se responderá.
    */
   goToReply(postId: number) {
