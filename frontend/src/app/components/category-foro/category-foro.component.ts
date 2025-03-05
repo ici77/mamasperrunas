@@ -49,24 +49,19 @@ export class CategoryForoComponent implements OnInit {
     });
   }
 
-  /**
-   * 📌 Carga los 4 posts más votados en la categoría actual con manejo de errores.
-   */
   loadTopPosts() {
-    this.postService.getTopPostsByCategory(this.categoryName).subscribe({
-      next: data => {
-        this.topPosts = data;
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error('❌ Error al cargar los posts destacados:', error);
-        if (error.status === 403) {
-          console.error('⛔ No tienes permisos para ver estos posts.');
-        } else if (error.status === 401) {
-          console.error('⚠️ Debes iniciar sesión para acceder.');
-        }
-      }
-    });
-  }
+  console.log("📌 Llamando a getTopPostsByCategory con categoría:", this.categoryName);
+  this.postService.getTopPostsByCategory(this.categoryName).subscribe({
+    next: data => {
+      console.log("✅ Respuesta recibida:", data);
+      this.topPosts = data;
+    },
+    error: (error: HttpErrorResponse) => {
+      console.error('❌ Error al cargar los posts destacados:', error);
+    }
+  });
+}
+
 
   /**
    * 📌 Carga los posts de la categoría con paginación y manejo de errores.

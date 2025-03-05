@@ -104,10 +104,11 @@ public boolean deletePost(Long postId, Long userId) {
     public List<Post> getTopPostsByCategory(String category) {
         List<Post> allPosts = postRepository.findByCategory_Name(category);
         return allPosts.stream()
-                .sorted((p1, p2) -> Integer.compare(p2.getUpvotes(), p1.getUpvotes()))
+                .sorted((p1, p2) -> Integer.compare(p2.getUpvotes(), p1.getUpvotes())) // Ordenar por upvotes
                 .limit(4)
                 .collect(Collectors.toList());
     }
+    
 
     /**
      * 📌 Permite que un usuario vote un post con "Me gusta".

@@ -176,6 +176,19 @@ public ResponseEntity<Post> getPostById(@PathVariable Long postId) {
             .orElseGet(() -> ResponseEntity.notFound().build());
 }
 
+/**
+ * 📌 Obtiene los 4 posts más votados de una categoría.
+ *
+ * @param category Nombre de la categoría.
+ * @return Lista de los 4 posts más votados.
+ */
+@GetMapping("/category/top")
+public ResponseEntity<List<Post>> getTopPostsByCategory(@RequestParam String category) {
+    List<Post> topPosts = postService.getTopPostsByCategory(category);
+    return ResponseEntity.ok(topPosts);
+}
+
+
 }
 
 

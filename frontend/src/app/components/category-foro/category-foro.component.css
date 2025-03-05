@@ -75,7 +75,28 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   width: 100% !important;
   border-radius: 10px !important;
   overflow: hidden !important;
+  }
+
+  /* 📌 Botón de "Crear nuevo post" con verde claro y borde negro */
+.create-post-btn {
+  background-color: #84c390 !important; /* Verde claro */
+  color: black !important; /* Texto negro */
+  border: 2px solid black !important; /* Borde negro */
+  font-weight: bold !important;
+  padding: 10px 20px !important;
+  font-size: 16px !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  transition: background-color 0.3s ease, transform 0.2s ease !important;
 }
+
+/* 📌 Cambiar color en hover */
+.create-post-btn:hover {
+  background-color: #6ea97e !important; /* Verde más oscuro en hover */
+  transform: scale(1.05) !important; /* Pequeño zoom */
+}
+
 
 /* 📌 Elementos de las Listas */
 .sidebar-left .list-group-item,
@@ -108,6 +129,7 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   margin-left: 5px;
   margin-right: 5px;
 }
+
 
 /* 🔹 Contenido de los Posts */
 .post-container {
@@ -152,32 +174,30 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   text-decoration: underline !important; /* Subrayado solo en hover */
 }
 
-/* 📌 Nueva Cabecera con Imagen */
 .category-header {
-  position: relative;
-  width: 100%; /* Asegura que ocupe todo el ancho del contenedor central */
-  max-width: 100%; /* Evita que se expanda fuera del contenedor */
-  height: 180px; /* Ajuste de altura */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
-  border-radius: 15px;
-  margin-bottom: 20px; /* Espacio para no tapar migas de pan */
-  padding: 0; /* Elimina espacios adicionales */
+  width: 100%; /* 📌 Ocupa todo el ancho */
+  text-align: center; /* 📌 Centra el texto */
+  position: relative; /* 📌 Para manejar la imagen correctamente */
 }
 
-/* 📌 Imagen de Fondo */
 .header-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 15px; /* Mantiene esquinas redondeadas */
+  width: 100%; /* 📌 La imagen ocupa todo el ancho */
+  height: 250px; /* 📌 Ajusta la altura según necesidad */
+  object-fit: cover; /* 📌 Asegura que la imagen cubra sin distorsionarse */
+  border-radius: 10px; /* 📌 Bordes redondeados opcionales */
 }
+
+.category-header h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.6); /* 📌 Fondo semitransparente */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
 
 h3 {
   font-weight: bold; /* Texto en negrita */
@@ -188,50 +208,53 @@ h3 {
 }
 
 
-
-
-/* 📌 Capa Oscura para Mejorar la Lectura */
-.category-header .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+/* 📌 Estilos para las tarjetas de posts destacados */
+.post-highlight {
+  background-color: white; /* Fondo blanco */
+  border: 2px solid #f47b22; /* Borde naranja */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  max-width: 600px; /* 📌 Limita el ancho de las tarjetas */
+  margin: 0 auto; /* 📌 Centra las tarjetas en la pantalla */
 }
 
-/* 📌 Título sobre la imagen */
-.category-header h1 {
-  position: relative;
-  font-size: 2.2rem;
-  font-weight: bold;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  z-index: 2;
-  background: rgba(0, 0, 0, 0.6); /* 🔹 Fondo oscuro semitransparente */
-  padding: 8px 16px;
-  border-radius: 8px;
-  text-align: center;
-  width: 80%;
-  max-width: 600px;
-}
-.btn-destacado {
-  background-color: #3B8024;; /* Color de fondo destacado */
-  color: #ffffff; /* Color del texto */
-  border: none; /* Sin borde */
-  padding: 10px 20px; /* Espaciado interno */
-  font-size: 16px; /* Tamaño del texto */
-  font-weight: bold; /* Texto en negrita */
-  text-align: center; /* Centrar texto */
-  cursor: pointer; /* Cambiar cursor al pasar */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
-  transition: background-color 0.3s ease; /* Efecto de transición */
+/* 📌 Efecto al pasar el cursor */
+.post-highlight:hover {
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
 }
 
-.btn-destacado:hover {
-  background-color: #ffaa00; /* Color de fondo al pasar */
+/* 📌 Imagen de perfil en los posts */
+.foto-perfil {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-left: 5px;
 }
+
+/* 📌 Botones en todos los posts (destacados y normales) */
+.post-highlight .btn-primary,
+.post-card .btn-primary { 
+  background-color: var(--naranja-intenso) !important; /* Naranja fuerte */
+  color: black !important; /* Letras negras */
+  border: none !important; /* Sin bordes */
+  font-weight: bold !important;
+  padding: 8px 15px !important;
+  transition: background-color 0.3s ease, transform 0.2s ease !important;
+}
+
+/* 📌 Cambiar color en hover */
+.post-highlight .btn-primary:hover,
+.post-card .btn-primary:hover {
+  background-color: #d9650e !important; /* Naranja más oscuro */
+  transform: scale(1.05) !important; /* Efecto de zoom */
+}
+
+
+
+
+
 
 .centrado {
   display: flex;
@@ -239,6 +262,21 @@ h3 {
   align-items: center;
 }
 
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.post-content {
+  flex: 1;
+}
+
+.card-footer {
+  font-size: 14px;
+  color: #555;
+}
 
 
 
@@ -249,6 +287,21 @@ h3 {
   padding: 15px !important;
   border-radius: 10px !important;
 }
+/* 📌 Enlaces dentro de los posts destacados (botón de Leer Post y otros) */
+.post-highlight a {
+  color: var(--secondary-green) !important; /* 🔹 Asegurar que los enlaces sean naranjas */
+  text-decoration: none !important; /* 🔹 Quitar subrayado */
+  font-weight: bold !important;
+  transition: color 0.3s ease !important;
+}
+
+/* 📌 Cambiar color en hover */
+.post-highlight a:hover {
+  color: var(--naranja-intenso) !important; /* 🔹 Naranja más fuerte en hover */
+  text-decoration: underline !important; /* 🔹 Subrayado al pasar el mouse */
+}
+
+
 
 /* 🔹 Paginación */
 .pagination-controls {

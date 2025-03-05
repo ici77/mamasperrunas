@@ -24,10 +24,13 @@ export class PostService {
     return this.http.get(`${this.apiUrl}/category/${category}/paginated?page=${page}&size=${size}`);
   }
 
-  /** 📌 Obtiene los 4 posts más votados de una categoría */
   getTopPostsByCategory(category: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/category/${category}/top`);
+    const url = `${this.apiUrl}/category/top?category=${category}`;
+    console.log("📌 Corrigiendo URL de la petición:", url);
+    return this.http.get(url);
   }
+  
+  
 
   /** 📌 Crea un nuevo post con imágenes */
   createPost(postData: FormData): Observable<any> {

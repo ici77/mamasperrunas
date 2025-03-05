@@ -19,10 +19,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByCategory_Name(String categoryName);
 
 
-    /**
-     * 📌 Obtiene los posts de una categoría con paginación.
-     */
-    Page<Post> findByCategory(String category, Pageable pageable);
 
     // Buscar posts por nombre de la categoría con paginación
     Page<Post> findByCategory_Name(String category, Pageable pageable);

@@ -9,6 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.http.HttpMethod;
+
 
 import java.util.List;
 
@@ -42,6 +44,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/usuarios/registro", "/api/usuarios/login").permitAll() // ✅ Login y registro accesibles
             .requestMatchers("/api/posts/**").permitAll() // ✅ Permitir acceso público a los posts
+            
             .anyRequest().authenticated() // 🔒 Bloquear el resto sin autenticación
         )
         .logout(logout -> logout.permitAll());  // ✅ Permitir logout
