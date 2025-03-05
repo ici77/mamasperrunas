@@ -1,0 +1,22 @@
+<div *ngIf="post">
+  <h2>{{ post.title }}</h2>
+  <p>{{ post.content }}</p>
+  <p>Publicado por {{ post.user?.name }} el {{ post.createdAt | date:'short' }}</p>
+
+  <div *ngIf="isLoading">
+    <p>⏳ Cargando post...</p>
+  </div>
+  
+  <div *ngIf="errorMessage">
+    <p class="error">{{ errorMessage }}</p>
+  </div>
+
+  <!-- Acciones del Post -->
+  <div class="post-actions" *ngIf="!isLoading">
+    <button>❤️ Me gusta</button>
+    <button>👎 No me gusta</button>
+    <button>⭐ Añadir a favoritos</button>
+    <button>🚩 Reportar</button>
+    <button>💬 Responder</button>
+  </div>
+</div>

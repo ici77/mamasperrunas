@@ -4,7 +4,8 @@ import { AuthGuard } from './guards/auth.guard';  // Importa el guard
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { CategoryPageComponent } from './components/category-page/category-page.component';
 import { ForumGridComponent } from './components/forum-grid/forum-grid.component';
-import { CategoryForoComponent } from './components/category-foro/category-foro.component'; // ✅ Agregado
+
+import { CategoryForoComponent } from './components/category-foro/category-foro.component'; 
 import { RegistroComponent } from './components/registro/registro.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -14,6 +15,8 @@ import { ExpertsComponent } from './pages/blog/experts/experts.component';
 import { NewsComponent } from './pages/blog/news/news.component';
 import { TipsComponent } from './pages/blog/tips/tips.component';
 import { LifeComponent } from './pages/blog/life/life.component';
+import { PostDetailComponent } from './components/post-detail/post-detail.component'; // ✅ Importar el nuevo componente
+
 
 export const appRoutes: Routes = [
   { path: '', component: LandingPageComponent }, // Página principal
@@ -21,6 +24,8 @@ export const appRoutes: Routes = [
   { path: 'products/:category', component: CategoryPageComponent }, // Subcategorías dentro de tienda
   { path: 'foro', component: ForumGridComponent }, // Página del foro
   { path: 'foro/:category', component: CategoryForoComponent }, // ✅ Ruta para cada categoría del foro
+  
+  { path: 'post/:id', component: PostDetailComponent },
   { path: 'registro', component: RegistroComponent }, // Ruta para el formulario de registro
   { path: 'login', component: LoginComponent }, // Ruta de inicio de sesión
   { path: 'profile', component: ProfileComponent }, // Ruta de perfil del usuario

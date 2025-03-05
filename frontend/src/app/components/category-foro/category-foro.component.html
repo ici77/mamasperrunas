@@ -17,7 +17,10 @@
     <h3>{{ post.title }}</h3>
     <p>{{ post.content }}</p>
     <small>👍 {{ post.upvotes }} | Publicado por {{ post.user.name }} el {{ post.createdAt | date:'short' }}</small>
-    <button *ngIf="isLoggedIn" (click)="goToReply(post.id)" class="btn btn-secondary">💬 Responder</button>
+    <button *ngIf="isLoggedIn" (click)="openPost(post.id)" class="btn btn-secondary">
+      💬 Responder
+    </button>
+    
   </div>
 </div>
 <ng-template #noTopPosts>
@@ -28,15 +31,31 @@
 <h3>📢 Todos los Posts</h3>
 <div *ngIf="allPosts.length > 0; else noPosts">
   <div *ngFor="let post of allPosts" class="post">
-    <h3>{{ post.title }}</h3>
+    <!-- ✅ Título del post ahora es un enlace -->
+    <h3><a [routerLink]="['/post', post.id]" class="post-title">{{ post.title }}</a></h3>
+
     <p>{{ post.content }}</p>
     <small>Publicado por {{ post.user.name }} el {{ post.createdAt | date:'short' }}</small>
-    <button *ngIf="isLoggedIn" (click)="goToReply(post.id)" class="btn btn-primary">💬 Responder</button>
+
+    <!-- ✅ Botón de responder redirige al post correctamente -->
+    <a *ngIf="isLoggedIn" [routerLink]="['/post', post.id]" class="btn btn-primary">
+      💬 Responder
+    </a>
   </div>
 </div>
+
+<!-- Mensaje cuando no hay posts -->
 <ng-template #noPosts>
   <p>No hay posts en esta categoría aún.</p>
 </ng-template>
+
+
+<!-- Mensaje cuando no hay posts -->
+<ng-template #noPosts>
+  <p>No hay posts en esta categoría aún.</p>
+</ng-template>
+
+
 
 <!-- Controles de Paginación -->
 <div class="pagination-controls">
@@ -44,3 +63,16 @@
   <span>Página {{ currentPage + 1 }} de {{ totalPages }}</span>
   <button (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">Siguiente ➡️</button>
 </div>
+
+<div class="post-container" *ngFor="let post of allPosts">
+  <!-- ✅ Hacer clic en el título redirige al post -->
+  <h3 (click)="openPost(post.id)">{{ post.title }}</h3>
+
+  <p>{{ post.content }}</p>
+
+  <p>Publicado por el {{ post.createdAt }}</p>
+
+  <!-- ✅ Botón de Responder también abre el post -->
+  <button (click)="openPost(post.id)" class="btn-responder">💬 Responder</button>
+</div>
+

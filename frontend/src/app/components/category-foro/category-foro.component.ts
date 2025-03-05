@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { PostService } from '../../services/post.service';
 import { AuthService } from '../../services/auth.service'; // ✅ Importado correctamente
 import { HttpErrorResponse } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-category-foro',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './category-foro.component.html',
   styleUrls: ['./category-foro.component.css']
 })
@@ -87,6 +88,10 @@ export class CategoryForoComponent implements OnInit {
     });
   }
 
+  openPost(postId: number) {
+    this.router.navigateByUrl(`/post/${postId}`);
+  }
+
   /**
    * 📌 Avanza a la siguiente página de posts en la paginación.
    */
@@ -123,11 +128,5 @@ export class CategoryForoComponent implements OnInit {
    *
    * @param postId ID del post al que se responderá.
    */
-  goToReply(postId: number) {
-    if (this.isLoggedIn) {
-      this.router.navigateByUrl(`/post/${postId}/responder`);
-    } else {
-      this.router.navigateByUrl('/login');
-    }
-  }
+ 
 }

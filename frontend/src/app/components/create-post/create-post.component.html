@@ -1,0 +1,33 @@
+<div class="modal">
+    <div class="modal-content">
+      <h2>Crear un Nuevo Post</h2>
+      
+      <form [formGroup]="postForm" (ngSubmit)="submitPost()">
+        
+        <!-- Campo de Título -->
+        <label for="title">Título:</label>
+        <input id="title" type="text" formControlName="title" placeholder="Título del post" required aria-label="Título del post">
+  
+        <!-- Campo de Contenido -->
+        <label for="content">Contenido:</label>
+        <textarea id="content" formControlName="content" placeholder="Escribe tu post..." required aria-label="Contenido del post"></textarea>
+  
+        <!-- Input para Subir Imágenes -->
+        <label for="images">Subir Imágenes (máx. 3):</label>
+        <input id="images" type="file" (change)="onFileSelected($event)" multiple accept="image/*" aria-label="Seleccionar imágenes" max="3">
+  
+        <!-- Mostrar imágenes seleccionadas -->
+        <div *ngIf="previewImages.length">
+          <h4>Imágenes seleccionadas:</h4>
+          <div class="image-preview">
+            <img *ngFor="let img of previewImages" [src]="img" width="100" alt="Vista previa de la imagen">
+          </div>
+        </div>
+  
+        <!-- Botón de Publicar -->
+        <button type="submit" [disabled]="postForm.invalid" aria-label="Publicar post">Publicar</button>
+  
+      </form>
+    </div>
+  </div>
+  

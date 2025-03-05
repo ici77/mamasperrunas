@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.Optional;
+
 
 import java.util.List;
 import java.util.Set;
@@ -155,4 +157,26 @@ public class PostController {
         postService.addTagsToPost(postId, tags);
         return ResponseEntity.ok("✅ Etiquetas agregadas correctamente.");
     }
+
+    /**
+ /**
+ * 📌 Obtiene un post por su ID.
+ *
+ * @param postId ID del post.
+ * @return Post encontrado o error 404 si no existe.
+ */
+@Operation(summary = "Obtiene un post por ID", description = "Devuelve el post correspondiente al ID proporcionado.")
+@ApiResponse(responseCode = "200", description = "Post obtenido correctamente")
+@ApiResponse(responseCode = "404", description = "Post no encontrado")
+@GetMapping("/{postId}")
+public ResponseEntity<Post> getPostById(@PathVariable Long postId) {
+    Optional<Post> optionalPost = postService.getPostById(postId);
+
+    return optionalPost.map(ResponseEntity::ok)
+            .orElseGet(() -> ResponseEntity.notFound().build());
 }
+
+}
+
+
+
