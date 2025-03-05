@@ -1,75 +1,297 @@
-.post {
-    background-color: #f4dfc8;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 10px;
-    border-left: 5px solid #f47b20;
+/*
+  category.component.scss
+  =======================
+  Estilos optimizados para el foro con prioridad sobre Bootstrap.
+*/
+
+/* 🔹 Reset General para sobrescribir Bootstrap */
+.container-fluid {
+  max-width: 1400px !important;
+  margin: auto !important;
+  padding: 20px !important;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, button, small {
+  font-family: 'Lato', sans-serif !important;
+}
+
+/* 🔹 Migas de Pan */
+.breadcrumb-container {
+  padding: 10px 15px !important;
+  border-radius: 8px !important;
+  margin-bottom: 20px !important;
+}
+
+.breadcrumb {
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+.breadcrumb-item a {
+  text-decoration: none !important;
+  color: var(--primary-green) !important;
+  font-weight: 600 !important;
+  transition: color 0.3s ease !important;
+}
+
+.breadcrumb-item a:hover {
+  color: var(--naranja-intenso) !important;
+  text-decoration: underline !important;
+}
+
+.breadcrumb-item.active {
+  color: var(--verde-profundo) !important;
+  font-weight: bold !important;
+}
+
+/* 📌 Estilos Comunes para Ambos Menús Laterales */
+.sidebar-left,
+.sidebar-right {
+  background-color: var(--secondary-green) !important; /* Ambos menús con el mismo color */
+  padding: 30px 20px !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+  flex: 1 !important;
+  min-width: 250px !important;
+  max-width: 100% !important;
+}
+
+/* 📌 Títulos de los Menús */
+.sidebar-left h3,
+.sidebar-right h3 {
+  color: rgb(230, 123, 17) !important;
+  font-size: 1.8rem !important;
+  text-align: center !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  margin-top: 30px !important;
+  margin-bottom: 10px !important;
+}
+
+/* 📌 Listas dentro de los Menús */
+.sidebar-left .list-group,
+.sidebar-right .list-group {
+  width: 100% !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}
+
+/* 📌 Elementos de las Listas */
+.sidebar-left .list-group-item,
+.sidebar-right .list-group-item {
+  background-color: #84c390 !important;
+  color: white !important;
+  font-size: 1.2rem !important;
+  font-weight: 500 !important;
+  padding: 15px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  transition: background 0.3s ease-in-out !important;
+  border: none !important;
+  cursor: pointer !important;
+  justify-content: center !important;
+}
+
+/* 📌 Hover en los Menús */
+.sidebar-left .list-group-item:hover,
+.sidebar-right .list-group-item:hover {
+  background: var(--verde-profundo) !important;
+  transform: scale(1.05) !important;
+}
+
+.foto-perfil {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+/* 🔹 Contenido de los Posts */
+.post-container {
+  background-color: rgb(240, 219, 184) !important;
+  border-radius: 10px !important;
+  padding: 20px !important;
+  margin-bottom: 20px !important;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 🔹 Tarjetas de los Posts */
+.post-card {
+  border: 3px solid var(--secondary-green) !important;
+  border-radius: 12px !important;
+  background: white !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.post-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 📌 Estilo de los títulos de los posts (incluyendo enlaces) */
+.post-title {
+  color: var(--primary-orange) !important; /* Naranja */
+  text-decoration: none !important;
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
+  transition: color 0.3s ease !important;
+}
+
+/* 📌 Corregir enlaces dentro del título para que no sean azules */
+.post-title a {
+  color: var(--primary-orange) !important; /* Asegurar que el enlace también sea naranja */
+  text-decoration: none !important; /* Quitar subrayado */
+}
+
+/* 📌 Cambiar color en hover */
+.post-title a:hover {
+  color: var(--naranja-intenso) !important; /* Naranja más fuerte al pasar el mouse */
+  text-decoration: underline !important; /* Subrayado solo en hover */
+}
+
+/* 📌 Nueva Cabecera con Imagen */
+.category-header {
+  position: relative;
+  width: 100%; /* Asegura que ocupe todo el ancho del contenedor central */
+  max-width: 100%; /* Evita que se expanda fuera del contenedor */
+  height: 180px; /* Ajuste de altura */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 15px;
+  margin-bottom: 20px; /* Espacio para no tapar migas de pan */
+  padding: 0; /* Elimina espacios adicionales */
+}
+
+/* 📌 Imagen de Fondo */
+.header-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px; /* Mantiene esquinas redondeadas */
+}
+
+h3 {
+  font-weight: bold; /* Texto en negrita */
+  text-decoration: underline; /* Subrayado */
+  text-decoration-color: var(--secondary-green); /* Color del subrayado (variable) */
+  color: inherit; /* Color del texto heredado */
+  text-underline-offset: 4px; /* Desplazamiento del subrayado */
+}
+
+
+
+
+/* 📌 Capa Oscura para Mejorar la Lectura */
+.category-header .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* 📌 Título sobre la imagen */
+.category-header h1 {
+  position: relative;
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.6); /* 🔹 Fondo oscuro semitransparente */
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-align: center;
+  width: 80%;
+  max-width: 600px;
+}
+.btn-destacado {
+  background-color: #3B8024;; /* Color de fondo destacado */
+  color: #ffffff; /* Color del texto */
+  border: none; /* Sin borde */
+  padding: 10px 20px; /* Espaciado interno */
+  font-size: 16px; /* Tamaño del texto */
+  font-weight: bold; /* Texto en negrita */
+  text-align: center; /* Centrar texto */
+  cursor: pointer; /* Cambiar cursor al pasar */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+  transition: background-color 0.3s ease; /* Efecto de transición */
+}
+
+.btn-destacado:hover {
+  background-color: #ffaa00; /* Color de fondo al pasar */
+}
+
+.centrado {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+/* 🔹 Ajuste de Posts Destacados */
+.post-highlight {
+  border-left: 5px solid var(--naranja-intenso) !important;
+  background-color: var(--naranja-suave) !important;
+  padding: 15px !important;
+  border-radius: 10px !important;
+}
+
+/* 🔹 Paginación */
+.pagination-controls {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-top: 20px !important;
+}
+
+.pagination-controls button {
+  background-color: var(--primary-green) !important;
+  color: white !important;
+  border: none !important;
+  padding: 8px 15px !important;
+  font-size: 1rem !important;
+  border-radius: 5px !important;
+  transition: background-color 0.3s ease !important;
+}
+
+.pagination-controls button:hover {
+  background-color: var(--secondary-green) !important;
+}
+
+.pagination-controls span {
+  margin: 0 15px !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  color: var(--verde-profundo) !important;
+}
+
+/* 🔹 Diseño Responsivo */
+@media (max-width: 768px) {
+  .sidebar-left, .sidebar-right {
+    min-height: auto !important;
+    padding: 1rem !important;
+    text-align: center !important;
   }
-  
+
   .pagination-controls {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+    flex-direction: column !important;
   }
-  
-  button {
-    background-color: #f47b20;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    margin: 0 5px;
-    cursor: pointer;
-    border-radius: 5px;
+
+  .pagination-controls span {
+    margin: 10px 0 !important;
   }
-  
-  button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  h2 {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-  }
-  
-  .create-post-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-  .create-post-btn {
-    background-color: #f47b22;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .create-post-btn:hover {
-    background-color: #d96b1e;
-  }
-  
-  .guest-message {
-    color: #555;
-  }
-  
-  .post {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-  }
-  
-  .post-highlight {
-    background: #fff5e1;
-    padding: 15px;
-    border-radius: 8px;
-  }
-  
-  .pagination-controls {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-  }
-  
+}
