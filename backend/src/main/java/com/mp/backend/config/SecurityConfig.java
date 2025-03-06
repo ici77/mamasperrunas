@@ -37,21 +37,22 @@ public class SecurityConfig {
      * @return `SecurityFilterChain`
      */
     @Bean
-public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http
-        .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ CORS Configurado
-        .csrf(csrf -> csrf.disable()) // ❌ Deshabilitamos CSRF para evitar bloqueos
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/usuarios/registro", "/api/usuarios/login").permitAll() // ✅ Login y registro accesibles
-            .requestMatchers("/api/posts/**").permitAll() // ✅ Permitir acceso público a los posts
-            
-            .anyRequest().authenticated() // 🔒 Bloquear el resto sin autenticación
-        )
-        .logout(logout -> logout.permitAll());  // ✅ Permitir logout
-
-    return http.build();
-}
-
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ CORS Configurado
+            .csrf(csrf -> csrf.disable()) // ❌ Deshabilitamos CSRF para evitar bloqueos
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/api/usuarios/registro", "/api/usuarios/login").permitAll() // ✅ Login y registro accesibles
+                .requestMatchers("/api/posts/**").permitAll() // ✅ Permitir acceso público a los posts
+                .requestMatchers("/api/categories").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/posts").permitAll()
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll() // ✅ Swagger accesible
+                .anyRequest().authenticated() // 🔒 Bloquear el resto sin autenticación
+            )
+            .logout(logout -> logout.permitAll());  // ✅ Permitir logout
+    
+        return http.build();
+    }
 
     /**
      * 📌 **Bean para encriptar contraseñas**

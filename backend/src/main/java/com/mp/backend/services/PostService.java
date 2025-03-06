@@ -35,6 +35,7 @@ public class PostService {
     public List<Post> getAllPosts() {
         return postRepository.findAll();
     }
+    
 
     /**
      * 📌 Obtiene un post por su ID.

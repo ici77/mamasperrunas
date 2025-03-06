@@ -4,7 +4,7 @@ import { AuthGuard } from './guards/auth.guard';  // Importa el guard
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { CategoryPageComponent } from './components/category-page/category-page.component';
 import { ForumGridComponent } from './components/forum-grid/forum-grid.component';
-
+import { CrearPostComponent } from './pages/crear-post/crear-post.component';
 import { CategoryForoComponent } from './components/category-foro/category-foro.component'; 
 import { RegistroComponent } from './components/registro/registro.component';
 import { LoginComponent } from './components/login/login.component';
@@ -30,6 +30,7 @@ export const appRoutes: Routes = [
   { path: 'login', component: LoginComponent }, // Ruta de inicio de sesión
   { path: 'profile', component: ProfileComponent }, // Ruta de perfil del usuario
   { path: 'razas', component: DogListComponent }, // Ruta para mostrar las razas
+  { path: 'crear-post', component: CrearPostComponent },
 
   // 📌 Blog y sus secciones, cargando BlogLayoutComponent de forma dinámica
   { 

@@ -45,37 +45,86 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   font-weight: bold !important;
 }
 
-/* 📌 Estilos Comunes para Ambos Menús Laterales */
-.sidebar-left,
-.sidebar-right {
-  background-color: var(--secondary-green) !important; /* Ambos menús con el mismo color */
-  padding: 30px 20px !important;
-  border-radius: 10px !important;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
-  flex: 1 !important;
-  min-width: 250px !important;
-  max-width: 100% !important;
-}
+
+
 
 /* 📌 Títulos de los Menús */
 .sidebar-left h3,
 .sidebar-right h3 {
+  color: var(--verde-profundo) !important;
+  font-size: 1.8rem !important;
+  text-align: center !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  margin-top: 30px !important;
+  margin-bottom: 10px !important;
+  text-decoration: underline !important; /* Subrayado */
+  text-decoration-color: var(--naranja-intenso) !important; /* Color del subrayado */
+}
+
+
+/* 📌 Listas dentro del Menú Izquierdo */
+.sidebar-left .list-group {
+  width: 100% !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
   color: rgb(230, 123, 17) !important;
   font-size: 1.8rem !important;
   text-align: center !important;
-  font-weight: 800 !important;
+  font-weight: bold !important;
   text-transform: uppercase !important;
   margin-top: 30px !important;
   margin-bottom: 10px !important;
 }
 
-/* 📌 Listas dentro de los Menús */
-.sidebar-left .list-group,
-.sidebar-right .list-group {
-  width: 100% !important;
-  border-radius: 10px !important;
-  overflow: hidden !important;
-  }
+/* 📌 Enlaces dentro del Menú Izquierdo */
+.sidebar-left .list-group-item a {
+  text-decoration: none !important;
+  color: rgb(230, 123, 17) !important; /* Cambia el color del enlace */
+  font-weight: bold !important;
+}
+
+.sidebar-left .list-group-item a:hover {
+  color: #ff9800 !important; /* Cambia el color cuando el usuario pasa el mouse */
+  text-decoration: underline !important;
+}
+/* 📌 Estilos para Tarjetas en el Menú Izquierdo */
+.sidebar-left .info-card {
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  border: 6px solid #3B8024;
+  text-align: center;
+  margin-top: 20px; /* Espaciado entre el menú y las tarjetas */
+}
+
+.sidebar-left .info-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.sidebar-left .info-card h4 {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #065f43;
+}
+
+.sidebar-left .info-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+.sidebar-left .btn-secondary {
+  background-color: #63af71;
+  
+  color: white;
+}
+
+.sidebar-left .btn-secondary:hover {
+  background-color: #055f43;
+}
+
 
   /* 📌 Botón de "Crear nuevo post" con verde claro y borde negro */
 .create-post-btn {
@@ -110,7 +159,8 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   align-items: center !important;
   gap: 10px !important;
   transition: background 0.3s ease-in-out !important;
-  border: none !important;
+  border-radius: 15px;
+  border: 6px solid #3B8024;
   cursor: pointer !important;
   justify-content: center !important;
 }
@@ -249,6 +299,47 @@ h3 {
 .post-card .btn-primary:hover {
   background-color: #d9650e !important; /* Naranja más oscuro */
   transform: scale(1.05) !important; /* Efecto de zoom */
+}
+/* 📌 Tarjetas Laterales Derechas */
+.sidebar-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Espaciado entre las tarjetas */
+}
+
+.info-card {
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  border: 6px solid #3B8024;
+  text-align: center;
+  margin-bottom: 15px; /* Espacio entre tarjetas */
+}
+
+.info-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.info-card h4 {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #065f43;
+}
+
+.info-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+.btn-secondary {
+  background-color: #63af71;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #055f43;
 }
 
 

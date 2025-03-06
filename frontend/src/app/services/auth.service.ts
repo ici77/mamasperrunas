@@ -15,7 +15,6 @@ export class AuthService {
   private userDataSubject = new BehaviorSubject<any | null>(this.loadUserData());
 
   constructor(private http: HttpClient, private router: Router) {
-    // Verificar si hay un usuario logueado al iniciar la aplicación
     if (this.hasToken()) {
       this.updateUserData();
     }
@@ -43,12 +42,14 @@ export class AuthService {
   }
 
   /**
-   * 📌 Obtiene el token almacenado en `localStorage`.
+   * 📌 Obtiene el token almacenado en `localStorage`.  
+   * 🔹 Lo hacemos **público** para poder usarlo en `crear-post.component.ts`
    */
-  private getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+  getToken(): string | null {
+    return localStorage.getItem('auth_token');
   }
-
+ 
+  
   /**
    * 📌 Carga los datos del usuario desde el token almacenado.
    */
@@ -58,6 +59,7 @@ export class AuthService {
       try {
         const decodedToken: any = jwt_decode(token);
         return {
+          id: decodedToken.id,  // ✅ Se agrega el ID del usuario
           nombre: decodedToken.nombre,
           foto_perfil: decodedToken.foto_perfil
         };
@@ -67,6 +69,14 @@ export class AuthService {
       }
     }
     return null;
+  }
+
+  /**
+   * 📌 Devuelve los datos del usuario autenticado desde el token.
+   * 🔹 Ahora obtiene el usuario **directamente del token**, en lugar de usar `userDataSubject`
+   */
+  getUserData(): any | null {
+    return this.loadUserData(); // ✅ Cargar siempre desde el token actualizado
   }
 
   /**

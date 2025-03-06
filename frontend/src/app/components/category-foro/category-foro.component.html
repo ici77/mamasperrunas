@@ -1,20 +1,63 @@
 <!-- Contenedor principal a pantalla completa -->
 <div class="container-fluid">
-  <div class="row d-flex align-items-stretch"> <!-- 📌 Flexbox para igualar altura -->
-
+  <div class="row d-flex align-items-stretch">
     <!-- 📌 Menú Lateral Izquierdo -->
-    <aside class="col-12 col-md-3 col-lg-2 sidebar-left d-flex flex-column">
-      <h3>Menú Lateral</h3>
-      <ul class="list-group flex-grow-1">
-        <li class="list-group-item">Categoría 1</li>
-        <li class="list-group-item">Categoría 2</li>
-        <li class="list-group-item">Categoría 3</li>
+    <aside class="col-12 col-md-3 col-lg-2 sidebar-left">
+      <h3>Foro</h3>
+      <ul class="list-group">
+        <li class="list-group-item"><a routerLink="/foro/salud-canina">Salud Canina</a></li>
+        <li class="list-group-item"><a routerLink="/foro/alimentacion">Alimentación</a></li>
+        <li class="list-group-item"><a routerLink="/foro/entrenamiento">Entrenamiento</a></li>
+        <li class="list-group-item"><a routerLink="/foro/adopciones">Adopciones</a></li>
+        <li class="list-group-item"><a routerLink="/foro/eventos">Eventos</a></li>
+        <li class="list-group-item"><a routerLink="/foro/razas">Razas</a></li>
+        <li class="list-group-item"><a routerLink="/foro/cuidados-especiales">Cuidados Especiales</a></li>
+        <li class="list-group-item"><a routerLink="/foro/productos">Productos</a></li>
+        <li class="list-group-item"><a routerLink="/foro/historias">Historias</a></li>
+        <li class="list-group-item"><a routerLink="/foro/viajes">Viajes</a></li>
+        <li class="list-group-item"><a routerLink="/foro/lugares">Lugares</a></li>
+        <li class="list-group-item"><a routerLink="/foro/fotos">Fotos</a></li>
       </ul>
+
+      <!-- 📌 Tarjetas debajo del Menú Izquierdo -->
+      <div class="info-card">
+        <h4>Información Importante</h4>
+        <img src="assets/images/categoria-fondo.jpg" alt="Información destacada">
+        <p>Lee las últimas novedades en el foro.</p>
+        <a href="/foro" class="btn btn-secondary">Más detalles</a>
+      </div>
+
+      <div class="info-card">
+        <h4>Únete a la Comunidad</h4>
+        <img src="assets/images/categoria-fondo.jpg" alt="Únete a la comunidad">
+        <p>Forma parte de nuestras conversaciones.</p>
+        <a href="/registro" class="btn btn-secondary">Regístrate</a>
+      </div>
+
+      <div class="info-card">
+        <h4>Consejos de Cuidado</h4>
+        <img src="assets/images/categoria-fondo.jpg" alt="Consejos de Cuidado">
+        <p>Descubre cómo mantener a tu mascota saludable y feliz.</p>
+        <a href="/consejos" class="btn btn-secondary">Ver consejos</a>
+      </div>
+
+      <div class="info-card">
+        <h4>Eventos Caninos</h4>
+        <img src="assets/images/categoria-fondo.jpg" alt="Eventos Caninos">
+        <p>Participa en actividades y eventos organizados por la comunidad.</p>
+        <a href="/events" class="btn btn-secondary">Ver eventos</a>
+      </div>
+
+      <div class="info-card">
+        <h4>Historias Inspiradoras</h4>
+        <img src="assets/images/categoria-fondo.jpg" alt="Historias Inspiradoras">
+        <p>Conoce experiencias increíbles de dueños y sus mascotas.</p>
+        <a href="/historias" class="btn btn-secondary">Leer historias</a>
+      </div>
     </aside>
 
     <!-- 📌 Zona Principal de Posts -->
     <div class="col-12 col-md-6 col-lg-7 d-flex flex-column">
-      
       <!-- 📌 MIGAS DE PAN (Breadcrumbs) -->
       <nav aria-label="breadcrumb" class="breadcrumb-container">
         <ol class="breadcrumb">
@@ -37,17 +80,16 @@
       </header>
 
       <!-- Sección para crear un nuevo post -->
-<div class="mt-3 d-flex justify-content-center align-items-center centrado">
-  <button *ngIf="isLoggedIn" class="btn btn-accion btn-destacado create-post-btn" (click)="goToCreatePost()">
-    ✍️ Crear nuevo post
-  </button>
-  <div *ngIf="!isLoggedIn" class="alert alert-warning mb-0">
-    <p class="mb-0">
-      🔒 <a routerLink="/registro">Regístrate</a> o <a routerLink="/login">inicia sesión</a> para participar.
-    </p>
-  </div>
-</div>
-
+      <div class="mt-3 d-flex justify-content-center align-items-center centrado">
+        <button *ngIf="isLoggedIn" class="btn btn-accion btn-destacado create-post-btn" (click)="goToCreatePost()">
+          ✍️ Crear nuevo post
+        </button>
+        <div *ngIf="!isLoggedIn" class="alert alert-warning mb-0">
+          <p class="mb-0">
+            🔒 <a routerLink="/registro">Regístrate</a> o <a routerLink="/login">inicia sesión</a> para participar.
+          </p>
+        </div>
+      </div>
 
       <!-- 📌 Posts Destacados -->
       <section class="mt-4">
@@ -55,8 +97,6 @@
         <div *ngIf="topPosts.length > 0; else noTopPosts">
           <div class="col-12" *ngFor="let post of topPosts">
             <div class="card post-highlight mb-3">
-              
-              <!-- 📌 Cuerpo del post -->
               <div class="card-body">
                 <h5 class="card-title">
                   <a [routerLink]="['/post', post.id]" class="text-decoration-none">
@@ -64,8 +104,6 @@
                   </a>
                 </h5>
               </div>
-
-              <!-- 📌 Footer con imagen de usuario, nombre, fecha y votos -->
               <div class="card-footer d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
                   <img [src]="post.user?.fotoPerfil || 'assets/images/default-avatar.png'"
@@ -85,7 +123,6 @@
                   </a>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -109,8 +146,6 @@
                 {{ post.content | slice:0:100 }}...
               </p>
             </div>
-
-            <!-- 📌 Footer con imagen de usuario, nombre, fecha y votos -->
             <div class="card-footer d-flex justify-content-between align-items-center">
               <div class="d-flex align-items-center">
                 <img [src]="post.user?.fotoPerfil || 'assets/images/default-avatar.png'"
@@ -130,7 +165,6 @@
                 </a>
               </div>
             </div>
-
           </div>
         </div>
         <ng-template #noPosts>
@@ -152,15 +186,56 @@
       </div>
     </div>
 
-    <!-- 📌 Menú Lateral Derecho -->
+    <!-- 📌 Tarjetas Laterales Derechas -->
     <aside class="col-12 col-md-3 col-lg-3 sidebar-right">
-      <h3>Opciones Rápidas</h3>
-      <ul class="list-group">
-        <li class="list-group-item">📈 Tendencias</li>
-        <li class="list-group-item">👥 Usuarios Activos</li>
-        <li class="list-group-item">📌 Publicaciones Populares</li>
-      </ul>
-    </aside>
+      <div class="info-card">
+        <h4>Categoría Destacada</h4>
+        <img src="assets/images/categoria-fondo.jpg" alt="Categoría destacada">
+        <p>Explora nuestras categorías más populares.</p>
+        <a href="/foro" class="btn btn-secondary">Ver más</a>
+      </div>
 
+      <div class="info-card">
+        <h4>Eventos Próximos</h4>
+        <img src="assets/images/categoria-fondo.jpg" alt="Eventos de la comunidad">
+        <p>Participa en los eventos organizados por la comunidad.</p>
+        <a href="/events" class="btn btn-secondary">Ver eventos</a>
+      </div>
+
+      <div class="info-card">
+        <h4>Tiendas Recomendadas</h4>
+        <img src="assets/images/categoria-fondo.jpg" alt="Tiendas Recomendadas">
+        <p>Encuentra los mejores productos para tu mascota.</p>
+        <a href="/tienda" class="btn btn-secondary">Ver tiendas</a>
+      </div>
+
+      <div class="info-card">
+        <h4>Adopciones Disponibles</h4>
+        <img src="assets/images/categoria-fondo.jpg" alt="Adopciones">
+        <p>Conoce perros que buscan un hogar y cómo ayudar.</p>
+        <a href="/adopciones" class="btn btn-secondary">Ver adopciones</a>
+      </div>
+
+      <div class="info-card">
+        <h4>Servicios Veterinarios</h4>
+        <img src="assets/images/categoria-fondo.jpg" alt="Veterinarios">
+        <p>Accede a una lista de clínicas veterinarias cercanas.</p>
+        <a href="/veterinarios" class="btn btn-secondary">Ver veterinarios</a>
+      </div>
+
+      <div class="info-card">
+        <h4>Guía de Entrenamiento</h4>
+        <img src="assets/images/categoria-fondo.jpg" alt="Entrenamiento">
+        <p>Aprende técnicas de adiestramiento para tu perro.</p>
+        <a href="/entrenamiento" class="btn btn-secondary">Ver guía</a>
+      </div>
+
+      <div class="info-card">
+        <h4>Galería de Fotos</h4>
+        <img src="assets/images/categoria-fondo.jpg" alt="Galería de Fotos">
+        <p>Explora y comparte fotos de mascotas de la comunidad.</p>
+        <a href="/galeria" class="btn btn-secondary">Ver fotos</a>
+      </div>
+    </aside>
   </div>
 </div>

@@ -7,10 +7,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus; // ✅ Importación necesaria
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
-
 
 import java.util.List;
 import java.util.Set;
@@ -69,6 +69,21 @@ public class PostController {
     public ResponseEntity<String> upvotePost(@PathVariable Long postId) {
         postService.upvotePost(postId);
         return ResponseEntity.ok("✅ Post votado con 'Me gusta'.");
+    }
+
+    /**
+     * 📌 Crea un nuevo post.
+     *
+     * @param post Datos del post a crear.
+     * @return Post creado.
+     */
+    @Operation(summary = "Crear un nuevo post", description = "Permite a un usuario autenticado crear un nuevo post.")
+    @ApiResponse(responseCode = "201", description = "Post creado correctamente")
+    @ApiResponse(responseCode = "403", description = "Acceso denegado: Usuario no autenticado o sin permisos")
+    @PostMapping
+    public ResponseEntity<Post> createPost(@RequestBody Post post) {
+        Post createdPost = postService.createPost(post);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdPost); // ✅ Usa HttpStatus.CREATED
     }
 
     /**
@@ -159,37 +174,31 @@ public class PostController {
     }
 
     /**
- /**
- * 📌 Obtiene un post por su ID.
- *
- * @param postId ID del post.
- * @return Post encontrado o error 404 si no existe.
- */
-@Operation(summary = "Obtiene un post por ID", description = "Devuelve el post correspondiente al ID proporcionado.")
-@ApiResponse(responseCode = "200", description = "Post obtenido correctamente")
-@ApiResponse(responseCode = "404", description = "Post no encontrado")
-@GetMapping("/{postId}")
-public ResponseEntity<Post> getPostById(@PathVariable Long postId) {
-    Optional<Post> optionalPost = postService.getPostById(postId);
+     * 📌 Obtiene un post por su ID.
+     *
+     * @param postId ID del post.
+     * @return Post encontrado o error 404 si no existe.
+     */
+    @Operation(summary = "Obtiene un post por ID", description = "Devuelve el post correspondiente al ID proporcionado.")
+    @ApiResponse(responseCode = "200", description = "Post obtenido correctamente")
+    @ApiResponse(responseCode = "404", description = "Post no encontrado")
+    @GetMapping("/{postId}")
+    public ResponseEntity<Post> getPostById(@PathVariable Long postId) {
+        Optional<Post> optionalPost = postService.getPostById(postId);
 
-    return optionalPost.map(ResponseEntity::ok)
-            .orElseGet(() -> ResponseEntity.notFound().build());
+        return optionalPost.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    /**
+     * 📌 Obtiene los 4 posts más votados de una categoría.
+     *
+     * @param category Nombre de la categoría.
+     * @return Lista de los 4 posts más votados.
+     */
+    @GetMapping("/category/top")
+    public ResponseEntity<List<Post>> getTopPostsByCategory(@RequestParam String category) {
+        List<Post> topPosts = postService.getTopPostsByCategory(category);
+        return ResponseEntity.ok(topPosts);
+    }
 }
-
-/**
- * 📌 Obtiene los 4 posts más votados de una categoría.
- *
- * @param category Nombre de la categoría.
- * @return Lista de los 4 posts más votados.
- */
-@GetMapping("/category/top")
-public ResponseEntity<List<Post>> getTopPostsByCategory(@RequestParam String category) {
-    List<Post> topPosts = postService.getTopPostsByCategory(category);
-    return ResponseEntity.ok(topPosts);
-}
-
-
-}
-
-
-
