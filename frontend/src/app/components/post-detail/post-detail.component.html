@@ -11,9 +11,12 @@
     <p class="error">{{ errorMessage }}</p>
   </div>
 
-  <!-- Acciones del Post -->
-  <div class="post-actions" *ngIf="!isLoading">
-    <button>❤️ Me gusta</button>
+ <!-- Acciones del Post -->
+ <div class="post-actions" *ngIf="!isLoading">
+  <button (click)="toggleLike()">
+    {{ yaDioLike ? '❤️ Me gusta' : '🤍 Me gusta' }}
+  </button>
+  <span>{{ totalLikes }}</span>
     <button>👎 No me gusta</button>
     <button>⭐ Añadir a favoritos</button>
     <button>🚩 Reportar</button>

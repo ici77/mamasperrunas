@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-post-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule, HttpClientModule], // ✅ Agregado RouterModule y HttpClientModule
+  imports: [CommonModule, RouterModule, HttpClientModule],
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.css']
 })
@@ -18,12 +18,24 @@ export class PostDetailComponent implements OnInit {
   isLoading: boolean = true;
   errorMessage: string = '';
 
+  // 🔸 Propiedades para "me gusta"
+  usuarioId: number = 0;
+  totalLikes: number = 0;
+  yaDioLike: boolean = false; // Por ahora siempre inicia en falso
+
   constructor(
     private route: ActivatedRoute,
     private postService: PostService
   ) {}
 
   ngOnInit() {
+    // 🔐 Recuperar usuario logueado
+    const storedUser = localStorage.getItem('usuario');
+    if (storedUser) {
+      const usuario = JSON.parse(storedUser);
+      this.usuarioId = usuario.id;
+    }
+
     this.route.paramMap.subscribe(params => {
       this.postId = Number(params.get('id'));
       if (this.postId) {
@@ -32,11 +44,11 @@ export class PostDetailComponent implements OnInit {
     });
   }
 
-  /** 📌 Cargar el post desde el backend con manejo de errores */
   loadPost() {
     this.postService.getPostById(this.postId).subscribe({
       next: (response) => {
-        this.post = response;
+        this.post = response.post;
+        this.totalLikes = response.totalLikes ?? 0;
         this.isLoading = false;
       },
       error: (error) => {
@@ -46,4 +58,30 @@ export class PostDetailComponent implements OnInit {
       }
     });
   }
+  /** 🔁 Alternar "Me gusta" */
+toggleLike() {
+  const token = localStorage.getItem('auth_token');
+  if (!token) {
+    alert("⚠️ Debes iniciar sesión para dar 'Me gusta'");
+    return;
+  }
+
+  this.postService.toggleLike(this.postId).subscribe({
+    next: (respuesta: any) => {
+      alert(respuesta.mensaje || '👍 Acción realizada');
+      this.totalLikes = respuesta.totalLikes ?? this.totalLikes;
+      this.yaDioLike = respuesta.liked ?? !this.yaDioLike;
+    },
+    error: (error) => {
+      console.error("❌ Error al enviar el like:", error);
+      alert("No se pudo procesar el 'Me gusta'.");
+    }
+  });
 }
+
+  
+
+ 
+    }
+    
+  

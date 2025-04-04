@@ -61,6 +61,19 @@ public class JwtTokenUtil {
                 .signWith(key, SignatureAlgorithm.HS256)  // Firmar con SHA256
                 .compact();
     }
+    /**
+ * 📌 Valida un token JWT comparando su email con el del usuario y verificando si ha expirado.
+ *
+ * @param token   Token JWT a validar.
+ * @param usuario Usuario autenticado esperado.
+ * @return `true` si el token es válido, `false` si no.
+ */
+public boolean validateToken(String token, Usuario usuario) {
+    String email = getEmailFromToken(token);
+    return email != null && email.equals(usuario.getEmail()) && !isTokenExpired(token);
+}
+
+
 
     /**
      * 📌 **Extrae el email de un token JWT.**

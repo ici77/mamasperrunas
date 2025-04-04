@@ -1,26 +1,28 @@
 package com.mp.backend.controllers;
 
+import com.mp.backend.models.Usuario;
 import com.mp.backend.models.forum.Post;
 import com.mp.backend.services.PostService;
+import com.mp.backend.services.PostLikeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus; // ✅ Importación necesaria
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import java.util.Optional;
 
+import java.util.Optional;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-/**
- * 📌 API REST para gestionar los posts del foro.
- */
 @RestController
 @RequestMapping("/api/posts")
-@CrossOrigin(origins = "*") // Habilita CORS para permitir llamadas desde el frontend
+@CrossOrigin(origins = "*")
 @Tag(name = "Posts", description = "Operaciones relacionadas con los posts del foro")
 public class PostController {
 
@@ -31,14 +33,9 @@ public class PostController {
         this.postService = postService;
     }
 
-    /**
-     * 📌 Obtiene los posts de una categoría con paginación.
-     *
-     * @param category Nombre de la categoría.
-     * @param page Número de página (por defecto 0).
-     * @param size Tamaño de la página (por defecto 10).
-     * @return Página de posts de la categoría.
-     */
+    @Autowired
+    private PostLikeService postLikeService;
+
     @Operation(summary = "Obtiene posts paginados por categoría", description = "Devuelve una página de posts de la categoría especificada.")
     @ApiResponse(responseCode = "200", description = "Posts obtenidos correctamente")
     @ApiResponse(responseCode = "204", description = "No hay posts en esta categoría")
@@ -50,48 +47,52 @@ public class PostController {
         Page<Post> posts = postService.getPaginatedPosts(category, page, size);
 
         if (posts.isEmpty()) {
-            return ResponseEntity.noContent().build(); // 204 No Content si no hay posts
+            return ResponseEntity.noContent().build();
         }
 
-        return ResponseEntity.ok(posts); // 200 OK con los posts
+        return ResponseEntity.ok(posts);
     }
 
-    /**
-     * 📌 Permite que un usuario vote un post con "Me gusta".
-     *
-     * @param postId ID del post.
-     * @return Mensaje de éxito o error.
-     */
-    @Operation(summary = "Votar un post con 'Me gusta'", description = "Aumenta el contador de 'Me gusta' en el post especificado.")
-    @ApiResponse(responseCode = "200", description = "Voto registrado")
-    @ApiResponse(responseCode = "404", description = "Post no encontrado")
-    @PostMapping("/{postId}/upvote")
-    public ResponseEntity<String> upvotePost(@PathVariable Long postId) {
-        postService.upvotePost(postId);
-        return ResponseEntity.ok("✅ Post votado con 'Me gusta'.");
-    }
+    @PostMapping("/{postId}/like")
+public ResponseEntity<Map<String, Object>> toggleLike(@PathVariable Long postId) {
+    Map<String, Object> response = new HashMap<>();
 
-    /**
-     * 📌 Crea un nuevo post.
-     *
-     * @param post Datos del post a crear.
-     * @return Post creado.
-     */
+    // Obtener el usuario autenticado desde el contexto
+    Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+    System.out.println("🔐 Like solicitado por usuario: " + usuario.getEmail() + " (ID: " + usuario.getId() + ")");
+    System.out.println("📌 Post ID: " + postId);
+
+    try {
+        boolean liked = postLikeService.toggleLike(postId, usuario.getId());
+        int totalLikes = postLikeService.getTotalLikes(postId);
+
+        response.put("mensaje", liked ? "✅ Like añadido." : "❌ Like eliminado.");
+        response.put("totalLikes", totalLikes);
+        response.put("liked", liked);
+
+        return ResponseEntity.ok(response);
+    } catch (Exception e) {
+        System.out.println("❌ Error al procesar like: " + e.getMessage());
+        response.put("mensaje", "⚠️ No se pudo procesar el like: " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+}
+
+
+
+    
+
+
     @Operation(summary = "Crear un nuevo post", description = "Permite a un usuario autenticado crear un nuevo post.")
     @ApiResponse(responseCode = "201", description = "Post creado correctamente")
     @ApiResponse(responseCode = "403", description = "Acceso denegado: Usuario no autenticado o sin permisos")
     @PostMapping
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
         Post createdPost = postService.createPost(post);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdPost); // ✅ Usa HttpStatus.CREATED
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdPost);
     }
 
-    /**
-     * 📌 Permite que un usuario vote un post con "No me gusta".
-     *
-     * @param postId ID del post.
-     * @return Mensaje de éxito o error.
-     */
     @Operation(summary = "Votar un post con 'No me gusta'", description = "Aumenta el contador de 'No me gusta' en el post especificado.")
     @ApiResponse(responseCode = "200", description = "Voto registrado")
     @ApiResponse(responseCode = "404", description = "Post no encontrado")
@@ -101,50 +102,29 @@ public class PostController {
         return ResponseEntity.ok("✅ Post votado con 'No me gusta'.");
     }
 
-    /**
-     * 📌 Permite que un usuario guarde un post en favoritos.
-     *
-     * @param postId ID del post.
-     * @param userId ID del usuario.
-     * @return Mensaje de éxito.
-     */
     @Operation(summary = "Guardar un post en favoritos", description = "Añade el post a la lista de favoritos del usuario.")
     @ApiResponse(responseCode = "200", description = "Post agregado a favoritos")
     @ApiResponse(responseCode = "404", description = "Post o usuario no encontrado")
-    @PostMapping("/{postId}/favorite/{userId}")
-    public ResponseEntity<String> addToFavorites(@PathVariable Long postId, @PathVariable Long userId) {
-        postService.addToFavorites(postId, userId);
-        return ResponseEntity.ok("✅ Post guardado en favoritos.");
-    }
+    @PostMapping("/{postId}/favorites")
+public ResponseEntity<String> addToFavorites(@PathVariable Long postId) {
+    postService.addToFavorites(postId);
+    return ResponseEntity.ok("✅ Post guardado en favoritos.");
+}
 
-    /**
-     * 📌 Permite que un usuario denuncie un post.
-     *
-     * @param postId ID del post a denunciar.
-     * @param userId ID del usuario que realiza la denuncia.
-     * @return Mensaje de éxito o error si ya fue denunciado.
-     */
     @Operation(summary = "Denunciar un post", description = "Permite que un usuario registrado denuncie un post.")
     @ApiResponse(responseCode = "200", description = "Denuncia registrada")
     @ApiResponse(responseCode = "409", description = "El usuario ya denunció este post")
-    @PostMapping("/{postId}/report/{userId}")
-    public ResponseEntity<String> reportPost(@PathVariable Long postId, @PathVariable Long userId) {
-        boolean success = postService.reportPost(postId, userId);
-
-        if (success) {
-            return ResponseEntity.ok("✅ Post denunciado con éxito.");
-        } else {
-            return ResponseEntity.status(409).body("⚠️ Ya has denunciado este post.");
-        }
+    @PostMapping("/{postId}/report")
+public ResponseEntity<String> reportPost(@PathVariable Long postId) {
+    boolean success = postService.reportPost(postId);
+    if (success) {
+        return ResponseEntity.ok("✅ Post denunciado.");
+    } else {
+        return ResponseEntity.status(409).body("⚠️ Ya habías denunciado este post.");
     }
+}
 
-    /**
-     * 📌 Agrega imágenes a un post.
-     *
-     * @param postId ID del post.
-     * @param images Lista de URLs de imágenes.
-     * @return Mensaje de éxito o error si se excede el límite de 3 imágenes.
-     */
+
     @Operation(summary = "Agregar imágenes a un post", description = "Permite agregar hasta 3 imágenes a un post.")
     @ApiResponse(responseCode = "200", description = "Imágenes agregadas correctamente")
     @ApiResponse(responseCode = "400", description = "Número máximo de imágenes excedido")
@@ -158,13 +138,6 @@ public class PostController {
         }
     }
 
-    /**
-     * 📌 Agrega etiquetas a un post.
-     *
-     * @param postId ID del post.
-     * @param tags Lista de etiquetas.
-     * @return Mensaje de éxito.
-     */
     @Operation(summary = "Agregar etiquetas a un post", description = "Permite asignar etiquetas a un post.")
     @ApiResponse(responseCode = "200", description = "Etiquetas agregadas correctamente")
     @PostMapping("/{postId}/tags")
@@ -173,29 +146,27 @@ public class PostController {
         return ResponseEntity.ok("✅ Etiquetas agregadas correctamente.");
     }
 
-    /**
-     * 📌 Obtiene un post por su ID.
-     *
-     * @param postId ID del post.
-     * @return Post encontrado o error 404 si no existe.
-     */
     @Operation(summary = "Obtiene un post por ID", description = "Devuelve el post correspondiente al ID proporcionado.")
     @ApiResponse(responseCode = "200", description = "Post obtenido correctamente")
     @ApiResponse(responseCode = "404", description = "Post no encontrado")
     @GetMapping("/{postId}")
-    public ResponseEntity<Post> getPostById(@PathVariable Long postId) {
+    public ResponseEntity<Map<String, Object>> getPostById(@PathVariable Long postId) {
         Optional<Post> optionalPost = postService.getPostById(postId);
-
-        return optionalPost.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        if (optionalPost.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+    
+        Post post = optionalPost.get();
+        int totalLikes = postLikeService.getTotalLikes(post.getId());
+    
+        Map<String, Object> response = new HashMap<>();
+        response.put("post", post);
+        response.put("totalLikes", totalLikes);
+    
+        return ResponseEntity.ok(response);
     }
+    
 
-    /**
-     * 📌 Obtiene los 4 posts más votados de una categoría.
-     *
-     * @param category Nombre de la categoría.
-     * @return Lista de los 4 posts más votados.
-     */
     @GetMapping("/category/top")
     public ResponseEntity<List<Post>> getTopPostsByCategory(@RequestParam String category) {
         List<Post> topPosts = postService.getTopPostsByCategory(category);
