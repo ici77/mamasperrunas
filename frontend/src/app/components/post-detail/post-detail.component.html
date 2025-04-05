@@ -3,23 +3,57 @@
   <p>{{ post.content }}</p>
   <p>Publicado por {{ post.user?.name }} el {{ post.createdAt | date:'short' }}</p>
 
+  <!-- Mensaje de carga -->
   <div *ngIf="isLoading">
     <p>⏳ Cargando post...</p>
   </div>
-  
+
+  <!-- Mensaje de error -->
   <div *ngIf="errorMessage">
     <p class="error">{{ errorMessage }}</p>
   </div>
 
- <!-- Acciones del Post -->
- <div class="post-actions" *ngIf="!isLoading">
-  <button (click)="toggleLike()">
-    {{ yaDioLike ? '❤️ Me gusta' : '🤍 Me gusta' }}
-  </button>
-  <span>{{ totalLikes }}</span>
-    <button>👎 No me gusta</button>
+  <!-- Acciones del Post -->
+  <div class="post-actions" *ngIf="!isLoading">
+    <button (click)="toggleLike()">
+      {{ yaDioLike ? '❤️ Me gusta' : '🤍 Me gusta' }}
+    </button>
+    <span>{{ totalLikes }}</span>
+
+    <button (click)="toggleDislike()">
+      {{ yaDioDislike ? '👎 No me gusta' : '👍 No me gusta' }}
+    </button>
+    <span>{{ totalDislikes }}</span>
+
     <button>⭐ Añadir a favoritos</button>
     <button>🚩 Reportar</button>
     <button>💬 Responder</button>
+  </div>
+
+  <!-- Formulario para responder -->
+  <div class="respuesta-form" *ngIf="!isLoading">
+    <h4>Tu respuesta:</h4>
+    <textarea 
+      [(ngModel)]="respuestaTexto" 
+      placeholder="Escribe tu respuesta..." 
+      rows="4"
+    ></textarea>
+    <br />
+    <button 
+      (click)="responder()" 
+      [disabled]="!respuestaTexto.trim()"
+    >
+      Responder
+    </button>
+  </div>
+
+  <!-- Lista de respuestas -->
+  <div *ngIf="respuestas.length > 0">
+    <h3>Respuestas</h3>
+    <div *ngFor="let r of respuestas" class="respuesta">
+      <p><strong>{{ r.user?.nombre }}</strong> dijo:</p>
+      <p>{{ r.texto }}</p>
+      <p>{{ r.content }}</p>
+    </div>
   </div>
 </div>

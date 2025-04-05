@@ -1,0 +1,15 @@
+.post-actions button {
+    margin-right: 8px;
+  }
+  
+  .respuesta-form {
+    margin-top: 20px;
+  }
+  
+  .respuesta {
+    margin-top: 12px;
+    padding: 10px;
+    border-left: 3px solid #ccc;
+    background-color: #f9f9f9;
+  }
+  

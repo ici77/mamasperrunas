@@ -27,13 +27,16 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ CORS configurado
             .csrf(csrf -> csrf.disable()) // ❌ CSRF deshabilitado
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/usuarios/registro", "/api/usuarios/login").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
-                .requestMatchers("/api/categories").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/posts").permitAll()
-                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
-                .anyRequest().authenticated() // 🔐 Todo lo demás protegido
-            )
+            .requestMatchers("/api/usuarios/registro", "/api/usuarios/login").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/categories").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/replies/post/**").permitAll()
+            .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
+            .anyRequest().authenticated() // ✅ TODO lo demás requiere autenticación
+        )
+            
+
+
             .logout(logout -> logout.permitAll()); // ✅ Permitir logout
 
         // ✅ Agregar el filtro JWT ANTES del filtro por defecto de Spring

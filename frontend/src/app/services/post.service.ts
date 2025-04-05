@@ -25,6 +25,30 @@ export class PostService {
     return this.http.post<any>(`${this.apiUrl}/${postId}/like`, {}, { headers });
   }
 
+  /** ✅ Alternar "No me gusta" */
+  toggleDislike(postId: number): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.post(`${this.apiUrl}/${postId}/dislike`, {}, { headers });
+  }
+  
+/** 🔍 Saber si el usuario ya dio "No me gusta" */
+hasUserDisliked(postId: number, userId: number): Observable<boolean> {
+  return this.http.get<boolean>(`${this.apiUrl}/${postId}/dislike/${userId}`);
+}
+/**crear respuestas solo usuarios logados */
+createReply(replyData: any): Observable<any> {
+  const headers = this.getAuthHeaders();
+  return this.http.post('http://localhost:8080/api/replies', replyData, { headers });
+}
+/** 📌 Obtiene las respuestas de un post */
+
+getRepliesByPost(postId: number): Observable<any> {
+  return this.http.get(`http://localhost:8080/api/replies/post/${postId}`);
+}
+
+
+
+
   /** 📌 Obtiene los posts paginados de una categoría */
   getPaginatedPosts(category: string, page: number, size: number = 10): Observable<any> {
     return this.http.get(`${this.apiUrl}/category/${category}/paginated?page=${page}&size=${size}`);
@@ -37,10 +61,11 @@ export class PostService {
     return this.http.get(url);
   }
 
-  /** 📝 Crear un nuevo post con imágenes */
-  createPost(postData: FormData): Observable<any> {
-    return this.http.post(this.apiUrl, postData);
-  }
+ /** 📝 Crear un nuevo post con imágenes (requiere login) */
+createPost(postData: FormData): Observable<any> {
+  const headers = this.getAuthHeaders();
+  return this.http.post(this.apiUrl, postData, { headers });
+}
 
   /** 🔍 Obtener un post por su ID */
   getPostById(postId: number): Observable<any> {
