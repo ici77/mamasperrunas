@@ -4,6 +4,9 @@ import com.mp.backend.models.Usuario;
 import com.mp.backend.models.forum.Post;
 import com.mp.backend.repositories.PostRepository;
 import com.mp.backend.repositories.UsuarioRepository;
+
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -127,6 +130,15 @@ public class PostService {
         }
     }
 
+    public List<Post> getRandomPostsByCategory(String categoryName, int limit) {
+        List<Post> posts = postRepository.findByCategory_Name(categoryName);
+        Collections.shuffle(posts);
+        return posts.stream().limit(limit).collect(Collectors.toList());
+    }
+    
+    
+    
+
     public void addTagsToPost(Long postId, Set<String> tags) {
         Optional<Post> optionalPost = postRepository.findById(postId);
 
@@ -136,7 +148,7 @@ public class PostService {
             postRepository.save(post);
         }
     }
-
+    
     /** ✅ Utilidad para obtener el usuario autenticado desde el SecurityContext */
     private Usuario getAuthenticatedUser() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();

@@ -66,9 +66,18 @@ createPost(postData: FormData): Observable<any> {
   const headers = this.getAuthHeaders();
   return this.http.post(this.apiUrl, postData, { headers });
 }
+getRandomPostsByCategory(category: string, limit: number = 6): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/category/${category}/random?limit=${limit}`);
+}
+
 
   /** 🔍 Obtener un post por su ID */
   getPostById(postId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${postId}`);
   }
+
+  getRecentPosts(limit: number = 4) {
+    return this.http.get<any[]>(`http://localhost:8080/api/posts/recentes?limit=${limit}`);
+  }
+  
 }

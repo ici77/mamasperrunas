@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { PostService } from '../../services/post.service';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms'; // ✅ Import necesario para [(ngModel)]
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-post-detail',
@@ -19,15 +19,13 @@ export class PostDetailComponent implements OnInit {
   isLoading: boolean = true;
   errorMessage: string = '';
 
-  // Me gusta / No me gusta
   usuarioId: number = 0;
   totalLikes: number = 0;
   yaDioLike: boolean = false;
-
   totalDislikes: number = 0;
   yaDioDislike: boolean = false;
+  recentPosts: any[] = [];
 
-  // Respuestas
   respuestaTexto: string = '';
   respuestas: any[] = [];
 
@@ -58,13 +56,24 @@ export class PostDetailComponent implements OnInit {
         this.totalLikes = response.totalLikes ?? 0;
         this.totalDislikes = response.totalDislikes ?? 0;
         this.isLoading = false;
+
         this.cargarRespuestas();
+
+        if (this.post?.category?.name) {
+          this.cargarRecomendados(this.post.category.name);
+        }
       },
       error: (error) => {
         console.error('❌ Error al cargar el post:', error);
         this.errorMessage = 'No se pudo cargar el post. Intenta nuevamente.';
         this.isLoading = false;
       }
+    });
+  }
+
+  cargarRecomendados(categoria: string): void {
+    this.postService.getRandomPostsByCategory(categoria, 6).subscribe((data) => {
+      this.recentPosts = data.filter(p => p.id !== this.post.id);
     });
   }
 
@@ -90,11 +99,10 @@ export class PostDetailComponent implements OnInit {
 
   toggleDislike() {
     const token = localStorage.getItem('auth_token');
-if (!token) {
-  alert("⚠️ Debes iniciar sesión para dar 'No me gusta'");
-  return;
-}
-
+    if (!token) {
+      alert("⚠️ Debes iniciar sesión para dar 'No me gusta'");
+      return;
+    }
 
     this.postService.toggleDislike(this.postId).subscribe({
       next: (respuesta: any) => {
@@ -117,19 +125,19 @@ if (!token) {
       alert("⚠️ Debes iniciar sesión para responder.");
       return;
     }
-  
+
     if (!this.respuestaTexto.trim()) {
       alert("⚠️ La respuesta no puede estar vacía.");
       return;
     }
-  
+
     const nuevaRespuesta = {
       content: this.respuestaTexto,
       postId: this.postId
     };
-  
+
     this.postService.createReply(nuevaRespuesta).subscribe({
-      next: (respuestaCreada) => {
+      next: () => {
         alert("✅ Respuesta publicada.");
         this.respuestaTexto = '';
         this.cargarRespuestas();
@@ -140,7 +148,7 @@ if (!token) {
       }
     });
   }
-  
+
   cargarRespuestas() {
     this.postService.getRepliesByPost(this.postId).subscribe({
       next: (respuestas) => {
@@ -151,5 +159,4 @@ if (!token) {
       }
     });
   }
-  
 }

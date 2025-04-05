@@ -171,6 +171,19 @@ public class PostController {
         return ResponseEntity.ok(topPosts);
     }
 
+    // 🔀 Obtener posts aleatorios por categoría
+@GetMapping("/category/{category}/random")
+public ResponseEntity<List<Post>> getRandomPostsByCategory(
+        @PathVariable String category,
+        @RequestParam(defaultValue = "6") int limit) {
+    List<Post> posts = postService.getRandomPostsByCategory(category, limit);
+    return ResponseEntity.ok(posts);
+}
+
+    
+
+
+
     @GetMapping("/category/{category}/paginated")
     public ResponseEntity<Page<Post>> getPaginatedPosts(
             @PathVariable String category,

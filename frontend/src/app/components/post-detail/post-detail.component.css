@@ -1,15 +1,326 @@
+/* post-detail.component.scss */
+/* =========================== */
+/* 🔸 Estilos para el detalle de un post con estructura clara y diseño atractivo */
+
+/* ─────────────────────────────── */
+/* 📌 Migas de pan */
+.breadcrumb-container {
+  background-color: #efd0b8 !important;
+  border: 4px solid #f47b22 !important;
+  padding: 12px 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.breadcrumb {
+  margin: 0;
+  background-color: transparent;
+  padding: 0;
+}
+
+.breadcrumb-item {
+  font-weight: 600;
+  color: #3B8024;
+}
+
+.breadcrumb-item a {
+  color: #3B8024;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover,
+.breadcrumb-item.active {
+  color: #3B8024;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* ─────────────────────────────── */
+/* 📌 Cabecera de categoría */
+.category-header {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.header-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.category-header h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 2rem;
+}
+
+/* ─────────────────────────────── */
+/* 📌 Contenedor del post */
+.post-detail {
+  border-radius: 12px;
+  border: 4px solid #f47b22 !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+  background-color: #fff;
+}
+
+/* 📌 Título del post */
+.post-title {
+  color: #3B8024;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* ─────────────────────────────── */
+/* 📌 Acciones del post */
+.post-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
 .post-actions button {
-    margin-right: 8px;
+  background-color: #84c390;
+  border: 2px solid black;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.post-actions button:hover {
+  background-color: #6ea97e;
+}
+
+/* ─────────────────────────────── */
+/* 📌 Formulario de respuesta */
+.respuesta-form {
+  margin-top: 30px;
+  padding: 20px;
+  border: 2px dashed #3B8024;
+  border-radius: 10px;
+  background-color: #fffbe6;
+}
+
+.respuesta-form textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  margin-bottom: 10px;
+}
+
+.respuesta-form button {
+  background-color: #63af71;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+.respuesta-form button:hover {
+  background-color: #055f43;
+}
+
+/* ─────────────────────────────── */
+/* 📌 Respuestas */
+.respuestas-container {
+  margin-top: 20px;
+}
+
+.respuesta {
+  padding: 15px;
+  background-color: #d4edda;
+  border-left: 4px solid #3B8024;
+  margin-bottom: 12px;
+  border-radius: 5px;
+}
+
+/* ─────────────────────────────── */
+/* 📌 Sidebar izquierdo */
+.sidebar-left {
+  padding: 10px;
+}
+
+.sidebar-left h3 {
+  color: #3B8024;
+  font-size: 1.6rem;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-color: #f47b22;
+}
+
+.sidebar-left .list-group {
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.sidebar-left .list-group-item {
+  background-color: #84c390;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  border: 4px solid #3B8024;
+  border-radius: 10px;
+  transition: transform 0.2s ease;
+}
+
+.sidebar-left .list-group-item:hover {
+  transform: scale(1.03);
+  background-color: #6ea97e;
+}
+
+.sidebar-left .list-group-item a {
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar-left .info-card {
+  background-color: white;
+  border: 4px solid #3B8024;
+  border-radius: 10px;
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+.sidebar-left .info-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.sidebar-left .info-card h4 {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #065f43;
+}
+
+.sidebar-left .info-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+.sidebar-left .btn-secondary {
+  background-color: #63af71;
+  color: white;
+  font-weight: bold;
+}
+
+.sidebar-left .btn-secondary:hover {
+  background-color: #055f43;
+}
+
+/* ─────────────────────────────── */
+/* 📌 Sidebar derecho */
+.sidebar-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-card {
+  border: 4px solid #3B8024;
+  background-color: white;
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.info-card img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.info-card h4 {
+  color: #3B8024;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.info-card p {
+  font-size: 14px;
+  color: #333;
+}
+
+/* 📌 Caja individual de cada post recomendado */
+.post-recomendado-box {
+  border: 4px solid #3B8024;
+  background-color: #f0fff4;
+  font-weight: 600;
+  color: #3B8024;
+  text-align: left;
+  border-radius: 10px;
+  padding: 10px 14px;
+  transition: transform 0.2s ease;
+}
+
+.post-recomendado-box a {
+  color: #3B8024;
+  text-decoration: none;
+  display: block;
+}
+
+.post-recomendado-box:hover {
+  transform: scale(1.02);
+  background-color: #d4f8e8;
+}
+
+/* ─────────────────────────────── */
+/* 📱 Diseño responsivo */
+@media (max-width: 768px) {
+  .category-header h1 {
+    font-size: 1.5rem;
+    padding: 6px 12px;
   }
-  
-  .respuesta-form {
+
+  .sidebar-left,
+  .sidebar-right {
     margin-top: 20px;
+    padding: 1rem !important;
+    text-align: center;
   }
-  
-  .respuesta {
-    margin-top: 12px;
+
+  .sidebar-left .list-group-item {
+    font-size: 0.9rem;
+  }
+
+  .post-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .respuesta-form {
+    padding: 15px;
+  }
+
+  .breadcrumb-container {
     padding: 10px;
-    border-left: 3px solid #ccc;
-    background-color: #f9f9f9;
+    font-size: 0.9rem;
   }
-  
+}

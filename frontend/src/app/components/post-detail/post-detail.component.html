@@ -1,59 +1,129 @@
-<div *ngIf="post">
-  <h2>{{ post.title }}</h2>
-  <p>{{ post.content }}</p>
-  <p>Publicado por {{ post.user?.name }} el {{ post.createdAt | date:'short' }}</p>
+<!-- 📌 Contenedor principal -->
+<div class="container-fluid mt-4" *ngIf="post">
+  <div class="row d-flex align-items-stretch">
+    
+    <!-- 📌 Menú Lateral Izquierdo -->
+    <aside class="col-12 col-md-3 col-lg-2 sidebar-left">
+      <h3>Foro</h3>
+      
 
-  <!-- Mensaje de carga -->
-  <div *ngIf="isLoading">
-    <p>⏳ Cargando post...</p>
-  </div>
+      <!-- 📌 Tarjetas debajo del Menú Izquierdo -->
+      <div class="info-card">
+        <h4>Información Importante</h4>
+        <img src="assets/images/categoria-fondo.jpg" alt="Información destacada">
+        <p>Lee las últimas novedades en el foro.</p>
+        <a href="/foro" class="btn btn-secondary">Más detalles</a>
+      </div>
+    </aside>
 
-  <!-- Mensaje de error -->
-  <div *ngIf="errorMessage">
-    <p class="error">{{ errorMessage }}</p>
-  </div>
+    <!-- 📌 Zona Principal del Post -->
+    <div class="col-12 col-md-6 col-lg-7 d-flex flex-column">
+      <!-- 📌 Migas de pan -->
+      <nav aria-label="breadcrumb" class="breadcrumb-container">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/">🏠 Inicio</a></li>
+          <li class="breadcrumb-item"><a routerLink="/foro">📢 Foro</a></li>
+          <li class="breadcrumb-item">
+            <a [routerLink]="['/foro', post?.category?.name]">🐾 {{ post?.category?.name || 'Categoría' }}</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">📄 Post</li>
+        </ol>
+      </nav>
 
-  <!-- Acciones del Post -->
-  <div class="post-actions" *ngIf="!isLoading">
-    <button (click)="toggleLike()">
-      {{ yaDioLike ? '❤️ Me gusta' : '🤍 Me gusta' }}
-    </button>
-    <span>{{ totalLikes }}</span>
+      <!-- 📌 Cabecera con Imagen -->
+      <header class="category-header col-12">
+        <img src="assets/images/categoria-fondo.jpg" alt="Categoría {{ post?.category?.name }}" class="header-image">
+        <h1>{{ post?.category?.name | titlecase }}</h1>
+      </header>
 
-    <button (click)="toggleDislike()">
-      {{ yaDioDislike ? '👎 No me gusta' : '👍 No me gusta' }}
-    </button>
-    <span>{{ totalDislikes }}</span>
+      <!-- 📌 Contenido del post -->
+      <div class="card post-detail">
+        <div class="card-body">
+          <h2 class="post-title mb-3 text-success-emphasis">{{ post.title }}</h2>
+          <p class="card-text">{{ post.content }}</p>
+          <p class="text-muted mt-3">
+            🧑 Publicado por <strong>{{ post.user?.name || 'Anónimo' }}</strong>
+            el {{ post.createdAt | date:'short' }}
+          </p>
+        </div>
+      </div>
 
-    <button>⭐ Añadir a favoritos</button>
-    <button>🚩 Reportar</button>
-    <button>💬 Responder</button>
-  </div>
+      <!-- 📌 Estado de carga / error -->
+      <div *ngIf="isLoading" class="alert alert-info mt-3">
+        ⏳ Cargando post...
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        ❌ {{ errorMessage }}
+      </div>
 
-  <!-- Formulario para responder -->
-  <div class="respuesta-form" *ngIf="!isLoading">
-    <h4>Tu respuesta:</h4>
-    <textarea 
-      [(ngModel)]="respuestaTexto" 
-      placeholder="Escribe tu respuesta..." 
-      rows="4"
-    ></textarea>
-    <br />
-    <button 
-      (click)="responder()" 
-      [disabled]="!respuestaTexto.trim()"
-    >
-      Responder
-    </button>
-  </div>
+      <!-- 📌 Acciones -->
+      <div class="post-actions d-flex flex-wrap align-items-center gap-2 mt-3" *ngIf="!isLoading">
+        <button class="btn btn-outline-danger" (click)="toggleLike()">
+          {{ yaDioLike ? '❤️' : '🤍' }} 
+          <span class="badge bg-light text-dark">{{ totalLikes }}</span>
+        </button>
+        <button class="btn btn-outline-secondary" (click)="toggleDislike()">
+          👎 <span class="badge bg-light text-dark">{{ totalDislikes }}</span>
+        </button>
+        <button class="btn btn-outline-warning">⭐ Añadir a favoritos</button>
+        <button class="btn btn-outline-danger">🚩 Reportar</button>
+      </div>
 
-  <!-- Lista de respuestas -->
-  <div *ngIf="respuestas.length > 0">
-    <h3>Respuestas</h3>
-    <div *ngFor="let r of respuestas" class="respuesta">
-      <p><strong>{{ r.user?.nombre }}</strong> dijo:</p>
-      <p>{{ r.texto }}</p>
-      <p>{{ r.content }}</p>
+      <!-- 📌 Formulario de respuesta -->
+      <div class="card mt-4 respuesta-form" *ngIf="!isLoading">
+        <div class="card-header bg-light">
+          <h4 class="mb-0">Tu respuesta</h4>
+        </div>
+        <div class="card-body">
+          <textarea 
+            [(ngModel)]="respuestaTexto" 
+            placeholder="Escribe tu respuesta..."
+            class="form-control"
+            rows="4"
+          ></textarea>
+          <button 
+            class="btn btn-success mt-2"
+            (click)="responder()"
+            [disabled]="!respuestaTexto.trim()">
+            📨 Responder
+          </button>
+        </div>
+      </div>
+
+      <!-- 📌 Lista de respuestas -->
+      <div class="mt-4" *ngIf="respuestas.length > 0">
+        <h3 class="mb-3">💬 Respuestas</h3>
+        <div *ngFor="let r of respuestas" class="card mb-3 respuesta">
+          <div class="card-body">
+            <p class="mb-1"><strong>{{ r.user?.nombre || 'Usuario' }}</strong> dijo:</p>
+            <p class="mb-0">{{ r.content || r.texto }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📌 Sidebar derecho: Recomendados -->
+<aside class="col-12 col-md-3 col-lg-3 sidebar-right">
+  <div class="info-card recomendados mt-3" *ngIf="recentPosts.length > 0">
+    <h4>👀 Te puede interesar</h4>
+    <div class="d-flex flex-column gap-2">
+      <div 
+        *ngFor="let recomendado of recentPosts"
+        class="post-recomendado-box"
+      >
+        <a 
+          [routerLink]="['/post', recomendado.id]"
+        >
+          🐶 {{ recomendado.title }}
+        </a>
+      </div>
     </div>
   </div>
-</div>
+</aside>
+
+        
+      </div>
+  
+
+  </div> <!-- Fin .row -->
+
