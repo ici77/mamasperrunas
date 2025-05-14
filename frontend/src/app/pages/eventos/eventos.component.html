@@ -1,0 +1,99 @@
+<div class="eventos-page container">
+
+  <!-- FILTROS EN 3 COLUMNAS -->
+  <form (ngSubmit)="filtrarEventos()" class="row g-3 mt-4 justify-content-center filtros-form">
+
+    <!-- Tipo -->
+    <div class="col-md-3">
+      <label class="form-label">Tipo de evento:</label>
+      <select [(ngModel)]="tipoSeleccionado" name="tipoSeleccionado" class="form-select">
+        <option value="">Todos</option>
+        <option *ngFor="let categoria of categorias" [value]="categoria.tipo">
+          {{ categoria.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <!-- ¿Gratuito? -->
+    <div class="col-md-3">
+      <label class="form-label">¿Es gratuito?</label>
+      <select [(ngModel)]="esDePagoSeleccionado" name="esDePagoSeleccionado" class="form-select">
+        <option value="todos">Todos</option>
+        <option value="false">Sí</option>
+        <option value="true">No</option>
+      </select>
+    </div>
+
+    <!-- Crear evento -->
+    <div class="col-md-3 d-flex align-items-end">
+      <ng-container *ngIf="isLoggedIn; else debeIniciarSesion">
+        <button class="btn btn-success w-100" (click)="irACrearEvento()">+ Crear evento</button>
+      </ng-container>
+      <ng-template #debeIniciarSesion>
+        <button class="btn btn-outline-secondary w-100" (click)="irALogin()">Inicia sesión para crear evento</button>
+      </ng-template>
+    </div>
+
+    <!-- Solo destacados -->
+    <div class="col-md-3 d-flex align-items-end">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" [(ngModel)]="soloDestacados" name="soloDestacados" id="destacadosCheck">
+        <label class="form-check-label" for="destacadosCheck">Solo destacados ⭐</label>
+      </div>
+    </div>
+
+    <!-- Botón buscar -->
+    <div class="col-md-2 d-flex align-items-end">
+      <button type="submit" class="btn btn-primary w-100">Buscar</button>
+    </div>
+  </form>
+
+  <!-- SECCIÓN DESTACADOS -->
+  <section *ngIf="eventosDestacados.length > 0" class="container mt-5 mb-4">
+    <h3 class="text-center mb-4">🌟 Eventos Destacados</h3>
+    <div class="row">
+      <div *ngFor="let evento of eventosDestacados" class="col-md-6 col-lg-4 mb-4">
+        <div class="card shadow-sm">
+          <img [src]="evento.imagenUrl.startsWith('http') ? evento.imagenUrl : '/' + evento.imagenUrl"
+               class="card-img-top"
+               [alt]="evento.titulo" />
+
+          <div class="card-body">
+            <h5 class="card-title">{{ evento.titulo }}</h5>
+            <p class="card-text">{{ evento.descripcion | slice:0:80 }}...</p>
+            <p class="text-muted small">{{ evento.apuntados || 0 }} personas apuntadas</p>
+
+            <button class="btn btn-success btn-sm w-100" *ngIf="!evento.yaInscrito" (click)="apuntarse(evento)">
+              Apuntarme
+            </button>
+            <button class="btn btn-outline-secondary btn-sm w-100" *ngIf="evento.yaInscrito" disabled>
+              Ya estás inscrito
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN CATEGORÍAS -->
+  <section class="container mt-5 mb-4">
+    <h3 class="text-center mb-4">📂 Categorías de eventos</h3>
+    <div class="row">
+      <div *ngFor="let categoria of categorias" class="col-md-6 col-lg-4 mb-4">
+        <div class="card shadow-sm">
+          <a [routerLink]="['/eventos']" [queryParams]="{ tipo: categoria.tipo }">
+            <img [src]="categoria.imagen" class="card-img-top" [alt]="categoria.nombre" />
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">{{ categoria.nombre }}</h5>
+            <p class="card-text">{{ categoria.descripcion }}</p>
+            <a [routerLink]="['/eventos']" [queryParams]="{ tipo: categoria.tipo }" class="btn-accion">
+              Ver eventos
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

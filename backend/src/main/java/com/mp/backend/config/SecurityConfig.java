@@ -27,14 +27,30 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ CORS configurado
             .csrf(csrf -> csrf.disable()) // ❌ CSRF deshabilitado
             .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/usuarios/registro", "/api/usuarios/login").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/posts/category/**").permitAll()
+    // Usuarios
+    .requestMatchers("/api/usuarios/registro", "/api/usuarios/login").permitAll()
 
-            .requestMatchers(HttpMethod.GET, "/api/categories").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/replies/post/**").permitAll()
-            .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
-            .anyRequest().authenticated() // ✅ TODO lo demás requiere autenticación
+    // Eventos
+    .requestMatchers(HttpMethod.GET, "/api/eventos/**").permitAll()
+    .requestMatchers(HttpMethod.POST, "/api/eventos").authenticated()
+
+    // Posts y categorías (foro)
+    .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
+    .requestMatchers(HttpMethod.GET, "/api/posts/category/**").permitAll()
+    .requestMatchers(HttpMethod.GET, "/api/categories").permitAll()
+    .requestMatchers(HttpMethod.GET, "/api/replies/post/**").permitAll()
+
+    // Swagger (documentación)
+    .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
+
+    // Resto requiere autenticación
+    .anyRequest().authenticated()
+)
+
+        // ✅ Permitir autenticación y autorización para el endpoint de autenticación
+        .formLogin(form -> form
+            .loginProcessingUrl("/api/login")
+            .permitAll()
         )
             
 

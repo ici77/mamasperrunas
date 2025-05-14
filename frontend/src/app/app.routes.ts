@@ -16,6 +16,8 @@ import { NewsComponent } from './pages/blog/news/news.component';
 import { TipsComponent } from './pages/blog/tips/tips.component';
 import { LifeComponent } from './pages/blog/life/life.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component'; // ✅ Importar el nuevo componente
+import { FormsModule } from '@angular/forms';
+import { EventosComponent } from './pages/eventos/eventos.component';
 
 
 export const appRoutes: Routes = [
@@ -33,17 +35,25 @@ export const appRoutes: Routes = [
   { path: 'crear-post', component: CrearPostComponent },
 
   // 📌 Blog y sus secciones, cargando BlogLayoutComponent de forma dinámica
-  { 
+  {
     path: 'blog',
-    loadComponent: () => import('./components/blog-layout/blog-layout.component').then(m => m.BlogLayoutComponent),
+    loadComponent: () =>
+      import('./components/blog-layout/blog-layout.component').then(m => m.BlogLayoutComponent),
     children: [
-      { path: '', component: BlogComponent }, // Portada del Blog
+      { path: '', component: BlogComponent },
       { path: 'experts', component: ExpertsComponent },
       { path: 'news', component: NewsComponent },
       { path: 'tips', component: TipsComponent },
-      { path: 'life', component: LifeComponent },
+      { path: 'life', component: LifeComponent }
     ]
   },
 
-  { path: '**', redirectTo: 'login', pathMatch: 'full' } // Redirección a login si no hay coincidencias
+  // 📌 Eventos como sección independiente
+  { path: 'eventos', component: EventosComponent },
+  { path: 'eventos/:id', component: EventosComponent },
+  { path: 'eventos/:id/:category', component: EventosComponent },
+  { path: 'eventos/:id/:category/:subcategory', component: EventosComponent },
+  { path: 'eventos/:id/:category/:subcategory/:subcategory2', component: EventosComponent },
+
+  { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
