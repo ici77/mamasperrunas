@@ -103,6 +103,10 @@
 .post-actions button:hover {
   background-color: #6ea97e;
 }
+button.liked i {
+  color: red;
+}
+
 
 /* ─────────────────────────────── */
 /* 📌 Formulario de respuesta */
@@ -125,10 +129,10 @@
 }
 
 .respuesta-form button {
-  background-color: #3B8024;
+  background-color: #2d7814;
   color: white;
   padding: 8px 16px;
-  border: none;
+  border: 8px  #4fc74d;
   font-weight: bold;
   border-radius: 6px;
 }

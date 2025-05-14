@@ -61,6 +61,10 @@
           </p>
         </div>
       </div>
+      <button (click)="toggleLike()" [ngClass]="{ 'liked': yaDioLike }">
+  <i class="fa fa-heart"></i> {{ totalLikes }}
+</button>
+
 
       <!-- 📌 Estado de carga / error -->
       <div *ngIf="isLoading" class="alert alert-info mt-3">

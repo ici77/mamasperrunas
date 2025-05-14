@@ -56,6 +56,9 @@ export class PostDetailComponent implements OnInit {
         this.totalLikes = response.totalLikes ?? 0;
         this.totalDislikes = response.totalDislikes ?? 0;
         this.isLoading = false;
+        this.yaDioLike = response.liked ?? false;
+this.yaDioDislike = response.disliked ?? false;
+
 
         this.cargarRespuestas();
 

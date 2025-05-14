@@ -57,6 +57,11 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
+    @GetMapping("/{postId}/like/{userId}")
+public ResponseEntity<Boolean> hasUserLiked(@PathVariable Long postId, @PathVariable Long userId) {
+    return ResponseEntity.ok(postLikeService.hasUserLiked(postId, userId));
+}
+
 
     // ----------------------- DISLIKE -----------------------
     @Operation(summary = "Dar o quitar 'No me gusta' a un post", description = "Activa o desactiva el 'No me gusta' de un usuario en un post.")
