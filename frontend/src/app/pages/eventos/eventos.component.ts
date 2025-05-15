@@ -8,7 +8,7 @@ import { EventService, Evento } from '../../services/event.service';
   standalone: true,
   selector: 'app-eventos',
   templateUrl: './eventos.component.html',
-  styleUrls: ['./eventos.component.scss'],
+  styleUrls: ['./eventos.component.css'],
   imports: [CommonModule, FormsModule, RouterModule]
 })
 export class EventosComponent implements OnInit {
@@ -30,6 +30,11 @@ export class EventosComponent implements OnInit {
     { tipo: 'miscelanea', nombre: '🧩 Miscelánea', descripcion: 'Otros eventos y actividades variadas', imagen: 'assets/images/eventos/miscelanea.png' }
   ];
 
+  get nombreCategoriaSeleccionada(): string {
+    const categoria = this.categorias.find(c => c.tipo === this.tipoSeleccionado);
+    return categoria ? categoria.nombre : '';
+  }
+
   constructor(
     private eventService: EventService,
     private route: ActivatedRoute,
@@ -50,39 +55,75 @@ export class EventosComponent implements OnInit {
     });
   }
 
+  verTodosEventos(): void {
+    this.tipoSeleccionado = '';
+    this.esDePagoSeleccionado = 'todos';
+    this.soloDestacados = false;
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {},
+      queryParamsHandling: ''
+    });
+
+    this.filtrarEventos();
+  }
+
   cargarEventosDestacados(): void {
     this.eventService.getDestacados().subscribe(eventos => {
       this.eventService.getConteoApuntados().subscribe(conteo => {
         this.eventosDestacados = eventos.map(evento => ({
           ...evento,
           apuntados: conteo[evento.id] || 0,
-          yaInscrito: false // opcional: puede actualizarse si tienes endpoint para verificar inscripción
+          yaInscrito: false
         }));
-        console.log('✅ Eventos destacados:', this.eventosDestacados);
+
+        if (this.isLoggedIn) {
+          this.verificarInscripciones(this.eventosDestacados);
+        }
       });
     });
   }
 
   filtrarEventos(): void {
     const tipo = this.tipoSeleccionado || '';
-    const pago = this.esDePagoSeleccionado === 'todos' ? false : this.esDePagoSeleccionado === 'true';
+    const pago = this.esDePagoSeleccionado || 'todos';
     const destacado = this.soloDestacados;
 
     this.eventService.buscarEventos(tipo, pago, destacado).subscribe(eventos => {
-      this.eventos = eventos;
+      this.eventos = eventos.map(e => ({ ...e, yaInscrito: false }));
+      if (this.isLoggedIn) {
+        this.verificarInscripciones(this.eventos);
+      }
     });
   }
 
   apuntarse(evento: Evento): void {
-    if (!this.isLoggedIn) {
-      this.irALogin();
-      return;
-    }
+  if (!this.isLoggedIn) {
+    this.irALogin();
+    return;
+  }
 
-    this.eventService.apuntarseAEvento(evento).subscribe(() => {
-      console.log("✅ Apuntado correctamente");
-      evento.yaInscrito = true;
-      evento.apuntados = (evento.apuntados || 0) + 1;
+  this.eventService.apuntarseAEvento(evento).subscribe({
+    next: (res) => {
+  evento.yaInscrito = true;
+  evento.apuntados = (evento.apuntados || 0) + 1;
+  alert(res.mensaje); // ← lee el mensaje del backend
+},
+    error: (err) => {
+      console.error('❌ Error al apuntarse:', err);
+      alert('⚠️ Ocurrió un error al apuntarte. Revisa tu conexión o inicia sesión de nuevo.');
+    }
+  });
+}
+
+
+
+  verificarInscripciones(lista: Evento[]): void {
+    lista.forEach(evento => {
+      this.eventService.estaInscrito(evento.id).subscribe(res => {
+        evento.yaInscrito = res === true;
+      });
     });
   }
 
@@ -110,4 +151,29 @@ export class EventosComponent implements OnInit {
       return null;
     }
   }
+
+  tarjetasInformativas = [
+    {
+      titulo: '¿Cómo participar?',
+      imagen: 'assets/images/eventos/quedadas.jpeg',
+      descripcion: 'Descubre cómo formar parte de los eventos caninos.',
+      link: '/eventos',
+      boton: 'Ver más'
+    },
+    {
+  titulo: 'Únete a la comunidad',
+  imagen: 'assets/images/eventos/comunidad.png', 
+  descripcion: 'Regístrate y accede a todos los beneficios.',
+  link: '/registro',
+  boton: 'Registrarse'
+}
+,
+    {
+      titulo: 'Eventos solidarios',
+      imagen: 'assets/images/eventos/solidarios.png',
+      descripcion: 'Apoya causas benéficas y de ayuda animal.',
+      link: '/eventos',
+      boton: 'Ver solidarios'
+    }
+  ];
 }

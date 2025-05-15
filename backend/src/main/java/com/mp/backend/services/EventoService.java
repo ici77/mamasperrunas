@@ -51,9 +51,15 @@ public class EventoService {
         return eventoRepository.findByEsDePago(esDePago);
     }
 
-    public List<Evento> buscarEventosAvanzado(String tipoEvento, boolean esDePago, boolean destacado) {
-        return eventoRepository.findByTipoEventoIgnoreCaseAndEsDePagoAndDestacado(tipoEvento, esDePago, destacado);
-    }
+  public List<Evento> buscarEventosAvanzado(String tipoEvento, String esDePagoSeleccionado, Boolean soloDestacados) {
+    String tipo = (tipoEvento == null || tipoEvento.isBlank()) ? null : tipoEvento;
+    Boolean pago = "todos".equalsIgnoreCase(esDePagoSeleccionado) ? null : Boolean.valueOf(esDePagoSeleccionado);
+    Boolean destacado = (soloDestacados != null && soloDestacados) ? true : null;
+
+    return eventoRepository.buscarEventosAvanzado(tipo, pago, destacado);
+}
+
+
 
     // ✅ Conteo de apuntados por evento
     public Map<Long, Integer> contarUsuariosPorEvento() {

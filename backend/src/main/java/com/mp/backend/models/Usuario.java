@@ -80,6 +80,10 @@ private String password;
         this.fotoPerfil = fotoPerfil;
         this.rol = "USER";
     }
+    /** Descripción o biografía del usuario (opcional). */
+@Column(length = 500)
+private String descripcion;
+
 
     // Getters y Setters
 
@@ -110,6 +114,14 @@ private String password;
     public String getPassword() {
         return password;
     }
+    public String getDescripcion() {
+    return descripcion;
+}
+
+public void setDescripcion(String descripcion) {
+    this.descripcion = descripcion;
+}
+
 
     /**
      * 🔐 **Setter para contraseña encriptada**

@@ -40,24 +40,28 @@ export class EventService {
     return this.http.get<Evento[]>(`${this.apiUrl}/destacados`);
   }
 
-  // ✅ Buscar eventos con filtros
-  buscarEventos(tipo: string, pago: boolean, destacado: boolean): Observable<Evento[]> {
+  // ✅ Buscar eventos filtrados
+  buscarEventos(tipo: string, pago: string, destacado: boolean): Observable<Evento[]> {
     const params = new HttpParams()
-      .set('tipo', tipo)
-      .set('pago', pago)
-      .set('destacado', destacado);
+      .set('tipo', tipo || '')
+      .set('pago', pago || 'todos')
+      .set('destacado', destacado.toString());
 
     return this.http.get<Evento[]>(`${this.apiUrl}/buscar`, { params });
   }
 
-  // ✅ Obtener número de apuntados por evento (todos)
+  // ✅ Obtener número de apuntados por evento
   getConteoApuntados(): Observable<{ [eventoId: number]: number }> {
     return this.http.get<{ [eventoId: number]: number }>(`${this.apiUrl}/apuntados`);
   }
 
-  // ✅ Apuntarse a un evento
- apuntarseAEvento(evento: Evento): Observable<any> {
-  return this.http.post(`${this.apiUrl}/${evento.id}/apuntarse`, {});
-}
+  // ✅ Apuntar al usuario al evento
+  apuntarseAEvento(evento: Evento): Observable<any> {
+    return this.http.post(`${this.apiUrl}/${evento.id}/apuntarse`, {});
+  }
 
+  // ✅ Verificar si el usuario ya está inscrito a un evento
+  estaInscrito(eventoId: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/${eventoId}/esta-inscrito`);
+  }
 }

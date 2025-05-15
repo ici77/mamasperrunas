@@ -78,26 +78,26 @@ public class EventoController {
      * 🔹 Endpoint: POST /api/eventos/{id}/apuntarse
      * 🔐 Requiere autenticación
      */
-    @PostMapping("/{id}/apuntarse")
-    public ResponseEntity<?> apuntarseAEvento(@PathVariable Long id) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+   @PostMapping("/{id}/apuntarse")
+public ResponseEntity<?> apuntarseAEvento(@PathVariable Long id) {
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        if (!(principal instanceof Usuario)) {
-            return ResponseEntity.status(403).body("No autorizado");
-        }
-
-        Usuario usuario = (Usuario) principal;
-
-        Optional<Evento> eventoOptional = eventoService.obtenerEventoPorId(id);
-        if (eventoOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        Evento evento = eventoOptional.get();
-        usuarioEventoService.apuntarseAEvento(usuario, evento);
-
-        return ResponseEntity.ok("✅ Te has apuntado al evento correctamente.");
+    if (!(principal instanceof Usuario usuario)) {
+        return ResponseEntity.status(403).body("Usuario no válido");
     }
+
+    Optional<Evento> eventoOptional = eventoService.obtenerEventoPorId(id);
+    if (eventoOptional.isEmpty()) {
+        return ResponseEntity.notFound().build();
+    }
+
+    Evento evento = eventoOptional.get();
+    usuarioEventoService.apuntarseAEvento(usuario, evento);
+
+    return ResponseEntity.ok(Map.of("mensaje", "✅ Te has apuntado al evento correctamente."));
+
+}
+
 
     /**
      * 📌 Obtener resumen y lista completa de asistentes a un evento.
@@ -159,12 +159,18 @@ public ResponseEntity<List<Evento>> eventosPorPago(@PathVariable boolean pago) {
     return ResponseEntity.ok(eventoService.obtenerEventosPorPago(pago));
 }
 @GetMapping("/buscar")
-public ResponseEntity<List<Evento>> buscarEventosAvanzado(
-        @RequestParam String tipo,
-        @RequestParam boolean pago,
-        @RequestParam boolean destacado) {
-    return ResponseEntity.ok(eventoService.buscarEventosAvanzado(tipo, pago, destacado));
+public List<Evento> buscarEventos(
+    @RequestParam(required = false) String tipo,
+    @RequestParam(required = false) String pago,
+    @RequestParam(required = false) Boolean destacado
+) {
+    return eventoService.buscarEventosAvanzado(tipo, pago, destacado);
 }
+
+
+
+
+
 /**
  * 📌 Obtener el número de personas apuntadas por evento (todos).
  * 🔹 Endpoint: GET /api/eventos/apuntados

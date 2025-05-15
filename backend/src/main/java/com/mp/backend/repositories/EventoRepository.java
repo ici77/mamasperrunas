@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -31,5 +32,13 @@ public interface EventoRepository extends JpaRepository<Evento, Long> {
 List<Evento> findByTipoEventoIgnoreCaseAndEsDePagoAndDestacado(
     String tipoEvento, boolean esDePago, boolean destacado
 );
+@Query("SELECT e FROM Evento e " +
+       "WHERE (:tipoEvento IS NULL OR LOWER(e.tipoEvento) = LOWER(:tipoEvento)) " +
+       "AND (:esDePago IS NULL OR e.esDePago = :esDePago) " +
+       "AND (:destacado IS NULL OR e.destacado = :destacado)")
+List<Evento> buscarEventosAvanzado(@Param("tipoEvento") String tipoEvento,
+                                    @Param("esDePago") Boolean esDePago,
+                                    @Param("destacado") Boolean destacado);
+
 
 }
