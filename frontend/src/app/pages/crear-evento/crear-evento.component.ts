@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EventService, Evento } from '../../services/event.service';
+import { RouterModule } from '@angular/router'; 
 
 @Component({
   selector: 'app-crear-evento',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './crear-evento.component.html',
   styleUrls: ['./crear-evento.component.css']
 })
@@ -24,6 +25,40 @@ export class CrearEventoComponent {
   };
 
   constructor(private eventService: EventService, private router: Router) {}
+ categorias = [
+  { tipo: 'celebraciones', nombre: ' Celebraciones', descripcion: 'Fiestas y aniversarios perrunos', imagen: 'uploads/celebraciones.png' },
+  { tipo: 'concursos', nombre: ' Concursos', descripcion: 'Competiciones y talentos caninos', imagen: 'uploads/concurso.png' },
+  { tipo: 'solidarios', nombre: ' Solidarios', descripcion: 'Eventos benéficos y de ayuda', imagen: 'uploads/solidarios.png' },
+  { tipo: 'talleres', nombre: ' Talleres', descripcion: 'Aprende y diviértete con tu mascota', imagen: 'uploads/talleres.png' },
+  { tipo: 'quedadas', nombre: 'Quedadas', descripcion: 'Paseos, grupos y socialización', imagen: 'uploads/quedadas.jpeg' },
+  { tipo: 'miscelanea', nombre: ' Miscelánea', descripcion: 'Otros eventos y actividades variadas', imagen: 'uploads/miscelanea.png' }
+];
+
+tarjetasInformativas = [
+  {
+    titulo: '¿Cómo participar?',
+    imagen: 'uploads/quedadas.jpeg',
+    descripcion: 'Descubre cómo formar parte de los eventos caninos.',
+    link: '/eventos',
+    boton: 'Ver más'
+  },
+  {
+    titulo: 'Únete a la comunidad',
+    imagen: 'uploads/comunidad.png',
+    descripcion: 'Regístrate y accede a todos los beneficios.',
+    link: '/registro',
+    boton: 'Registrarse'
+  },
+  {
+    titulo: 'Eventos solidarios',
+    imagen: 'uploads/solidarios.png',
+    descripcion: 'Apoya causas benéficas y de ayuda animal.',
+    link: '/eventos',
+    boton: 'Ver solidarios'
+  }
+];
+
+
 
   crearEvento(): void {
   if (!this.nuevoEvento.titulo || !this.nuevoEvento.fecha || !this.nuevoEvento.tipoEvento) {

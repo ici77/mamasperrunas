@@ -82,25 +82,73 @@
         </ng-template>
       </div>
 
-      <!-- EVENTOS DESTACADOS -->
-      <section *ngIf="eventosDestacados.length > 0 && !tipoSeleccionado" class="mt-5 mb-4">
-        <h3 class="text-center mb-4">🌟 Eventos Destacados</h3>
-        <div class="row">
-          <div *ngFor="let evento of eventosDestacados" class="col-md-6 col-lg-4 mb-4">
-            <div class="card post-highlight">
-              <img [src]="getImagenUrl(evento.imagenUrl)" class="card-img-top" [alt]="evento.titulo" />
+     <!-- EVENTOS DESTACADOS -->
+<section *ngIf="eventosDestacados.length > 0 && !tipoSeleccionado" class="mt-5 mb-4">
+  <h3 class="text-center mb-4">🌟 Eventos Destacados</h3>
+  <div class="row">
+    <div *ngFor="let evento of eventosDestacados" class="col-md-6 col-lg-4 mb-4">
+      <div class="card post-highlight position-relative">
 
-              <div class="card-body">
-                <h5 class="card-title">{{ evento.titulo }}</h5>
-                <p class="card-text">{{ evento.descripcion | slice:0:80 }}...</p>
-                <p class="text-muted small">{{ evento.apuntados || 0 }} personas apuntadas</p>
-                <button class="btn-apuntarme w-100" *ngIf="!evento.yaInscrito" (click)="apuntarse(evento)">🙋 Apuntarme</button>
-                <button class="btn-ya-inscrito w-100" *ngIf="evento.yaInscrito" disabled>✅ Ya estás inscrito</button>
-              </div>
-            </div>
-          </div>
+        <!-- ℹ️ Icono info -->
+        <a [routerLink]="['/evento', evento.id]" class="position-absolute top-0 end-0 p-2 text-dark" title="Ver detalles">
+          <i class="bi bi-info-circle-fill fs-5"></i>
+        </a>
+
+        <!-- Imagen con enlace -->
+        <a [routerLink]="['/evento', evento.id]">
+          <img [src]="getImagenUrl(evento.imagenUrl)" class="card-img-top" [alt]="evento.titulo" />
+        </a>
+
+        <div class="card-body">
+          <h5 class="card-title">
+            <a [routerLink]="['/evento', evento.id]" class="text-decoration-none text-dark">{{ evento.titulo }}</a>
+          </h5>
+
+          <p class="card-text">{{ evento.descripcion | slice: 0: 80 }}...</p>
+          <a [routerLink]="['/evento', evento.id]" class="btn btn-outline-secondary btn-sm mb-2">ℹ️ Leer más</a>
+          <p class="text-muted small">{{ evento.apuntados || 0 }} personas apuntadas</p>
+
+          <button class="btn-apuntarme w-100" *ngIf="!evento.yaInscrito" (click)="apuntarse(evento)">🙋 Apuntarme</button>
+          <button class="btn-ya-inscrito w-100" *ngIf="evento.yaInscrito" disabled>✅ Ya estás inscrito</button>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTOS FILTRADOS -->
+<section *ngIf="tipoSeleccionado && eventos.length > 0" class="mt-5 mb-4">
+  <h3 class="text-center mb-4">📌 {{ nombreCategoriaSeleccionada }}</h3>
+  <div class="row">
+    <div *ngFor="let evento of eventos.slice(0, 9)" class="col-md-6 col-lg-4 mb-4">
+      <div class="card post-highlight position-relative">
+
+        <!-- ℹ️ Icono info -->
+        <a [routerLink]="['/evento', evento.id]" class="position-absolute top-0 end-0 p-2 text-dark" title="Ver detalles">
+          <i class="bi bi-info-circle-fill fs-5"></i>
+        </a>
+
+        <!-- Imagen con enlace -->
+        <a [routerLink]="['/evento', evento.id]">
+          <img [src]="getImagenUrl(evento.imagenUrl)" class="card-img-top" [alt]="evento.titulo" />
+        </a>
+
+        <div class="card-body">
+          <h5 class="card-title">
+            <a [routerLink]="['/evento', evento.id]" class="text-decoration-none text-dark">{{ evento.titulo }}</a>
+          </h5>
+
+          <p class="card-text">{{ evento.descripcion | slice: 0: 80 }}...</p>
+          <a [routerLink]="['/evento', evento.id]" class="btn btn-outline-secondary btn-sm mb-2">ℹ️ Leer más</a>
+          <p class="text-muted small">{{ evento.apuntados || 0 }} personas apuntadas</p>
+
+          <button class="btn-apuntarme w-100" *ngIf="!evento.yaInscrito" (click)="apuntarse(evento)">🙋 Apuntarme</button>
+          <button class="btn-ya-inscrito w-100" *ngIf="evento.yaInscrito" disabled>✅ Ya estás inscrito</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       <!-- CATEGORÍAS VISUALES -->
       <section class="mt-4" *ngIf="!tipoSeleccionado">
@@ -115,33 +163,12 @@
               <div class="card-body">
                 <h5 class="card-title">{{ categoria.nombre }}</h5>
                 <p class="card-text">{{ categoria.descripcion }}</p>
-                <a [routerLink]="['/eventos']" [queryParams]="{ tipo: categoria.tipo }" class="btn-accion">Ver eventos</a>
+                <a [routerLink]="['/eventos']" [queryParams]="{ tipo: categoria.tipo }" class="btn btn-destacado">Ver eventos</a>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- EVENTOS FILTRADOS -->
-      <section *ngIf="tipoSeleccionado && eventos.length > 0" class="mt-5 mb-4">
-        <h3 class="text-center mb-4">📌 {{ nombreCategoriaSeleccionada }}</h3>
-        <div class="row">
-          <div *ngFor="let evento of eventos.slice(0, 9)" class="col-md-6 col-lg-4 mb-4">
-            <div class="card post-highlight">
-              <img [src]="getImagenUrl(evento.imagenUrl)" class="card-img-top" [alt]="evento.titulo" />
-
-              <div class="card-body">
-                <h5 class="card-title">{{ evento.titulo }}</h5>
-                <p class="card-text">{{ evento.descripcion | slice:0:80 }}...</p>
-                <p class="text-muted small">{{ evento.apuntados || 0 }} personas apuntadas</p>
-                <button class="btn-apuntarme w-100" *ngIf="!evento.yaInscrito" (click)="apuntarse(evento)">🙋 Apuntarme</button>
-                <button class="btn-ya-inscrito w-100" *ngIf="evento.yaInscrito" disabled>✅ Ya estás inscrito</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </div>
-</div>
+      
+      

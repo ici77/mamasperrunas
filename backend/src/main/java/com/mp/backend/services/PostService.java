@@ -4,7 +4,8 @@ import com.mp.backend.models.Usuario;
 import com.mp.backend.models.forum.Post;
 import com.mp.backend.repositories.PostRepository;
 import com.mp.backend.repositories.UsuarioRepository;
-
+import com.mp.backend.models.forum.Category;
+import com.mp.backend.repositories.CategoryRepository;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class PostService {
 
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+private CategoryRepository categoryRepository;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -34,6 +37,11 @@ public class PostService {
     public List<Post> getAllPosts() {
         return postRepository.findAll();
     }
+    public Category getCategoryById(Long categoryId) {
+    return categoryRepository.findById(categoryId)
+            .orElseThrow(() -> new IllegalArgumentException("Categoría no encontrada con ID: " + categoryId));
+}
+
 
     public Optional<Post> getPostById(Long id) {
         return postRepository.findById(id);
@@ -115,20 +123,7 @@ public class PostService {
         return false;
     }
 
-    public void addImagesToPost(Long postId, List<String> images) {
-        Optional<Post> optionalPost = postRepository.findById(postId);
-
-        if (optionalPost.isPresent()) {
-            Post post = optionalPost.get();
-
-            if (post.getImageUrls().size() + images.size() > 3) {
-                throw new IllegalArgumentException("Un post no puede tener más de 3 imágenes.");
-            }
-
-            post.getImageUrls().addAll(images);
-            postRepository.save(post);
-        }
-    }
+    
 
     public List<Post> getRandomPostsByCategory(String categoryName, int limit) {
         List<Post> posts = postRepository.findByCategory_Name(categoryName);

@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
-import { AuthGuard } from './guards/auth.guard';  // Importa el guard
+import { AuthGuard } from './guards/auth.guard';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { CategoryPageComponent } from './components/category-page/category-page.component';
 import { ForumGridComponent } from './components/forum-grid/forum-grid.component';
 import { CrearPostComponent } from './pages/crear-post/crear-post.component';
-import { CategoryForoComponent } from './components/category-foro/category-foro.component'; 
+import { CategoryForoComponent } from './components/category-foro/category-foro.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -15,33 +15,46 @@ import { ExpertsComponent } from './pages/blog/experts/experts.component';
 import { NewsComponent } from './pages/blog/news/news.component';
 import { TipsComponent } from './pages/blog/tips/tips.component';
 import { LifeComponent } from './pages/blog/life/life.component';
-import { PostDetailComponent } from './components/post-detail/post-detail.component'; // ✅ Importar el nuevo componente
-import { FormsModule } from '@angular/forms';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { EventosComponent } from './pages/eventos/eventos.component';
 
-
 export const appRoutes: Routes = [
-  { path: '', component: LandingPageComponent }, // Página principal
-  { path: 'products', component: ProductListComponent }, // Página de tienda
-  { path: 'products/:category', component: CategoryPageComponent }, // Subcategorías dentro de tienda
-  { path: 'foro', component: ForumGridComponent }, // Página del foro
-  { path: 'foro/:category', component: CategoryForoComponent }, // ✅ Ruta para cada categoría del foro
-  
+  { path: '', component: LandingPageComponent },
+  { path: 'products', component: ProductListComponent },
+  { path: 'products/:category', component: CategoryPageComponent },
+
+  // 📌 Foro
+  { path: 'foro', component: ForumGridComponent },
+  { path: 'foro/:category', component: CategoryForoComponent },
   { path: 'post/:id', component: PostDetailComponent },
-  { path: 'registro', component: RegistroComponent }, // Ruta para el formulario de registro
-  { path: 'login', component: LoginComponent }, // Ruta de inicio de sesión
-  { path: 'profile', component: ProfileComponent }, // Ruta de perfil del usuario
-  { path: 'razas', component: DogListComponent }, // Ruta para mostrar las razas
+
+  // 📌 Autenticación y usuario
+  { path: 'registro', component: RegistroComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'profile', component: ProfileComponent },
+
+  // 📌 Razas y posts
+  { path: 'razas', component: DogListComponent },
   { path: 'crear-post', component: CrearPostComponent },
+
+  // 📌 Crear evento
   {
-  path: 'crear-evento',
-  loadComponent: () =>
-    import('./pages/crear-evento/crear-evento.component').then(m => m.CrearEventoComponent)
-},
+    path: 'crear-evento',
+    loadComponent: () =>
+      import('./pages/crear-evento/crear-evento.component').then(m => m.CrearEventoComponent)
+  },
 
+  // 📌 Ver detalle de evento
+  {
+    path: 'evento/:id',
+    loadComponent: () =>
+      import('./pages/detalle-evento/detalle-evento.component').then(m => m.DetalleEventoComponent)
+  },
 
+  // 📌 Página de eventos general
+  { path: 'eventos', component: EventosComponent },
 
-  // 📌 Blog y sus secciones, cargando BlogLayoutComponent de forma dinámica
+  // 📌 Blog y secciones
   {
     path: 'blog',
     loadComponent: () =>
@@ -55,12 +68,6 @@ export const appRoutes: Routes = [
     ]
   },
 
-  // 📌 Eventos como sección independiente
-  { path: 'eventos', component: EventosComponent },
-  { path: 'eventos/:id', component: EventosComponent },
-  { path: 'eventos/:id/:category', component: EventosComponent },
-  { path: 'eventos/:id/:category/:subcategory', component: EventosComponent },
-  { path: 'eventos/:id/:category/:subcategory/:subcategory2', component: EventosComponent },
-
+  // ❌ Ruta comodín
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];

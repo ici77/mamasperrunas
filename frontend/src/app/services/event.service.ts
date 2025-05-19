@@ -77,6 +77,14 @@ crearEventoConImagen(formData: FormData): Observable<Evento> {
     observe: 'body'
   });
 }
+getEventoPorId(id: number): Observable<Evento> {
+  return this.http.get<Evento>(`${this.apiUrl}/${id}`);
+}
+getAsistentesEvento(id: number): Observable<{ resumen: string, total: number, nombres: string[] }> {
+  return this.http.get<{ resumen: string, total: number, nombres: string[] }>(`${this.apiUrl}/${id}/asistentes`);
+}
+
+
 
 
 

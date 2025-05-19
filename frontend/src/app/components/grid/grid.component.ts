@@ -31,7 +31,7 @@ export class GridComponent {
       title: 'Agenda de Eventos',
       description: 'Descubre y participa en actividades para tu mascota.',
       image: 'assets/images/landing/eventos.png',
-      link: '/events'
+      link: '/eventos'
     },
     {
       title: 'Servicios ',

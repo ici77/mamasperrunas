@@ -8,14 +8,23 @@ import com.mp.backend.services.PostLikeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import javax.imageio.ImageIO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
+import java.util.List;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
+
 
 @RestController
 @RequestMapping("/api/posts")
@@ -40,7 +49,6 @@ public class PostController {
     @PostMapping("/{postId}/like")
     public ResponseEntity<Map<String, Object>> toggleLike(@PathVariable Long postId) {
         Map<String, Object> response = new HashMap<>();
-
         Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         try {
@@ -57,20 +65,16 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
-    @GetMapping("/{postId}/like/{userId}")
-public ResponseEntity<Boolean> hasUserLiked(@PathVariable Long postId, @PathVariable Long userId) {
-    return ResponseEntity.ok(postLikeService.hasUserLiked(postId, userId));
-}
 
+    @GetMapping("/{postId}/like/{userId}")
+    public ResponseEntity<Boolean> hasUserLiked(@PathVariable Long postId, @PathVariable Long userId) {
+        return ResponseEntity.ok(postLikeService.hasUserLiked(postId, userId));
+    }
 
     // ----------------------- DISLIKE -----------------------
-    @Operation(summary = "Dar o quitar 'No me gusta' a un post", description = "Activa o desactiva el 'No me gusta' de un usuario en un post.")
-    @ApiResponse(responseCode = "200", description = "Estado del dislike actualizado")
-    @ApiResponse(responseCode = "404", description = "Post o usuario no encontrado")
     @PostMapping("/{postId}/dislike")
     public ResponseEntity<Map<String, Object>> toggleDislike(@PathVariable Long postId) {
         Map<String, Object> response = new HashMap<>();
-
         Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         try {
@@ -88,40 +92,79 @@ public ResponseEntity<Boolean> hasUserLiked(@PathVariable Long postId, @PathVari
         }
     }
 
-    // (opcional) Para saber si un usuario ha hecho dislike (mantener si usas en frontend)
     @GetMapping("/{postId}/dislike/{userId}")
     public ResponseEntity<Boolean> hasUserDisliked(@PathVariable Long postId, @PathVariable Long userId) {
         return ResponseEntity.ok(postDislikeService.hasUserDisliked(postId, userId));
     }
 
-    // ----------------------- CREAR POST -----------------------
-    @Operation(summary = "Crear un nuevo post", description = "Permite a un usuario autenticado crear un nuevo post.")
-    @ApiResponse(responseCode = "201", description = "Post creado correctamente")
-    @ApiResponse(responseCode = "403", description = "Acceso denegado: Usuario no autenticado o sin permisos")
+    // ----------------------- CREAR POST SIN IMAGEN -----------------------
     @PostMapping
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
         Post createdPost = postService.createPost(post);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPost);
     }
 
-    // ----------------------- DOWNVOTE (simple contador) -----------------------
-    @Operation(summary = "Votar un post con 'No me gusta'", description = "Aumenta el contador de 'No me gusta' en el post especificado.")
-    @ApiResponse(responseCode = "200", description = "Voto registrado")
-    @ApiResponse(responseCode = "404", description = "Post no encontrado")
-    @PostMapping("/{postId}/downvote")
-    public ResponseEntity<String> downvotePost(@PathVariable Long postId) {
-        postService.downvotePost(postId);
-        return ResponseEntity.ok("✅ Post votado con 'No me gusta'.");
+    // ----------------------- CREAR POST CON IMAGEN REDIMENSIONADA -----------------------
+    @PostMapping("/crear-con-imagen")
+    public ResponseEntity<Post> createPostWithImage(
+            @RequestParam("title") String title,
+            @RequestParam("content") String content,
+            @RequestParam("categoryId") Long categoryId,
+            @RequestParam(value = "imagen", required = false) MultipartFile imagen) {
+
+        try {
+            Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            Post post = new Post();
+            post.setTitle(title);
+            post.setContent(content);
+            post.setUser(usuario);
+            post.setCategory(postService.getCategoryById(categoryId));
+
+            if (imagen != null && !imagen.isEmpty()) {
+                BufferedImage originalImage = ImageIO.read(imagen.getInputStream());
+                BufferedImage resizedImage = resizeImage(originalImage, 800); // máximo ancho
+
+                String filename = UUID.randomUUID() + ".jpg";
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(resizedImage, "jpg", baos);
+
+                byte[] resizedBytes = baos.toByteArray();
+                Path uploadPath = Paths.get("uploads", "forum");
+                Files.createDirectories(uploadPath);
+                Files.write(uploadPath.resolve(filename), resizedBytes);
+
+                post.setImagenUrl("/uploads/forum/" + filename);
+            }
+
+            Post createdPost = postService.createPost(post);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdPost);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
-    // ----------------------- FAVORITOS -----------------------
+    private BufferedImage resizeImage(BufferedImage originalImage, int targetWidth) {
+        int originalWidth = originalImage.getWidth();
+        int originalHeight = originalImage.getHeight();
+        int targetHeight = (targetWidth * originalHeight) / originalWidth;
+
+        BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = resizedImage.createGraphics();
+        g2d.drawImage(originalImage, 0, 0, targetWidth, targetHeight, null);
+        g2d.dispose();
+        return resizedImage;
+    }
+
+    // ----------------------- OTROS ENDPOINTS -----------------------
+
     @PostMapping("/{postId}/favorites")
     public ResponseEntity<String> addToFavorites(@PathVariable Long postId) {
         postService.addToFavorites(postId);
         return ResponseEntity.ok("✅ Post guardado en favoritos.");
     }
 
-    // ----------------------- REPORTAR -----------------------
     @PostMapping("/{postId}/report")
     public ResponseEntity<String> reportPost(@PathVariable Long postId) {
         boolean success = postService.reportPost(postId);
@@ -132,25 +175,12 @@ public ResponseEntity<Boolean> hasUserLiked(@PathVariable Long postId, @PathVari
         }
     }
 
-    // ----------------------- IMÁGENES -----------------------
-    @PostMapping("/{postId}/images")
-    public ResponseEntity<String> addImagesToPost(@PathVariable Long postId, @RequestBody List<String> images) {
-        try {
-            postService.addImagesToPost(postId, images);
-            return ResponseEntity.ok("✅ Imágenes agregadas correctamente.");
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("⚠️ No puedes agregar más de 3 imágenes.");
-        }
-    }
-
-    // ----------------------- ETIQUETAS -----------------------
     @PostMapping("/{postId}/tags")
     public ResponseEntity<String> addTagsToPost(@PathVariable Long postId, @RequestBody Set<String> tags) {
         postService.addTagsToPost(postId, tags);
         return ResponseEntity.ok("✅ Etiquetas agregadas correctamente.");
     }
 
-    // ----------------------- GET POSTS -----------------------
     @GetMapping("/{postId}")
     public ResponseEntity<Map<String, Object>> getPostById(@PathVariable Long postId) {
         Optional<Post> optionalPost = postService.getPostById(postId);
@@ -176,18 +206,13 @@ public ResponseEntity<Boolean> hasUserLiked(@PathVariable Long postId, @PathVari
         return ResponseEntity.ok(topPosts);
     }
 
-    // 🔀 Obtener posts aleatorios por categoría
-@GetMapping("/category/{category}/random")
-public ResponseEntity<List<Post>> getRandomPostsByCategory(
-        @PathVariable String category,
-        @RequestParam(defaultValue = "6") int limit) {
-    List<Post> posts = postService.getRandomPostsByCategory(category, limit);
-    return ResponseEntity.ok(posts);
-}
-
-    
-
-
+    @GetMapping("/category/{category}/random")
+    public ResponseEntity<List<Post>> getRandomPostsByCategory(
+            @PathVariable String category,
+            @RequestParam(defaultValue = "6") int limit) {
+        List<Post> posts = postService.getRandomPostsByCategory(category, limit);
+        return ResponseEntity.ok(posts);
+    }
 
     @GetMapping("/category/{category}/paginated")
     public ResponseEntity<Page<Post>> getPaginatedPosts(

@@ -49,6 +49,15 @@
         <img src="assets/images/categoria-fondo.jpg" alt="Categoría {{ post?.category?.name }}" class="header-image">
         <h1>{{ post?.category?.name | titlecase }}</h1>
       </header>
+      <!-- 📸 Imagen pequeña del post -->
+<div class="d-flex justify-content-center mb-3" *ngIf="post?.imagenUrl">
+  <img 
+    [src]="'http://localhost:8080' + post.imagenUrl"
+    alt="Imagen del post"
+    class="img-thumbnail shadow"
+    style="max-width: 300px; border-radius: 12px;"
+  >
+</div>
 
       <!-- 📌 Contenido del post -->
       <div class="card post-detail">
@@ -73,6 +82,8 @@
       <div *ngIf="errorMessage" class="alert alert-danger mt-3">
         ❌ {{ errorMessage }}
       </div>
+      
+
 
       <!-- 📌 Acciones -->
       <div class="post-actions d-flex flex-wrap align-items-center gap-2 mt-3" *ngIf="!isLoading">

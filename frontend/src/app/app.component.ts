@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { ChatbotComponent } from './components/chatbot/chatbot.component';
 
 /**
  * 📌 Componente `AppComponent`
@@ -16,10 +17,11 @@ import { FooterComponent } from './shared/footer/footer.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent],
+  imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent, ChatbotComponent],
   template: `
     <app-navbar></app-navbar> <!-- Navbar siempre visible -->
     <router-outlet></router-outlet> <!-- Renderiza la ruta activa -->
+    <app-chatbot></app-chatbot>
     <app-footer></app-footer> <!-- Footer siempre visible -->
   `,
   styleUrls: ['./app.component.css'],

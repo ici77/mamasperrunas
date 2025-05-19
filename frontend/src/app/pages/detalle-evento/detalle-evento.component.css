@@ -162,55 +162,38 @@
   color: #555;
 }
 
-/* 🖼 Imagen de cabecera */
-.crear-evento-header {
+/* 🖼 Imagen del detalle del evento */
+.imagen-detalle-evento {
+  max-width: 400px;
   width: 100%;
-  max-width: 100%;
-  margin: 50px auto 20px auto;
-  display: block;
-  border-radius: 15px;
-  max-height: 240px;
-  object-fit: cover;
-}
-
-/* 📋 Formulario Crear Evento */
-.formulario-crear-evento {
-  width: 100%;
-  margin: 0 auto;
-  border: 6px solid var(--verde-profundo);
-  border-radius: 20px;
-  background-color: #fff;
-  padding: 30px;
-}
-
-.formulario-crear-evento label {
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.preview-image {
-  max-width: 180px;
   height: auto;
-  border-radius: 5px;
-  margin-top: 10px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-}
-
-.btn-crear-evento {
   display: block;
-  margin: 0 auto;
-  background-color: var(--verde-profundo);
-  color: white;
-  border: none;
+  margin: 40px auto 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 📦 Caja de información del detalle de evento */
+.detalle-evento-info {
+  max-width: 800px;
+  margin: 0 auto 40px auto;
+  background-color: #fff !important;
+  padding: 30px !important;
+  border: 4px solid var(--verde-profundo) !important;  
+  border-radius: 20px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+
+.btn-success,
+.btn-outline-success {
+  font-size: 1.1rem;
   padding: 10px 25px;
-  border-radius: 6px;
-  font-size: 1.2rem;
-  transition: background 0.3s ease;
+  border-radius: 8px;
 }
 
-.btn-crear-evento:hover {
-  background-color: #2e5e1c;
-  transform: scale(1.05);
+.btn-outline-success {
+  background-color: white;
+  color: var(--verde-profundo);
+  border: 2px solid var(--verde-profundo);
 }
-
-

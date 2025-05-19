@@ -41,6 +41,10 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/posts/category/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/categories").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/replies/post/**").permitAll()
+                
+    .requestMatchers("/api/posts/crear-con-imagen").authenticated()
+   
+
 
                 // Swagger (documentación)
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()

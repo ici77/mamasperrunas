@@ -1,0 +1,26 @@
+<!-- BURBUJA flotante del asistente -->
+<div class="chatbot-bubble" (click)="toggleChat()">
+  <div class="chatbot-message" *ngIf="showWelcomeMessage">
+    Hola, soy tu asistente. ¿En qué puedo ayudarte?
+  </div>
+  <img src="assets/images/avatar.png" alt="Asistente" class="avatar-icon" />
+</div>
+
+<!-- VENTANA emergente del chat -->
+<div class="chatbot-window" *ngIf="isChatOpen">
+  <div class="chatbot-header">
+    🐾 Asistente virtual
+    <span class="close-btn" (click)="toggleChat()">×</span>
+  </div>
+
+  <div class="chatbot-messages">
+    <div *ngFor="let msg of messages" [ngClass]="msg.sender">
+      {{ msg.text }}
+    </div>
+  </div>
+
+  <div class="chatbot-input">
+    <input type="text" [(ngModel)]="userMessage" (keydown.enter)="sendMessage()" placeholder="Escribe tu mensaje..." />
+    <button (click)="sendMessage()">Enviar</button>
+  </div>
+</div>

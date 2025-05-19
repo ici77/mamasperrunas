@@ -16,103 +16,78 @@ export class CrearPostComponent implements OnInit {
   post = {
     title: '',
     content: '',
-    category: { id: null },  // ✅ Debe ser un objeto con "id"
-    user: { id: null },  // ✅ Debe ser un objeto con "id"
-    tags: [],
-    imageUrls: []
+    category: { id: null },
+    tags: []
   };
-  
 
-  categories: any[] = []; // ✅ Lista de categorías disponibles
+  imagenSeleccionada: File | null = null;
+  categories: any[] = [];
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit() {
     this.loadCategories();
-    this.loadUserData(); // ✅ Obtener usuario autenticado
   }
 
   loadCategories() {
-    const token = this.authService.getToken(); // ✅ Obtener el token del AuthService
-  
+    const token = this.authService.getToken();
     if (!token) {
-      console.error('⚠️ No hay token de autenticación. No se pueden cargar las categorías.');
+      console.error('⚠️ No hay token de autenticación.');
       return;
     }
-  
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); // ✅ Agregar token en la cabecera
-  
-    this.http.get<any[]>('http://localhost:8080/api/categories', { headers }).subscribe({
-      next: (data) => {
-        console.log('✅ Categorías cargadas:', data); // 🛠️ Depuración en consola
-        this.categories = data;
-      },
-      error: (err) => {
-        console.error('❌ Error al cargar las categorías:', err);
-        if (err.status === 403) {
-          console.error('⛔ Acceso denegado: Verifica que el usuario esté autenticado y tenga permisos.');
-        }
-      }
-    });
-  }
-  
-  /**
-   * 📌 Obtener los datos del usuario autenticado y asociarlo al post
-   */
-  loadUserData() {
-    const user = this.authService.getUserData();
-    if (user) {
-      this.post.user = { id: user.id }; // ✅ Asegurar que el usuario tenga el formato correcto
-      console.log('✅ Usuario autenticado:', this.post.user);
-    } else {
-      console.error("❌ No se pudo obtener el usuario autenticado.");
-    }
-  }
-  
-  submitPost() {
-    const token = this.authService.getToken(); // ✅ Obtener el token de autenticación
-  
-    if (!token) {
-      console.error('⚠️ No hay token de autenticación. No se puede crear el post.');
-      alert('Por favor, inicia sesión para crear un post.');
-      return;
-    }
-  
-    // ✅ Convertir `categoryId` en objeto `{ id: categoryId }`
-    const formattedPost = {
-      title: this.post.title,
-      content: this.post.content,
-      category: { id: this.post.category.id}, // ✅ Se ajusta al formato esperado
-      user: { id: this.post.user.id }, // ✅ Se ajusta al formato esperado
-      tags: this.post.tags || [], // Si no hay tags, enviar un array vacío
-      imageUrls: this.post.imageUrls || [] // Si no hay imágenes, enviar un array vacío
-    };
-  
-    console.log('📢 Datos del Post a Enviar:', formattedPost); // ✅ Verificación en consola
-  
+
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  
-    this.http.post('http://localhost:8080/api/posts', formattedPost, { headers }).subscribe({
+    this.http.get<any[]>('http://localhost:8080/api/categories', { headers })
+      .subscribe({
+        next: (data) => this.categories = data,
+        error: (err) => console.error('❌ Error al cargar categorías:', err)
+      });
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.imagenSeleccionada = file;
+      console.log('📸 Imagen seleccionada:', file);
+    }
+  }
+
+  submitPost() {
+  const token = this.authService.getToken();
+  if (!token) {
+    alert('⚠️ Inicia sesión para crear un post.');
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('title', this.post.title);
+  formData.append('content', this.post.content);
+
+  // ✅ Validar categoría seleccionada
+  if (this.post.category.id !== null) {
+    formData.append('categoryId', String(this.post.category.id));
+
+  } else {
+    alert('⚠️ Debes seleccionar una categoría.');
+    return;
+  }
+
+  // ✅ Adjuntar imagen si fue seleccionada
+  if (this.imagenSeleccionada) {
+    formData.append('imagen', this.imagenSeleccionada);
+  }
+
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+  this.http.post('http://localhost:8080/api/posts/crear-con-imagen', formData, { headers })
+    .subscribe({
       next: () => alert('✅ Post creado correctamente'),
       error: (err) => {
-        console.error('❌ Error al crear el post:', err);
-        if (err.status === 403) {
-          alert('⛔ Acceso denegado: Verifica que estés autenticado y tengas permisos.');
-        } else {
-          alert('❌ Hubo un error al crear el post. Por favor, inténtalo de nuevo.');
-        }
+        console.error('❌ Error al crear post:', err);
+        alert('❌ Hubo un error al crear el post.');
       }
     });
-  }
-  
-
-  /**
-   * 📌 Manejo de imágenes
-   */
-  onFileSelected(event: any) {
-    const files = event.target.files;
-    console.log('📸 Imágenes seleccionadas:', files);
-  }
+}
 
   applyFormat(command: string) {
     document.execCommand(command, false);

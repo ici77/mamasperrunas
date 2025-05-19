@@ -41,12 +41,29 @@ public class EventoController {
         return ResponseEntity.ok(eventoService.obtenerTodosLosEventos());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> obtenerEventoPorId(@PathVariable Long id) {
-        return eventoService.obtenerEventoPorId(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+   @GetMapping("/{id}")
+public ResponseEntity<?> obtenerEventoPorId(@PathVariable Long id) {
+    Optional<Evento> eventoOpt = eventoService.obtenerEventoPorId(id);
+
+    if (eventoOpt.isEmpty()) {
+        return ResponseEntity.notFound().build();
     }
+
+    Evento evento = eventoOpt.get();
+
+    // 👤 Intentar obtener el usuario autenticado
+    String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
+
+    if (usuarioOpt.isPresent()) {
+        Usuario usuario = usuarioOpt.get();
+        boolean yaInscrito = usuarioEventoService.estaInscrito(usuario, evento);
+        evento.setYaInscrito(yaInscrito); // ✅ Actualiza el evento con el estado de inscripción
+    }
+
+    return ResponseEntity.ok(evento);
+}
+
 @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 public ResponseEntity<?> crearEventoConImagen(
     @RequestPart("evento") Evento evento,
@@ -193,13 +210,29 @@ public ResponseEntity<?> crearEventoConImagen(
     }
 
     @GetMapping("/buscar")
-    public List<Evento> buscarEventos(
-        @RequestParam(required = false) String tipo,
-        @RequestParam(required = false) String pago,
-        @RequestParam(required = false) Boolean destacado
-    ) {
-        return eventoService.buscarEventosAvanzado(tipo, pago, destacado);
+public ResponseEntity<List<Evento>> buscarEventos(
+    @RequestParam(required = false) String tipo,
+    @RequestParam(required = false) String pago,
+    @RequestParam(required = false) Boolean destacado
+) {
+    List<Evento> eventos = eventoService.buscarEventosAvanzado(tipo, pago, destacado);
+
+    String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
+
+    if (usuarioOpt.isPresent()) {
+        Usuario usuario = usuarioOpt.get();
+        for (Evento evento : eventos) {
+            boolean yaInscrito = usuarioEventoService.estaInscrito(usuario, evento);
+            evento.setYaInscrito(yaInscrito);
+
+            
+        }
     }
+
+    return ResponseEntity.ok(eventos);
+}
+
 
     @GetMapping("/apuntados")
     public ResponseEntity<Map<Long, Integer>> obtenerConteoApuntados() {

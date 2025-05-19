@@ -80,9 +80,12 @@
           <textarea id="contenido" [(ngModel)]="post.content" name="content" class="form-control" placeholder="Escribe tu mensaje aquí..." required></textarea>
         </div>
 
-        <!-- 📌 Subida de Imágenes -->
-        <label for="imagen">Adjuntar imágenes</label>
-        <input type="file" id="imagen" (change)="onFileSelected($event)" accept="image/*" multiple class="form-control">
+       <!-- 📸 Selector de imagen -->
+<div class="mb-3">
+  <label for="imagen" class="form-label">Imagen del post</label>
+  <input type="file" id="imagen" (change)="onFileSelected($event)" class="form-control" accept="image/*">
+</div>
+
 
         <button class="btn btn-primary" type="submit">
           📝 Publicar Post

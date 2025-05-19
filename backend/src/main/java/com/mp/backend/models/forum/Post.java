@@ -74,10 +74,10 @@ public class Post {
     @Schema(description = "Usuarios que han denunciado este post")
     private Set<Usuario> reportedByUsers = new HashSet<>();
 
-    /** 📌 Nueva funcionalidad: Lista de URLs de imágenes asociadas al post (máximo 3) */
-    @ElementCollection
-    @Schema(description = "Lista de URLs de imágenes asociadas al post (máximo 3)")
-    private List<String> imageUrls;
+    
+   /** 📌 Imagen única asociada al post */
+@Schema(description = "URL de la imagen asociada al post")
+private String imagenUrl;
 
     /** 📌 Nueva funcionalidad: Sistema de etiquetas (tags) para mejorar la búsqueda y clasificación */
     @ElementCollection

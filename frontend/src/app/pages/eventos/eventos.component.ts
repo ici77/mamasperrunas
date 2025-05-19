@@ -22,12 +22,12 @@ export class EventosComponent implements OnInit {
   userId: number | null = null;
 
   categorias = [
-  { tipo: 'celebraciones', nombre: '🎉 Celebraciones', descripcion: 'Fiestas y aniversarios perrunos', imagen: 'uploads/celebraciones.png' },
-  { tipo: 'concursos', nombre: '🏆 Concursos', descripcion: 'Competiciones y talentos caninos', imagen: 'uploads/concurso.png' },
-  { tipo: 'solidarios', nombre: '❤️ Solidarios', descripcion: 'Eventos benéficos y de ayuda', imagen: 'uploads/solidarios.png' },
-  { tipo: 'talleres', nombre: '🧠 Talleres', descripcion: 'Aprende y diviértete con tu mascota', imagen: 'uploads/talleres.png' },
-  { tipo: 'quedadas', nombre: '🌳 Quedadas', descripcion: 'Paseos, grupos y socialización', imagen: 'uploads/quedadas.jpeg' },
-  { tipo: 'miscelanea', nombre: '🧩 Miscelánea', descripcion: 'Otros eventos y actividades variadas', imagen: 'uploads/miscelanea.png' }
+  { tipo: 'celebraciones', nombre: ' Celebraciones', descripcion: 'Fiestas y aniversarios perrunos', imagen: 'uploads/celebraciones.png' },
+  { tipo: 'concursos', nombre: ' Concursos', descripcion: 'Competiciones y talentos caninos', imagen: 'uploads/concurso.png' },
+  { tipo: 'solidarios', nombre: ' Solidarios', descripcion: 'Eventos benéficos y de ayuda', imagen: 'uploads/solidarios.png' },
+  { tipo: 'talleres', nombre: ' Talleres', descripcion: 'Aprende y diviértete con tu mascota', imagen: 'uploads/talleres.png' },
+  { tipo: 'quedadas', nombre: ' Quedadas', descripcion: 'Paseos, grupos y socialización', imagen: 'uploads/quedadas.jpeg' },
+  { tipo: 'miscelanea', nombre: ' Miscelánea', descripcion: 'Otros eventos y actividades variadas', imagen: 'uploads/miscelanea.png' }
 ];
 
 
@@ -82,14 +82,20 @@ export class EventosComponent implements OnInit {
   }
 
   filtrarEventos(): void {
-    const tipo = this.tipoSeleccionado || '';
-    const pago = this.esDePagoSeleccionado || 'todos';
-    const destacado = this.soloDestacados;
+  const tipo = this.tipoSeleccionado || '';
+  const pago = this.esDePagoSeleccionado || 'todos';
+  const destacado = this.soloDestacados;
 
-    this.eventService.buscarEventos(tipo, pago, destacado).subscribe(eventos => {
-      this.eventos = eventos;
+  this.eventService.buscarEventos(tipo, pago, destacado).subscribe(eventos => {
+    this.eventService.getConteoApuntados().subscribe(conteo => {
+      this.eventos = eventos.map(evento => ({
+        ...evento,
+        apuntados: conteo[evento.id] || 0
+      }));
     });
-  }
+  });
+}
+
 
   apuntarse(evento: Evento): void {
     if (!this.isLoggedIn) {
