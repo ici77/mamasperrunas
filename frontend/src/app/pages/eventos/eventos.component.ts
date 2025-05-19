@@ -22,13 +22,14 @@ export class EventosComponent implements OnInit {
   userId: number | null = null;
 
   categorias = [
-    { tipo: 'celebraciones', nombre: '🎉 Celebraciones', descripcion: 'Fiestas y aniversarios perrunos', imagen: 'assets/images/eventos/celebraciones.png' },
-    { tipo: 'concursos', nombre: '🏆 Concursos', descripcion: 'Competiciones y talentos caninos', imagen: 'assets/images/eventos/concurso.png' },
-    { tipo: 'solidarios', nombre: '❤️ Solidarios', descripcion: 'Eventos benéficos y de ayuda', imagen: 'assets/images/eventos/solidarios.png' },
-    { tipo: 'talleres', nombre: '🧠 Talleres', descripcion: 'Aprende y diviértete con tu mascota', imagen: 'assets/images/eventos/talleres.png' },
-    { tipo: 'quedadas', nombre: '🌳 Quedadas', descripcion: 'Paseos, grupos y socialización', imagen: 'assets/images/eventos/quedadas.jpeg' },
-    { tipo: 'miscelanea', nombre: '🧩 Miscelánea', descripcion: 'Otros eventos y actividades variadas', imagen: 'assets/images/eventos/miscelanea.png' }
-  ];
+  { tipo: 'celebraciones', nombre: '🎉 Celebraciones', descripcion: 'Fiestas y aniversarios perrunos', imagen: 'uploads/celebraciones.png' },
+  { tipo: 'concursos', nombre: '🏆 Concursos', descripcion: 'Competiciones y talentos caninos', imagen: 'uploads/concurso.png' },
+  { tipo: 'solidarios', nombre: '❤️ Solidarios', descripcion: 'Eventos benéficos y de ayuda', imagen: 'uploads/solidarios.png' },
+  { tipo: 'talleres', nombre: '🧠 Talleres', descripcion: 'Aprende y diviértete con tu mascota', imagen: 'uploads/talleres.png' },
+  { tipo: 'quedadas', nombre: '🌳 Quedadas', descripcion: 'Paseos, grupos y socialización', imagen: 'uploads/quedadas.jpeg' },
+  { tipo: 'miscelanea', nombre: '🧩 Miscelánea', descripcion: 'Otros eventos y actividades variadas', imagen: 'uploads/miscelanea.png' }
+];
+
 
   get nombreCategoriaSeleccionada(): string {
     const categoria = this.categorias.find(c => c.tipo === this.tipoSeleccionado);
@@ -74,13 +75,8 @@ export class EventosComponent implements OnInit {
       this.eventService.getConteoApuntados().subscribe(conteo => {
         this.eventosDestacados = eventos.map(evento => ({
           ...evento,
-          apuntados: conteo[evento.id] || 0,
-          yaInscrito: false
+          apuntados: conteo[evento.id] || 0
         }));
-
-        if (this.isLoggedIn) {
-          this.verificarInscripciones(this.eventosDestacados);
-        }
       });
     });
   }
@@ -91,39 +87,26 @@ export class EventosComponent implements OnInit {
     const destacado = this.soloDestacados;
 
     this.eventService.buscarEventos(tipo, pago, destacado).subscribe(eventos => {
-      this.eventos = eventos.map(e => ({ ...e, yaInscrito: false }));
-      if (this.isLoggedIn) {
-        this.verificarInscripciones(this.eventos);
-      }
+      this.eventos = eventos;
     });
   }
 
   apuntarse(evento: Evento): void {
-  if (!this.isLoggedIn) {
-    this.irALogin();
-    return;
-  }
-
-  this.eventService.apuntarseAEvento(evento).subscribe({
-    next: (res) => {
-  evento.yaInscrito = true;
-  evento.apuntados = (evento.apuntados || 0) + 1;
-  alert(res.mensaje); // ← lee el mensaje del backend
-},
-    error: (err) => {
-      console.error('❌ Error al apuntarse:', err);
-      alert('⚠️ Ocurrió un error al apuntarte. Revisa tu conexión o inicia sesión de nuevo.');
+    if (!this.isLoggedIn) {
+      this.irALogin();
+      return;
     }
-  });
-}
 
-
-
-  verificarInscripciones(lista: Evento[]): void {
-    lista.forEach(evento => {
-      this.eventService.estaInscrito(evento.id).subscribe(res => {
-        evento.yaInscrito = res === true;
-      });
+    this.eventService.apuntarseAEvento(evento).subscribe({
+      next: (res) => {
+        evento.yaInscrito = true;
+        evento.apuntados = (evento.apuntados || 0) + 1;
+        alert(res.mensaje); // ← mensaje del backend
+      },
+      error: (err) => {
+        console.error('❌ Error al apuntarse:', err);
+        alert('⚠️ Ocurrió un error al apuntarte. Revisa tu conexión o inicia sesión de nuevo.');
+      }
     });
   }
 
@@ -151,29 +134,43 @@ export class EventosComponent implements OnInit {
       return null;
     }
   }
+  getImagenUrl(imagenUrl: string): string {
+  if (!imagenUrl) return 'assets/images/eventos/default.jpg'; // imagen por defecto si no hay
 
-  tarjetasInformativas = [
-    {
-      titulo: '¿Cómo participar?',
-      imagen: 'assets/images/eventos/quedadas.jpeg',
-      descripcion: 'Descubre cómo formar parte de los eventos caninos.',
-      link: '/eventos',
-      boton: 'Ver más'
-    },
-    {
-  titulo: 'Únete a la comunidad',
-  imagen: 'assets/images/eventos/comunidad.png', 
-  descripcion: 'Regístrate y accede a todos los beneficios.',
-  link: '/registro',
-  boton: 'Registrarse'
+  if (imagenUrl.startsWith('http')) {
+    return imagenUrl;
+  }
+
+  // Asegura que empiece con '/'
+  const ruta = imagenUrl.startsWith('/') ? imagenUrl : '/' + imagenUrl;
+  return 'http://localhost:8080' + ruta;
 }
-,
-    {
-      titulo: 'Eventos solidarios',
-      imagen: 'assets/images/eventos/solidarios.png',
-      descripcion: 'Apoya causas benéficas y de ayuda animal.',
-      link: '/eventos',
-      boton: 'Ver solidarios'
-    }
-  ];
+
+  
+
+
+ tarjetasInformativas = [
+  {
+    titulo: '¿Cómo participar?',
+    imagen: 'uploads/quedadas.jpeg',
+    descripcion: 'Descubre cómo formar parte de los eventos caninos.',
+    link: '/eventos',
+    boton: 'Ver más'
+  },
+  {
+    titulo: 'Únete a la comunidad',
+    imagen: 'uploads/comunidad.png',
+    descripcion: 'Regístrate y accede a todos los beneficios.',
+    link: '/registro',
+    boton: 'Registrarse'
+  },
+  {
+    titulo: 'Eventos solidarios',
+    imagen: 'uploads/solidarios.png',
+    descripcion: 'Apoya causas benéficas y de ayuda animal.',
+    link: '/eventos',
+    boton: 'Ver solidarios'
+  }
+];
+
 }

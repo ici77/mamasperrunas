@@ -33,6 +33,13 @@ export const appRoutes: Routes = [
   { path: 'profile', component: ProfileComponent }, // Ruta de perfil del usuario
   { path: 'razas', component: DogListComponent }, // Ruta para mostrar las razas
   { path: 'crear-post', component: CrearPostComponent },
+  {
+  path: 'crear-evento',
+  loadComponent: () =>
+    import('./pages/crear-evento/crear-evento.component').then(m => m.CrearEventoComponent)
+},
+
+
 
   // 📌 Blog y sus secciones, cargando BlogLayoutComponent de forma dinámica
   {

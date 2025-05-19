@@ -210,4 +210,15 @@ public void setTipoEvento(String tipoEvento) {
     public void setImagenUrl(String imagenUrl) {
         this.imagenUrl = imagenUrl;
     }
+    @Transient // No se guarda en la base de datos
+private boolean yaInscrito;
+
+public boolean isYaInscrito() {
+    return yaInscrito;
+}
+
+public void setYaInscrito(boolean yaInscrito) {
+    this.yaInscrito = yaInscrito;
+}
+
 }

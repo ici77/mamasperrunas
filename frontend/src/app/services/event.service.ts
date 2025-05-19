@@ -64,4 +64,21 @@ export class EventService {
   estaInscrito(eventoId: number): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/${eventoId}/esta-inscrito`);
   }
+
+  // ✅ Crear evento sin imagen (formato JSON plano)
+  crearEvento(evento: Partial<Evento>): Observable<any> {
+    return this.http.post(`${this.apiUrl}`, evento);
+  }
+
+  // ✅ Crear evento CON imagen (formato multipart/form-data)
+crearEventoConImagen(formData: FormData): Observable<Evento> {
+  return this.http.post<Evento>(this.apiUrl, formData, {
+    reportProgress: false,
+    observe: 'body'
+  });
+}
+
+
+
+
 }

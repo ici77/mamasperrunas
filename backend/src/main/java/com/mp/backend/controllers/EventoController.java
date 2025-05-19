@@ -7,20 +7,19 @@ import com.mp.backend.services.EventoService;
 import com.mp.backend.services.UsuarioEventoService;
 import com.mp.backend.repositories.UsuarioRepository;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * 📌 Controlador `EventoController`
- *
- * Maneja las solicitudes HTTP relacionadas con los eventos.
- */
 @RestController
 @RequestMapping("/api/eventos")
 public class EventoController {
@@ -37,73 +36,88 @@ public class EventoController {
         this.usuarioRepository = usuarioRepository;
     }
 
-    /**
-     * 📌 Obtener todos los eventos.
-     * 🔹 Endpoint: GET /api/eventos
-     */
     @GetMapping
     public ResponseEntity<List<Evento>> listarEventos() {
         return ResponseEntity.ok(eventoService.obtenerTodosLosEventos());
     }
 
-    /**
-     * 📌 Obtener un evento por su ID.
-     * 🔹 Endpoint: GET /api/eventos/{id}
-     */
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerEventoPorId(@PathVariable Long id) {
         return eventoService.obtenerEventoPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+public ResponseEntity<?> crearEventoConImagen(
+    @RequestPart("evento") Evento evento,
+    @RequestPart(value = "imagen", required = false) MultipartFile imagen
+) {
+    String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
 
-    /**
-     * 📌 Crear un nuevo evento.
-     * 🔹 Endpoint: POST /api/eventos
-     * 🔐 Requiere autenticación
-     */
-    @PostMapping
-    public ResponseEntity<Evento> crearEvento(@RequestBody Evento evento) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (!(principal instanceof Usuario)) {
-            return ResponseEntity.status(403).build();
+    if (usuarioOpt.isEmpty()) {
+        return ResponseEntity.status(403).body("Usuario no autorizado");
+    }
+
+    Usuario usuario = usuarioOpt.get();
+    evento.setUsuario(usuario);
+
+    // Guardar imagen si existe
+    if (imagen != null && !imagen.isEmpty()) {
+        try {
+            String nombreArchivo = System.currentTimeMillis() + "_" + imagen.getOriginalFilename();
+
+            // 📁 Ruta absoluta: dentro del proyecto/backend/uploads
+            String rutaCarpeta = System.getProperty("user.dir") + File.separator + "uploads";
+            File carpeta = new File(rutaCarpeta);
+            if (!carpeta.exists()) carpeta.mkdirs();
+
+            // 📄 Ruta completa del archivo a guardar
+            String rutaArchivo = rutaCarpeta + File.separator + nombreArchivo;
+            imagen.transferTo(new File(rutaArchivo));
+
+            // Guarda la ruta relativa para usarla en el frontend si es necesario
+            evento.setImagenUrl("uploads/" + nombreArchivo);
+        } catch (IOException | IllegalStateException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Error al guardar imagen");
         }
-
-        Evento nuevoEvento = eventoService.guardarEvento(evento);
-        return ResponseEntity.ok(nuevoEvento);
     }
 
-    /**
-     * 📌 Apuntar al usuario autenticado a un evento.
-     * 🔹 Endpoint: POST /api/eventos/{id}/apuntarse
-     * 🔐 Requiere autenticación
-     */
-   @PostMapping("/{id}/apuntarse")
-public ResponseEntity<?> apuntarseAEvento(@PathVariable Long id) {
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-    if (!(principal instanceof Usuario usuario)) {
-        return ResponseEntity.status(403).body("Usuario no válido");
-    }
-
-    Optional<Evento> eventoOptional = eventoService.obtenerEventoPorId(id);
-    if (eventoOptional.isEmpty()) {
-        return ResponseEntity.notFound().build();
-    }
-
-    Evento evento = eventoOptional.get();
-    usuarioEventoService.apuntarseAEvento(usuario, evento);
-
-    return ResponseEntity.ok(Map.of("mensaje", "✅ Te has apuntado al evento correctamente."));
-
+    Evento guardado = eventoService.guardarEvento(evento);
+    return ResponseEntity.ok(guardado);
 }
 
 
-    /**
-     * 📌 Obtener resumen y lista completa de asistentes a un evento.
-     * 🔹 Endpoint: GET /api/eventos/{id}/asistentes
-     * 🔓 Público
-     */
+
+    @PostMapping("/{id}/apuntarse")
+    public ResponseEntity<?> apuntarseAEvento(@PathVariable Long id) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(email);
+
+        if (usuarioOptional.isEmpty()) {
+            return ResponseEntity.status(403).body(Map.of("error", "Usuario no encontrado"));
+        }
+
+        Usuario usuario = usuarioOptional.get();
+        Optional<Evento> eventoOptional = eventoService.obtenerEventoPorId(id);
+
+        if (eventoOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Evento evento = eventoOptional.get();
+
+        boolean yaInscrito = usuarioEventoService.estaInscrito(usuario, evento);
+        if (yaInscrito) {
+            return ResponseEntity.ok(Map.of("mensaje", "ℹ️ Ya estabas apuntado a este evento.", "yaInscrito", true));
+        }
+
+        usuarioEventoService.apuntarseAEvento(usuario, evento);
+
+        return ResponseEntity.ok(Map.of("mensaje", "✅ Te has apuntado al evento correctamente.", "yaInscrito", true));
+    }
+
     @GetMapping("/{id}/asistentes")
     public ResponseEntity<?> obtenerResumenYListaAsistentes(@PathVariable Long id) {
         Optional<Evento> eventoOptional = eventoService.obtenerEventoPorId(id);
@@ -113,7 +127,6 @@ public ResponseEntity<?> apuntarseAEvento(@PathVariable Long id) {
         }
 
         Evento evento = eventoOptional.get();
-
         List<UsuarioEvento> inscripciones = usuarioEventoService.obtenerAsistentesPorEvento(evento);
         List<String> nombres = inscripciones.stream()
                 .map(inscripcion -> inscripcion.getUsuario().getNombre())
@@ -132,55 +145,64 @@ public ResponseEntity<?> apuntarseAEvento(@PathVariable Long id) {
             resumen = nombres.get(0) + ", " + nombres.get(1) + " y " + (total - 2) + " más asistirán al evento.";
         }
 
-        return ResponseEntity.ok(
-                Map.of(
-                        "resumen", resumen,
-                        "total", total,
-                        "nombres", nombres
-                )
-        );
+        return ResponseEntity.ok(Map.of("resumen", resumen, "total", total, "nombres", nombres));
     }
 
-    /**
-     * 📌 Obtener eventos destacados.
-     * 🔹 Endpoint: GET /api/eventos/destacados
-     * 🔓 Público
-     */
     @GetMapping("/destacados")
     public ResponseEntity<List<Evento>> obtenerEventosDestacados() {
-        return ResponseEntity.ok(eventoService.obtenerEventosDestacados());
+        List<Evento> destacados = eventoService.obtenerEventosDestacados();
+
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
+
+        if (usuarioOpt.isPresent()) {
+            Usuario usuario = usuarioOpt.get();
+            for (Evento evento : destacados) {
+                boolean yaInscrito = usuarioEventoService.estaInscrito(usuario, evento);
+                evento.setYaInscrito(yaInscrito);
+            }
+        }
+
+        return ResponseEntity.ok(destacados);
     }
+
+    @PostMapping("/upload-imagen")
+    public ResponseEntity<?> subirImagen(@RequestParam("file") MultipartFile file) {
+        try {
+            String nombreArchivo = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+            String ruta = "uploads/" + nombreArchivo;
+
+            File carpeta = new File("uploads");
+            if (!carpeta.exists()) carpeta.mkdirs();
+
+            file.transferTo(new File(ruta));
+            return ResponseEntity.ok(Map.of("url", ruta));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Map.of("error", "Error al subir imagen"));
+        }
+    }
+
     @GetMapping("/tipo/{tipo}")
-public ResponseEntity<List<Evento>> eventosPorTipo(@PathVariable String tipo) {
-    return ResponseEntity.ok(eventoService.obtenerEventosPorTipo(tipo));
-}
-@GetMapping("/pago/{pago}")
-public ResponseEntity<List<Evento>> eventosPorPago(@PathVariable boolean pago) {
-    return ResponseEntity.ok(eventoService.obtenerEventosPorPago(pago));
-}
-@GetMapping("/buscar")
-public List<Evento> buscarEventos(
-    @RequestParam(required = false) String tipo,
-    @RequestParam(required = false) String pago,
-    @RequestParam(required = false) Boolean destacado
-) {
-    return eventoService.buscarEventosAvanzado(tipo, pago, destacado);
-}
+    public ResponseEntity<List<Evento>> eventosPorTipo(@PathVariable String tipo) {
+        return ResponseEntity.ok(eventoService.obtenerEventosPorTipo(tipo));
+    }
 
+    @GetMapping("/pago/{pago}")
+    public ResponseEntity<List<Evento>> eventosPorPago(@PathVariable boolean pago) {
+        return ResponseEntity.ok(eventoService.obtenerEventosPorPago(pago));
+    }
 
+    @GetMapping("/buscar")
+    public List<Evento> buscarEventos(
+        @RequestParam(required = false) String tipo,
+        @RequestParam(required = false) String pago,
+        @RequestParam(required = false) Boolean destacado
+    ) {
+        return eventoService.buscarEventosAvanzado(tipo, pago, destacado);
+    }
 
-
-
-/**
- * 📌 Obtener el número de personas apuntadas por evento (todos).
- * 🔹 Endpoint: GET /api/eventos/apuntados
- * 🔓 Público
- */
-@GetMapping("/apuntados")
-public ResponseEntity<Map<Long, Integer>> obtenerConteoApuntados() {
-    return ResponseEntity.ok(eventoService.contarUsuariosPorEvento());
-}
-
-
-
+    @GetMapping("/apuntados")
+    public ResponseEntity<Map<Long, Integer>> obtenerConteoApuntados() {
+        return ResponseEntity.ok(eventoService.contarUsuariosPorEvento());
+    }
 }

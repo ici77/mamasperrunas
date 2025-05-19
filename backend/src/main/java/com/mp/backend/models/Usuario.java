@@ -1,91 +1,63 @@
 package com.mp.backend.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.Email;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.Collections;
 
 /**
- * 📌 **Entidad Usuario**
- * 
- * Representa a un usuario dentro del sistema. Cada usuario tiene un nombre, 
- * email, contraseña encriptada, foto de perfil y un rol determinado.
- * 
- * 🔹 **Anotaciones JPA**:
- * - `@Entity`: Define la clase como una entidad JPA.
- * - `@Table(name = "usuarios")`: Especifica la tabla en la base de datos.
- * 
- * 🔹 **Validaciones**:
- * - `@NotBlank`: El campo no puede estar vacío.
- * - `@Size`: Define restricciones de longitud en los campos.
- * - `@Email`: Valida que el email tenga un formato correcto.
- * 
- * 🔹 **Valores por defecto**:
- * - El rol por defecto es `"USER"`.
+ * 📌 Entidad Usuario
  */
 @Entity
 @Table(name = "usuarios")
-public class Usuario {
+public class Usuario implements UserDetails {
 
-    /** Identificador único del usuario (clave primaria). */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /** Nombre del usuario (obligatorio, entre 2 y 50 caracteres). */
     @NotBlank(message = "El nombre es obligatorio")
     @Size(min = 2, max = 50, message = "El nombre debe tener entre 2 y 50 caracteres")
     @Column(nullable = false)
     private String nombre;
 
-    /** Correo electrónico del usuario (único y obligatorio). */
     @NotBlank(message = "El email es obligatorio")
     @Email(message = "Debe proporcionar un email válido")
     @Column(unique = true, nullable = false)
     private String email;
 
-    
-    /** Contraseña encriptada del usuario. */
-@NotBlank(message = "La contraseña es obligatoria")
-@Column(nullable = false, length = 255)  // 🔹 Permitir almacenamiento de contraseñas encriptadas
-private String password;
+    @NotBlank(message = "La contraseña es obligatoria")
+    @Column(nullable = false, length = 255)
+    private String password;
 
-
-    /** URL de la foto de perfil del usuario. */
     @Column(name = "foto_perfil")
     private String fotoPerfil;
 
-    /** Rol del usuario (por defecto, "USER"). */
     @Column(nullable = false, length = 50)
-    private String rol = "USER";  // 🔹 Asignamos el rol por defecto en la clase Java
+    private String rol = "USER";
 
-    /**
-     * 🔹 **Constructor vacío (obligatorio para JPA)**.
-     * Se asigna automáticamente el rol `"USER"`.
-     */
+    @Column(length = 500)
+    private String descripcion;
+
+    // Constructores
+
     public Usuario() {
         this.rol = "USER";
     }
 
-    /**
-     * 🔹 **Constructor sin contraseña** (Para evitar almacenar texto plano).
-     * 
-     * @param nombre Nombre del usuario.
-     * @param email Email del usuario.
-     * @param fotoPerfil URL de la foto de perfil.
-     */
     public Usuario(String nombre, String email, String fotoPerfil) {
         this.nombre = nombre;
         this.email = email;
         this.fotoPerfil = fotoPerfil;
         this.rol = "USER";
     }
-    /** Descripción o biografía del usuario (opcional). */
-@Column(length = 500)
-private String descripcion;
 
-
-    // Getters y Setters
+    // Getters y setters
 
     public Long getId() {
         return id;
@@ -114,22 +86,7 @@ private String descripcion;
     public String getPassword() {
         return password;
     }
-    public String getDescripcion() {
-    return descripcion;
-}
 
-public void setDescripcion(String descripcion) {
-    this.descripcion = descripcion;
-}
-
-
-    /**
-     * 🔐 **Setter para contraseña encriptada**
-     * 
-     * - Este método solo debe ser llamado desde `AuthService`.
-     * 
-     * @param password Contraseña encriptada.
-     */
     public void setPassword(String password) {
         this.password = password;
     }
@@ -150,13 +107,14 @@ public void setDescripcion(String descripcion) {
         this.rol = rol;
     }
 
-    /**
-     * 📌 **Método `toString()`**
-     * 
-     * Devuelve una representación en cadena del objeto usuario.
-     * 
-     * @return String con los datos principales del usuario.
-     */
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
@@ -166,5 +124,37 @@ public void setDescripcion(String descripcion) {
                 ", rol='" + rol + '\'' +
                 ", fotoPerfil='" + fotoPerfil + '\'' +
                 '}';
+    }
+
+    // 🔒 Implementación de UserDetails
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.emptyList(); // o puedes mapear roles aquí si los usas
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

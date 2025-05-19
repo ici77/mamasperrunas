@@ -1,0 +1,87 @@
+<div class="container mt-4">
+  <h2 class="mb-4">🎉 Crear nuevo evento</h2>
+
+  <form (ngSubmit)="crearEvento()" #form="ngForm">
+    <!-- Título -->
+    <div class="mb-3">
+      <label class="form-label">Título</label>
+      <input type="text" class="form-control" [(ngModel)]="nuevoEvento.titulo" name="titulo" required />
+    </div>
+
+    <!-- Descripción -->
+    <div class="mb-3">
+      <label class="form-label">Descripción</label>
+      <textarea class="form-control" [(ngModel)]="nuevoEvento.descripcion" name="descripcion" rows="4"></textarea>
+    </div>
+
+    <!-- Fecha -->
+    <div class="mb-3">
+      <label class="form-label">Fecha</label>
+      <input type="date" class="form-control" [(ngModel)]="nuevoEvento.fecha" name="fecha" required />
+    </div>
+
+    <!-- Lugar -->
+    <div class="mb-3">
+      <label class="form-label">Lugar</label>
+      <input type="text" class="form-control" [(ngModel)]="nuevoEvento.lugar" name="lugar" />
+    </div>
+
+    <!-- Tipo de evento -->
+    <div class="mb-3">
+      <label class="form-label">Tipo de evento</label>
+      <select class="form-select" [(ngModel)]="nuevoEvento.tipoEvento" name="tipoEvento" required>
+        <option value="">Seleccione...</option>
+        <option value="celebraciones">🎉 Celebraciones</option>
+        <option value="concursos">🏆 Concursos</option>
+        <option value="solidarios">❤️ Solidarios</option>
+        <option value="talleres">🧠 Talleres</option>
+        <option value="quedadas">🌳 Quedadas</option>
+        <option value="miscelanea">🧩 Miscelánea</option>
+      </select>
+    </div>
+
+    <!-- Imagen del evento -->
+    <div class="mb-3">
+      <label class="form-label">Imagen del evento</label>
+      <input type="file" class="form-control" (change)="onFileSelected($event)" />
+
+      <!-- Vista previa -->
+      <div *ngIf="imagenPreviewUrl" class="mt-3">
+        <label class="form-label">Vista previa:</label><br />
+        <img
+          [src]="imagenPreviewUrl"
+          alt="Vista previa"
+          class="img-thumbnail rounded shadow-sm"
+          style="max-width: 150px; height: auto;"
+        />
+      </div>
+    </div>
+
+    <!-- ¿Es de pago? -->
+    <div class="form-check mb-3">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        [(ngModel)]="nuevoEvento.esDePago"
+        name="esDePago"
+        id="esDePagoCheck"
+      />
+      <label class="form-check-label" for="esDePagoCheck">¿Es de pago?</label>
+    </div>
+
+    <!-- ¿Evento destacado? -->
+    <div class="form-check mb-4">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        [(ngModel)]="nuevoEvento.destacado"
+        name="destacado"
+        id="destacadoCheck"
+      />
+      <label class="form-check-label" for="destacadoCheck">¿Evento destacado?</label>
+    </div>
+
+    <!-- Botón enviar -->
+    <button type="submit" class="btn btn-success">✅ Crear evento</button>
+  </form>
+</div>
