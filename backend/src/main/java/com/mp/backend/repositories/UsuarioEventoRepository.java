@@ -33,6 +33,9 @@ public interface UsuarioEventoRepository extends JpaRepository<UsuarioEvento, Lo
      */
     List<UsuarioEvento> findByEvento(Evento evento);
 
+    List<UsuarioEvento> findByUsuario(Usuario usuario);
+
+
     /**
      * Contar cuántos usuarios hay apuntados a cada evento.
      * @return lista de pares (id del evento, número de usuarios apuntados)

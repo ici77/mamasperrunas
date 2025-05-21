@@ -28,18 +28,53 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
-.social-option {
-  background-color: #fff;
-  color: var(--secondary-green);
+.btn-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 10px;
-  text-align: center;
-  border: 1px solid #ccc;
   border-radius: 5px;
+  color: white;
   font-weight: bold;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
 }
+
+.btn-social img {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+/* Estilos personalizados por red */
+.facebook {
+  background-color: #3b5998;
+}
+
+.facebook:hover {
+  background-color: #2d4373;
+}
+
+.google {
+  background-color: #db4437;
+}
+
+.google:hover {
+  background-color: #c23321;
+}
+
+.apple {
+  background-color: #333333;
+}
+
+.apple:hover {
+  background-color: #000000;
+}
+
 
 .form-group {
   margin-bottom: 15px;
@@ -71,6 +106,39 @@ button {
 button:hover {
   background-color: #e64a19;
 }
+
+/* ✅ TOAST de ÉXITO */
+.toast-success {
+  background-color: #4caf50 !important; /* Verde */
+  color: #fff !important;
+  font-weight: bold;
+  border-left: 5px solid #2e7d32;
+}
+
+/* ❌ TOAST de ERROR */
+.toast-error {
+  background-color: #f44336 !important; /* Rojo */
+  color: #fff !important;
+  font-weight: bold;
+  border-left: 5px solid #b71c1c;
+}
+
+/* ℹ️ TOAST de INFORMACIÓN */
+.toast-info {
+  background-color: #2196f3 !important; /* Azul */
+  color: #fff !important;
+  font-weight: bold;
+  border-left: 5px solid #0d47a1;
+}
+
+/* ⚠️ TOAST de ADVERTENCIA */
+.toast-warning {
+  background-color: #ff9800 !important; /* Naranja */
+  color: #fff !important;
+  font-weight: bold;
+  border-left: 5px solid #e65100;
+}
+
 
 .registro-imagen {
   flex: 1;

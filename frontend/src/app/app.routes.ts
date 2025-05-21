@@ -17,7 +17,7 @@ import { TipsComponent } from './pages/blog/tips/tips.component';
 import { LifeComponent } from './pages/blog/life/life.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { EventosComponent } from './pages/eventos/eventos.component';
-
+import { PerfilComponent } from './pages/perfil/perfil.component';
 export const appRoutes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'products', component: ProductListComponent },
@@ -31,8 +31,7 @@ export const appRoutes: Routes = [
   // 📌 Autenticación y usuario
   { path: 'registro', component: RegistroComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'profile', component: ProfileComponent },
-
+   { path: 'perfil', component: PerfilComponent },
   // 📌 Razas y posts
   { path: 'razas', component: DogListComponent },
   { path: 'crear-post', component: CrearPostComponent },
@@ -65,6 +64,7 @@ export const appRoutes: Routes = [
       { path: 'news', component: NewsComponent },
       { path: 'tips', component: TipsComponent },
       { path: 'life', component: LifeComponent }
+     
     ]
   },
 

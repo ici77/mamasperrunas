@@ -105,15 +105,30 @@
         <a class="small text-white mb-1" routerLink="/business-area">Área Empresas</a>
       
         <!-- ✅ Mostrar perfil y botón de cerrar sesión si está autenticado -->
-        <ng-container *ngIf="isAuthenticated; else authButtons">
+      <ng-container *ngIf="isAuthenticated; else authButtons">
           <div class="d-flex align-items-center">
-            <img [src]="fotoPerfil || 'assets/images/default-avatar.png'" alt="Foto de perfil" width="40" height="40" class="rounded-circle me-2">
-            <span class="text-white me-2">¡Hola, {{ nombreUsuario }}!</span>
+            <!-- Imagen de perfil con enlace -->
+            <a routerLink="/perfil">
+              <img
+                [src]="'http://localhost:8080' + (fotoPerfil || '/assets/images/default-avatar.png')"
+                (error)="setDefaultAvatar($event)"
+                alt="Foto de perfil"
+                width="40"
+                height="40"
+                class="rounded-circle me-2"
+                style="object-fit: cover; cursor: pointer;"
+              />
+            </a>
+
+            <!-- Nombre con enlace -->
+            <a routerLink="/perfil" class="text-white text-decoration-none me-2" style="cursor: pointer;">
+              ¡Hola, {{ nombreUsuario }}!
+            </a>
+
             <button class="btn btn-danger btn-sm" (click)="logout()">Cerrar sesión</button>
           </div>
         </ng-container>
-      
-        <!-- ❌ Mostrar botones de login y registro si NO está autenticado -->
+
         <ng-template #authButtons>
           <div>
             <a class="btn btn-outline-light me-2" routerLink="/registro">Regístrate</a>
@@ -121,4 +136,6 @@
           </div>
         </ng-template>
       </div>
-      
+    </div>
+  </div>
+</nav>

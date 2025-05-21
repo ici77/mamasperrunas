@@ -2,12 +2,16 @@ package com.mp.backend.controllers;
 
 import com.mp.backend.models.Usuario;
 import com.mp.backend.models.forum.Post;
+import com.mp.backend.repositories.PostRepository;
+import com.mp.backend.repositories.UsuarioRepository;
 import com.mp.backend.services.PostService;
 import com.mp.backend.services.PostDislikeService;
 import com.mp.backend.services.PostLikeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+
 import javax.imageio.ImageIO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,7 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.List;
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -44,6 +48,12 @@ public class PostController {
 
     @Autowired
     private PostDislikeService postDislikeService;
+    @Autowired
+private PostRepository postRepository;
+
+@Autowired
+private UsuarioRepository usuarioRepository;
+
 
     // ----------------------- LIKE -----------------------
     @PostMapping("/{postId}/like")
@@ -96,6 +106,72 @@ public class PostController {
     public ResponseEntity<Boolean> hasUserDisliked(@PathVariable Long postId, @PathVariable Long userId) {
         return ResponseEntity.ok(postDislikeService.hasUserDisliked(postId, userId));
     }
+
+   // 🔁 Añadir o quitar de favoritos
+@PostMapping("/{postId}/favorites")
+public ResponseEntity<?> toggleFavorito(@PathVariable Long postId) {
+    String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    Optional<Usuario> optionalUsuario = usuarioRepository.findByEmail(email);
+    if (optionalUsuario.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no encontrado");
+    }
+
+    Usuario usuario = optionalUsuario.get();
+    Optional<Post> optionalPost = postRepository.findById(postId);
+    if (optionalPost.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post no encontrado");
+    }
+
+    Post post = optionalPost.get();
+    boolean añadido;
+
+    if (post.getUsuariosQueLoGuardaron().contains(usuario)) {
+        post.getUsuariosQueLoGuardaron().remove(usuario);
+        post.setFavorites(post.getFavorites() - 1);
+        añadido = false;
+    } else {
+        post.getUsuariosQueLoGuardaron().add(usuario);
+        post.setFavorites(post.getFavorites() + 1);
+        añadido = true;
+    }
+
+    postRepository.save(post);
+    return ResponseEntity.ok(Map.of("favorito", añadido, "totalFavoritos", post.getFavorites()));
+}
+
+// 🔁 Añadir o quitar de reportados
+@PostMapping("/{postId}/report")
+public ResponseEntity<?> toggleReport(@PathVariable Long postId) {
+    String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    Optional<Usuario> optionalUsuario = usuarioRepository.findByEmail(email);
+    if (optionalUsuario.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no encontrado");
+    }
+
+    Usuario usuario = optionalUsuario.get();
+    Optional<Post> optionalPost = postRepository.findById(postId);
+    if (optionalPost.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post no encontrado");
+    }
+
+    Post post = optionalPost.get();
+    boolean reportado;
+
+    if (post.getReportedByUsers().contains(usuario)) {
+        post.getReportedByUsers().remove(usuario);
+        post.setReports(post.getReports() - 1);
+        reportado = false;
+    } else {
+        post.getReportedByUsers().add(usuario);
+        post.setReports(post.getReports() + 1);
+        reportado = true;
+    }
+
+    postRepository.save(post);
+    return ResponseEntity.ok(Map.of("reportado", reportado, "totalReportes", post.getReports()));
+}
+
+
 
     // ----------------------- CREAR POST SIN IMAGEN -----------------------
     @PostMapping
@@ -159,21 +235,35 @@ public class PostController {
 
     // ----------------------- OTROS ENDPOINTS -----------------------
 
-    @PostMapping("/{postId}/favorites")
-    public ResponseEntity<String> addToFavorites(@PathVariable Long postId) {
-        postService.addToFavorites(postId);
-        return ResponseEntity.ok("✅ Post guardado en favoritos.");
+    
+@GetMapping("/{postId}/favorites/check")
+public ResponseEntity<Boolean> hasUserFavorited(@PathVariable Long postId) {
+    Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    Optional<Post> optionalPost = postService.getPostById(postId);
+
+    if (optionalPost.isPresent()) {
+        boolean isFavorite = optionalPost.get().getUsuariosQueLoGuardaron().contains(usuario);
+        return ResponseEntity.ok(isFavorite);
     }
 
-    @PostMapping("/{postId}/report")
-    public ResponseEntity<String> reportPost(@PathVariable Long postId) {
-        boolean success = postService.reportPost(postId);
-        if (success) {
-            return ResponseEntity.ok("✅ Post denunciado.");
-        } else {
-            return ResponseEntity.status(409).body("⚠️ Ya habías denunciado este post.");
-        }
+    return ResponseEntity.notFound().build();
+}
+
+
+   
+@GetMapping("/{postId}/report/check")
+public ResponseEntity<Boolean> hasUserReported(@PathVariable Long postId) {
+    Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    Optional<Post> optionalPost = postService.getPostById(postId);
+
+    if (optionalPost.isPresent()) {
+        boolean alreadyReported = optionalPost.get().getReportedByUsers().contains(usuario);
+        return ResponseEntity.ok(alreadyReported);
     }
+
+    return ResponseEntity.notFound().build();
+}
+
 
     @PostMapping("/{postId}/tags")
     public ResponseEntity<String> addTagsToPost(@PathVariable Long postId, @RequestBody Set<String> tags) {
@@ -182,23 +272,41 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<Map<String, Object>> getPostById(@PathVariable Long postId) {
-        Optional<Post> optionalPost = postService.getPostById(postId);
-        if (optionalPost.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        Post post = optionalPost.get();
-        int totalLikes = postLikeService.getTotalLikes(post.getId());
-        int totalDislikes = postDislikeService.getTotalDislikes(post.getId());
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("post", post);
-        response.put("totalLikes", totalLikes);
-        response.put("totalDislikes", totalDislikes);
-
-        return ResponseEntity.ok(response);
+public ResponseEntity<Map<String, Object>> getPostById(@PathVariable Long postId) {
+    Optional<Post> optionalPost = postService.getPostById(postId);
+    if (optionalPost.isEmpty()) {
+        return ResponseEntity.notFound().build();
     }
+    
+
+    Post post = optionalPost.get();
+    int totalLikes = postLikeService.getTotalLikes(post.getId());
+    int totalDislikes = postDislikeService.getTotalDislikes(post.getId());
+
+    Map<String, Object> response = new HashMap<>();
+    response.put("post", post);
+    response.put("totalLikes", totalLikes);
+    response.put("totalDislikes", totalDislikes);
+
+    // Añadir flags visuales si hay usuario autenticado
+    try {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof Usuario usuario) {
+            response.put("liked", post.getUsuariosQueDieronLike().contains(usuario));
+            response.put("disliked", post.getUsuariosQueDieronDislike().contains(usuario));
+            response.put("yaEsFavorito", post.getUsuariosQueLoGuardaron().contains(usuario));
+            response.put("yaReportado", post.getReportedByUsers().contains(usuario));
+        }
+    } catch (Exception e) {
+        // En caso de usuario anónimo o sin token, no añadir flags (opcional)
+        response.put("liked", false);
+        response.put("disliked", false);
+        response.put("yaEsFavorito", false);
+        response.put("yaReportado", false);
+    }
+
+    return ResponseEntity.ok(response);
+}
 
     @GetMapping("/category/top")
     public ResponseEntity<List<Post>> getTopPostsByCategory(@RequestParam String category) {

@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import java.util.Set;
+
+import com.mp.backend.models.forum.Post;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -157,4 +160,21 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+    @Override
+public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Usuario usuario = (Usuario) o;
+    return email.equals(usuario.email); // Usamos email como identificador único
+}
+
+@Override
+public int hashCode() {
+    return email.hashCode();
+}
+
+
+    @ManyToMany(mappedBy = "usuariosQueLoGuardaron")
+private Set<Post> postsFavoritos = new java.util.HashSet<>();
+
 }

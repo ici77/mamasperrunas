@@ -1,6 +1,8 @@
 package com.mp.backend.repositories;
 
 import com.mp.backend.models.Evento;
+import com.mp.backend.models.Usuario;
+import com.mp.backend.models.UsuarioEvento;
 
 import java.util.List;
 
@@ -32,6 +34,11 @@ public interface EventoRepository extends JpaRepository<Evento, Long> {
 List<Evento> findByTipoEventoIgnoreCaseAndEsDePagoAndDestacado(
     String tipoEvento, boolean esDePago, boolean destacado
 );
+
+
+List<Evento> findByUsuario(Usuario usuario); 
+
+
 @Query("SELECT e FROM Evento e " +
        "WHERE (:tipoEvento IS NULL OR LOWER(e.tipoEvento) = LOWER(:tipoEvento)) " +
        "AND (:esDePago IS NULL OR e.esDePago = :esDePago) " +

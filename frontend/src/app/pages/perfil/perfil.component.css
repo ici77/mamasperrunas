@@ -1,0 +1,122 @@
+/* 🐾 Contenedor general del perfil */
+.container {
+  background-color: whitesmoke;
+  border-radius: 12px;
+   border: 8px solid #006400;
+  padding: 2rem;
+  box-shadow: 0 0 10px rgba(204, 234, 226, 0.1);
+}
+
+/* 🐶 Imagen redonda con borde */
+img.rounded-circle {
+  border: 8px solid #006400;
+  background-color: #fff;
+  transition: border 0.3s ease;
+}
+
+/* 💬 Botón de cambiar imagen */
+button.btn-outline-success {
+  border-radius: 20px;
+  font-weight: bold;
+  border: 3px solid #006400;
+  color: #006400;
+  padding: 0.4rem 1.5rem;
+}
+button.btn-outline-success:hover {
+  background-color: #006400;
+  color: #fff;
+}
+
+/* ✏️ Botón guardar */
+button.btn-outline-primary {
+  border-radius: 20px;
+  font-weight: bold;
+  border: 3px solid #006400;
+  color: #006400;
+  padding: 0.4rem 1.5rem;
+}
+button.btn-outline-primary:hover {
+  background-color: #006400;
+  color: #fff;
+}
+
+/* 📋 Lista de datos del usuario */
+.list-group-item {
+  font-size: 1.1rem;
+  background-color: #f9fff8;
+  border: 3px solid #006400;
+  padding: 1rem 1.5rem;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+/* ✉️ Forzar visibilidad del campo email */
+.list-group-item strong + * {
+  display: block;
+  margin-top: 0.5rem;
+  color: #444;
+  font-weight: normal;
+}
+
+/* 🧾 Tarjetas de estadísticas */
+.card {
+  transition: transform 0.2s ease;
+  border-width: 3px !important; /* Borde más grueso */
+  border-radius: 16px;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* 📊 Estilo para los números grandes */
+.card-text.display-6 {
+  font-size: 6rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 🧩 Contenedor estilizado para secciones (posts, likes, eventos) */
+.section-card {
+  background-color: #ffffff;
+  border: 2px dashed #aaa;
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+h2::after,
+h2::before,
+h2 strong::after,
+h2 strong::before {
+  content: none !important;
+  display: none !important;
+  border: none !important;
+  background: none !important;
+}
+h2.titulo-perfil::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 5px;
+  border: 3px solid #000c00;
+  background-color: #000c00;
+  background-color: #000c00; /* Verde oscuro */
+  margin: 0.5rem auto;
+  border-radius: 4px;
+}
+
+
+/* Línea decorativa bajo título */
+hr.border-success {
+   border: 3px solid #b98e2f;
+   border-radius: 10px;
+    margin: 1rem 0;
+    
+  width: 80px;
+  margin: 0.5rem auto;
+}
+h2::after {
+  content: none !important; /* Elimina decoradores automáticos */
+  display: none !important;
+}
+

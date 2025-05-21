@@ -1,28 +1,13 @@
 <!-- 📌 Contenedor principal -->
 <div class="container-fluid mt-4" *ngIf="post">
   <div class="row d-flex align-items-stretch">
-    
+
     <!-- 📌 Menú Lateral Izquierdo -->
     <aside class="col-12 col-md-3 col-lg-2 sidebar-left">
       <h3>Foro</h3>
-      
 
       <!-- 📌 Tarjetas debajo del Menú Izquierdo -->
-      <div class="info-card">
-        <h4>Información Importante</h4>
-        <img src="assets/images/categoria-fondo.jpg" alt="Información destacada">
-        <p>Lee las últimas novedades en el foro.</p>
-        <a href="/foro" class="btn btn-secondary">Más detalles</a>
-      </div>
-      <!-- 📌 Tarjetas debajo del Menú Izquierdo -->
-      <div class="info-card">
-        <h4>Información Importante</h4>
-        <img src="assets/images/categoria-fondo.jpg" alt="Información destacada">
-        <p>Lee las últimas novedades en el foro.</p>
-        <a href="/foro" class="btn btn-secondary">Más detalles</a>
-      </div>
-      <!-- 📌 Tarjetas debajo del Menú Izquierdo -->
-      <div class="info-card">
+      <div class="info-card" *ngFor="let i of [1,2,3]">
         <h4>Información Importante</h4>
         <img src="assets/images/categoria-fondo.jpg" alt="Información destacada">
         <p>Lee las últimas novedades en el foro.</p>
@@ -32,6 +17,7 @@
 
     <!-- 📌 Zona Principal del Post -->
     <div class="col-12 col-md-6 col-lg-7 d-flex flex-column">
+
       <!-- 📌 Migas de pan -->
       <nav aria-label="breadcrumb" class="breadcrumb-container">
         <ol class="breadcrumb">
@@ -49,15 +35,15 @@
         <img src="assets/images/categoria-fondo.jpg" alt="Categoría {{ post?.category?.name }}" class="header-image">
         <h1>{{ post?.category?.name | titlecase }}</h1>
       </header>
-      <!-- 📸 Imagen pequeña del post -->
-<div class="d-flex justify-content-center mb-3" *ngIf="post?.imagenUrl">
-  <img 
-    [src]="'http://localhost:8080' + post.imagenUrl"
-    alt="Imagen del post"
-    class="img-thumbnail shadow"
-    style="max-width: 300px; border-radius: 12px;"
-  >
-</div>
+
+      <!-- 📸 Imagen del post -->
+      <div class="d-flex justify-content-center mb-3" *ngIf="post?.imagenUrl">
+        <img 
+          [src]="'http://localhost:8080' + post.imagenUrl"
+          alt="Imagen del post"
+          class="img-thumbnail shadow"
+          style="max-width: 300px; border-radius: 12px;">
+      </div>
 
       <!-- 📌 Contenido del post -->
       <div class="card post-detail">
@@ -65,15 +51,11 @@
           <h2 class="post-title mb-3 text-success-emphasis">{{ post.title }}</h2>
           <p class="card-text">{{ post.content }}</p>
           <p class="text-muted mt-3">
-            🧑 Publicado por <strong>{{ post.user?.name || 'Anónimo' }}</strong>
+            🧑 Publicado por <strong>{{ post.user?.nombre || 'Anónimo' }}</strong>
             el {{ post.createdAt | date:'short' }}
           </p>
         </div>
       </div>
-      <button (click)="toggleLike()" [ngClass]="{ 'liked': yaDioLike }">
-  <i class="fa fa-heart"></i> {{ totalLikes }}
-</button>
-
 
       <!-- 📌 Estado de carga / error -->
       <div *ngIf="isLoading" class="alert alert-info mt-3">
@@ -82,21 +64,38 @@
       <div *ngIf="errorMessage" class="alert alert-danger mt-3">
         ❌ {{ errorMessage }}
       </div>
-      
+
+     <!-- 📌 Acciones -->
+<div class="post-actions d-flex flex-wrap align-items-center gap-2 mt-3" *ngIf="!isLoading">
+
+  <!-- 👍 Like con corazón dinámico -->
+  <button class="btn btn-outline-danger" (click)="toggleLike()">
+    <i class="fa" [ngClass]="yaDioLike ? 'fa-heart text-danger' : 'fa-heart-o text-secondary'"></i>
+    <span [ngClass]="yaDioLike ? 'text-danger fw-bold' : 'text-dark'">{{ totalLikes }}</span>
+  </button>
+
+  <!-- 👎 Dislike -->
+  <button class="btn btn-outline-secondary" (click)="toggleDislike()">
+    👎 <span class="badge bg-light text-dark">{{ totalDislikes }}</span>
+  </button>
+
+  <!-- ⭐ Favorito: alterna añadir/quitar -->
+  <button 
+    class="btn btn-outline-warning"
+    (click)="marcarFavorito()">
+    <i class="fa fa-star" [ngClass]="yaEsFavorito ? 'text-warning' : 'text-secondary'"></i>
+    {{ yaEsFavorito ? ' Guardado' : ' Añadir a favoritos' }}
+  </button>
+
+  <!-- 🚩 Reportar: alterna añadir/quitar -->
+  <button 
+    class="btn btn-outline-danger"
+    (click)="reportarPost()">
+    <i class="fa fa-flag"></i> {{ yaReportado ? ' Reportado' : ' Reportar' }}
+  </button>
+</div>
 
 
-      <!-- 📌 Acciones -->
-      <div class="post-actions d-flex flex-wrap align-items-center gap-2 mt-3" *ngIf="!isLoading">
-        <button class="btn btn-outline-danger" (click)="toggleLike()">
-          {{ yaDioLike ? '❤️' : '🤍' }} 
-          <span class="badge bg-light text-dark">{{ totalLikes }}</span>
-        </button>
-        <button class="btn btn-outline-secondary" (click)="toggleDislike()">
-          👎 <span class="badge bg-light text-dark">{{ totalDislikes }}</span>
-        </button>
-        <button class="btn btn-outline-warning">⭐ Añadir a favoritos</button>
-        <button class="btn btn-outline-danger">🚩 Reportar</button>
-      </div>
 
       <!-- 📌 Formulario de respuesta -->
       <div class="card mt-4 respuesta-form" *ngIf="!isLoading">
@@ -108,8 +107,8 @@
             [(ngModel)]="respuestaTexto" 
             placeholder="Escribe tu respuesta..."
             class="form-control"
-            rows="4"
-          ></textarea>
+            rows="4">
+          </textarea>
           <button 
             class="btn btn-success mt-2"
             (click)="responder()"
@@ -132,41 +131,24 @@
     </div>
 
     <!-- 📌 Sidebar derecho: Recomendados -->
-<aside class="col-12 col-md-3 col-lg-3 sidebar-right">
-  <div class="info-card recomendados mt-3" *ngIf="recentPosts.length > 0">
-    <h4>👀 Te puede interesar</h4>
-    <div class="d-flex flex-column gap-2">
-      <div 
-        *ngFor="let recomendado of recentPosts"
-        class="post-recomendado-box"
-      >
-        <a 
-          [routerLink]="['/post', recomendado.id]"
-        >
-          🐶 {{ recomendado.title }}
-        </a>
+    <aside class="col-12 col-md-3 col-lg-3 sidebar-right">
+      <div class="info-card recomendados mt-3" *ngIf="recentPosts.length > 0">
+        <h4>👀 Te puede interesar</h4>
+        <div class="d-flex flex-column gap-2">
+          <div *ngFor="let recomendado of recentPosts" class="post-recomendado-box">
+            <a [routerLink]="['/post', recomendado.id]">🐶 {{ recomendado.title }}</a>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <!-- 📌 Tarjetas debajo del Menú Izquierdo -->
-  <div class="info-card">
-    <h4>Información Importante</h4>
-    <img src="assets/images/categoria-fondo.jpg" alt="Información destacada">
-    <p>Lee las últimas novedades en el foro.</p>
-    <a href="/foro" class="btn btn-secondary">Más detalles</a>
-  </div>
-  <!-- 📌 Tarjetas debajo del Menú Izquierdo -->
-  <div class="info-card">
-    <h4>Información Importante</h4>
-    <img src="assets/images/categoria-fondo.jpg" alt="Información destacada">
-    <p>Lee las últimas novedades en el foro.</p>
-    <a href="/foro" class="btn btn-secondary">Más detalles</a>
-  </div>
-</aside>
 
-        
+      <!-- Tarjetas adicionales -->
+      <div class="info-card" *ngFor="let i of [1,2]">
+        <h4>Información Importante</h4>
+        <img src="assets/images/categoria-fondo.jpg" alt="Información destacada">
+        <p>Lee las últimas novedades en el foro.</p>
+        <a href="/foro" class="btn btn-secondary">Más detalles</a>
       </div>
-  
+    </aside>
 
   </div> <!-- Fin .row -->
-
+</div>

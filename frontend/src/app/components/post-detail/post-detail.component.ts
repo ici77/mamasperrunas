@@ -24,8 +24,10 @@ export class PostDetailComponent implements OnInit {
   yaDioLike: boolean = false;
   totalDislikes: number = 0;
   yaDioDislike: boolean = false;
-  recentPosts: any[] = [];
+  yaEsFavorito: boolean = false;
+  yaReportado: boolean = false;
 
+  recentPosts: any[] = [];
   respuestaTexto: string = '';
   respuestas: any[] = [];
 
@@ -56,15 +58,18 @@ export class PostDetailComponent implements OnInit {
         this.totalLikes = response.totalLikes ?? 0;
         this.totalDislikes = response.totalDislikes ?? 0;
         this.isLoading = false;
-        this.yaDioLike = response.liked ?? false;
-this.yaDioDislike = response.disliked ?? false;
 
+        this.yaDioLike = response.liked ?? false;
+        this.yaDioDislike = response.disliked ?? false;
 
         this.cargarRespuestas();
 
         if (this.post?.category?.name) {
           this.cargarRecomendados(this.post.category.name);
         }
+
+        this.verificarFavorito();
+        this.verificarReporte();
       },
       error: (error) => {
         console.error('❌ Error al cargar el post:', error);
@@ -89,7 +94,6 @@ this.yaDioDislike = response.disliked ?? false;
 
     this.postService.toggleLike(this.postId).subscribe({
       next: (respuesta: any) => {
-        alert(respuesta.mensaje || '👍 Acción realizada');
         this.totalLikes = respuesta.totalLikes ?? this.totalLikes;
         this.yaDioLike = respuesta.liked ?? !this.yaDioLike;
       },
@@ -109,10 +113,7 @@ this.yaDioDislike = response.disliked ?? false;
 
     this.postService.toggleDislike(this.postId).subscribe({
       next: (respuesta: any) => {
-        alert(respuesta.mensaje || '👎 Acción realizada');
-        if (respuesta.totalDislikes !== undefined) {
-          this.totalDislikes = respuesta.totalDislikes;
-        }
+        this.totalDislikes = respuesta.totalDislikes ?? this.totalDislikes;
         this.yaDioDislike = respuesta.disliked ?? !this.yaDioDislike;
       },
       error: (error) => {
@@ -141,7 +142,6 @@ this.yaDioDislike = response.disliked ?? false;
 
     this.postService.createReply(nuevaRespuesta).subscribe({
       next: () => {
-        alert("✅ Respuesta publicada.");
         this.respuestaTexto = '';
         this.cargarRespuestas();
       },
@@ -160,6 +160,63 @@ this.yaDioDislike = response.disliked ?? false;
       error: (err) => {
         console.error("❌ Error al cargar respuestas:", err);
       }
+    });
+  }
+ // ✅ USAR SOLO TOGGLE PARA FAVORITOS
+  marcarFavorito() {
+    const token = localStorage.getItem('auth_token');
+    if (!token) {
+      alert("⚠️ Debes iniciar sesión para usar favoritos.");
+      return;
+    }
+
+    this.postService.toggleFavorito(this.postId).subscribe({
+      next: (res) => {
+        this.yaEsFavorito = res.favorito ?? !this.yaEsFavorito;
+      },
+      error: (err) => {
+        console.error("❌ Error al alternar favorito:", err);
+        alert("Hubo un error al guardar/actualizar el favorito.");
+      }
+    });
+  }
+
+  verificarFavorito() {
+    const token = localStorage.getItem('auth_token');
+    if (!token) return;
+
+    this.postService.hasUserFavorited(this.postId).subscribe({
+      next: (res) => this.yaEsFavorito = res,
+      error: (err) => console.warn("ℹ️ No se pudo verificar favoritos:", err)
+    });
+  }
+
+  // ✅ USAR SOLO TOGGLE PARA REPORTES
+  reportarPost() {
+    const token = localStorage.getItem('auth_token');
+    if (!token) {
+      alert("⚠️ Debes iniciar sesión para reportar.");
+      return;
+    }
+
+    this.postService.toggleReport(this.postId).subscribe({
+      next: (res) => {
+        this.yaReportado = res.reportado ?? !this.yaReportado;
+      },
+      error: (err) => {
+        console.error("❌ Error al alternar reporte:", err);
+        alert("Hubo un error al reportar/quitar reporte.");
+      }
+    });
+  }
+
+  verificarReporte() {
+    const token = localStorage.getItem('auth_token');
+    if (!token) return;
+
+    this.postService.hasUserReported(this.postId).subscribe({
+      next: (res) => this.yaReportado = res,
+      error: (err) => console.warn("ℹ️ No se pudo verificar reporte:", err)
     });
   }
 }

@@ -48,6 +48,36 @@ public class Post {
     @Schema(description = "Usuario que creó el post")
     private Usuario user;
 
+    @ManyToMany
+@JoinTable(
+    name = "post_likes",
+    joinColumns = @JoinColumn(name = "post_id"),
+    inverseJoinColumns = @JoinColumn(name = "user_id")
+)
+@Schema(description = "Usuarios que han dado 'Me gusta' al post")
+private Set<Usuario> usuariosQueDieronLike = new HashSet<>();
+
+@ManyToMany
+@JoinTable(
+    name = "post_dislikes",
+    joinColumns = @JoinColumn(name = "post_id"),
+    inverseJoinColumns = @JoinColumn(name = "user_id")
+)
+@Schema(description = "Usuarios que han dado 'No me gusta' al post")
+private Set<Usuario> usuariosQueDieronDislike = new HashSet<>();
+
+
+    /** 📌 Usuarios que han guardado este post como favorito */
+@ManyToMany
+@JoinTable(
+    name = "favoritos_posts",
+    joinColumns = @JoinColumn(name = "post_id"),
+    inverseJoinColumns = @JoinColumn(name = "user_id")
+)
+@Schema(description = "Usuarios que han añadido este post a favoritos")
+private Set<Usuario> usuariosQueLoGuardaron = new HashSet<>();
+
+
     /** Número de 'Me gusta' en el post */
     @Schema(description = "Número de 'Me gusta' recibidos", example = "15")
     private int upvotes = 0;

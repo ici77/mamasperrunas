@@ -29,7 +29,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 // Usuarios
                 .requestMatchers("/api/usuarios/registro", "/api/usuarios/login").permitAll()
-
+                 .requestMatchers("/api/usuarios/cambiar-password").authenticated()
+    
                 // Eventos
                 .requestMatchers(HttpMethod.GET, "/api/eventos/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/eventos/**").authenticated()

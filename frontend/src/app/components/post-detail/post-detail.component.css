@@ -328,4 +328,70 @@ button.liked i {
     padding: 10px;
     font-size: 0.9rem;
   }
+
+  /* 🔴 Botón de "Me gusta" cuando está activo */
+.post-actions .btn-outline-danger.liked,
+.post-actions .btn-outline-danger.active {
+  background-color: #f47b22;
+  color: white;
+  border-color: #c24300;
+}
+
+.post-actions .btn-outline-warning:disabled {
+  background-color: #ffc107;
+  color: white;
+  border-color: #c79a00;
+  cursor: not-allowed;
+}
+
+
+/* 🚩 Botón de "Reportar" ya hecho (disabled) */
+.post-actions .btn-outline-danger:disabled {
+  background-color: #d9534f;
+  color: white;
+  border-color: #a94442;
+  cursor: not-allowed;
+}
+
+/* ❤️ Transición y color para botones marcados */
+.post-actions button {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Si usas directamente .liked en el botón */
+button.liked {
+  color: red;
+  background-color: #ffe2e2;
+  border-color: #cc0000;
+}
+/* ❤️ Efecto de latido para el botón de "Me gusta" */
+.post-actions .fa-heart {
+  animation: beat 0.3s ease-in-out;
+  transform-origin: center;
+}
+
+/* ⭐ Efecto de brillo para la estrella de favoritos */
+.post-actions .fa-star.text-warning {
+  animation: pulseGlow 1.2s ease-out;
+}
+
+@keyframes beat {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+@keyframes pulseGlow {
+  0% {
+    text-shadow: 0 0 0px #ffc107;
+  }
+  50% {
+    text-shadow: 0 0 12px #ffc107;
+  }
+  100% {
+    text-shadow: 0 0 0px #ffc107;
+  }
+}
+
+
 }

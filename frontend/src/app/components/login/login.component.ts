@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 
 /**
  * 📌 Componente `LoginComponent`
@@ -23,7 +23,12 @@ export class LoginComponent {
   loginForm: FormGroup;
   mensajeError: string | null = null;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private viewportScroller: ViewportScroller // ✅ scroll al principio
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -43,7 +48,9 @@ export class LoginComponent {
 
     this.authService.login({ email, password }).subscribe({
       next: () => {
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/']).then(() => {
+          this.viewportScroller.scrollToPosition([0, 0]); // ✅ Lleva al principio de la página
+        });
       },
       error: (err) => {
         console.error('Error en el inicio de sesión:', err);

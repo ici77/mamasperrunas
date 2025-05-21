@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   standalone: true,
   selector: 'app-navbar',
-  imports: [RouterLink, NgIf], // ✅ Asegurar que `NgIf` está disponible
+  imports: [RouterLink, NgIf],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
@@ -16,10 +16,14 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   nombreUsuario?: string;
   fotoPerfil?: string;
 
-  constructor(private elementRef: ElementRef, private authService: AuthService, private router: Router) {}
+  constructor(
+    private elementRef: ElementRef,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    // ✅ Suscribirse al estado del usuario en tiempo real
+    // ✅ Observar datos del usuario autenticado
     this.authService.getUserDataObservable().subscribe(userData => {
       this.isAuthenticated = !!userData;
       this.nombreUsuario = userData?.nombre;
@@ -28,14 +32,21 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * 📌 Método para cerrar sesión y redirigir al usuario al login.
+   * ✅ Cierra sesión
    */
   logout(): void {
     this.authService.logout();
   }
 
-  ngAfterViewInit() {
-    // ✅ Lógica para cerrar menús desplegables
+  /**
+   * ✅ Fallback si no carga la foto de perfil
+   */
+  setDefaultAvatar(event: any): void {
+    event.target.src = 'assets/images/default-avatar.png';
+  }
+
+  ngAfterViewInit(): void {
+    // ✅ Cerrar menús desplegables tras un tiempo
     const cerrarMenu = (menuId: string) => {
       const menu = document.getElementById(menuId);
       if (menu) {
@@ -52,11 +63,16 @@ export class NavbarComponent implements OnInit, AfterViewInit {
       });
     });
 
+    // ✅ Cerrar dropdowns al hacer clic fuera
     document.addEventListener('click', (event: MouseEvent) => {
       dropdownToggles.forEach((toggle: HTMLElement) => {
         const menuId = toggle.id.replace('Dropdown', 'Menu');
         const menu = document.getElementById(menuId);
-        if (menu && !menu.contains(event.target as Node) && !toggle.contains(event.target as Node)) {
+        if (
+          menu &&
+          !menu.contains(event.target as Node) &&
+          !toggle.contains(event.target as Node)
+        ) {
           cerrarMenu(menuId);
         }
       });

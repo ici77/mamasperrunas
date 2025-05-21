@@ -92,36 +92,55 @@ private CategoryRepository categoryRepository;
         });
     }
 
-    public void addToFavorites(Long postId) {
-        Optional<Post> optionalPost = postRepository.findById(postId);
-        Usuario currentUser = getAuthenticatedUser();
+   public void addToFavorites(Long postId, Usuario usuario) {
+    Optional<Post> optionalPost = postRepository.findById(postId);
 
-        if (optionalPost.isPresent()) {
-            Post post = optionalPost.get();
+    if (optionalPost.isPresent()) {
+        Post post = optionalPost.get();
+
+        // 🔍 Verificar si ya ha sido añadido por este usuario
+        if (!post.getUsuariosQueLoGuardaron().contains(usuario)) {
+            post.getUsuariosQueLoGuardaron().add(usuario);
             post.setFavorites(post.getFavorites() + 1);
             postRepository.save(post);
         }
     }
+}
+public void quitarDeFavoritos(Long postId, Usuario usuario) {
+    Post post = postRepository.findById(postId).orElseThrow();
+    post.getUsuariosQueLoGuardaron().remove(usuario);
+    postRepository.save(post);
+}
 
-    public boolean reportPost(Long postId) {
-        Optional<Post> optionalPost = postRepository.findById(postId);
-        Usuario currentUser = getAuthenticatedUser();
+public void quitarReporte(Long postId, Usuario usuario) {
+    Post post = postRepository.findById(postId).orElseThrow();
+    post.getReportedByUsers().remove(usuario); // ✅ nombre correcto del getter
+    postRepository.save(post);
+}
 
-        if (optionalPost.isPresent()) {
-            Post post = optionalPost.get();
 
-            if (post.getReportedByUsers().contains(currentUser)) {
-                return false; // Ya denunciado
-            }
 
-            post.getReportedByUsers().add(currentUser);
-            post.setReports(post.getReports() + 1);
-            postRepository.save(post);
-            return true;
+
+
+    public boolean reportPost(Long postId, Usuario usuario) {
+    Optional<Post> optionalPost = postRepository.findById(postId);
+
+    if (optionalPost.isPresent()) {
+        Post post = optionalPost.get();
+
+        if (post.getReportedByUsers().contains(usuario)) {
+            return false; // Ya denunciado
         }
 
-        return false;
+        post.getReportedByUsers().add(usuario);
+        post.setReports(post.getReports() + 1);
+        postRepository.save(post);
+        return true;
     }
+
+    return false;
+}
+
 
     
 
