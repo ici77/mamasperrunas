@@ -42,6 +42,10 @@ actualizarNombre(nombre: string): Observable<any> {
 cambiarPassword(datos: { actual: string, nueva: string }) {
   return this.http.put('http://localhost:8080/api/usuarios/cambiar-password', datos);
 }
+cancelarInscripcion(eventoId: number): Observable<any> {
+  return this.http.delete(`${this.apiUrl}/eventos/${eventoId}/cancelar`);
+}
+
 
 
 }

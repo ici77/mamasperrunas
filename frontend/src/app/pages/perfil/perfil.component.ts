@@ -13,7 +13,6 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
-
   perfil: PerfilUsuario = {
     nombre: '',
     email: '',
@@ -34,10 +33,17 @@ export class PerfilComponent implements OnInit {
   gustos: string = '';
   isLoading = true;
   error = '';
-
   actual = '';
   nueva = '';
   cambiandoPassword = false;
+
+  // 🔁 Índices de paginación
+  paginaLikes = 0;
+  paginaFavoritos = 0;
+  paginaEventosInscrito = 0;
+  paginaEventosCreados = 0;
+  paginaPostsCreados = 0;
+  itemsPorPagina = 5;
 
   constructor(private usuarioService: UsuarioService) {}
 
@@ -65,22 +71,21 @@ export class PerfilComponent implements OnInit {
     localStorage.setItem('gustos', this.gustos);
 
     this.usuarioService.actualizarNombre(this.perfil.nombre).subscribe({
-      next: () => alert('✅ Cambios guardados con éxito'),
-      error: () => alert('❌ Error al guardar cambios'),
+      next: (respuesta) => {
+        const mensaje = (respuesta as any).mensaje || 'Cambios guardados con éxito';
+        alert('✅ ' + mensaje);
+      },
+      error: (error) => {
+        const mensaje = error?.error?.error || '❌ Error al guardar cambios';
+        alert(mensaje);
+      },
     });
   }
 
   getRutaFotoPerfil(): string {
     const ruta = this.perfil?.fotoPerfil;
-
-    if (!ruta) {
-      return 'assets/images/default-avatar.png';
-    }
-
-    if (ruta.includes('assets')) {
-      return ruta;
-    }
-
+    if (!ruta) return 'assets/images/default-avatar.png';
+    if (ruta.includes('assets')) return ruta;
     return 'http://localhost:8080' + ruta;
   }
 
@@ -96,8 +101,7 @@ export class PerfilComponent implements OnInit {
 
     this.usuarioService.cambiarPassword({ actual: this.actual, nueva: this.nueva }).subscribe({
       next: (respuesta) => {
-       const mensaje = (respuesta as any).mensaje || 'Contraseña actualizada correctamente';
-
+        const mensaje = (respuesta as any).mensaje || 'Contraseña actualizada correctamente';
         alert('✅ ' + mensaje);
         this.actual = '';
         this.nueva = '';
@@ -127,5 +131,67 @@ export class PerfilComponent implements OnInit {
       next: () => this.cargarPerfil(),
       error: () => alert('❌ Error al subir imagen')
     });
+  }
+
+  // 🔁 Métodos para obtener elementos paginados
+  getPostsCreadosPaginados() {
+    const start = this.paginaPostsCreados * this.itemsPorPagina;
+    return this.perfil.postsCreados.slice(start, start + this.itemsPorPagina);
+  }
+
+  getPostsLikePaginados() {
+    const start = this.paginaLikes * this.itemsPorPagina;
+    return this.perfil.postsLike.slice(start, start + this.itemsPorPagina);
+  }
+
+  getPostsFavoritosPaginados() {
+    const start = this.paginaFavoritos * this.itemsPorPagina;
+    return this.perfil.postsFavoritos.slice(start, start + this.itemsPorPagina);
+  }
+
+  getEventosInscritoPaginados() {
+    const start = this.paginaEventosInscrito * this.itemsPorPagina;
+    return this.perfil.eventosInscrito.slice(start, start + this.itemsPorPagina);
+  }
+
+  getEventosCreadosPaginados() {
+    const start = this.paginaEventosCreados * this.itemsPorPagina;
+    return this.perfil.eventosCreados.slice(start, start + this.itemsPorPagina);
+  }
+cancelarInscripcion(eventoId: number): void {
+  const confirmar = confirm("¿Estás seguro de que deseas cancelar tu inscripción a este evento?");
+  if (!confirmar) return;
+
+  this.usuarioService.cancelarInscripcion(eventoId).subscribe({
+    next: () => {
+      alert("✅ Inscripción cancelada correctamente");
+      this.cargarPerfil(); // Recarga el perfil para actualizar la lista de eventos inscritos
+    },
+    error: (error) => {
+      const mensaje = error?.error?.error || "❌ No se pudo cancelar la inscripción";
+      alert(mensaje);
+    }
+  });
+}
+
+  // 🔁 Métodos para avanzar o retroceder en la paginación
+  cambiarPagina(tipo: string, direccion: number): void {
+    switch (tipo) {
+      case 'postsCreados':
+        this.paginaPostsCreados += direccion;
+        break;
+      case 'likes':
+        this.paginaLikes += direccion;
+        break;
+      case 'favoritos':
+        this.paginaFavoritos += direccion;
+        break;
+      case 'inscritos':
+        this.paginaEventosInscrito += direccion;
+        break;
+      case 'creados':
+        this.paginaEventosCreados += direccion;
+        break;
+    }
   }
 }

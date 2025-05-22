@@ -33,8 +33,12 @@ public interface UsuarioEventoRepository extends JpaRepository<UsuarioEvento, Lo
      */
     List<UsuarioEvento> findByEvento(Evento evento);
 
+    /**
+     * Obtener todos los eventos a los que está inscrito un usuario.
+     * @param usuario usuario
+     * @return lista de inscripciones
+     */
     List<UsuarioEvento> findByUsuario(Usuario usuario);
-
 
     /**
      * Contar cuántos usuarios hay apuntados a cada evento.

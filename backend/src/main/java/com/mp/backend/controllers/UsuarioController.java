@@ -189,6 +189,33 @@ public ResponseEntity<?> cambiarPassword(@RequestBody Map<String, String> datos,
     }
 }
 
+@DeleteMapping("/api/usuarios/eventos/{eventoId}/cancelar")
+
+public ResponseEntity<?> cancelarInscripcionEvento(@PathVariable Long eventoId) {
+    // 1. Obtener el email del usuario autenticado desde el token JWT
+    String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    Usuario usuario = usuarioRepository.findByEmail(email)
+        .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+    // 2. Buscar el evento por ID
+    Optional<Evento> eventoOptional = eventoRepository.findById(eventoId);
+    if (eventoOptional.isEmpty()) {
+        return ResponseEntity.status(404).body(Map.of("error", "Evento no encontrado"));
+    }
+    Evento evento = eventoOptional.get();
+
+    // 3. Verificar si el usuario está inscrito
+    Optional<UsuarioEvento> inscripcion = usuarioEventoRepository.findByUsuarioAndEvento(usuario, evento);
+    if (inscripcion.isEmpty()) {
+        return ResponseEntity.status(400).body(Map.of("error", "No estás inscrito en este evento"));
+    }
+
+    // 4. Eliminar la inscripción
+    usuarioEventoRepository.delete(inscripcion.get());
+    return ResponseEntity.ok(Map.of("mensaje", "Inscripción cancelada correctamente"));
+}
+
+
 
 
     // Test endpoint

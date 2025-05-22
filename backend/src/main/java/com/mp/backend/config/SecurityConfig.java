@@ -35,6 +35,9 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/eventos/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/eventos/**").authenticated()
                 .requestMatchers("/uploads/**").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/api/usuarios/eventos/*/cancelar").authenticated()
+
+
 
 
                 // Posts y categorías (foro)

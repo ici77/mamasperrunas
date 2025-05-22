@@ -12,13 +12,15 @@ import { FormsModule } from '@angular/forms';
 export class ChatbotComponent implements OnInit {
   isChatOpen = false;
   userMessage = '';
-  showWelcomeMessage = true; // ✅ ESTA LÍNEA ES LA QUE FALTABA
+  showWelcomeMessage = true;
+  usuarioNombre: string = '';
+  saludoMostrado = false;
   messages: { sender: 'bot' | 'user', text: string }[] = [];
 
   ngOnInit(): void {
     setTimeout(() => {
       this.showWelcomeMessage = false;
-    }, 5000);
+    }, 1000);
   }
 
   toggleChat() {
@@ -28,25 +30,64 @@ export class ChatbotComponent implements OnInit {
   sendMessage() {
     if (!this.userMessage.trim()) return;
     this.messages.push({ sender: 'user', text: this.userMessage });
-    const respuesta = this.getBotReply(this.userMessage.toLowerCase());
-    this.messages.push({ sender: 'bot', text: respuesta });
+
+    if (!this.usuarioNombre) {
+      this.usuarioNombre = this.userMessage;
+      this.messages.push({ sender: 'bot', text: `¡Encantado/a de conocerte, ${this.usuarioNombre}! 😊` });
+      this.messages.push({ sender: 'bot', text: `¿Sobre qué quieres saber más? Usa los botones o escribe tu pregunta.` });
+      this.saludoMostrado = true;
+    } else {
+      const respuesta = this.getBotReply(this.userMessage.toLowerCase());
+      this.messages.push({ sender: 'bot', text: respuesta });
+    }
+
     this.userMessage = '';
   }
 
+  respuestaDirecta(opcion: string) {
+    const respuesta = this.getBotReply(opcion.toLowerCase());
+    this.messages.push({ sender: 'user', text: opcion });
+    this.messages.push({ sender: 'bot', text: respuesta });
+  }
+
   getBotReply(msg: string): string {
-    if (msg.includes('evento')) return 'Puedes ver los eventos en la sección "Eventos" del menú principal.';
-    if (msg.includes('evento')) return 'Puedes ver los eventos en la sección "Eventos" del menú principal.';
-  if (msg.includes('registr')) return 'Para registrarte, ve al botón "Registrarse" en la esquina superior derecha.';
-  if (msg.includes('apuntar')) return 'Haz clic en "Apuntarme" dentro de un evento para unirte.';
-  if (msg.includes('perfil')) return 'Puedes acceder a tu perfil desde el menú superior derecho, junto a tu nombre.';
-  if (msg.includes('contraseña') && msg.includes('cambiar')) return 'En tu perfil, pulsa en "Cambiar contraseña" y confirma con tu contraseña actual.';
-  if (msg.includes('imagen') || msg.includes('foto')) return 'Desde tu perfil puedes pulsar "Cambiar imagen" para subir una nueva foto.';
-  if (msg.includes('nombre')) return 'En tu perfil puedes modificar tu nombre y pulsar "Guardar".';
-  if (msg.includes('post') || msg.includes('publicación')) return 'Tus publicaciones aparecen en la sección "Tus posts" dentro del perfil.';
-  if (msg.includes('gustos') || msg.includes('intereses')) return 'Puedes escribir tus gustos en el perfil y se guardarán automáticamente.';
-  if (msg.includes('olvidé') && msg.includes('contraseña')) return 'Si olvidaste tu contraseña, por ahora deberás crear una nueva cuenta.';
-  
-    if (msg.includes('apuntar')) return 'Haz clic en "Apuntarme" dentro de un evento para unirte.';
+    if (msg.includes('evento')) {
+      return `📅 Puedes ver los eventos en la sección "Eventos" del menú principal.
+✅ Para apuntarte, entra en el evento y pulsa "Apuntarme".
+❌ Para cancelar tu inscripción, ve a tu perfil > eventos inscritos.
+💶 Si el evento es de pago, el precio aparece indicado. Se paga en el lugar del evento.
+⭐ Los eventos destacados aparecen al principio, con una estrella.`;
+    }
+
+    if (msg.includes('post')) {
+      return `📰 Puedes crear un post desde el botón "Nuevo post".
+❤️ Da like pulsando el corazón.
+⭐ Marca favoritos pulsando la estrella.
+🚩 Reporta contenido con el icono de bandera.`;
+    }
+
+    if (msg.includes('perfil')) {
+      return `👤 En tu perfil puedes:
+- Cambiar tu nombre
+- Subir foto de perfil
+- Editar tus gustos
+- Ver tus posts, likes y eventos`;
+    }
+
+    if (msg.includes('registro')) {
+      return `📝 Para registrarte, haz clic en "Registrarse" arriba a la derecha.
+Si ya tienes cuenta, accede con tu email y contraseña.`;
+    }
+
+    if (msg.includes('ayuda')) {
+      return `❓ Estoy aquí para ayudarte. Puedes preguntarme sobre:
+- Eventos
+- Posts
+- Perfil
+- Registro
+O escríbeme lo que necesites 😉`;
+    }
+
     return 'Lo siento, aún no entiendo esa pregunta. ¡Estoy aprendiendo!';
   }
 }

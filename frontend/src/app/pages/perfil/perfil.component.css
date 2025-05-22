@@ -2,7 +2,7 @@
 .container {
   background-color: whitesmoke;
   border-radius: 12px;
-   border: 8px solid #006400;
+  border: 8px solid #006400;
   padding: 2rem;
   box-shadow: 0 0 10px rgba(204, 234, 226, 0.1);
 }
@@ -27,15 +27,17 @@ button.btn-outline-success:hover {
   color: #fff;
 }
 
-/* ✏️ Botón guardar */
-button.btn-outline-primary {
+/* ✏️ Botón guardar / cambiar contraseña */
+button.btn-outline-primary,
+button.btn-success {
   border-radius: 20px;
   font-weight: bold;
   border: 3px solid #006400;
   color: #006400;
   padding: 0.4rem 1.5rem;
 }
-button.btn-outline-primary:hover {
+button.btn-outline-primary:hover,
+button.btn-success:hover {
   background-color: #006400;
   color: #fff;
 }
@@ -61,7 +63,7 @@ button.btn-outline-primary:hover {
 /* 🧾 Tarjetas de estadísticas */
 .card {
   transition: transform 0.2s ease;
-  border-width: 3px !important; /* Borde más grueso */
+  border-width: 3px !important;
   border-radius: 16px;
 }
 .card:hover {
@@ -75,7 +77,7 @@ button.btn-outline-primary:hover {
   color: #333;
 }
 
-/* 🧩 Contenedor estilizado para secciones (posts, likes, eventos) */
+/* 🧩 Contenedor estilizado para secciones */
 .section-card {
   background-color: #ffffff;
   border: 2px dashed #aaa;
@@ -83,6 +85,34 @@ button.btn-outline-primary:hover {
   padding: 1.5rem;
   margin-bottom: 2rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* 💚 Estilo para enlaces */
+a {
+  color: #c3840f !important;
+  font-weight: 600;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  color: #004d00 !important;
+}
+
+/* 🎯 Línea decorativa bajo título */
+h2.titulo-perfil::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 5px;
+  background-color: #000c00;
+  margin: 0.5rem auto;
+  border-radius: 4px;
+}
+hr.border-success {
+  border: 3px solid #b98e2f;
+  border-radius: 10px;
+  width: 80px;
+  margin: 0.5rem auto;
 }
 h2::after,
 h2::before,
@@ -93,30 +123,31 @@ h2 strong::before {
   border: none !important;
   background: none !important;
 }
-h2.titulo-perfil::after {
-  content: '';
-  display: block;
-  width: 80px;
-  height: 5px;
-  border: 3px solid #000c00;
-  background-color: #000c00;
-  background-color: #000c00; /* Verde oscuro */
-  margin: 0.5rem auto;
-  border-radius: 4px;
+
+/* 🟢 Paginación visual con flechas */
+.btn-flecha {
+  background-color: #4CAF50 !important;   /* Verde bosque */
+  color: white !important;
+  border: none !important;
+  border-radius: 50% !important;
+  width: 36px !important;
+  height: 36px !important;
+  font-size: 20px !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease;
+  padding: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-
-/* Línea decorativa bajo título */
-hr.border-success {
-   border: 3px solid #b98e2f;
-   border-radius: 10px;
-    margin: 1rem 0;
-    
-  width: 80px;
-  margin: 0.5rem auto;
-}
-h2::after {
-  content: none !important; /* Elimina decoradores automáticos */
-  display: none !important;
+.btn-flecha:hover {
+  background-color: #2e7d32 !important;  /* Verde más oscuro al pasar */
 }
 
+.btn-flecha:disabled {
+  background-color: #ccc !important;
+  color: #888 !important;
+  cursor: not-allowed !important;
+}
