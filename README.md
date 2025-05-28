@@ -1,6 +1,6 @@
 # 🐶 Mamás Perrunas - Comunidad Canina 🐾
 
-![Mamás Perrunas](https://yourimageurl.com) <!-- Opcional: Agregar logo o imagen representativa -->
+
 
 ## 📖 Descripción
 **Mamás Perrunas** es una plataforma que conecta a dueños de perros con recursos útiles sobre educación, alimentación, salud y comunidad.  
