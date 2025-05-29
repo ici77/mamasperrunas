@@ -30,6 +30,10 @@ public class SecurityConfig {
                 // Usuarios
                 .requestMatchers("/api/usuarios/registro", "/api/usuarios/login").permitAll()
                  .requestMatchers("/api/usuarios/cambiar-password").authenticated()
+
+                  // Aquí añadimos acceso libre al endpoint de prueba
+    .requestMatchers("/api/holamundo").permitAll()
+
     
                 // Eventos
                 .requestMatchers(HttpMethod.GET, "/api/eventos/**").permitAll()
