@@ -27,19 +27,27 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))  // Configuración CORS
             .csrf(csrf -> csrf.disable())  // CSRF deshabilitado para API REST
             .authorizeHttpRequests(auth -> auth
+                // Permitir acceso público a la raíz y archivos estáticos (uploads)
+                .requestMatchers("/", "/index.html", "/favicon.ico").permitAll()
+                .requestMatchers("/uploads/**").permitAll()
+                
+                // Rutas públicas
                 .requestMatchers("/api/usuarios/registro", "/api/usuarios/login").permitAll()
-                .requestMatchers("/api/usuarios/cambiar-password").authenticated()
                 .requestMatchers("/api/holamundo").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/eventos/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/eventos/**").authenticated()
-                .requestMatchers("/uploads/**").permitAll()
-                .requestMatchers(HttpMethod.DELETE, "/api/usuarios/eventos/*/cancelar").authenticated()
                 .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/posts/category/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/categories").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/replies/post/**").permitAll()
-                .requestMatchers("/api/posts/crear-con-imagen").authenticated()
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
+                
+                // Rutas que requieren autenticación
+                .requestMatchers("/api/usuarios/cambiar-password").authenticated()
+                .requestMatchers(HttpMethod.POST, "/api/eventos/**").authenticated()
+                .requestMatchers(HttpMethod.DELETE, "/api/usuarios/eventos/*/cancelar").authenticated()
+                .requestMatchers("/api/posts/crear-con-imagen").authenticated()
+                
+                // Cualquier otra ruta requiere autenticación
                 .anyRequest().authenticated()
             )
             .logout(logout -> logout.permitAll());
