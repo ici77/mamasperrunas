@@ -1,0 +1,30 @@
+# Ignorar archivos y carpetas de configuración del sistema
+*.log
+*.tmp
+*.bak
+
+# Ignorar configuraciones de editores
+.vscode/
+.idea/
+
+# Ignorar dependencias de frontend
+frontend/node_modules/
+frontend/.angular/
+frontend/.vscode/
+
+# Ignorar dependencias y archivos generados de backend
+backend/target/
+backend/.mvn/
+backend/.idea/
+
+# Ignorar archivos generados por el sistema operativo
+Thumbs.db
+.DS_Store
+
+# Ignorar archivos de configuración que no deben subirse
+*.env
+# Carpeta de compilación del frontend
+frontend/dist/
+
+# Archivo de bloqueo del frontend (si no lo estás usando en el control de versiones)
+frontend/package-lock.json

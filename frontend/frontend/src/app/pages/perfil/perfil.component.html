@@ -1,0 +1,137 @@
+<div class="container mt-4">
+  <div class="text-center">
+    <h2>🐶 <strong>Perfil del usuario</strong> 🐾</h2>
+  </div>
+
+  <!-- Foto -->
+  <div class="row justify-content-center mt-4">
+    <img
+      [src]="getRutaFotoPerfil()"
+      (error)="imgErrorHandler($event)"
+      alt="Foto de perfil"
+      class="rounded-circle shadow-sm"
+      style="width: 170px; height: 170px; object-fit: cover;">
+
+    <div class="text-center mt-2">
+      <input type="file" id="inputFoto" hidden (change)="subirImagen($event)">
+      <button class="btn btn-outline-success btn-sm font-weight-bold mb-2" (click)="seleccionarArchivo()">📸 Cambiar imagen</button>
+      <button class="btn btn-outline-primary btn-sm" (click)="cambiandoPassword = !cambiandoPassword">
+        🔒 Cambiar contraseña
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="cambiandoPassword" class="mt-3">
+    <input type="password" [(ngModel)]="actual" placeholder="Contraseña actual" class="form-control mb-2" />
+    <input type="password" [(ngModel)]="nueva" placeholder="Nueva contraseña" class="form-control mb-2" />
+    <button class="btn btn-success" (click)="cambiarPassword()">✅ Confirmar cambio</button>
+  </div>
+
+  <!-- Info personal -->
+  <div class="col-md-6 mx-auto mt-4">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <strong>👤 Nombre:</strong>
+        <input [(ngModel)]="perfil.nombre" class="form-control form-control-sm mt-1 font-weight-bold">
+      </li>
+      <li class="list-group-item">
+        <strong>📧 Email:</strong>
+        <div class="mt-1">{{ perfil.email }}</div>
+      </li>
+      <li class="list-group-item">
+        <strong>🎯 Gustos:</strong>
+        <textarea [(ngModel)]="perfil.gustos" rows="2" class="form-control form-control-sm mt-1"></textarea>
+      </li>
+    </ul>
+    <div class="text-center mt-3">
+      <button class="btn btn-outline-primary btn-sm" (click)="guardarCambios()">💾 Guardar</button>
+    </div>
+  </div>
+
+  <!-- Estadísticas -->
+  <div class="row mt-5">
+    <div class="col-md-4" *ngFor="let stat of [
+      { titulo: '📝 Posts creados', valor: perfil.estadisticas?.totalPosts ?? 0, clase: 'success' },
+      { titulo: '❤️ Likes dados', valor: perfil.estadisticas?.totalLikes ?? 0, clase: 'danger' },
+      { titulo: '📅 Eventos inscritos', valor: perfil.estadisticas?.totalEventos ?? 0, clase: 'primary' }
+    ]">
+      <div class="card border-{{ stat.clase }} shadow-sm">
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ stat.titulo }}</h5>
+          <p class="card-text display-6">{{ stat.valor }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Secciones estilizadas -->
+  <div class="row mt-5">
+
+    <!-- Posts creados -->
+    <div class="col-md-6 section-card">
+      <h4>📝 Tus posts</h4>
+      <ul class="list-group mb-3" *ngIf="perfil.postsCreados.length > 0; else noPosts">
+        <li class="list-group-item" *ngFor="let post of perfil.postsCreados | slice:paginaPostsCreados * itemsPorPagina:(paginaPostsCreados + 1) * itemsPorPagina">
+          <a [routerLink]="['/post', post.id]" class="text-decoration-none">{{ post.title || post.titulo }}</a>
+        </li>
+      </ul>
+      <div class="text-center">
+        <button class="btn btn-sm btn-outline-secondary me-2" (click)="cambiarPagina('postsCreados', -1)" [disabled]="paginaPostsCreados === 0">⏪</button>
+        <button class="btn btn-sm btn-outline-secondary" (click)="cambiarPagina('postsCreados', 1)" [disabled]="(paginaPostsCreados + 1) * itemsPorPagina >= perfil.postsCreados.length">⏩</button>
+      </div>
+      <ng-template #noPosts><p class="text-muted">No has creado ningún post.</p></ng-template>
+    </div>
+
+    <!-- Likes -->
+    <div class="col-md-6 section-card">
+      <h4>❤️ Tus likes</h4>
+      <ul class="list-group mb-3" *ngIf="perfil.postsLike.length > 0; else noLikes">
+        <li class="list-group-item" *ngFor="let post of getPostsLikePaginados()">
+          <a [routerLink]="['/post', post.id]" class="text-decoration-none">{{ post.title || post.titulo }}</a>
+        </li>
+      </ul>
+      <div class="text-center">
+        <button class="btn btn-sm btn-outline-secondary me-2" (click)="cambiarPagina('likes', -1)" [disabled]="paginaLikes === 0">⏪</button>
+        <button class="btn btn-sm btn-outline-secondary" (click)="cambiarPagina('likes', 1)" [disabled]="(paginaLikes + 1) * itemsPorPagina >= perfil.postsLike.length">⏩</button>
+      </div>
+      <ng-template #noLikes><p class="text-muted">No has dado like a ningún post.</p></ng-template>
+    </div>
+
+    <!-- Eventos inscritos -->
+    <div class="col-md-6 section-card">
+      <h4>📅 Eventos inscritos</h4>
+      <ul class="list-group mb-3" *ngIf="perfil.eventosInscrito.length > 0; else noInscritos">
+       <li class="list-group-item d-flex justify-content-between align-items-center"
+    *ngFor="let evento of getEventosInscritoPaginados()">
+  <a [routerLink]="['/evento', evento.id]" class="text-decoration-none">
+    {{ evento.titulo }}
+  </a>
+  <button class="btn btn-sm btn-outline-danger" (click)="cancelarInscripcion(evento.id)">
+    ❌ Cancelar
+  </button>
+</li>
+
+      </ul>
+      <div class="text-center">
+        <button class="btn btn-sm btn-outline-secondary me-2" (click)="cambiarPagina('inscritos', -1)" [disabled]="paginaEventosInscrito === 0">⏪</button>
+        <button class="btn btn-sm btn-outline-secondary" (click)="cambiarPagina('inscritos', 1)" [disabled]="(paginaEventosInscrito + 1) * itemsPorPagina >= perfil.eventosInscrito.length">⏩</button>
+      </div>
+      <ng-template #noInscritos><p class="text-muted">No estás inscrito en ningún evento.</p></ng-template>
+    </div>
+
+    <!-- Eventos creados -->
+    <div class="col-md-6 section-card">
+      <h4>⭐ Eventos creados</h4>
+      <ul class="list-group mb-3" *ngIf="perfil.eventosCreados.length > 0; else noCreados">
+        <li class="list-group-item" *ngFor="let evento of getEventosCreadosPaginados()">
+          <a [routerLink]="['/evento', evento.id]" class="text-decoration-none">{{ evento.titulo }}</a>
+        </li>
+      </ul>
+      <div class="text-center">
+        <button class="btn btn-sm btn-outline-secondary me-2" (click)="cambiarPagina('creados', -1)" [disabled]="paginaEventosCreados === 0">⏪</button>
+        <button class="btn btn-sm btn-outline-secondary" (click)="cambiarPagina('creados', 1)" [disabled]="(paginaEventosCreados + 1) * itemsPorPagina >= perfil.eventosCreados.length">⏩</button>
+      </div>
+      <ng-template #noCreados><p class="text-muted">No has creado ningún evento.</p></ng-template>
+    </div>
+  </div>
+</div>

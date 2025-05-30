@@ -3,12 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
+import { environment } from '../../environment/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/usuarios'; // URL del backend
+  private apiUrl = `${environment.apiUrl}/usuarios`; // URL del backend
   private tokenKey = 'auth_token'; // Clave del token en localStorage
 
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());

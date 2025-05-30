@@ -1,0 +1,254 @@
+[
+  {
+    "category": "Ropa",
+    "image": "assets/images/ropa/ropa2.png",
+    "products": [
+      {
+        "name": "Ropa única para alguien único",
+        "description": "Ropa personalizada para tu perro.",
+        "image": "assets/images/ropa/ropa1.png",
+        "affiliateLink": "https://amzn.to/3PMjV4N"
+      },
+      {
+        "name": "Nos vamos de fiesta",
+        "description": "Y todavía más guapa",
+        "image": "assets/images/ropa/ropa2.png",
+        "affiliateLink": "https://amzn.to/40I3Ovu"
+      },
+      {
+        "name": "Jersey para que esté guapísimo",
+        "description": "Jersey para estar calentito.",
+        "image": "assets/images/ropa/ropa3.png",
+        "affiliateLink": "https://amzn.to/40I3Ovu"
+      },
+      {
+        "name": "Ropa divertida para pasarlo bien",
+        "description": "Disfraces y mucha más ropa divertida.",
+        "image": "assets/images/ropa/ropa4.jpg",
+        "affiliateLink": "https://amzn.to/3WyhYg3"
+      },
+      {
+        "name": "Porque siempre es un día especial",
+        "description": "Ropa de fiesta para tu perrhijo.",
+        "image": "assets/images/ropa/ropa5.png",
+        "affiliateLink": "https://amzn.to/3WyhFlp"
+      },
+      {
+        "name": "Soy el protagonista",
+        "description": "Cuando queremos destacar.",
+        "image": "assets/images/ropa/ropa6.png",
+        "affiliateLink": "https://amzn.to/3E0ybUT"
+      }
+    ]
+  },
+  {
+    "category": "Juguetes",
+    "image": "assets/images/juguetes/juguetes2.png",
+    "products": [
+      {
+        "name": "Juguetes indestructibles",
+        "description": "Para que jueguen tranquilos.",
+        "image": "assets/images/juguetes/juguetes1.png",
+        "affiliateLink": "https://amzn.to/3WuQQyw"
+      },
+      {
+        "name": "Juguetes que no se cansan",
+        "description": "Porque su energía es infinita.",
+        "image": "assets/images/juguetes/juguetes2.png",
+        "affiliateLink": "https://amzn.to/40A2LfY"
+      },
+      {
+        "name": "Juguetes interactivos para perros",
+        "description": "Queremos que se diviertan.",
+        "image": "assets/images/juguetes/juguetes3.png",
+        "affiliateLink": "https://amzn.to/4g9Kmfp"
+      },
+      {
+        "name": "Puzzles para perros",
+        "description": "Los perros son muy inteligentes.",
+        "image": "assets/images/juguetes/juguetes4.png",
+        "affiliateLink": "https://amzn.to/3WvWnoq"
+      },
+      {
+        "name": "Frisbee para perro",
+        "description": "Frisbee para jugar al aire libre.",
+        "image": "assets/images/juguetes/juguete5.png",
+        "affiliateLink": "https://amzn.to/40wGhMC"
+      },
+      {
+        "name": "Lanzador de pelotas",
+        "description": "Para jugar juntos.",
+        "image": "assets/images/juguetes/juguete6.png",
+        "affiliateLink": "https://amzn.to/40ls0SY"
+      }
+    ]
+  },
+  {
+    "category": "Accesorios",
+    "image": "assets/images/accesorios/accesorio6.png",
+    "products": [
+      {
+        "name": "Limpiador para patas",
+        "description": "Para estar limpio y cómodo",
+        "image": "assets/images/accesorios/accesorio1.png",
+        "affiliateLink": "https://amzn.to/40sDggw"
+      },
+      {
+        "name": "Kit de aseo",
+        "description": "Para estar siempre guapo",
+        "image": "assets/images/accesorios/accesorio2.png",
+        "affiliateLink": "https://amzn.to/40sDggw"
+      },
+      {
+        "name": "Botones de entrenamiento",
+        "description": "Aprendiendo juntos",
+        "image": "assets/images/accesorios/accesorio3.png",
+        "affiliateLink": "https://amzn.to/40sDggw"
+      },
+      {
+        "name": "Placa de identificación",
+        "description": "Placa con nombre y teléfono.",
+        "image": "assets/images/accesorios/accesorio4.png",
+        "affiliateLink": "https://amzn.to/40sDggw"
+      },
+      {
+        "name": "Comedero y bebedero",
+        "description": "Comedero y bebedero de acero.",
+        "image": "assets/images/accesorios/accesorio5.png",
+        "affiliateLink": "https://amzn.to/40sDggw"
+      },
+      {
+        "name": "Secador para perros",
+        "description": "Practico y cómodo secador profesional",
+        "image": "assets/images/accesorios/accesorio6.png",
+        "affiliateLink": "https://amzn.to/4au6KiA"
+      }
+    ]
+  },
+  {
+    "category": "Alimentos",
+    "image": "assets/images/alimentos/alimento3.png",
+    "products": [
+      {
+        "name": "Suplementos 100% naturales",
+        "description": "Los mejores alimentos para cuidar a tu mascota.",
+        "image": "assets/images/alimentos/suplementos.png",
+        "affiliateLink": "https://amzn.to/4hKhVGr"
+      },
+      {
+        "name": "Alimento seco para perro adulto",
+        "description": "Nutrición completa y balanceada.",
+        "image": "assets/images/alimentos/alimento2.png",
+        "affiliateLink": "https://amzn.to/40B3m0W"
+      },
+      {
+        "name": "Alimento húmedo para perro",
+        "description": "Alimento húmedo en lata.",
+        "image": "assets/images/alimentos/alimento3.png",
+        "affiliateLink": "https://amzn.to/40B3m0W"
+      },
+      {
+        "name": "Snacks saludables para perro",
+        "description": "Snacks para premiar a tu perro.",
+        "image": "assets/images/alimentos/alimento4.png",
+        "affiliateLink": "https://amzn.to/40B3m0W"
+      },
+      {
+        "name": "Comida dental para perro",
+        "description": "Para mantener los dientes limpios.",
+        "image": "assets/images/alimentos/alimento5.png",
+        "affiliateLink": "https://amzn.to/40B3m0W"
+      },
+      {
+        "name": "Dieta especial para perro",
+        "description": "Alimento para perros con alergias.",
+        "image": "assets/images/alimentos/alimento6.png",
+        "affiliateLink": "https://amzn.to/40B3m0W"
+      }
+    ]
+  },
+  {
+    "category": "Camas",
+    "image": "assets/images/camas/cama6.png",
+    "products": [
+      {
+        "name": "Cama acolchada",
+        "description": "Comodidad para el descanso de tu perro.",
+        "image": "assets/images/camas/cama1.png",
+        "affiliateLink": "https://amzn.to/3WxoQup"
+      },
+      {
+        "name": "Cama para perro grande",
+        "description": "Cama espaciosa para razas grandes.",
+        "image": "assets/images/camas/cama2.png",
+        "affiliateLink": "https://amzn.to/3WxoQup"
+      },
+      {
+        "name": "Cojín para perro",
+        "description": "Cojín suave para descansar.",
+        "image": "assets/images/camas/cama6.png",
+        "affiliateLink": "https://amzn.to/3WxoQup"
+      },
+      {
+        "name": "Manta para perro",
+        "description": "Manta cálida para el invierno.",
+        "image": "assets/images/camas/cama3.png",
+        "affiliateLink": "https://amzn.to/3WxoQup"
+      },
+      {
+        "name": "Casa para perro",
+        "description": "Casa para interior o exterior.",
+        "image": "assets/images/camas/cama5.png",
+        "affiliateLink": "https://amzn.to/3WxoQup"
+      },
+      {
+        "name": "Cueva para perro",
+        "description": "Cueva para que se sienta seguro.",
+        "image": "assets/images/camas/cama4.png",
+        "affiliateLink": "https://amzn.to/3WxoQup"
+      }
+    ]
+  },
+  {
+    "category": "Paseo",
+    "image": "assets/images/viaje/viaje3.png",
+    "products": [
+      {
+        "name": "Arnés para perro",
+        "description": "Perfecto para paseos cómodos.",
+        "image": "assets/images/viaje/viaje1.png",
+        "affiliateLink": "https://amzn.to/4h57bT2"
+      },
+      {
+        "name": "Carro para perro",
+        "description": "Carro cómodo y seguro.",
+        "image": "assets/images/viaje/viaje2.png",
+        "affiliateLink": "https://amzn.to/4h57bT2"
+      },
+      {
+        "name": "Mochila para perro",
+        "description": "Mochila con hebilla de seguridad.",
+        "image": "assets/images/viaje/viaje3.png",
+        "affiliateLink": "https://amzn.to/4h57bT2"
+      },
+      {
+        "name": "Sillón para viajes",
+        "description": "Para un viaje cómodo y seguro",
+        "image": "assets/images/viaje/viaje4.png",
+        "affiliateLink": "https://amzn.to/4h57bT2"
+      },
+      {
+        "name": "Maleta de viaje para perros",
+        "description": "Para que no se te olvide nada",
+        "image": "assets/images/viaje/viaje5.png",
+        "affiliateLink": "https://amzn.to/4h57bT2"
+      },
+      {
+        "name": "Comedero y bebedero plegable",
+        "description": "Imprescindible para tus viajes",
+        "image": "assets/images/viaje/viaje6.png",
+        "affiliateLink": "https://amzn.to/4h57bT2"
+      }
+    ]
+  }
+]

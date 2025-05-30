@@ -1,0 +1,13 @@
+<app-banner
+  [backgroundImage]="'assets/images/fondotienda.jpg'"
+  [title]="'Bienvenido a nuestra tienda'">
+</app-banner>
+
+<div class="product-grid">
+  <div *ngFor="let product of products" class="product-card">
+    <img [src]="product.image" [alt]="product.name" />
+    <h3>{{ product.name }}</h3>
+    <p>{{ product.description }}</p>
+    <a [href]="product.affiliateLink" target="_blank" class="btn btn-primary">Comprar</a>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<!-- 📌 Contenedor Principal -->
+<div class="blog-layout-container">
+  
+  <!-- 📌 Contenedor del Menú + Video -->
+  <div class="sidebar-container">
+    <app-blog-layout></app-blog-layout> <!-- Menú lateral -->
+    
+    <!-- 📌 Contenedor del Video -->
+    <div class="video-container">
+      <h4>🎥 Nuestro video de la semana</h4>
+      <video controls>
+        <source src="assets/images/blog/razas.mp4" type="video/mp4">
+        Tu navegador no soporta el elemento de video.
+      </video>
+    </div>
+  </div>
+
+  <!-- 📌 Contenido Principal (Lista de Perros) -->
+  <div class="dog-list-content">
+    <h2 class="experts-title">Conoce todas las razas de perros</h2>
+    
+    <app-dog-breeds (sendDogs)="receiveDogs($event)"></app-dog-breeds>
+
+    <div class="dog-list-container">
+      <div class="dog-list" *ngIf="filteredDogs.length > 0; else noResults">
+        <div *ngFor="let dog of filteredDogs" class="dog-card">
+          <img *ngIf="dog.image" [src]="dog.image" [alt]="dog.name">
+          <h3>{{ dog.name }}</h3>
+          <p><strong>Temperamento:</strong> {{ dog.temperament }}</p>
+          <p><strong>Origen:</strong> {{ dog.origin }}</p>
+          <p><strong>Peso:</strong> {{ dog.weight }} kg</p>
+        </div>
+      </div>
+
+      <!-- 📌 Contenedor del botón "Mostrar más" -->
+      <div class="show-more-container">
+        <button *ngIf="dogsToShow < dogs.length" (click)="showMore()">Mostrar más</button>
+      </div>
+    </div>
+
+    <!-- 📌 Mensaje cuando no hay resultados -->
+    <ng-template #noResults>
+      <p>No se encontraron perros disponibles.</p>
+    </ng-template>
+
+  </div>
+
+</div>

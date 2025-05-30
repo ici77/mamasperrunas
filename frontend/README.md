@@ -1,3 +1,23 @@
+<<<<<<< HEAD
+# 🐶 Mamás Perrunas - Comunidad Canina 🐾
+
+
+
+## 📖 Descripción
+**Mamás Perrunas** es una plataforma que conecta a dueños de perros con recursos útiles sobre educación, alimentación, salud y comunidad.  
+Incluye una tienda online, un foro de discusión, y herramientas interactivas para mejorar la experiencia con nuestras mascotas.  
+
+🌍 **Tecnologías Utilizadas:**
+- **Frontend:** Angular (Standalone)
+- **Backend:** Spring Boot (Próximamente)
+- **Base de Datos:** MySQL
+- **Documentación:** Compodoc y Springdoc OpenAPI
+
+---
+
+
+
+=======
 # Frontend
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.7.
@@ -57,3 +77,4 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+>>>>>>> e8c05020 (Subida del frontend listo para producción)

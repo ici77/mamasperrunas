@@ -1,0 +1,441 @@
+/*
+  category.component.scss
+  =======================
+  Estilos optimizados para el foro con prioridad sobre Bootstrap.
+*/
+
+/* 🔹 Reset General para sobrescribir Bootstrap */
+.container-fluid {
+  max-width: 1400px !important;
+  margin: auto !important;
+  padding: 20px !important;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, button, small {
+  font-family: 'Lato', sans-serif !important;
+}
+
+/* 🔹 Migas de Pan */
+.breadcrumb-container {
+  padding: 10px 15px !important;
+  border-radius: 8px !important;
+  margin-bottom: 20px !important;
+}
+
+.breadcrumb {
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+.breadcrumb-item a {
+  text-decoration: none !important;
+  color: var(--primary-green) !important;
+  font-weight: 600 !important;
+  transition: color 0.3s ease !important;
+}
+
+.breadcrumb-item a:hover {
+  color: var(--naranja-intenso) !important;
+  text-decoration: underline !important;
+}
+
+.breadcrumb-item.active {
+  color: var(--verde-profundo) !important;
+  font-weight: bold !important;
+}
+
+
+
+
+/* 📌 Títulos de los Menús */
+.sidebar-left h3,
+.sidebar-right h3 {
+  color: var(--verde-profundo) !important;
+  font-size: 1.8rem !important;
+  text-align: center !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  margin-top: 30px !important;
+  margin-bottom: 10px !important;
+  text-decoration: underline !important; /* Subrayado */
+  text-decoration-color: var(--naranja-intenso) !important; /* Color del subrayado */
+}
+
+
+/* 📌 Listas dentro del Menú Izquierdo */
+.sidebar-left .list-group {
+  width: 100% !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  color: rgb(230, 123, 17) !important;
+  font-size: 1.8rem !important;
+  text-align: center !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  margin-top: 30px !important;
+  margin-bottom: 10px !important;
+}
+
+/* 📌 Enlaces dentro del Menú Izquierdo */
+.sidebar-left .list-group-item a {
+  text-decoration: none !important;
+  color: rgb(230, 123, 17) !important; /* Cambia el color del enlace */
+  font-weight: bold !important;
+}
+
+.sidebar-left .list-group-item a:hover {
+  color: #ff9800 !important; /* Cambia el color cuando el usuario pasa el mouse */
+  text-decoration: underline !important;
+}
+/* 📌 Estilos para Tarjetas en el Menú Izquierdo */
+.sidebar-left .info-card {
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  border: 6px solid #3B8024;
+  text-align: center;
+  margin-top: 20px; /* Espaciado entre el menú y las tarjetas */
+}
+
+.sidebar-left .info-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.sidebar-left .info-card h4 {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #065f43;
+}
+
+.sidebar-left .info-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+.sidebar-left .btn-secondary {
+  background-color: #63af71;
+  
+  color: white;
+}
+
+.sidebar-left .btn-secondary:hover {
+  background-color: #055f43;
+}
+
+
+  /* 📌 Botón de "Crear nuevo post" con verde claro y borde negro */
+.create-post-btn {
+  background-color: #84c390 !important; /* Verde claro */
+  color: black !important; /* Texto negro */
+  border: 2px solid black !important; /* Borde negro */
+  font-weight: bold !important;
+  padding: 10px 20px !important;
+  font-size: 16px !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  transition: background-color 0.3s ease, transform 0.2s ease !important;
+}
+
+/* 📌 Cambiar color en hover */
+.create-post-btn:hover {
+  background-color: #6ea97e !important; /* Verde más oscuro en hover */
+  transform: scale(1.05) !important; /* Pequeño zoom */
+}
+
+
+/* 📌 Elementos de las Listas */
+.sidebar-left .list-group-item,
+.sidebar-right .list-group-item {
+  background-color: whitesmoke !important;
+  color: white !important;
+  font-size: 1.2rem !important;
+  font-weight: 500 !important;
+  padding: 15px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  transition: background 0.3s ease-in-out !important;
+  border-radius: 15px;
+  border: 6px solid #3B8024;
+  cursor: pointer !important;
+  justify-content: center !important;
+}
+
+/* 📌 Hover en los Menús */
+.sidebar-left .list-group-item:hover,
+.sidebar-right .list-group-item:hover {
+  background: var(--verde-profundo) !important;
+  transform: scale(1.05) !important;
+}
+
+.foto-perfil {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+
+/* 🔹 Contenido de los Posts */
+.post-container {
+  background-color: rgb(240, 219, 184) !important;
+  border-radius: 10px !important;
+  padding: 20px !important;
+  margin-bottom: 20px !important;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 🔹 Tarjetas de los Posts */
+.post-card {
+  border: 3px solid var(--secondary-green) !important;
+  border-radius: 12px !important;
+  background: white !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.post-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 📌 Estilo de los títulos de los posts (incluyendo enlaces) */
+.post-title {
+  color: var(--primary-orange) !important; /* Naranja */
+  text-decoration: none !important;
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
+  transition: color 0.3s ease !important;
+}
+
+/* 📌 Corregir enlaces dentro del título para que no sean azules */
+.post-title a {
+  color: var(--primary-orange) !important; /* Asegurar que el enlace también sea naranja */
+  text-decoration: none !important; /* Quitar subrayado */
+}
+
+/* 📌 Cambiar color en hover */
+.post-title a:hover {
+  color: var(--naranja-intenso) !important; /* Naranja más fuerte al pasar el mouse */
+  text-decoration: underline !important; /* Subrayado solo en hover */
+}
+
+.category-header {
+  width: 100%; /* 📌 Ocupa todo el ancho */
+  text-align: center; /* 📌 Centra el texto */
+  position: relative; /* 📌 Para manejar la imagen correctamente */
+}
+
+.header-image {
+  width: 100%; /* 📌 La imagen ocupa todo el ancho */
+  height: 250px; /* 📌 Ajusta la altura según necesidad */
+  object-fit: cover; /* 📌 Asegura que la imagen cubra sin distorsionarse */
+  border-radius: 10px; /* 📌 Bordes redondeados opcionales */
+}
+
+.category-header h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.6); /* 📌 Fondo semitransparente */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+
+h3 {
+  font-weight: bold; /* Texto en negrita */
+  text-decoration: underline; /* Subrayado */
+  text-decoration-color: var(--secondary-green); /* Color del subrayado (variable) */
+  color: inherit; /* Color del texto heredado */
+  text-underline-offset: 4px; /* Desplazamiento del subrayado */
+}
+
+
+/* 📌 Estilos para las tarjetas de posts destacados */
+.post-highlight {
+  background-color: white; /* Fondo blanco */
+  border: 2px solid #f47b22; /* Borde naranja */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  max-width: 600px; /* 📌 Limita el ancho de las tarjetas */
+  margin: 0 auto; /* 📌 Centra las tarjetas en la pantalla */
+}
+
+/* 📌 Efecto al pasar el cursor */
+.post-highlight:hover {
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
+}
+
+/* 📌 Imagen de perfil en los posts */
+.foto-perfil {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+/* 📌 Botones en todos los posts (destacados y normales) */
+.post-highlight .btn-primary,
+.post-card .btn-primary { 
+  background-color: var(--naranja-intenso) !important; /* Naranja fuerte */
+  color: black !important; /* Letras negras */
+  border: none !important; /* Sin bordes */
+  font-weight: bold !important;
+  padding: 8px 15px !important;
+  transition: background-color 0.3s ease, transform 0.2s ease !important;
+}
+
+/* 📌 Cambiar color en hover */
+.post-highlight .btn-primary:hover,
+.post-card .btn-primary:hover {
+  background-color: #d9650e !important; /* Naranja más oscuro */
+  transform: scale(1.05) !important; /* Efecto de zoom */
+}
+/* 📌 Tarjetas Laterales Derechas */
+.sidebar-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Espaciado entre las tarjetas */
+}
+
+.info-card {
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  border: 6px solid #3B8024;
+  text-align: center;
+  margin-bottom: 15px; /* Espacio entre tarjetas */
+}
+
+.info-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.info-card h4 {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #065f43;
+}
+
+.info-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+.btn-secondary {
+  background-color: #63af71;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #055f43;
+}
+
+
+
+
+
+
+.centrado {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.post-content {
+  flex: 1;
+}
+
+.card-footer {
+  font-size: 14px;
+  color: #555;
+}
+
+
+
+/* 🔹 Ajuste de Posts Destacados */
+.post-highlight {
+  border-left: 5px solid var(--naranja-intenso) !important;
+  background-color: var(--naranja-suave) !important;
+  padding: 15px !important;
+  border-radius: 10px !important;
+}
+/* 📌 Enlaces dentro de los posts destacados (botón de Leer Post y otros) */
+.post-highlight a {
+  color: var(--secondary-green) !important; /* 🔹 Asegurar que los enlaces sean naranjas */
+  text-decoration: none !important; /* 🔹 Quitar subrayado */
+  font-weight: bold !important;
+  transition: color 0.3s ease !important;
+}
+
+/* 📌 Cambiar color en hover */
+.post-highlight a:hover {
+  color: var(--naranja-intenso) !important; /* 🔹 Naranja más fuerte en hover */
+  text-decoration: underline !important; /* 🔹 Subrayado al pasar el mouse */
+}
+
+
+
+/* 🔹 Paginación */
+.pagination-controls {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-top: 20px !important;
+}
+
+.pagination-controls button {
+  background-color: var(--primary-green) !important;
+  color: white !important;
+  border: none !important;
+  padding: 8px 15px !important;
+  font-size: 1rem !important;
+  border-radius: 5px !important;
+  transition: background-color 0.3s ease !important;
+}
+
+.pagination-controls button:hover {
+  background-color: var(--secondary-green) !important;
+}
+
+.pagination-controls span {
+  margin: 0 15px !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  color: var(--verde-profundo) !important;
+}
+
+/* 🔹 Diseño Responsivo */
+@media (max-width: 768px) {
+  .sidebar-left, .sidebar-right {
+    min-height: auto !important;
+    padding: 1rem !important;
+    text-align: center !important;
+  }
+
+  .pagination-controls {
+    flex-direction: column !important;
+  }
+
+  .pagination-controls span {
+    margin: 10px 0 !important;
+  }
+}

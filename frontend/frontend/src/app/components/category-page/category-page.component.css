@@ -1,0 +1,110 @@
+/* Migas de pan */
+.breadcrumbs {
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #666; 
+}
+
+.breadcrumbs a {
+  text-decoration: none;
+  color: #333; 
+  transition: color 0.2s ease; 
+}
+
+.breadcrumbs a:hover {
+  color: #007bff; 
+}
+
+.breadcrumbs span {
+  font-weight: bold;
+  color: #333; 
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Contenedor de productos */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  grid-gap: 24px; 
+  grid-auto-rows: minmax(350px, auto); /* Aumentamos la altura mínima */
+}
+
+/* Tarjeta de producto */
+.product-card {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+  transition: transform 0.2s ease; 
+  display: flex; 
+  flex-direction: column; 
+  margin-bottom: 30px; /* Espacio inferior de 30px */
+}
+
+.product-card:hover {
+  transform: translateY(-5px); 
+}
+
+
+
+.product-card img {
+  width: 100%;
+  height: 250px; /*  Mantenemos la altura fija */
+  object-fit: contain; /*  Ajustamos la imagen para que quepa completamente */
+}
+
+/* ... otros estilos ... */
+
+.product-card-body {
+  padding: 20px;
+  flex-grow: 1;  
+  display: flex; /* Flexbox para el contenido de la tarjeta */
+  flex-direction: column;
+  justify-content: space-between; /* Distribuye el espacio entre los elementos */
+}
+
+.product-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
+}
+
+.product-card p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  text-align: center; /* Centra el texto de la descripción */
+  }
+
+ 
+  
+  .card-text {
+    color: #666;
+    text-align: center; /* Centra el texto de la descripción */
+  }
+
+/* Botón */
+.btn {
+  background-color: #f0c14b; 
+  color: #111; 
+  padding: 10px 30px; 
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+  display: block; 
+  margin: 0 auto; 
+  align-self: center; /* Centra el botón horizontalmente */
+}
+
+.btn:hover {
+  background-color: #e6b83d; 
+}

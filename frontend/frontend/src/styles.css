@@ -1,0 +1,250 @@
+
+:root {
+    --primary-green: #4CAF50;
+    --secondary-green: #3B8024;       
+    --primary-orange: #FF9800;
+    --yellow-highlight: #FBD12A;
+    --complement1: #F4A261;
+    --complement2: #FFE066;
+    --verde-oscuro: #065f43;
+    --verde-medio: #63af71;
+    --verde-profundo: #055f43;
+    --naranja-intenso: #f47b22;
+    --naranja-suave: #efd0b8;
+
+  }
+
+  /* 🔹 Estilo para el título principal de la página */
+.banner-title {
+  font-size: 2rem; /* Tamaño más pequeño */
+  font-weight: bold; /* Texto en negrita */
+  
+  text-align: center; /* Opcional: Centrar el texto */
+  margin: 20px 0; /* Espaciado superior e inferior */
+}
+
+  /* 🔹 TIPOGRAFÍA GENERAL */
+body {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  color: var(--verde-medio);
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* 🔹 Encabezados Principales y Subtítulos */
+
+/* Estilo general para todos los encabezados */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif; /* Tipografía de los títulos */
+  font-weight: 600; /* Negrita ligera para profesionalismo */
+  color: var(--secondary-green); /* Color verde oscuro */
+  margin: 20px 0; /* Espaciado superior e inferior */
+  line-height: 1.4; /* Espaciado entre líneas para legibilidad */
+  text-align: center; /* Centrar encabezados */
+}
+
+/* Estilo específico para h1 */
+h1 {
+  font-size: 3rem; /* Tamaño destacado */
+  font-weight: 700; /* Negrita más marcada */
+  color: var(--primary-orange); /* Color vibrante para llamar atención */
+  text-transform: uppercase; /* Letras mayúsculas para énfasis */
+  letter-spacing: 2px; /* Espaciado entre letras */
+  text-align: center;
+    margin-bottom: 30px;
+  
+    
+  }
+
+
+  h2.experts-title {
+    
+    color: rgb(230, 123, 17);
+   font-size: 1.8rem;
+    text-align: center;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Estilo específico para h3 */
+h3 {
+  font-size: 2rem; /* Más discreto */
+  color: var(--secondary-green); /* Color verde suave */
+  text-transform: none; /* Sin mayúsculas automáticas */
+}
+
+/* Estilo específico para h4 */
+h4 {
+  font-size: 1.8rem;
+  font-weight: 500; /* Negrita más ligera */
+  color: var(--verde-medio);
+}
+
+/* Estilo específico para h5 */
+h5 {
+  font-size: 1.5rem;
+  color: var(--verde-medio);
+  font-weight: 400; /* Peso normal */
+  text-transform: none;
+}
+
+/* Estilo específico para h6 */
+h6 {
+  font-size: 1.3rem;
+  color: var(--naranja-suave);
+  font-weight: 400; /* Más ligero para textos secundarios */
+  letter-spacing: 0.5px; /* Espaciado menor entre letras */
+}
+
+/* 🔹 Bordes Decorativos para h1 y h2 */
+h1::after, h2::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background-color: var(--naranja-intenso);
+  margin: 10px auto 0;
+}
+
+/* 🔹 Responsividad */
+@media (max-width: 768px) {
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2rem; }
+  h3 { font-size: 1.8rem; }
+  h4 { font-size: 1.5rem; }
+  h5 { font-size: 1.2rem; }
+  h6 { font-size: 1rem; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.8rem; }
+  h3 { font-size: 1.6rem; }
+  h4 { font-size: 1.3rem; }
+  h5 { font-size: 1rem; }
+  h6 { font-size: 0.9rem; }
+}
+
+
+
+/* 🔹 BOTONES */
+
+/*Boton accion*/
+.btn-accion {
+  background-color: #ff5722;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-accion:hover {
+  background-color: #e64a19;
+  color: #fff;
+}
+
+
+/*Boton amazon*/
+
+.btn-compra {
+  background-color: #f0c14b;
+  color: #111;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  margin: 10px auto;
+  transition: background-color 0.2s ease;
+  width: 80%; /* Botones del mismo tamaño */
+  max-width: 200px; /* Ancho máximo uniforme */
+  box-sizing: border-box; /* Incluye padding en el tamaño total */
+}
+
+.btn:hover {
+  background-color: #e6b83d;
+}
+
+/* Estilo elegante para las tarjetas */
+.card {
+  display: flex;
+  flex-direction: column; /* Asegurar que el contenido se distribuye en columna */
+  justify-content: space-between; /* Distribuir los elementos dentro */
+  border: none;
+  border-radius: 15px; /* Bordes más redondeados */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  height: 100%; /* Todas las tarjetas tendrán la misma altura */
+}
+
+/* Efecto hover */
+.card:hover {
+  transform: translateY(-5px); /* Efecto de elevación */
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Imagen ajustada */
+.card img {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  object-fit: cover;
+  height: 200px;
+}
+
+/* Contenedor del cuerpo de la tarjeta */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1; /* Asegura que todas las tarjetas tengan el mismo tamaño */
+  text-align: center;
+}
+
+/* Título de la tarjeta */
+.card-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--verde-profundo);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Texto dentro de la tarjeta */
+.card-text {
+  font-size: 1rem;
+  color: #666;
+  flex-grow: 1; /* Hace que el texto ocupe el espacio disponible */
+}
+
+/* Estilo del botón */
+.card-body .btn {
+  align-self: center; /* Centrar el botón horizontalmente */
+  margin-top: auto; /* Empujar el botón hacia abajo */
+}
+
+
+/* 🔹 RESPONSIVIDAD */
+@media (max-width: 768px) {
+  .hero .portada-img { width: 90%; }
+  .hero h1 { font-size: 2rem; }
+  .card img { height: 150px; }
+}
+
+
+@media (max-width: 480px) {
+  .hero .portada-img { width: 100%; }
+  .hero h1 { font-size: 1.8rem; }
+  .hero p { font-size: 1rem; }
+}
+
+

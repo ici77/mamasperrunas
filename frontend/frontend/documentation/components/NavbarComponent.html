@@ -1,0 +1,776 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  NavbarComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/shared/navbar/navbar.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>📌 Componente <code>NavbarComponent</code></p>
+<p>Este componente representa la barra de navegación de la aplicación.
+Incluye enlaces a distintas secciones del sitio y un sistema de menús desplegables.
+También maneja el cierre automático de los menús después de un tiempo o cuando
+el usuario hace clic fuera de ellos.</p>
+<p>ℹ️ <strong>Uso:</strong> Se coloca en la parte superior de la aplicación para permitir la navegación global.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>AfterViewInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-navbar</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>RouterLink</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./navbar.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./navbar.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(elementRef: ElementRef)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/shared/navbar/navbar.component.ts:21</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor del componente.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>elementRef</td>
+                                                  
+                                                        <td>
+                                                                    <code>ElementRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>Referencia al elemento del DOM del componente.</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="34"
+                                    class="link-to-prism">src/app/shared/navbar/navbar.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>📌 Método <code>ngAfterViewInit()</code></p>
+<ul>
+<li>Agrega eventos a los menús desplegables para cerrarlos automáticamente después de 1.5 segundos.</li>
+<li>Detecta clics fuera de los menús para cerrarlos si están abiertos.</li>
+</ul>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, AfterViewInit, ElementRef } from &#x27;@angular/core&#x27;;
+import { RouterLink } from &#x27;@angular/router&#x27;;
+
+/**
+ * 📌 Componente &#x60;NavbarComponent&#x60;
+ *
+ * Este componente representa la barra de navegación de la aplicación.
+ * Incluye enlaces a distintas secciones del sitio y un sistema de menús desplegables.
+ * También maneja el cierre automático de los menús después de un tiempo o cuando
+ * el usuario hace clic fuera de ellos.
+ *
+ * ℹ️ **Uso:** Se coloca en la parte superior de la aplicación para permitir la navegación global.
+ */
+@Component({
+  standalone: true,
+  selector: &#x27;app-navbar&#x27;,
+  imports: [RouterLink],
+  templateUrl: &#x27;./navbar.component.html&#x27;,
+  styleUrls: [&#x27;./navbar.component.css&#x27;],
+})
+export class NavbarComponent implements AfterViewInit {
+  /**
+   * Constructor del componente.
+   * @param elementRef - Referencia al elemento del DOM del componente.
+   */
+  constructor(private elementRef: ElementRef) {}
+
+  /**
+   * 📌 Método &#x60;ngAfterViewInit()&#x60;
+   *
+   * - Agrega eventos a los menús desplegables para cerrarlos automáticamente después de 1.5 segundos.
+   * - Detecta clics fuera de los menús para cerrarlos si están abiertos.
+   */
+  ngAfterViewInit() {
+    /**
+     * 🔹 Función para cerrar un menú desplegable dado su ID.
+     * @param menuId - ID del menú que se desea cerrar.
+     */
+    const cerrarMenu &#x3D; (menuId: string) &#x3D;&gt; {
+      const menu &#x3D; document.getElementById(menuId);
+      if (menu) {
+        menu.classList.remove(&#x27;show&#x27;);
+      }
+    };
+
+    // Obtener todos los elementos con la clase &#x27;nav-link dropdown-toggle&#x27; dentro del componente
+    const dropdownToggles &#x3D; this.elementRef.nativeElement.querySelectorAll(&#x27;.nav-link.dropdown-toggle&#x27;);
+
+    // Agregar event listeners a cada elemento desplegable
+    dropdownToggles.forEach((toggle: HTMLElement) &#x3D;&gt; {
+      toggle.addEventListener(&#x27;click&#x27;, function () {
+        // Obtener el ID del menú correspondiente
+        const menuId &#x3D; this.id.replace(&#x27;Dropdown&#x27;, &#x27;Menu&#x27;);
+
+        // Configurar el temporizador para cerrar el menú después de 1.5 segundos
+        setTimeout(() &#x3D;&gt; cerrarMenu(menuId), 1500);
+      });
+    });
+
+    // Cerrar los menús al hacer clic fuera de ellos
+    document.addEventListener(&#x27;click&#x27;, (event: MouseEvent) &#x3D;&gt; {
+      dropdownToggles.forEach((toggle: HTMLElement) &#x3D;&gt; {
+        const menuId &#x3D; toggle.id.replace(&#x27;Dropdown&#x27;, &#x27;Menu&#x27;);
+        const menu &#x3D; document.getElementById(menuId);
+        // Verificar si el clic fue fuera del menú y del botón que lo abre
+        if (menu &amp;&amp; !menu.contains(event.target as Node) &amp;&amp; !toggle.contains(event.target as Node)) {
+          cerrarMenu(menuId);
+        }
+      });
+    });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;nav class&#x3D;&quot;navbar navbar-expand-lg navbar-light&quot;&gt;
+  &lt;div class&#x3D;&quot;container-fluid&quot;&gt;
+    &lt;a class&#x3D;&quot;navbar-brand d-flex align-items-center&quot; routerLink&#x3D;&quot;/&quot;&gt;
+      &lt;img src&#x3D;&quot;assets/images/logo.png&quot; alt&#x3D;&quot;Logo&quot; width&#x3D;&quot;40&quot; height&#x3D;&quot;40&quot; class&#x3D;&quot;me-2&quot; /&gt;
+      &lt;span&gt;MAMAS PERRUNAS&lt;/span&gt;
+    &lt;/a&gt;
+
+    &lt;button
+      class&#x3D;&quot;navbar-toggler&quot;
+      type&#x3D;&quot;button&quot;
+      data-bs-toggle&#x3D;&quot;collapse&quot;
+      data-bs-target&#x3D;&quot;#navbarNav&quot;
+      aria-controls&#x3D;&quot;navbarNav&quot;
+      aria-expanded&#x3D;&quot;false&quot;
+      aria-label&#x3D;&quot;Toggle navigation&quot;
+    &gt;
+      &lt;span class&#x3D;&quot;navbar-toggler-icon&quot;&gt;&lt;/span&gt;
+    &lt;/button&gt;
+
+    &lt;div class&#x3D;&quot;collapse navbar-collapse justify-content-center&quot; id&#x3D;&quot;navbarNav&quot;&gt; 
+      &lt;div class&#x3D;&quot;d-flex flex-grow-1&quot;&gt;&lt;/div&gt; 
+      &lt;ul class&#x3D;&quot;navbar-nav me-auto&quot;&gt; 
+        &lt;li class&#x3D;&quot;nav-item dropdown&quot;&gt;
+          &lt;a
+            class&#x3D;&quot;nav-link dropdown-toggle&quot;
+            routerLink&#x3D;&quot;/products&quot; 
+            id&#x3D;&quot;tiendaDropdown&quot;
+            role&#x3D;&quot;button&quot;
+            data-bs-toggle&#x3D;&quot;dropdown&quot;
+            aria-expanded&#x3D;&quot;false&quot;
+          &gt;
+            Tienda
+          &lt;/a&gt;
+          &lt;ul class&#x3D;&quot;dropdown-menu&quot; aria-labelledby&#x3D;&quot;tiendaDropdown&quot; id&#x3D;&quot;tiendaMenu&quot;&gt; 
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; routerLink&#x3D;&quot;/products/Ropa&quot;&gt;Ropa&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; routerLink&#x3D;&quot;/products/Accesorios&quot;&gt;Accesorios&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; routerLink&#x3D;&quot;/products/Juguetes&quot;&gt;Juguetes&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; routerLink&#x3D;&quot;/products/Alimentos&quot;&gt;Alimentos&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; routerLink&#x3D;&quot;/products/Camas&quot;&gt;Camas&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; routerLink&#x3D;&quot;/products/Paseo&quot;&gt;Paseo&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+
+        &lt;li class&#x3D;&quot;nav-item dropdown&quot;&gt;
+          &lt;a
+            class&#x3D;&quot;nav-link dropdown-toggle&quot;
+            href&#x3D;&quot;#&quot;
+            id&#x3D;&quot;eventosDropdown&quot;
+            role&#x3D;&quot;button&quot;
+            data-bs-toggle&#x3D;&quot;dropdown&quot;
+            aria-expanded&#x3D;&quot;false&quot;
+          &gt;
+            Eventos
+          &lt;/a&gt;
+          &lt;ul class&#x3D;&quot;dropdown-menu&quot; aria-labelledby&#x3D;&quot;eventosDropdown&quot; id&#x3D;&quot;eventosMenu&quot;&gt; 
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Cumpleaños&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Desfiles&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Adopciones&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Reuniones&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Exposiciones&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+
+        &lt;li class&#x3D;&quot;nav-item dropdown&quot;&gt;
+          &lt;a
+            class&#x3D;&quot;nav-link dropdown-toggle&quot;
+            href&#x3D;&quot;/foro&quot; 
+            id&#x3D;&quot;serviciosDropdown&quot;
+            role&#x3D;&quot;button&quot;
+            data-bs-toggle&#x3D;&quot;dropdown&quot;
+            aria-expanded&#x3D;&quot;false&quot;
+          &gt;
+            Servicios
+          &lt;/a&gt;
+          &lt;ul class&#x3D;&quot;dropdown-menu&quot; aria-labelledby&#x3D;&quot;serviciosDropdown&quot; id&#x3D;&quot;serviciosMenu&quot;&gt; 
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Veterinaria&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Entrenamiento&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Estética&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Guarderías&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Asesoramiento&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+
+        &lt;li class&#x3D;&quot;nav-item dropdown&quot;&gt;
+          &lt;a
+            class&#x3D;&quot;nav-link dropdown-toggle&quot;
+            href&#x3D;&quot;#&quot;
+            id&#x3D;&quot;comunidadDropdown&quot;
+            role&#x3D;&quot;button&quot;
+            data-bs-toggle&#x3D;&quot;dropdown&quot;
+            aria-expanded&#x3D;&quot;false&quot;
+          &gt;
+            Comunidad
+          &lt;/a&gt;
+          &lt;ul class&#x3D;&quot;dropdown-menu&quot; aria-labelledby&#x3D;&quot;comunidadDropdown&quot; id&#x3D;&quot;comunidadMenu&quot;&gt; 
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; routerLink&#x3D;&quot;/foro&quot;&gt;Foros&lt;/a&gt;&lt;/li&gt; &lt;!-- Enlace al foro --&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Grupos&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Historias&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Recomendaciones&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Encuestas&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+        
+
+        &lt;li class&#x3D;&quot;nav-item dropdown&quot;&gt;
+          &lt;a
+            class&#x3D;&quot;nav-link dropdown-toggle&quot;
+            href&#x3D;&quot;#&quot;
+            id&#x3D;&quot;blogDropdown&quot;
+            role&#x3D;&quot;button&quot;
+            data-bs-toggle&#x3D;&quot;dropdown&quot;
+            aria-expanded&#x3D;&quot;false&quot;
+          &gt;
+            Blog
+          &lt;/a&gt;
+          &lt;ul class&#x3D;&quot;dropdown-menu&quot; aria-labelledby&#x3D;&quot;blogDropdown&quot; id&#x3D;&quot;blogMenu&quot;&gt; 
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Consejos&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Noticias&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Salud&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Lifestyle&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class&#x3D;&quot;dropdown-item&quot; href&#x3D;&quot;#&quot;&gt;Opiniones&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;div class&#x3D;&quot;d-flex flex-grow-1&quot;&gt;&lt;/div&gt; 
+      &lt;div class&#x3D;&quot;d-flex flex-column align-items-end&quot;&gt;
+        &lt;a class&#x3D;&quot;small text-white mb-1&quot; routerLink&#x3D;&quot;/business-area&quot;&gt;Área Empresas&lt;/a&gt;
+        &lt;div&gt;
+          &lt;a class&#x3D;&quot;btn btn-outline-light me-2&quot; routerLink&#x3D;&quot;/registro&quot;&gt;Regístrate&lt;/a&gt;
+
+          &lt;a class&#x3D;&quot;btn btn-outline-light&quot; routerLink&#x3D;&quot;/login&quot;&gt;Accede&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./navbar.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.navbar {
+  background-color: var(--secondary-green); 
+  padding: 10px 20px;
+}
+
+.navbar-brand {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.navbar-brand img {
+  border-radius: 50%; 
+}
+
+.navbar-nav .nav-link { /*  Especificamos .navbar-nav para evitar conflictos con otros enlaces */
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.navbar-nav .nav-link:hover, 
+.navbar-nav .nav-link:focus { /*  Añadimos :focus para la accesibilidad */
+  color: var(--primary-orange); 
+}
+
+.navbar-nav .nav-link.active, /*  Estilo para el enlace activo */
+.navbar-nav .nav-link.active:hover,
+.navbar-nav .nav-link.active:focus {
+  color: var(--primary-orange); 
+  font-weight: bold;
+}
+
+/* Estilo para menú desplegable */
+.dropdown-menu {
+  background-color: #f8f9fa; 
+  border-radius: 0.25rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); 
+}
+
+.dropdown-item {
+  color: #333;
+  font-size: 14px;
+  white-space: nowrap;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus { /*  Añadimos :focus */
+  background-color: var(--secondary-green);
+  color: white;
+}
+
+/* Botones de acceso y registro */
+.btn-outline-light {
+  color: white;
+  border-color: white;
+  margin-right: 10px;
+}
+
+.btn-outline-light:hover,
+.btn-outline-light:focus { /*  Añadimos :focus */
+  background-color: white;
+  color: var(--primary-green);
+}
+
+/* Área Empresas */
+.small {
+  font-size: 12px;
+  color: white;
+  margin-right: 40px
+}
+
+/* Ajustes responsive */
+@media (max-width: 992px) {
+  .navbar {
+    padding: 10px;
+  }
+
+  .navbar-brand {
+    font-size: 18px;
+  }
+
+  .btn-outline-light {
+    margin-right: 5px;
+  }
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><nav class="navbar navbar-expand-lg navbar-light">  <div class="container-fluid">    <a class="navbar-brand d-flex align-items-center" routerLink="/">      <img src="assets/images/logo.png" alt="Logo" width="40" height="40" class="me-2" />      <span>MAMAS PERRUNAS</span>    </a>    <button      class="navbar-toggler"      type="button"      data-bs-toggle="collapse"      data-bs-target="#navbarNav"      aria-controls="navbarNav"      aria-expanded="false"      aria-label="Toggle navigation"    >      <span class="navbar-toggler-icon"></span>    </button>    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">       <div class="d-flex flex-grow-1"></div>       <ul class="navbar-nav me-auto">         <li class="nav-item dropdown">          <a            class="nav-link dropdown-toggle"            routerLink="/products"             id="tiendaDropdown"            role="button"            data-bs-toggle="dropdown"            aria-expanded="false"          >            Tienda          </a>          <ul class="dropdown-menu" aria-labelledby="tiendaDropdown" id="tiendaMenu">             <li><a class="dropdown-item" routerLink="/products/Ropa">Ropa</a></li>            <li><a class="dropdown-item" routerLink="/products/Accesorios">Accesorios</a></li>            <li><a class="dropdown-item" routerLink="/products/Juguetes">Juguetes</a></li>            <li><a class="dropdown-item" routerLink="/products/Alimentos">Alimentos</a></li>            <li><a class="dropdown-item" routerLink="/products/Camas">Camas</a></li>            <li><a class="dropdown-item" routerLink="/products/Paseo">Paseo</a></li>          </ul>        </li>        <li class="nav-item dropdown">          <a            class="nav-link dropdown-toggle"            href="#"            id="eventosDropdown"            role="button"            data-bs-toggle="dropdown"            aria-expanded="false"          >            Eventos          </a>          <ul class="dropdown-menu" aria-labelledby="eventosDropdown" id="eventosMenu">             <li><a class="dropdown-item" href="#">Cumpleaños</a></li>            <li><a class="dropdown-item" href="#">Desfiles</a></li>            <li><a class="dropdown-item" href="#">Adopciones</a></li>            <li><a class="dropdown-item" href="#">Reuniones</a></li>            <li><a class="dropdown-item" href="#">Exposiciones</a></li>          </ul>        </li>        <li class="nav-item dropdown">          <a            class="nav-link dropdown-toggle"            href="/foro"             id="serviciosDropdown"            role="button"            data-bs-toggle="dropdown"            aria-expanded="false"          >            Servicios          </a>          <ul class="dropdown-menu" aria-labelledby="serviciosDropdown" id="serviciosMenu">             <li><a class="dropdown-item" href="#">Veterinaria</a></li>            <li><a class="dropdown-item" href="#">Entrenamiento</a></li>            <li><a class="dropdown-item" href="#">Estética</a></li>            <li><a class="dropdown-item" href="#">Guarderías</a></li>            <li><a class="dropdown-item" href="#">Asesoramiento</a></li>          </ul>        </li>        <li class="nav-item dropdown">          <a            class="nav-link dropdown-toggle"            href="#"            id="comunidadDropdown"            role="button"            data-bs-toggle="dropdown"            aria-expanded="false"          >            Comunidad          </a>          <ul class="dropdown-menu" aria-labelledby="comunidadDropdown" id="comunidadMenu">             <li><a class="dropdown-item" routerLink="/foro">Foros</a></li> <!-- Enlace al foro -->            <li><a class="dropdown-item" href="#">Grupos</a></li>            <li><a class="dropdown-item" href="#">Historias</a></li>            <li><a class="dropdown-item" href="#">Recomendaciones</a></li>            <li><a class="dropdown-item" href="#">Encuestas</a></li>          </ul>        </li>                <li class="nav-item dropdown">          <a            class="nav-link dropdown-toggle"            href="#"            id="blogDropdown"            role="button"            data-bs-toggle="dropdown"            aria-expanded="false"          >            Blog          </a>          <ul class="dropdown-menu" aria-labelledby="blogDropdown" id="blogMenu">             <li><a class="dropdown-item" href="#">Consejos</a></li>            <li><a class="dropdown-item" href="#">Noticias</a></li>            <li><a class="dropdown-item" href="#">Salud</a></li>            <li><a class="dropdown-item" href="#">Lifestyle</a></li>            <li><a class="dropdown-item" href="#">Opiniones</a></li>          </ul>        </li>      </ul>      <div class="d-flex flex-grow-1"></div>       <div class="d-flex flex-column align-items-end">        <a class="small text-white mb-1" routerLink="/business-area">Área Empresas</a>        <div>          <a class="btn btn-outline-light me-2" routerLink="/registro">Regístrate</a>          <a class="btn btn-outline-light" routerLink="/login">Accede</a>        </div>      </div>    </div>  </div></nav></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BannerComponent', 'selector': 'app-banner'},{'name': 'BannerportadaComponent', 'selector': 'app-bannerportada'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'CategoryPageComponent', 'selector': 'app-category-page'},{'name': 'CircleGridComponent', 'selector': 'app-circle-grid'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ForumGridComponent', 'selector': 'app-forum-grid'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'LandingPageComponent', 'selector': 'app-landing-page'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'ProductListComponent', 'selector': 'app-product-list'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegistroComponent', 'selector': 'app-registro'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'NavbarComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'NavbarComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
