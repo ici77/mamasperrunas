@@ -42,9 +42,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         try {
             String email = jwtTokenUtil.getEmailFromToken(token);
-            // Elimina estos println en producción o cambia a logger
-            // System.out.println("🔐 Token recibido: " + token);
-            // System.out.println("📧 Email extraído del token: " + email);
 
             if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 Usuario usuario = usuarioRepository.findByEmail(email).orElse(null);
@@ -57,8 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         } catch (Exception e) {
-            // Opcional: Loguear el error
-            // System.out.println("⚠️ Error al validar token JWT: " + e.getMessage());
+            // Opcional: Aquí puedes loguear el error con un logger para producción
         }
 
         filterChain.doFilter(request, response);
