@@ -16,6 +16,7 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
 
+        // Permite orígenes para desarrollo local y producción en Railway
         config.setAllowedOriginPatterns(List.of(
             "http://localhost:4200",
             "https://mamasperrunas-production-3dae.up.railway.app"

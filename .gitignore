@@ -23,3 +23,4 @@ Thumbs.db
 
 # Ignorar archivos de configuración que no deben subirse
 *.env
+node_modules

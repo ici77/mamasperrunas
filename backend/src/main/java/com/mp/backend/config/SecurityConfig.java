@@ -24,45 +24,38 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ CORS configurado
-            .csrf(csrf -> csrf.disable()) // ❌ CSRF deshabilitado
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))  // CORS configurado
+            .csrf(csrf -> csrf.disable())  // CSRF deshabilitado para facilitar pruebas y uso de API REST
             .authorizeHttpRequests(auth -> auth
-                // Usuarios
+                // Endpoints públicos para registro y login
                 .requestMatchers("/api/usuarios/registro", "/api/usuarios/login").permitAll()
-                 .requestMatchers("/api/usuarios/cambiar-password").authenticated()
+                .requestMatchers("/api/usuarios/cambiar-password").authenticated()
 
-                  // Aquí añadimos acceso libre al endpoint de prueba
-    .requestMatchers("/api/holamundo").permitAll()
+                // Endpoint de prueba libre
+                .requestMatchers("/api/holamundo").permitAll()
 
-    
                 // Eventos
                 .requestMatchers(HttpMethod.GET, "/api/eventos/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/eventos/**").authenticated()
                 .requestMatchers("/uploads/**").permitAll()
                 .requestMatchers(HttpMethod.DELETE, "/api/usuarios/eventos/*/cancelar").authenticated()
 
-
-
-
-                // Posts y categorías (foro)
+                // Posts y categorías
                 .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/posts/category/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/categories").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/replies/post/**").permitAll()
-                
-    .requestMatchers("/api/posts/crear-con-imagen").authenticated()
-   
+                .requestMatchers("/api/posts/crear-con-imagen").authenticated()
 
-
-                // Swagger (documentación)
+                // Swagger y documentación
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
 
-                // Resto requiere autenticación
+                // Cualquier otra ruta requiere autenticación
                 .anyRequest().authenticated()
             )
-            .logout(logout -> logout.permitAll()); // ✅ Dejamos el logout permitido
+            .logout(logout -> logout.permitAll());  // Logout permitido para todos
 
-        // ✅ Agregar el filtro JWT ANTES del filtro por defecto de Spring
+        // Insertar filtro JWT antes del filtro de autenticación por defecto
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -76,10 +69,13 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:4200"));
+        // Aquí añadimos los orígenes permitidos (local y front en Railway)
+        config.setAllowedOriginPatterns(List.of(
+            "http://localhost:4200",
+            "https://mamasperrunas-production-3dae.up.railway.app"
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "Origin", "X-Requested-With"));
-
         config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
