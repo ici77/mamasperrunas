@@ -7,8 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,25 +23,22 @@ public class AuthController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid LoginRequest request) {
         try {
-            // 1. Autenticamos
+            // 1. Autenticar email y contraseña
             authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
             );
 
-            // 2. Buscamos el usuario
+            // 2. Buscar al usuario
             Usuario usuario = usuarioRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
-            // 3. Generamos el token
+            // 3. Generar el token JWT
             String token = jwtTokenUtil.generateToken(usuario);
 
-            // 4. Devolvemos el token
+            // 4. Devolver token al cliente
             return ResponseEntity.ok(new LoginResponse(token));
 
         } catch (BadCredentialsException e) {
@@ -50,7 +46,7 @@ public class AuthController {
         }
     }
 
-    // DTO interno o en carpeta dto
+    // DTO interno o en paquete dto
     public static class LoginRequest {
         private String email;
         private String password;
