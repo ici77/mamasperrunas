@@ -2,9 +2,8 @@
   "name": "frontend",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration=production",
+    "start": "http-server dist/frontend -p $PORT",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -24,7 +23,8 @@
     "ngx-bootstrap": "^19.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.15.0",
+    "http-server": "^14.1.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "19.1.2",
@@ -37,7 +37,6 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-   "typescript": "^5.7.3"
-
+    "typescript": "^5.7.3"
   }
 }
