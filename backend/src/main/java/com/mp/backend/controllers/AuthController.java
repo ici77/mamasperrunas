@@ -1,15 +1,13 @@
 package com.mp.backend.controllers;
 
-import com.mp.backend.dto.LoginRequest;
-import com.mp.backend.dto.LoginResponse;
 import com.mp.backend.models.Usuario;
 import com.mp.backend.repositories.UsuarioRepository;
 import com.mp.backend.utils.JwtTokenUtil;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.*;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,28 +16,61 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
-        );
+    public ResponseEntity<?> login(@RequestBody @Valid LoginRequest request) {
+        try {
+            // 1. Autenticamos
+            authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+            );
 
-        Usuario usuario = usuarioRepository.findByEmail(request.getEmail())
-            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+            // 2. Buscamos el usuario
+            Usuario usuario = usuarioRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        String token = jwtTokenUtil.generateToken(usuario.getEmail());
+            // 3. Generamos el token
+            String token = jwtTokenUtil.generateToken(usuario);
 
-        return ResponseEntity.ok(new LoginResponse(token));
+            // 4. Devolvemos el token
+            return ResponseEntity.ok(new LoginResponse(token));
+
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(401).body("Credenciales inválidas");
+        }
+    }
+
+    // DTO interno o en carpeta dto
+    public static class LoginRequest {
+        private String email;
+        private String password;
+
+        public String getEmail() { return email; }
+        public void setEmail(String email) { this.email = email; }
+
+        public String getPassword() { return password; }
+        public void setPassword(String password) { this.password = password; }
+    }
+
+    public static class LoginResponse {
+        private String token;
+
+        public LoginResponse(String token) {
+            this.token = token;
+        }
+
+        public String getToken() {
+            return token;
+        }
     }
 }
