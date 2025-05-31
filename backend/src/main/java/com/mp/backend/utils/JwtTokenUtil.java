@@ -1,14 +1,15 @@
 package com.mp.backend.utils;
 
 import com.mp.backend.models.Usuario;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import jakarta.annotation.PostConstruct;
+
 import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,9 +21,26 @@ import java.util.Map;
 public class JwtTokenUtil {
 
     @Value("${jwt.secret}")
-    private String secretKey;
+    private String secret;
+
+    private SecretKey secretKey;
 
     private final long expirationTime = 1000 * 60 * 60 * 24; // 24 horas
+
+    /**
+     * ✅ Inicializa la clave una vez leída del archivo de configuración.
+     */
+    @PostConstruct
+    public void init() {
+        try {
+            if (secret.length() < 32) {
+                throw new IllegalArgumentException("La clave secreta JWT debe tener al menos 32 caracteres.");
+            }
+            this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        } catch (Exception e) {
+            System.err.println("❌ Error al inicializar JwtTokenUtil: " + e.getMessage());
+        }
+    }
 
     public String generateToken(Usuario usuario) {
         Map<String, Object> claims = new HashMap<>();
@@ -32,14 +50,12 @@ public class JwtTokenUtil {
         claims.put("nombre", usuario.getNombre());
         claims.put("foto_perfil", usuario.getFotoPerfil());
 
-        SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
-
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(usuario.getEmail())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
-                .signWith(key, SignatureAlgorithm.HS256)
+                .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -50,31 +66,29 @@ public class JwtTokenUtil {
 
     public String getEmailFromToken(String token) {
         try {
-            SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
             return Jwts.parserBuilder()
-                    .setSigningKey(key)
+                    .setSigningKey(secretKey)
                     .build()
                     .parseClaimsJws(token)
                     .getBody()
                     .getSubject();
         } catch (Exception e) {
-            System.err.println("Error al extraer email del token: " + e.getMessage());
+            System.err.println("❌ Error al extraer email del token: " + e.getMessage());
             return null;
         }
     }
 
     public boolean isTokenExpired(String token) {
         try {
-            SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
             Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(key)
+                    .setSigningKey(secretKey)
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
 
             return claims.getExpiration().before(new Date());
         } catch (Exception e) {
-            System.err.println("Error al verificar expiración del token: " + e.getMessage());
+            System.err.println("❌ Error al verificar expiración del token: " + e.getMessage());
             return true;
         }
     }
