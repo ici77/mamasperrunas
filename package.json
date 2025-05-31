@@ -1,10 +1,10 @@
 {
   "dependencies": {
     "@angular/animations": "^19.2.11",
-    "jwt-decode": "^4.0.0"
+    "jwt-decode": "^4.0.0",
+    "serve": "^14.2.4"
   },
   "devDependencies": {
     "typescript": "^5.7.3"
-
   }
 }
