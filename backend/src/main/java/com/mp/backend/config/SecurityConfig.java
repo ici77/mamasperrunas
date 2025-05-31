@@ -69,7 +69,8 @@ public class SecurityConfig {
         // Usamos AllowedOriginPatterns para aceptar localhost y front Railway
         config.setAllowedOriginPatterns(List.of(
             "http://localhost:4200",
-            "https://mamasperrunas-production-3dae.up.railway.app"
+            "https://mamasperrunas-production-3dae.up.railway.app",
+             "https://*.up.railway.app"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "Origin", "X-Requested-With"));
