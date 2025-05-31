@@ -2,10 +2,10 @@
   "name": "frontend",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "start": "serve -s dist/frontend",
-    "build": "ng build"
-  },
+ "scripts": {
+  "start": "node node_modules/serve/bin/serve.js -s dist/frontend",
+  "build": "ng build"
+},
   "dependencies": {
     "@angular/animations": "^19.2.11",
     "jwt-decode": "^4.0.0",
