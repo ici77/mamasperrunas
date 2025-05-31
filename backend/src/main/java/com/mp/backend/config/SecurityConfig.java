@@ -24,15 +24,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))  // Configuración CORS
-            .csrf(csrf -> csrf.disable())  // CSRF deshabilitado para API REST
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                // Permitir acceso público a la raíz y archivos estáticos (uploads)
+                // Acceso público
                 .requestMatchers("/", "/index.html", "/favicon.ico").permitAll()
                 .requestMatchers("/uploads/**").permitAll()
-                
-                // Rutas públicas
-                .requestMatchers("/api/usuarios/registro", "/api/usuarios/login").permitAll()
+                .requestMatchers("/api/auth/login", "/api/usuarios/registro").permitAll()
                 .requestMatchers("/api/holamundo").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/eventos/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
@@ -40,14 +38,14 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/categories").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/replies/post/**").permitAll()
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
-                
-                // Rutas que requieren autenticación
+
+                // Acceso autenticado
                 .requestMatchers("/api/usuarios/cambiar-password").authenticated()
                 .requestMatchers(HttpMethod.POST, "/api/eventos/**").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/api/usuarios/eventos/*/cancelar").authenticated()
                 .requestMatchers("/api/posts/crear-con-imagen").authenticated()
-                
-                // Cualquier otra ruta requiere autenticación
+
+                // Todo lo demás requiere autenticación
                 .anyRequest().authenticated()
             )
             .logout(logout -> logout.permitAll());
@@ -65,17 +63,14 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-
-        // Usamos AllowedOriginPatterns para aceptar localhost y front Railway
         config.setAllowedOriginPatterns(List.of(
             "http://localhost:4200",
             "https://mamasperrunas-production-3dae.up.railway.app",
-             "https://*.up.railway.app"
+            "https://*.up.railway.app"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "Origin", "X-Requested-With"));
         config.setAllowCredentials(true);
-        
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
