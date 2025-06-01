@@ -1,14 +1,13 @@
 {
   "name": "frontend",
   "version": "0.0.0",
- "scripts": {
-  "build": "ng build --configuration=production",
-  "start": "http-server dist/frontend/browser -p $PORT"
+  "scripts": {
+    "build": "ng build --configuration=production",
+   "start": "http-server dist/frontend/browser -p $PORT -c-1 --proxy http://localhost:$PORT?"
 ,
-  "watch": "ng build --watch --configuration development",
-  "test": "ng test"
-},
-
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "19.1.1",
@@ -21,12 +20,12 @@
     "@angular/platform-browser-dynamic": "19.1.1",
     "@angular/router": "19.1.1",
     "bootstrap": "^5.3.3",
+    "http-server": "^14.1.1",
     "jwt-decode": "^4.0.0",
     "ngx-bootstrap": "^19.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0",
-    "http-server": "^14.1.1"
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "19.1.2",
