@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "build": "ng build --configuration=production",
-  "start": "npx http-server dist/frontend/browser -p $PORT -a 0.0.0.0"
+  "start": "node node_modules/http-server/bin/http-server dist/frontend/browser -p $PORT -a 0.0.0.0 -s"
+
 
 
 ,
