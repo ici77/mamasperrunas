@@ -23,8 +23,7 @@ Thumbs.db
 
 # Ignorar archivos de configuración que no deben subirse
 *.env
-# Carpeta de compilación del frontend
-frontend/dist/
+
 
 # Archivo de bloqueo del frontend (si no lo estás usando en el control de versiones)
 frontend/package-lock.json

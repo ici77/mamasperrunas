@@ -2,16 +2,20 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 
-// Ruta al contenido compilado de Angular
-app.use(express.static(path.join(__dirname, 'dist/frontend/browser')));
+// Ruta a los archivos compilados de Angular
+const frontendPath = path.join(__dirname, 'dist', 'frontend', 'browser');
 
-// Redirige cualquier petición a index.html
+// Servir archivos estáticos
+app.use(express.static(frontendPath));
+
+// Ruta fallback para SPA (Angular maneja las rutas del frontend)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/frontend/browser/index.html'));
+  res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en puerto ${PORT}`);
+// Iniciar el servidor
+app.listen(port, () => {
+  console.log(`Servidor Angular corriendo en puerto ${port}`);
 });
