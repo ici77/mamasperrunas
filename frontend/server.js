@@ -4,10 +4,10 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Middleware para servir archivos estáticos de Angular
+// Servir archivos estáticos de Angular (desde dist/frontend/browser dentro de esta carpeta)
 app.use(express.static(path.join(__dirname, 'dist/frontend/browser')));
 
-// Redirigir todas las rutas al index.html (para soporte de Angular routing)
+// Redirigir cualquier otra ruta al index.html (para soporte de Angular routing)
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/frontend/browser/index.html'));
 });
