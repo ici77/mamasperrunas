@@ -10,6 +10,10 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"usuariosQueDieronLike", "usuariosQueDieronDislike", "usuariosQueLoGuardaron", "reportedByUsers"})
+
 
 /**
  * 📌 Representa un post dentro de una categoría del foro.
@@ -32,8 +36,8 @@ public class Post {
     private String title;
 
     /** Contenido del post */
-    @Column(nullable = false, length = 500)
-    @Schema(description = "Contenido del post (máximo 500 caracteres)", example = "Aquí te explico cómo entrenar a un cachorro de forma efectiva...")
+    @Column(nullable = false, length = 1000)
+    @Schema(description = "Contenido del post (máximo 1000 caracteres)", example = "Aquí te explico cómo entrenar a un cachorro de forma efectiva...")
     private String content;
 
     /** Categoría a la que pertenece el post */
@@ -43,10 +47,11 @@ public class Post {
     private Category category;
 
     /** Usuario que creó el post */
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    @Schema(description = "Usuario que creó el post")
-    private Usuario user;
+    @ManyToOne(fetch = FetchType.EAGER)
+@JoinColumn(name = "user_id", nullable = false)
+@Schema(description = "Usuario que creó el post")
+private Usuario user;
+
 
     @ManyToMany
 @JoinTable(

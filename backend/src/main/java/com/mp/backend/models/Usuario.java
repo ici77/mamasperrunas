@@ -12,6 +12,19 @@ import com.mp.backend.models.forum.Post;
 
 import java.util.Collection;
 import java.util.Collections;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+@JsonIgnoreProperties({
+    
+    "descripcion", 
+    "rol", 
+    "postsFavoritos", 
+    "authorities", 
+    "username", 
+    "accountNonExpired", 
+    "accountNonLocked", 
+    "credentialsNonExpired", 
+    "enabled"
+})
 
 /**
  * 📌 Entidad Usuario

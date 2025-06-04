@@ -39,6 +39,7 @@ List<Evento> findByTipoEventoIgnoreCaseAndEsDePagoAndDestacado(
 List<Evento> findByUsuario(Usuario usuario); 
 
 
+
 @Query("SELECT e FROM Evento e " +
        "WHERE (:tipoEvento IS NULL OR LOWER(e.tipoEvento) = LOWER(:tipoEvento)) " +
        "AND (:esDePago IS NULL OR e.esDePago = :esDePago) " +

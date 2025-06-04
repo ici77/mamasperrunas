@@ -189,7 +189,7 @@ public ResponseEntity<?> cambiarPassword(@RequestBody Map<String, String> datos,
     }
 }
 
-@DeleteMapping("/api/usuarios/eventos/{eventoId}/cancelar")
+@DeleteMapping("/eventos/{eventoId}/cancelar")
 
 public ResponseEntity<?> cancelarInscripcionEvento(@PathVariable Long eventoId) {
     // 1. Obtener el email del usuario autenticado desde el token JWT

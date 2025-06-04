@@ -26,6 +26,17 @@ public class UsuarioEventoService {
     public UsuarioEventoService(UsuarioEventoRepository usuarioEventoRepository) {
         this.usuarioEventoRepository = usuarioEventoRepository;
     }
+    /**
+ * 📌 Elimina la inscripción de un usuario a un evento.
+ *
+ * @param usuario usuario autenticado
+ * @param evento evento del que se quiere desinscribir
+ */
+public void cancelarInscripcion(Usuario usuario, Evento evento) {
+    usuarioEventoRepository.deleteByUsuarioAndEvento(usuario, evento);
+}
+
+
 
     /**
      * 📌 Inscribe a un usuario a un evento si aún no está apuntado.

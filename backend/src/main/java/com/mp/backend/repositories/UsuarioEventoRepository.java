@@ -46,4 +46,7 @@ public interface UsuarioEventoRepository extends JpaRepository<UsuarioEvento, Lo
      */
     @Query("SELECT ue.evento.id, COUNT(ue) FROM UsuarioEvento ue GROUP BY ue.evento.id")
     List<Object[]> contarUsuariosPorEvento();
+
+    // 🔥 Añadido para cancelar inscripción
+    void deleteByUsuarioAndEvento(Usuario usuario, Evento evento);
 }

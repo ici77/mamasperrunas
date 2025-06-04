@@ -6,7 +6,7 @@ import com.mp.backend.models.UsuarioEvento;
 import com.mp.backend.services.EventoService;
 import com.mp.backend.services.UsuarioEventoService;
 import com.mp.backend.repositories.UsuarioRepository;
-
+import com.mp.backend.repositories.EventoRepository;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,28 +41,7 @@ public class EventoController {
         return ResponseEntity.ok(eventoService.obtenerTodosLosEventos());
     }
 
-   @GetMapping("/{id}")
-public ResponseEntity<?> obtenerEventoPorId(@PathVariable Long id) {
-    Optional<Evento> eventoOpt = eventoService.obtenerEventoPorId(id);
-
-    if (eventoOpt.isEmpty()) {
-        return ResponseEntity.notFound().build();
-    }
-
-    Evento evento = eventoOpt.get();
-
-    // 👤 Intentar obtener el usuario autenticado
-    String email = SecurityContextHolder.getContext().getAuthentication().getName();
-    Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
-
-    if (usuarioOpt.isPresent()) {
-        Usuario usuario = usuarioOpt.get();
-        boolean yaInscrito = usuarioEventoService.estaInscrito(usuario, evento);
-        evento.setYaInscrito(yaInscrito); // ✅ Actualiza el evento con el estado de inscripción
-    }
-
-    return ResponseEntity.ok(evento);
-}
+   
 
 @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 public ResponseEntity<?> crearEventoConImagen(
@@ -238,4 +217,59 @@ public ResponseEntity<List<Evento>> buscarEventos(
     public ResponseEntity<Map<Long, Integer>> obtenerConteoApuntados() {
         return ResponseEntity.ok(eventoService.contarUsuariosPorEvento());
     }
+
+    @DeleteMapping("/usuarios/eventos/{id}/cancelar")
+public ResponseEntity<?> cancelarInscripcion(@PathVariable Long id) {
+    String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
+
+    if (usuarioOpt.isEmpty()) {
+        return ResponseEntity.status(403).body(Map.of("error", "Usuario no autorizado"));
+    }
+
+    Optional<Evento> eventoOpt = eventoService.obtenerEventoPorId(id);
+    if (eventoOpt.isEmpty()) {
+        return ResponseEntity.notFound().build();
+    }
+
+    Usuario usuario = usuarioOpt.get();
+    Evento evento = eventoOpt.get();
+
+    boolean estaInscrito = usuarioEventoService.estaInscrito(usuario, evento);
+    if (!estaInscrito) {
+        return ResponseEntity.status(403).body(Map.of("error", "No estás inscrito en este evento"));
+    }
+
+    usuarioEventoService.cancelarInscripcion(usuario, evento);
+    return ResponseEntity.ok(Map.of("mensaje", "✅ Inscripción cancelada correctamente"));
+}
+@GetMapping("/eventos/tipo/{tipoEvento}")
+public ResponseEntity<List<Evento>> obtenerPorTipo(@PathVariable String tipoEvento) {
+    return ResponseEntity.ok(eventoService.obtenerEventosPorTipo(tipoEvento));
+}
+
+@GetMapping("/{id}")
+public ResponseEntity<?> obtenerEventoPorId(@PathVariable Long id) {
+    Optional<Evento> eventoOpt = eventoService.obtenerEventoPorId(id);
+
+    if (eventoOpt.isEmpty()) {
+        return ResponseEntity.notFound().build();
+    }
+
+    Evento evento = eventoOpt.get();
+
+    // 👤 Intentar obtener el usuario autenticado
+    String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
+
+    if (usuarioOpt.isPresent()) {
+        Usuario usuario = usuarioOpt.get();
+        boolean yaInscrito = usuarioEventoService.estaInscrito(usuario, evento);
+        evento.setYaInscrito(yaInscrito); // ✅ Actualiza el evento con el estado de inscripción
+    }
+
+    return ResponseEntity.ok(evento);
+}
+
+
 }
