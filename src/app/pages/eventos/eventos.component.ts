@@ -22,7 +22,6 @@ export class EventosComponent implements OnInit {
   isLoggedIn: boolean = false;
   userId: number | null = null;
 
-  // 📌 IMÁGENES DE CATEGORÍAS desde /assets/
   categorias = [
     { tipo: 'celebraciones', nombre: ' Celebraciones', descripcion: 'Fiestas y aniversarios perrunos', imagen: 'assets/images/eventos/celebraciones.png' },
     { tipo: 'concursos', nombre: ' Concursos', descripcion: 'Competiciones y talentos caninos', imagen: 'assets/images/eventos/concurso.png' },
@@ -55,6 +54,11 @@ export class EventosComponent implements OnInit {
       boton: 'Ver solidarios'
     }
   ];
+
+  get nombreCategoriaSeleccionada(): string {
+    const categoria = this.categorias.find(c => c.tipo === this.tipoSeleccionado);
+    return categoria ? categoria.nombre : '';
+  }
 
   constructor(
     private eventService: EventService,
@@ -152,6 +156,7 @@ export class EventosComponent implements OnInit {
     try {
       const token = localStorage.getItem('auth_token');
       if (!token) return null;
+
       const payload = JSON.parse(atob(token.split('.')[1]));
       return payload?.id || null;
     } catch (e) {
@@ -159,15 +164,13 @@ export class EventosComponent implements OnInit {
     }
   }
 
-  // ✅ Este método sirve tanto para imágenes locales como subidas por usuarios
   getImagenUrl(imagenUrl: string): string {
     if (!imagenUrl) return 'assets/images/eventos/default.jpg';
 
-    if (imagenUrl.startsWith('http') || imagenUrl.startsWith('assets/')) {
-      return imagenUrl;
-    }
+    if (imagenUrl.startsWith('http')) return imagenUrl;
 
-    // Imágenes subidas al backend
+    if (imagenUrl.startsWith('assets/')) return imagenUrl;
+
     const ruta = imagenUrl.startsWith('/') ? imagenUrl : '/' + imagenUrl;
     return `${environment.apiUrl}${ruta}`;
   }
