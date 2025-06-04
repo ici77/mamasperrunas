@@ -1,16 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
-  private apiUrl = 'http://localhost:8080/api/posts';
+
+  // 📌 URL base para los endpoints relacionados con posts
+  private apiUrl = `${environment.apiUrl}/posts`;
+
+  // 📌 URL base para los endpoints relacionados con respuestas (replies)
+  private repliesUrl = `${environment.apiUrl}/replies`;
 
   constructor(private http: HttpClient) {}
 
-  /** ✅ Genera cabeceras con el token JWT para endpoints protegidos */
+  /**
+   * 🔐 Genera cabeceras HTTP con el token JWT para endpoints protegidos
+   */
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('auth_token');
     return new HttpHeaders({
@@ -18,127 +26,147 @@ export class PostService {
     });
   }
 
-  // -------------------------------------------------------------------
-  // 👍 "Me gusta" (LIKE)
-  // -------------------------------------------------------------------
+  // ============================================================================
+  // 👍 ME GUSTA (LIKE)
+  // ============================================================================
 
-  /** ✅ Alterna el estado de like (me gusta) */
+  /**
+   * ✅ Alterna el estado de "me gusta" en un post
+   */
   toggleLike(postId: number): Observable<any> {
     const headers = this.getAuthHeaders();
-    return this.http.post<any>(`${this.apiUrl}/${postId}/like`, {}, { headers });
+    return this.http.post(`${this.apiUrl}/${postId}/like`, {}, { headers });
   }
 
-  /** ✅ Verifica si el usuario ya dio "me gusta" a un post (usando userId explícito, puedes eliminarlo si ya no lo usas) */
+  /**
+   * 🔍 Verifica si el usuario ya ha dado "me gusta" a un post
+   */
   hasUserLiked(postId: number, userId: number): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/${postId}/like/${userId}`);
   }
 
-  // -------------------------------------------------------------------
-  // 👎 "No me gusta" (DISLIKE)
-  // -------------------------------------------------------------------
+  // ============================================================================
+  // 👎 NO ME GUSTA (DISLIKE)
+  // ============================================================================
 
-  /** ✅ Alterna el estado de dislike (no me gusta) */
+  /**
+   * ✅ Alterna el estado de "no me gusta" en un post
+   */
   toggleDislike(postId: number): Observable<any> {
     const headers = this.getAuthHeaders();
     return this.http.post(`${this.apiUrl}/${postId}/dislike`, {}, { headers });
   }
 
-  /** ✅ Verifica si el usuario ya dio "no me gusta" */
+  /**
+   * 🔍 Verifica si el usuario ya ha dado "no me gusta" a un post
+   */
   hasUserDisliked(postId: number, userId: number): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/${postId}/dislike/${userId}`);
   }
 
-  // -------------------------------------------------------------------
-  // ⭐ Favoritos
-  // -------------------------------------------------------------------
+  // ============================================================================
+  // ⭐ FAVORITOS
+  // ============================================================================
 
-  /** ✅ Añade un post a favoritos (solo si no está ya marcado) */
-  addToFavorites(postId: number): Observable<any> {
+  /**
+   * ✅ Añade o elimina un post de favoritos
+   */
+  toggleFavorito(postId: number): Observable<any> {
     const headers = this.getAuthHeaders();
     return this.http.post(`${this.apiUrl}/${postId}/favorites`, {}, { headers });
   }
 
-  /** ✅ Verifica si el post ya está en favoritos */
+  /**
+   * 🔍 Verifica si el post está marcado como favorito por el usuario
+   */
   hasUserFavorited(postId: number): Observable<boolean> {
     const headers = this.getAuthHeaders();
     return this.http.get<boolean>(`${this.apiUrl}/${postId}/favorites/check`, { headers });
   }
-  
 
-  // -------------------------------------------------------------------
-  // 🚩 Reportar
-  // -------------------------------------------------------------------
+  // ============================================================================
+  // 🚩 REPORTES
+  // ============================================================================
 
-  /** ✅ Denuncia un post (solo una vez por usuario) */
-  reportPost(postId: number): Observable<any> {
+  /**
+   * ✅ Reporta un post (una sola vez por usuario)
+   */
+  toggleReport(postId: number): Observable<any> {
     const headers = this.getAuthHeaders();
     return this.http.post(`${this.apiUrl}/${postId}/report`, {}, { headers });
   }
 
-  /** ✅ Verifica si el post ya fue reportado por el usuario */
+  /**
+   * 🔍 Verifica si el usuario ya reportó ese post
+   */
   hasUserReported(postId: number): Observable<boolean> {
     const headers = this.getAuthHeaders();
     return this.http.get<boolean>(`${this.apiUrl}/${postId}/report/check`, { headers });
   }
 
-  // -------------------------------------------------------------------
-  // 💬 Respuestas (Replies)
-  // -------------------------------------------------------------------
+  // ============================================================================
+  // 💬 RESPUESTAS (REPLIES)
+  // ============================================================================
 
-  /** ✅ Crear una respuesta (requiere login) */
+  /**
+   * ✅ Crea una nueva respuesta a un post (requiere login)
+   */
   createReply(replyData: any): Observable<any> {
     const headers = this.getAuthHeaders();
-    return this.http.post('http://localhost:8080/api/replies', replyData, { headers });
+    return this.http.post(`${this.repliesUrl}`, replyData, { headers });
   }
 
-  /** ✅ Obtener respuestas de un post */
+  /**
+   * 🔍 Obtiene todas las respuestas asociadas a un post
+   */
   getRepliesByPost(postId: number): Observable<any> {
-    return this.http.get(`http://localhost:8080/api/replies/post/${postId}`);
+    return this.http.get(`${this.repliesUrl}/post/${postId}`);
   }
 
-  // -------------------------------------------------------------------
-  // 📄 Posts (creación, detalle, filtrado)
-  // -------------------------------------------------------------------
+  // ============================================================================
+  // 📄 GESTIÓN DE POSTS
+  // ============================================================================
 
-  /** ✅ Crear post (multipart/form-data) con login */
+  /**
+   * ✅ Crea un nuevo post con formulario multipart (imagen, texto, etc.)
+   */
   createPost(postData: FormData): Observable<any> {
     const headers = this.getAuthHeaders();
     return this.http.post(this.apiUrl, postData, { headers });
   }
 
-  /** ✅ Obtener un post por su ID */
+  /**
+   * 🔍 Obtiene un post por su ID
+   */
   getPostById(postId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${postId}`);
   }
 
-  /** ✅ Obtener posts paginados por categoría */
+  /**
+   * 🔍 Posts paginados por categoría
+   */
   getPaginatedPosts(category: string, page: number, size: number = 10): Observable<any> {
     return this.http.get(`${this.apiUrl}/category/${category}/paginated?page=${page}&size=${size}`);
   }
 
-  /** ✅ Obtener los más votados de una categoría */
+  /**
+   * 🔍 Posts más votados de una categoría
+   */
   getTopPostsByCategory(category: string): Observable<any> {
-    const url = `${this.apiUrl}/category/top?category=${category}`;
-    return this.http.get(url);
+    return this.http.get(`${this.apiUrl}/category/top?category=${category}`);
   }
 
-  /** ✅ Obtener posts aleatorios de una categoría */
+  /**
+   * 🔀 Posts aleatorios de una categoría
+   */
   getRandomPostsByCategory(category: string, limit: number = 6): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/category/${category}/random?limit=${limit}`);
   }
 
-  /** ✅ Obtener los más recientes (si implementado en backend) */
+  /**
+   * 🕓 Posts más recientes
+   */
   getRecentPosts(limit: number = 4): Observable<any[]> {
-    return this.http.get<any[]>(`http://localhost:8080/api/posts/recentes?limit=${limit}`);
+    return this.http.get<any[]>(`${this.apiUrl}/recentes?limit=${limit}`);
   }
-  
-toggleFavorito(postId: number): Observable<any> {
-  return this.http.post(`${this.apiUrl}/${postId}/favorites`, {});
-}
-
-toggleReport(postId: number): Observable<any> {
-  return this.http.post(`${this.apiUrl}/${postId}/report`, {});
-}
-
-
 }
