@@ -22,43 +22,39 @@ export class EventosComponent implements OnInit {
   isLoggedIn: boolean = false;
   userId: number | null = null;
 
+  // 📌 IMÁGENES DE CATEGORÍAS desde /assets/
   categorias = [
-    { tipo: 'celebraciones', nombre: ' Celebraciones', descripcion: 'Fiestas y aniversarios perrunos', imagen: 'uploads/celebraciones.png' },
-    { tipo: 'concursos', nombre: ' Concursos', descripcion: 'Competiciones y talentos caninos', imagen: 'uploads/concurso.png' },
-    { tipo: 'solidarios', nombre: ' Solidarios', descripcion: 'Eventos benéficos y de ayuda', imagen: 'uploads/solidarios.png' },
-    { tipo: 'talleres', nombre: ' Talleres', descripcion: 'Aprende y diviértete con tu mascota', imagen: 'uploads/talleres.png' },
-    { tipo: 'quedadas', nombre: ' Quedadas', descripcion: 'Paseos, grupos y socialización', imagen: 'uploads/quedadas.jpeg' },
-    { tipo: 'miscelanea', nombre: ' Miscelánea', descripcion: 'Otros eventos y actividades variadas', imagen: 'uploads/miscelanea.png' }
+    { tipo: 'celebraciones', nombre: ' Celebraciones', descripcion: 'Fiestas y aniversarios perrunos', imagen: 'assets/images/eventos/celebraciones.png' },
+    { tipo: 'concursos', nombre: ' Concursos', descripcion: 'Competiciones y talentos caninos', imagen: 'assets/images/eventos/concurso.png' },
+    { tipo: 'solidarios', nombre: ' Solidarios', descripcion: 'Eventos benéficos y de ayuda', imagen: 'assets/images/eventos/solidarios.png' },
+    { tipo: 'talleres', nombre: ' Talleres', descripcion: 'Aprende y diviértete con tu mascota', imagen: 'assets/images/eventos/talleres.png' },
+    { tipo: 'quedadas', nombre: ' Quedadas', descripcion: 'Paseos, grupos y socialización', imagen: 'assets/images/eventos/quedadas.jpeg' },
+    { tipo: 'miscelanea', nombre: ' Miscelánea', descripcion: 'Otros eventos y actividades variadas', imagen: 'assets/images/eventos/miscelanea.png' }
   ];
 
   tarjetasInformativas = [
     {
       titulo: '¿Cómo participar?',
-      imagen: 'uploads/quedadas.jpeg',
+      imagen: 'assets/images/eventos/quedadas.jpeg',
       descripcion: 'Descubre cómo formar parte de los eventos caninos.',
       link: '/eventos',
       boton: 'Ver más'
     },
     {
       titulo: 'Únete a la comunidad',
-      imagen: 'uploads/comunidad.png',
+      imagen: 'assets/images/eventos/comunidad.png',
       descripcion: 'Regístrate y accede a todos los beneficios.',
       link: '/registro',
       boton: 'Registrarse'
     },
     {
       titulo: 'Eventos solidarios',
-      imagen: 'uploads/solidarios.png',
+      imagen: 'assets/images/eventos/solidarios.png',
       descripcion: 'Apoya causas benéficas y de ayuda animal.',
       link: '/eventos',
       boton: 'Ver solidarios'
     }
   ];
-
-  get nombreCategoriaSeleccionada(): string {
-    const categoria = this.categorias.find(c => c.tipo === this.tipoSeleccionado);
-    return categoria ? categoria.nombre : '';
-  }
 
   constructor(
     private eventService: EventService,
@@ -156,7 +152,6 @@ export class EventosComponent implements OnInit {
     try {
       const token = localStorage.getItem('auth_token');
       if (!token) return null;
-
       const payload = JSON.parse(atob(token.split('.')[1]));
       return payload?.id || null;
     } catch (e) {
@@ -164,13 +159,15 @@ export class EventosComponent implements OnInit {
     }
   }
 
+  // ✅ Este método sirve tanto para imágenes locales como subidas por usuarios
   getImagenUrl(imagenUrl: string): string {
     if (!imagenUrl) return 'assets/images/eventos/default.jpg';
 
-    if (imagenUrl.startsWith('http')) return imagenUrl;
+    if (imagenUrl.startsWith('http') || imagenUrl.startsWith('assets/')) {
+      return imagenUrl;
+    }
 
-    if (imagenUrl.startsWith('assets/')) return imagenUrl;
-
+    // Imágenes subidas al backend
     const ruta = imagenUrl.startsWith('/') ? imagenUrl : '/' + imagenUrl;
     return `${environment.apiUrl}${ruta}`;
   }
