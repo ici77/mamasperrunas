@@ -12,6 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+
 
 import java.util.List;
 
@@ -20,49 +23,40 @@ public class SecurityConfig {
 
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+    @Bean
+public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    return config.getAuthenticationManager();
+}
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ CORS configurado
-            .csrf(csrf -> csrf.disable()) // ❌ CSRF deshabilitado
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                // Usuarios
-                .requestMatchers("/api/usuarios/registro", "/api/usuarios/login").permitAll()
-                 .requestMatchers("/api/usuarios/cambiar-password").authenticated()
-    
-                // Eventos
-                .requestMatchers(HttpMethod.GET, "/api/eventos/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/eventos/**").authenticated()
+                // Acceso público
+                .requestMatchers("/", "/index.html", "/favicon.ico").permitAll()
                 .requestMatchers("/uploads/**").permitAll()
-               .requestMatchers(HttpMethod.DELETE, "/api/usuarios/eventos/**").authenticated()
-
-
-
-
-
-
-
-
-                // Posts y categorías (foro)
+                .requestMatchers("/api/auth/login", "/api/usuarios/registro").permitAll()
+                .requestMatchers("/api/holamundo").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/eventos/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/posts/category/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/categories").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/replies/post/**").permitAll()
-                
-    .requestMatchers("/api/posts/crear-con-imagen").authenticated()
-   
-
-
-                // Swagger (documentación)
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
 
-                // Resto requiere autenticación
+                // Acceso autenticado
+                .requestMatchers("/api/usuarios/cambiar-password").authenticated()
+                .requestMatchers(HttpMethod.POST, "/api/eventos/**").authenticated()
+                .requestMatchers(HttpMethod.DELETE, "/api/usuarios/eventos/*/cancelar").authenticated()
+                .requestMatchers("/api/posts/crear-con-imagen").authenticated()
+
+                // Todo lo demás requiere autenticación
                 .anyRequest().authenticated()
             )
-            .logout(logout -> logout.permitAll()); // ✅ Dejamos el logout permitido
+            .logout(logout -> logout.permitAll());
 
-        // ✅ Agregar el filtro JWT ANTES del filtro por defecto de Spring
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -76,14 +70,18 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:4200"));
+        config.setAllowedOriginPatterns(List.of(
+            "http://localhost:4200",
+            "https://mamasperrunas-production-3dae.up.railway.app",
+            "https://app.netlify.com/projects/mamasperrunasfront/overview"
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "Origin", "X-Requested-With"));
-
         config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
+
         return source;
     }
 }
