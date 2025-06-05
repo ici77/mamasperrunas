@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { EventService, Evento } from '../../services/event.service';
-import { environment } from '../../../environments/environment';
 
 @Component({
   standalone: true,
@@ -23,37 +22,14 @@ export class EventosComponent implements OnInit {
   userId: number | null = null;
 
   categorias = [
-    { tipo: 'celebraciones', nombre: ' Celebraciones', descripcion: 'Fiestas y aniversarios perrunos', imagen: 'assets/images/eventos/celebraciones.png' },
-    { tipo: 'concursos', nombre: ' Concursos', descripcion: 'Competiciones y talentos caninos', imagen: 'assets/images/eventos/concurso.png' },
-    { tipo: 'solidarios', nombre: ' Solidarios', descripcion: 'Eventos benéficos y de ayuda', imagen: 'assets/images/eventos/solidarios.png' },
-    { tipo: 'talleres', nombre: ' Talleres', descripcion: 'Aprende y diviértete con tu mascota', imagen: 'assets/images/eventos/talleres.png' },
-    { tipo: 'quedadas', nombre: ' Quedadas', descripcion: 'Paseos, grupos y socialización', imagen: 'assets/images/eventos/quedadas.jpeg' },
-    { tipo: 'miscelanea', nombre: ' Miscelánea', descripcion: 'Otros eventos y actividades variadas', imagen: 'assets/images/eventos/miscelanea.png' }
-  ];
+  { tipo: 'celebraciones', nombre: ' Celebraciones', descripcion: 'Fiestas y aniversarios perrunos', imagen: 'uploads/celebraciones.png' },
+  { tipo: 'concursos', nombre: ' Concursos', descripcion: 'Competiciones y talentos caninos', imagen: 'uploads/concurso.png' },
+  { tipo: 'solidarios', nombre: ' Solidarios', descripcion: 'Eventos benéficos y de ayuda', imagen: 'uploads/solidarios.png' },
+  { tipo: 'talleres', nombre: ' Talleres', descripcion: 'Aprende y diviértete con tu mascota', imagen: 'uploads/talleres.png' },
+  { tipo: 'quedadas', nombre: ' Quedadas', descripcion: 'Paseos, grupos y socialización', imagen: 'uploads/quedadas.jpeg' },
+  { tipo: 'miscelanea', nombre: ' Miscelánea', descripcion: 'Otros eventos y actividades variadas', imagen: 'uploads/miscelanea.png' }
+];
 
-  tarjetasInformativas = [
-    {
-      titulo: '¿Cómo participar?',
-      imagen: 'assets/images/eventos/quedadas.jpeg',
-      descripcion: 'Descubre cómo formar parte de los eventos caninos.',
-      link: '/eventos',
-      boton: 'Ver más'
-    },
-    {
-      titulo: 'Únete a la comunidad',
-      imagen: 'assets/images/eventos/comunidad.png',
-      descripcion: 'Regístrate y accede a todos los beneficios.',
-      link: '/registro',
-      boton: 'Registrarse'
-    },
-    {
-      titulo: 'Eventos solidarios',
-      imagen: 'assets/images/eventos/solidarios.png',
-      descripcion: 'Apoya causas benéficas y de ayuda animal.',
-      link: '/eventos',
-      boton: 'Ver solidarios'
-    }
-  ];
 
   get nombreCategoriaSeleccionada(): string {
     const categoria = this.categorias.find(c => c.tipo === this.tipoSeleccionado);
@@ -92,6 +68,7 @@ export class EventosComponent implements OnInit {
     });
 
     this.filtrarEventos();
+    
   }
 
   cargarEventosDestacados(): void {
@@ -106,19 +83,22 @@ export class EventosComponent implements OnInit {
   }
 
   filtrarEventos(): void {
-    const tipo = this.tipoSeleccionado || '';
-    const pago = this.esDePagoSeleccionado || 'todos';
-    const destacado = this.soloDestacados;
+  const tipo = this.tipoSeleccionado || '';
+  const pago = this.esDePagoSeleccionado || 'todos';
+  const destacado = this.soloDestacados;
 
-    this.eventService.buscarEventos(tipo, pago, destacado).subscribe(eventos => {
-      this.eventService.getConteoApuntados().subscribe(conteo => {
-        this.eventos = eventos.map(evento => ({
-          ...evento,
-          apuntados: conteo[evento.id] || 0
-        }));
-      });
+  this.eventService.buscarEventos(tipo, pago, destacado).subscribe(eventos => {
+    console.log('🖼 Eventos recibidos:', eventos); // 👈 Añadido aquí
+    this.eventService.getConteoApuntados().subscribe(conteo => {
+      this.eventos = eventos.map(evento => ({
+        ...evento,
+        apuntados: conteo[evento.id] || 0
+      }));
     });
-  }
+  });
+}
+
+
 
   apuntarse(evento: Evento): void {
     if (!this.isLoggedIn) {
@@ -130,7 +110,7 @@ export class EventosComponent implements OnInit {
       next: (res) => {
         evento.yaInscrito = true;
         evento.apuntados = (evento.apuntados || 0) + 1;
-        alert(res.mensaje);
+        alert(res.mensaje); // ← mensaje del backend
       },
       error: (err) => {
         console.error('❌ Error al apuntarse:', err);
@@ -163,15 +143,50 @@ export class EventosComponent implements OnInit {
       return null;
     }
   }
-
   getImagenUrl(imagenUrl: string): string {
-    if (!imagenUrl) return 'assets/images/eventos/default.jpg';
-
-    if (imagenUrl.startsWith('http')) return imagenUrl;
-
-    if (imagenUrl.startsWith('assets/')) return imagenUrl;
-
-    const ruta = imagenUrl.startsWith('/') ? imagenUrl : '/' + imagenUrl;
-    return `${environment.apiUrl}${ruta}`;
+  if (!imagenUrl) {
+    return 'assets/images/eventos/default.jpg'; // imagen por defecto
   }
+
+  // ✅ Si ya es una URL completa, la devolvemos sin tocar
+  if (imagenUrl.startsWith('http')) {
+    return imagenUrl;
+  }
+
+  // ✅ Si viene de backend → imágenes de usuarios subidas
+ if (imagenUrl.includes('/uploads/')) {
+  return 'https://backmp-production.up.railway.app' + imagenUrl;
+}
+
+
+  // ✅ Si es una imagen del frontend
+  return 'assets/images/eventos/' + imagenUrl;
+}
+
+
+
+ tarjetasInformativas = [
+  {
+    titulo: '¿Cómo participar?',
+    imagen: 'uploads/quedadas.jpeg',
+    descripcion: 'Descubre cómo formar parte de los eventos caninos.',
+    link: '/eventos',
+    boton: 'Ver más'
+  },
+  {
+    titulo: 'Únete a la comunidad',
+    imagen: 'uploads/comunidad.png',
+    descripcion: 'Regístrate y accede a todos los beneficios.',
+    link: '/registro',
+    boton: 'Registrarse'
+  },
+  {
+    titulo: 'Eventos solidarios',
+    imagen: 'uploads/solidarios.png',
+    descripcion: 'Apoya causas benéficas y de ayuda animal.',
+    link: '/eventos',
+    boton: 'Ver solidarios'
+  }
+];
+
 }
