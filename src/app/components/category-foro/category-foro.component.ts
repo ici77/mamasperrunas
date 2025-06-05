@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PostService } from '../../services/post.service';
 import { AuthService } from '../../services/auth.service';
+import { environment } from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-category-foro',
@@ -133,20 +135,38 @@ export class CategoryForoComponent implements OnInit {
    * - Imágenes servidas por el backend (uploads/)
    */
   getFotoPerfilUrl(post: any): string {
-    const foto = post?.user?.fotoPerfil;
+  const foto = post?.user?.fotoPerfil;
 
-    if (!foto) {
-      return 'assets/images/default-avatar.png';
-    }
-
-    if (foto.startsWith('http') || foto.startsWith('https')) {
-      return foto; // URL externa
-    }
-
-    if (foto.startsWith('assets/')) {
-      return foto; // imagen local del frontend
-    }
-
-    return `http://localhost:8080${foto}`; // imagen servida por backend
+  if (!foto) {
+    return 'assets/images/default-avatar.png';
   }
+
+  if (foto.startsWith('http') || foto.startsWith('https')) {
+    return foto;
+  }
+
+  if (foto.startsWith('assets/')) {
+    return foto;
+  }
+
+  // Elimina el prefijo '/uploads/' si lo trae y construye la URL con base de entorno
+  return `${environment.imagenUrlBase}${foto.replace(/^\/?uploads\//, '')}`;
+}
+getImagenUrl(imagenUrl: string): string {
+  if (!imagenUrl) {
+    return 'assets/images/default-thumbnail.png'; // miniatura por defecto
+  }
+
+  if (imagenUrl.startsWith('http') || imagenUrl.startsWith('https')) {
+    return imagenUrl;
+  }
+
+  if (imagenUrl.startsWith('assets/')) {
+    return imagenUrl;
+  }
+
+  // Ruta de imagen servida desde backend (quita el prefijo /uploads/ si lo tiene)
+  return `${environment.imagenUrlBase}${imagenUrl.replace(/^\/?uploads\//, '')}`;
+}
+
 }
