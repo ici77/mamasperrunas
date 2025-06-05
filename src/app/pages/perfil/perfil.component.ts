@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UsuarioService, PerfilUsuario } from '../../services/usuario.service';
 import { RouterModule } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -47,7 +48,7 @@ export class PerfilComponent implements OnInit {
   paginaPostsCreados = 0;
   itemsPorPagina = 5;
 
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private usuarioService: UsuarioService,private authService: AuthService) {}
 
   ngOnInit(): void {
     this.cargarPerfil();
@@ -128,18 +129,31 @@ export class PerfilComponent implements OnInit {
   }
 
   subirImagen(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (!input.files || input.files.length === 0) return;
+  const input = event.target as HTMLInputElement;
+  if (!input.files || input.files.length === 0) return;
 
-    const imagen = input.files[0];
-    const formData = new FormData();
-    formData.append('imagen', imagen);
+  const imagen = input.files[0];
+  const formData = new FormData();
+  formData.append('imagen', imagen);
 
-    this.usuarioService.subirImagen(formData).subscribe({
-      next: () => this.cargarPerfil(),
-      error: () => alert('❌ Error al subir imagen')
-    });
-  }
+  this.usuarioService.subirImagen(formData).subscribe({
+    next: () => {
+      // 🔁 Cargar perfil actualizado
+      this.usuarioService.getPerfil().subscribe(perfil => {
+        this.perfil = perfil;
+
+        // ✅ ACTUALIZAR datos compartidos para que la navbar se entere
+        this.authService.setUserData({
+          nombre: perfil.nombre,
+          email: perfil.email,
+          foto_perfil: perfil.fotoPerfil
+        });
+      });
+    },
+    error: () => alert('❌ Error al subir imagen')
+  });
+}
+
 
   // 🔁 Métodos para obtener elementos paginados
   getPostsCreadosPaginados() {

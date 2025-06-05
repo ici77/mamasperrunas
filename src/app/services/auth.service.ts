@@ -51,6 +51,14 @@ register(usuario: { nombre: string, email: string, password: string }): Observab
   }
 
   /**
+ * ✅ Permite actualizar los datos del usuario manualmente (ej: después de subir foto)
+ */
+setUserData(data: any): void {
+  this.userDataSubject.next(data);
+}
+
+
+  /**
    * 📌 Obtiene el token almacenado en `localStorage`.  
    * 🔹 Lo hacemos **público** para poder usarlo en `crear-post.component.ts`
    */
