@@ -21,14 +21,15 @@ export class EventosComponent implements OnInit {
   isLoggedIn: boolean = false;
   userId: number | null = null;
 
-  categorias = [
-  { tipo: 'celebraciones', nombre: ' Celebraciones', descripcion: 'Fiestas y aniversarios perrunos', imagen: 'uploads/celebraciones.png' },
-  { tipo: 'concursos', nombre: ' Concursos', descripcion: 'Competiciones y talentos caninos', imagen: 'uploads/concurso.png' },
-  { tipo: 'solidarios', nombre: ' Solidarios', descripcion: 'Eventos benéficos y de ayuda', imagen: 'uploads/solidarios.png' },
-  { tipo: 'talleres', nombre: ' Talleres', descripcion: 'Aprende y diviértete con tu mascota', imagen: 'uploads/talleres.png' },
-  { tipo: 'quedadas', nombre: ' Quedadas', descripcion: 'Paseos, grupos y socialización', imagen: 'uploads/quedadas.jpeg' },
-  { tipo: 'miscelanea', nombre: ' Miscelánea', descripcion: 'Otros eventos y actividades variadas', imagen: 'uploads/miscelanea.png' }
+ categorias = [
+  { tipo: 'celebraciones', nombre: ' Celebraciones', descripcion: 'Fiestas y aniversarios perrunos', imagen: 'celebraciones.png' },
+  { tipo: 'concursos', nombre: ' Concursos', descripcion: 'Competiciones y talentos caninos', imagen: 'concurso.png' },
+  { tipo: 'solidarios', nombre: ' Solidarios', descripcion: 'Eventos benéficos y de ayuda', imagen: 'solidarios.png' },
+  { tipo: 'talleres', nombre: ' Talleres', descripcion: 'Aprende y diviértete con tu mascota', imagen: 'talleres.png' },
+  { tipo: 'quedadas', nombre: ' Quedadas', descripcion: 'Paseos, grupos y socialización', imagen: 'quedadas.jpeg' },
+  { tipo: 'miscelanea', nombre: ' Miscelánea', descripcion: 'Otros eventos y actividades variadas', imagen: 'miscelanea.png' }
 ];
+
 
 
   get nombreCategoriaSeleccionada(): string {
@@ -148,43 +149,44 @@ export class EventosComponent implements OnInit {
     return 'assets/images/eventos/default.jpg';
   }
 
-  // ✅ Si ya es una URL completa (http...) o ruta assets/, no la tocamos
+  // ✅ Si ya es una URL completa o assets/
   if (imagenUrl.startsWith('http') || imagenUrl.startsWith('assets/')) {
     return imagenUrl;
   }
 
-  // ✅ Si contiene "/uploads/", viene del backend
-  if (imagenUrl.includes('/uploads/')) {
-    return 'https://backmp-production.up.railway.app' + imagenUrl;
+  // ✅ Si es una ruta del backend
+  if (imagenUrl.startsWith('uploads/') || imagenUrl.startsWith('/uploads/')) {
+    return 'https://backmp-production.up.railway.app/' + imagenUrl.replace(/^\/?/, '');
   }
 
-  // ✅ Si es una imagen del frontend sin ruta completa
+  // ✅ Si es un nombre de imagen del frontend (por ejemplo "quedadas.jpeg")
   return 'assets/images/eventos/' + imagenUrl;
 }
 
 
- tarjetasInformativas = [
+tarjetasInformativas = [
   {
     titulo: '¿Cómo participar?',
-    imagen: 'uploads/quedadas.jpeg',
+    imagen: 'quedadas.jpeg',
     descripcion: 'Descubre cómo formar parte de los eventos caninos.',
     link: '/eventos',
     boton: 'Ver más'
   },
   {
     titulo: 'Únete a la comunidad',
-    imagen: 'uploads/comunidad.png',
+    imagen: 'comunidad.png',
     descripcion: 'Regístrate y accede a todos los beneficios.',
     link: '/registro',
     boton: 'Registrarse'
   },
   {
     titulo: 'Eventos solidarios',
-    imagen: 'uploads/solidarios.png',
+    imagen: 'solidarios.png',
     descripcion: 'Apoya causas benéficas y de ayuda animal.',
     link: '/eventos',
     boton: 'Ver solidarios'
   }
 ];
+
 
 }
