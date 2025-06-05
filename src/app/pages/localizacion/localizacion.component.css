@@ -9,36 +9,36 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   font-family: 'Lato', sans-serif !important;
 }
 
-/* 🖼️ CABECERA DINÁMICA */
+/* 📸 CABECERA DINÁMICA */
 .category-header {
-  width: 100% !important;
-  text-align: center !important;
-  position: relative !important;
-  margin: 0 auto 20px auto !important;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  margin: 0 auto 20px auto;
   border: 6px solid var(--secondary-green) !important;
   border-radius: 10px !important;
-  overflow: hidden !important;
+  overflow: hidden;
 }
 
 .header-image {
-  width: 100% !important;
+  width: 100%;
   height: 140px !important;
   object-fit: cover !important;
-  display: block !important;
+  display: block;
 }
 
 .category-header h1 {
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  background: rgba(0, 0, 0, 0.6) !important;
-  color: white !important;
-  padding: 6px 14px !important;
-  border-radius: 4px !important;
-  font-size: 1.6rem !important;
-  font-weight: bold !important;
-  z-index: 1 !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  z-index: 1;
 }
 
 /* 🔹 MIGAS DE PAN */
@@ -71,8 +71,9 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   font-weight: bold !important;
 }
 
-/* 📌 MENÚ LATERAL IZQUIERDO */
-.sidebar-left h3 {
+/* 📌 Títulos de los Menús */
+.sidebar-left h3,
+.sidebar-right h3 {
   color: var(--verde-profundo) !important;
   font-size: 1.8rem !important;
   text-align: center !important;
@@ -80,64 +81,103 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   text-transform: uppercase !important;
   margin-top: 30px !important;
   margin-bottom: 10px !important;
-  text-decoration: underline !important;
-  text-decoration-color: var(--naranja-intenso) !important;
+  text-decoration: underline !important; /* Subrayado */
+  text-decoration-color: var(--naranja-intenso) !important; /* Color del subrayado */
+}
+/* 📌 Cambiar color en hover */
+.create-post-btn:hover {
+  background-color: #6ea97e !important; /* Verde más oscuro en hover */
+  transform: scale(1.05) !important; /* Pequeño zoom */
 }
 
-.sidebar-left .list-group-item {
+
+/* 📌 Elementos de las Listas */
+.sidebar-left .list-group-item,
+.sidebar-right .list-group-item {
   background-color: whitesmoke !important;
-  color: rgb(230, 123, 17) !important;
+  color: white !important;
   font-size: 1.2rem !important;
-  font-weight: bold !important;
+  font-weight: 500 !important;
   padding: 15px 20px !important;
   display: flex !important;
-  justify-content: center !important;
   align-items: center !important;
-  border-radius: 15px !important;
-  border: 6px solid #3B8024 !important;
-  transition: all 0.3s ease-in-out !important;
+  gap: 10px !important;
+  transition: background 0.3s ease-in-out !important;
+  border-radius: 15px;
+  border: 6px solid #3B8024;
+  cursor: pointer !important;
+  justify-content: center !important;
 }
 
-.sidebar-left .list-group-item:hover {
-  background-color: var(--verde-profundo) !important;
-  color: white !important;
+/* 📌 Hover en los Menús */
+.sidebar-left .list-group-item:hover,
+.sidebar-right .list-group-item:hover {
+  background: var(--verde-profundo) !important;
   transform: scale(1.05) !important;
 }
 
-.sidebar-left .info-card {
-  background: white !important;
-  padding: 15px !important;
-  border-radius: 15px !important;
-  border: 6px solid #3B8024 !important;
+/* 📌 Listas dentro del Menú Izquierdo */
+.sidebar-left .list-group {
+  width: 100% !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  color: rgb(230, 123, 17) !important;
+  font-size: 1.8rem !important;
   text-align: center !important;
-  margin-top: 20px !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  margin-top: 30px !important;
+  margin-bottom: 10px !important;
+}
+
+/* 📌 Enlaces dentro del Menú Izquierdo */
+.sidebar-left .list-group-item a {
+  text-decoration: none !important;
+  color: rgb(230, 123, 17) !important; /* Cambia el color del enlace */
+  font-weight: bold !important;
+}
+
+.sidebar-left .list-group-item a:hover {
+  color: #ff9800 !important; /* Cambia el color cuando el usuario pasa el mouse */
+  text-decoration: underline !important;
+}
+/* 📌 Estilos para Tarjetas en el Menú Izquierdo */
+.sidebar-left .info-card {
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  border: 6px solid #3B8024;
+  text-align: center;
+  margin-top: 20px; /* Espaciado entre el menú y las tarjetas */
 }
 
 .sidebar-left .info-card img {
-  width: 100% !important;
-  height: auto !important;
-  border-radius: 5px !important;
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
 }
 
 .sidebar-left .info-card h4 {
-  font-size: 16px !important;
-  margin-top: 10px !important;
-  color: #065f43 !important;
+  font-size: 16px;
+  margin-top: 10px;
+  color: #065f43;
 }
 
 .sidebar-left .info-card p {
-  font-size: 14px !important;
-  color: #555 !important;
+  font-size: 14px;
+  color: #555;
 }
 
 .sidebar-left .btn-secondary {
-  background-color: var(--secondary-green) !important;
-  color: white !important;
+background-color: var(--secondary-green) !important;
+  
+  color: white;
 }
 
 .sidebar-left .btn-secondary:hover {
-  background-color: #055f43 !important;
+  background-color: #055f43;
 }
+
 
 /* 🔎 FILTROS */
 .filtro-ubicacion label,

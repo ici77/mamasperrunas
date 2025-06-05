@@ -1,9 +1,8 @@
 <div class="container-fluid">
-  <div class="row d-flex align-items-stretch">
-
+  <div class="row">
     <!-- 📌 Menú lateral izquierdo -->
     <aside class="col-12 col-md-3 col-lg-2 sidebar-left">
-      <h3>Servicios</h3>
+      <h3>SERVICIOS</h3>
       <ul class="list-group">
         <li class="list-group-item" *ngFor="let tipo of tiposLugares">
           <a href="#" (click)="seleccionarUnicoTipo(tipo); $event.preventDefault()">
@@ -22,7 +21,7 @@
     </aside>
 
     <!-- 📌 Zona principal -->
-    <div class="col-12 col-md-9 col-lg-10 d-flex flex-column">
+    <section class="col-12 col-md-9 col-lg-10 d-flex flex-column">
 
       <!-- 📌 Migas de pan -->
       <nav aria-label="breadcrumb" class="breadcrumb-container">
@@ -32,47 +31,45 @@
         </ol>
       </nav>
 
-      <!-- 📸 Cabecera -->
-      <div class="header-wrapper">
-        <div class="category-header mb-4">
-          <img src="assets/images/servicios/servicios.png" alt="Cabecera servicios" class="header-image" />
-          <h1>SERVICIOS</h1>
-        </div>
+      <!-- 📌 Cabecera con imagen -->
+      <div class="category-header mb-4">
+        <img src="assets/images/servicios/servicios.png" alt="Cabecera servicios" class="header-image" />
+        <h1>SERVICIOS</h1>
       </div>
 
       <!-- 🌍 Filtro de ubicación -->
-      <div class="filtro-ubicacion mb-3">
+      <div class="filtro-ubicacion mb-3 d-flex flex-wrap align-items-center">
         <label>
-          <input type="radio" name="ubicacion" [value]="'miUbicacion'" [(ngModel)]="modoUbicacion" (change)="buscar()">
+          <input type="radio" name="ubicacion" [value]="'miUbicacion'" [(ngModel)]="modoUbicacion" (change)="buscar()" />
           Cerca de mí
         </label>
         <label class="ms-3">
-          <input type="radio" name="ubicacion" [value]="'provincia'" [(ngModel)]="modoUbicacion" (change)="buscar()">
+          <input type="radio" name="ubicacion" [value]="'provincia'" [(ngModel)]="modoUbicacion" (change)="buscar()" />
           Seleccionar provincia
         </label>
 
-        <select *ngIf="modoUbicacion === 'provincia'" [(ngModel)]="provinciaSeleccionada" class="form-select mt-2" (change)="buscar()">
+        <select *ngIf="modoUbicacion === 'provincia'" [(ngModel)]="provinciaSeleccionada" class="form-select ms-3 mt-2" (change)="buscar()">
           <option value="">-- Selecciona una provincia --</option>
           <option *ngFor="let provincia of provincias" [value]="provincia">{{ provincia }}</option>
         </select>
       </div>
 
       <!-- 🐾 Filtro por tipo de lugar -->
-      <div class="filtro-tipos mb-4">
-        <label *ngFor="let tipo of tiposLugares" class="form-check form-check-inline">
+      <div class="filtro-tipos mb-4 d-flex flex-wrap align-items-center">
+        <label *ngFor="let tipo of tiposLugares" class="form-check form-check-inline me-2">
           <input type="checkbox" [(ngModel)]="tipo.seleccionado" class="form-check-input" (change)="buscar()" />
           <span class="form-check-label">{{ tipo.nombre }}</span>
         </label>
       </div>
 
       <!-- 🗺️ Mapa -->
-      <div id="map" class="map-container"></div>
+      <div id="map"></div>
 
       <!-- 🐾 Tarjetas de lugares encontrados -->
       <section *ngIf="lugaresMostrados.length > 0" class="mt-5">
         <h3 class="text-center mb-4">📍 Resultados cercanos</h3>
         <div class="row">
-          <div *ngFor="let lugar of lugaresMostrados" class="col-md-6 col-lg-4 mb-4">
+          <div *ngFor="let lugar of lugaresMostrados" class="col-12 col-md-6 col-lg-4 mb-4">
             <div class="card h-100">
               <img [src]="lugar.fotoUrl" class="card-img-top" [alt]="lugar.nombre">
               <div class="card-body">
@@ -85,6 +82,6 @@
         </div>
       </section>
 
-    </div>
+    </section>
   </div>
 </div>
