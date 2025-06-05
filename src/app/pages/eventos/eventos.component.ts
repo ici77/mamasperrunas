@@ -143,26 +143,24 @@ export class EventosComponent implements OnInit {
       return null;
     }
   }
-  getImagenUrl(imagenUrl: string): string {
-  if (!imagenUrl) {
-    return 'assets/images/eventos/default.jpg'; // imagen por defecto
+ getImagenUrl(imagenUrl: string): string {
+  if (!imagenUrl || imagenUrl.trim() === '') {
+    return 'assets/images/eventos/default.jpg';
   }
 
-  // ✅ Si ya es una URL completa, la devolvemos sin tocar
-  if (imagenUrl.startsWith('http')) {
+  // ✅ Si ya es una URL completa (http...) o ruta assets/, no la tocamos
+  if (imagenUrl.startsWith('http') || imagenUrl.startsWith('assets/')) {
     return imagenUrl;
   }
 
-  // ✅ Si viene de backend → imágenes de usuarios subidas
- if (imagenUrl.includes('/uploads/')) {
-  return 'https://backmp-production.up.railway.app' + imagenUrl;
-}
+  // ✅ Si contiene "/uploads/", viene del backend
+  if (imagenUrl.includes('/uploads/')) {
+    return 'https://backmp-production.up.railway.app' + imagenUrl;
+  }
 
-
-  // ✅ Si es una imagen del frontend
+  // ✅ Si es una imagen del frontend sin ruta completa
   return 'assets/images/eventos/' + imagenUrl;
 }
-
 
 
  tarjetasInformativas = [
