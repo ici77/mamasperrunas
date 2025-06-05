@@ -56,6 +56,27 @@ register(usuario: { nombre: string, email: string, password: string }): Observab
 setUserData(data: any): void {
   this.userDataSubject.next(data);
 }
+/**
+ * 📌 Actualiza manualmente los datos del usuario almacenados
+ * Se puede llamar después de cambiar nombre o imagen de perfil
+ */
+/**
+ * 📌 Actualiza manualmente los datos del usuario en el observable
+ * Se puede llamar tras cambiar imagen o nombre
+ */
+public refrescarDatosUsuario(fotoPerfilActualizada?: string): void {
+  const token = this.getToken();
+  if (!token) return;
+
+  const userData = this.loadUserData();
+
+  if (fotoPerfilActualizada) {
+    userData.foto_perfil = fotoPerfilActualizada;
+  }
+
+  this.userDataSubject.next(userData);
+}
+
 
 
   /**

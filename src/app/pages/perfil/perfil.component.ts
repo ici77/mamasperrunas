@@ -142,12 +142,8 @@ export class PerfilComponent implements OnInit {
       this.usuarioService.getPerfil().subscribe(perfil => {
         this.perfil = perfil;
 
-        // ✅ ACTUALIZAR datos compartidos para que la navbar se entere
-        this.authService.setUserData({
-          nombre: perfil.nombre,
-          email: perfil.email,
-          foto_perfil: perfil.fotoPerfil
-        });
+        // ✅ Actualizar los datos del usuario en el AuthService para que la navbar también se actualice
+        this.authService.refrescarDatosUsuario(perfil.fotoPerfil);
       });
     },
     error: () => alert('❌ Error al subir imagen')
