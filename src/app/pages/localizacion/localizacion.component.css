@@ -7,22 +7,21 @@
 h1, h2, h3, h4, h5, h6, p, a, button, small {
   font-family: 'Lato', sans-serif;
 }
-
-/* 📸 Cabecera */
+/* 📸 CABECERA DINÁMICA */
 .category-header {
   width: 100%;
   text-align: center;
   position: relative;
   margin: 0 auto 20px auto;
-  border: 6px solid var(--secondary-green);
-  border-radius: 10px;
+  border: 6px solid var(--secondary-green) !important;
+  border-radius: 10px !important;
   overflow: hidden;
 }
 
 .header-image {
   width: 100%;
-  height: 140px;
-  object-fit: cover;
+  height: 140px !important;
+  object-fit: cover !important;
   display: block;
 }
 
@@ -40,71 +39,108 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   z-index: 1;
 }
 
-/* 🔹 Migas de pan */
+/* 🔹 Migas de Pan */
 .breadcrumb-container {
-  padding: 10px 15px;
-  border-radius: 8px;
-  margin-bottom: 20px;
+  padding: 10px 15px !important;
+  border-radius: 8px !important;
+  margin-bottom: 20px !important;
 }
 
 .breadcrumb {
-  margin-bottom: 0;
-  padding: 0;
-  background: transparent;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
 }
 
 .breadcrumb-item a {
-  text-decoration: none;
-  color: var(--primary-green);
-  font-weight: 600;
+  text-decoration: none !important;
+  color: var(--primary-green) !important;
+  font-weight: 600 !important;
+  transition: color 0.3s ease !important;
 }
 
 .breadcrumb-item a:hover {
-  color: var(--naranja-intenso);
-  text-decoration: underline;
+  color: var(--naranja-intenso) !important;
+  text-decoration: underline !important;
 }
 
 .breadcrumb-item.active {
-  color: var(--verde-profundo);
-  font-weight: bold;
+  color: var(--verde-profundo) !important;
+  font-weight: bold !important;
 }
 
-/* 📌 Menú lateral */
-.sidebar-left h3 {
-  color: var(--verde-profundo);
-  font-size: 1.8rem;
-  text-align: center;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-top: 30px;
-  margin-bottom: 10px;
-  text-decoration: underline;
-  text-decoration-color: var(--naranja-intenso);
+
+
+
+/* 📌 Títulos de los Menús */
+.sidebar-left h3,
+.sidebar-right h3 {
+  color: var(--verde-profundo) !important;
+  font-size: 1.8rem !important;
+  text-align: center !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  margin-top: 30px !important;
+  margin-bottom: 10px !important;
+  text-decoration: underline !important; /* Subrayado */
+  text-decoration-color: var(--naranja-intenso) !important; /* Color del subrayado */
+}
+/* 📌 Cambiar color en hover */
+.create-post-btn:hover {
+  background-color: #6ea97e !important; /* Verde más oscuro en hover */
+  transform: scale(1.05) !important; /* Pequeño zoom */
 }
 
+
+/* 📌 Elementos de las Listas */
+.sidebar-left .list-group-item,
+.sidebar-right .list-group-item {
+  background-color: whitesmoke !important;
+  color: white !important;
+  font-size: 1.2rem !important;
+  font-weight: 500 !important;
+  padding: 15px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  transition: background 0.3s ease-in-out !important;
+  border-radius: 15px;
+  border: 6px solid #3B8024;
+  cursor: pointer !important;
+  justify-content: center !important;
+}
+
+/* 📌 Hover en los Menús */
+.sidebar-left .list-group-item:hover,
+.sidebar-right .list-group-item:hover {
+  background: var(--verde-profundo) !important;
+  transform: scale(1.05) !important;
+}
+
+/* 📌 Listas dentro del Menú Izquierdo */
 .sidebar-left .list-group {
-  border-radius: 10px;
-  color: var(--naranja-intenso);
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-align: center;
+  width: 100% !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  color: rgb(230, 123, 17) !important;
+  font-size: 1.8rem !important;
+  text-align: center !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  margin-top: 30px !important;
+  margin-bottom: 10px !important;
 }
 
-.sidebar-left .list-group-item {
-  background-color: whitesmoke;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--naranja-intenso);
-  border: 4px solid var(--verde-profundo);
-  border-radius: 12px;
-  margin-bottom: 10px;
-  transition: 0.3s ease;
+/* 📌 Enlaces dentro del Menú Izquierdo */
+.sidebar-left .list-group-item a {
+  text-decoration: none !important;
+  color: rgb(230, 123, 17) !important; /* Cambia el color del enlace */
+  font-weight: bold !important;
 }
 
-.sidebar-left .list-group-item:hover {
-  background-color: var(--verde-profundo);
-  color: white;
-}
+.sidebar-left .list-group-item a:hover {
+  color: #ff9800 !important; /* Cambia el color cuando el usuario pasa el mouse */
+  text-decoration: underline !important;
 
 /* 📍 Filtros */
 .filtro-ubicacion label {
@@ -122,6 +158,8 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   margin-right: 1rem;
   font-size: 1rem;
 }
+
+
 
 /* 📌 Botón */
 .btn-verde {
@@ -194,4 +232,5 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   .sidebar-left .list-group-item {
     font-size: 1rem;
   }
+}
 }
