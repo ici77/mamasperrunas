@@ -1,16 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // ✅ Import necesario para [(ngModel)]
 
 declare const google: any;
 
 @Component({
   selector: 'app-localizacion',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    FormsModule // ✅ Añadido aquí
+  ],
   templateUrl: './localizacion.component.html',
   styleUrls: ['./localizacion.component.scss']
 })
 export class LocalizacionComponent implements OnInit {
+
+  modoUbicacion = 'miUbicacion';
+  provinciaSeleccionada: string = '';
+
+  provincias: string[] = [
+    'Sevilla', 'Madrid', 'Barcelona', 'Valencia', 'Málaga',
+    'Cádiz', 'Granada', 'Zaragoza', 'Bilbao'
+  ];
+
+  tiposLugares = [
+    { nombre: 'Veterinarios', keyword: 'veterinario', seleccionado: true },
+    { nombre: 'Protectoras', keyword: 'protectoras de animales', seleccionado: true },
+    { nombre: 'Tiendas de animales', keyword: 'tienda de mascotas', seleccionado: false },
+    { nombre: 'Parques para perros', keyword: 'parque para perros', seleccionado: false },
+    { nombre: 'Residencias caninas', keyword: 'residencia canina', seleccionado: false },
+    { nombre: 'Adiestradores', keyword: 'adiestrador de perros', seleccionado: false },
+    { nombre: 'Cafeterías dog-friendly', keyword: 'cafetería dog friendly', seleccionado: false },
+    { nombre: 'Peluquerías caninas', keyword: 'peluquería canina', seleccionado: false }
+  ];
 
   ngOnInit(): void {
     this.initMap();

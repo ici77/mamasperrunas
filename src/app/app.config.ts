@@ -3,6 +3,10 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { authInterceptor } from './interceptors/auth.interceptor';
+import { importProvidersFrom } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+
 
 import { provideAnimations } from '@angular/platform-browser/animations';
 
@@ -19,6 +23,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideRouter(appRoutes),
     provideAnimations(),
+    importProvidersFrom(FormsModule)
    
   ]
 };

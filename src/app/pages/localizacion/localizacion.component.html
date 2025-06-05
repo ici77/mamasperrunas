@@ -1,2 +1,29 @@
 <h2>Mapa de lugares cercanos</h2>
-<div id="map" style="height: 500px; width: 100%; border: solid 1px #ccc;"></div>
+
+<!-- 🌍 Filtro de ubicación -->
+<div class="filtro-ubicacion">
+  <label>
+    <input type="radio" name="ubicacion" [value]="'miUbicacion'" [(ngModel)]="modoUbicacion">
+    Cerca de mí
+  </label>
+  <label>
+    <input type="radio" name="ubicacion" [value]="'provincia'" [(ngModel)]="modoUbicacion">
+    Seleccionar provincia
+  </label>
+
+  <select *ngIf="modoUbicacion === 'provincia'" [(ngModel)]="provinciaSeleccionada">
+    <option value="">-- Selecciona una provincia --</option>
+    <option *ngFor="let provincia of provincias" [value]="provincia">{{ provincia }}</option>
+  </select>
+</div>
+
+<!-- 🐾 Filtro por tipo de lugar -->
+<div class="filtro-tipos">
+  <label *ngFor="let tipo of tiposLugares">
+    <input type="checkbox" [(ngModel)]="tipo.seleccionado">
+    {{ tipo.nombre }}
+  </label>
+</div>
+
+<!-- 🗺️ Mapa -->
+<div id="map" style="height: 500px; width: 100%; border: solid 1px #ccc; margin-top: 1rem;"></div>
