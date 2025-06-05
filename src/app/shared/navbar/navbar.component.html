@@ -41,7 +41,8 @@
       🎯 Eventos
     </a>
     <ul class="dropdown-menu" aria-labelledby="eventosDropdown">
-      <li><a class="dropdown-item" routerLink="/eventos">📅 Todos los eventos</a></li>
+     <li><a class="dropdown-item" href="https://mamasperrunasfront.netlify.app/eventos">📅 Todos los eventos</a></li>
+
       <li><hr class="dropdown-divider"></li>
       <li><a class="dropdown-item" [routerLink]="['/eventos']" [queryParams]="{ tipo: 'celebraciones' }">🎉 Celebraciones</a></li>
       <li><a class="dropdown-item" [routerLink]="['/eventos']" [queryParams]="{ tipo: 'concursos' }">🏆 Concursos</a></li>
