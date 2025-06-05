@@ -66,8 +66,8 @@ export class AuthService {
         const decodedToken: any = jwt_decode(token);
         return {
           id: decodedToken.id,
-          nombre: decodedToken.nombre,
-          foto_perfil: decodedToken.foto_perfil
+  nombre: decodedToken.nombre,
+  fotoPerfil: decodedToken.fotoPerfil
         };
       } catch (error) {
         console.error('⚠ Error al decodificar el token:', error);
@@ -108,17 +108,19 @@ export class AuthService {
   /**
    * ✅ Actualiza manualmente la foto de perfil en el observable
    */
-  refrescarDatosUsuario(nuevaFoto: string): void {
-  const current = this.userDataSubject.value;
+  public refrescarDatosUsuario(nuevaFoto: string): void {
+  const current = this.loadUserData();
   if (!current) return;
 
   const actualizado = {
     ...current,
-    foto_perfil: nuevaFoto
+    fotoPerfil: nuevaFoto // ✅ igual aquí
   };
 
   this.userDataSubject.next(actualizado);
+  this.isLoggedInSubject.next(true);
 }
+
 
 
   /**

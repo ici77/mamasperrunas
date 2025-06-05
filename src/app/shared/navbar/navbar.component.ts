@@ -26,10 +26,10 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
   this.authService.getUserDataObservable().subscribe(userData => {
-    this.isAuthenticated = !!userData;
-    this.nombreUsuario = userData?.nombre;
-    this.fotoPerfil = userData?.foto_perfil;
-  });
+  this.isAuthenticated = !!userData;
+  this.nombreUsuario = userData?.nombre;
+  this.fotoPerfil = userData?.fotoPerfil; // ✅ camelCase aquí
+});
 }
 
 
