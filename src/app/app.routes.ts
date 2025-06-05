@@ -18,6 +18,7 @@ import { LifeComponent } from './pages/blog/life/life.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { EventosComponent } from './pages/eventos/eventos.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { LocalizacionComponent } from './pages/localizacion/localizacion.component';
 export const appRoutes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'products', component: ProductListComponent },
@@ -52,6 +53,10 @@ export const appRoutes: Routes = [
 
   // 📌 Página de eventos general
   { path: 'eventos', component: EventosComponent },
+
+  // 📌 Página de localización de servicios
+
+   { path: 'localizacion', component: LocalizacionComponent },
 
   // 📌 Blog y secciones
   {
