@@ -25,13 +25,13 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    // ✅ Observar datos del usuario autenticado
-    this.authService.getUserDataObservable().subscribe(userData => {
-      this.isAuthenticated = !!userData;
-      this.nombreUsuario = userData?.nombre;
-      this.fotoPerfil = userData?.foto_perfil;
-    });
-  }
+  this.authService.getUserDataObservable().subscribe(userData => {
+    this.isAuthenticated = !!userData;
+    this.nombreUsuario = userData?.nombre;
+    this.fotoPerfil = userData?.foto_perfil;
+  });
+}
+
 
   /**
    * ✅ Cierra sesión
@@ -49,6 +49,7 @@ getFotoPerfilUrl(): string {
     ? this.fotoPerfil
     : `${environment.imagenUrlBase}${this.fotoPerfil}`;
 }
+
 
 
   /**
