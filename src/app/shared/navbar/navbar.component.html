@@ -111,14 +111,15 @@
             <!-- Imagen de perfil con enlace -->
             <a routerLink="/perfil">
               <img
-                [src]="'http://localhost:8080' + (fotoPerfil || '/assets/images/default-avatar.png')"
-                (error)="setDefaultAvatar($event)"
-                alt="Foto de perfil"
-                width="40"
-                height="40"
-                class="rounded-circle me-2"
-                style="object-fit: cover; cursor: pointer;"
-              />
+  [src]="getFotoPerfilUrl()"
+  (error)="setDefaultAvatar($event)"
+  alt="Foto de perfil"
+  width="40"
+  height="40"
+  class="rounded-circle me-2"
+  style="object-fit: cover; cursor: pointer;"
+/>
+
             </a>
 
             <!-- Nombre con enlace -->
