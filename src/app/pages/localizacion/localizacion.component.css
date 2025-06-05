@@ -1,0 +1,197 @@
+.container-fluid {
+  max-width: 1400px;
+  margin: auto;
+  padding: 20px;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, button, small {
+  font-family: 'Lato', sans-serif;
+}
+
+/* 📸 Cabecera */
+.category-header {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  margin: 0 auto 20px auto;
+  border: 6px solid var(--secondary-green);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.header-image {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+
+.category-header h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  z-index: 1;
+}
+
+/* 🔹 Migas de pan */
+.breadcrumb-container {
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.breadcrumb {
+  margin-bottom: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.breadcrumb-item a {
+  text-decoration: none;
+  color: var(--primary-green);
+  font-weight: 600;
+}
+
+.breadcrumb-item a:hover {
+  color: var(--naranja-intenso);
+  text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+  color: var(--verde-profundo);
+  font-weight: bold;
+}
+
+/* 📌 Menú lateral */
+.sidebar-left h3 {
+  color: var(--verde-profundo);
+  font-size: 1.8rem;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  text-decoration: underline;
+  text-decoration-color: var(--naranja-intenso);
+}
+
+.sidebar-left .list-group {
+  border-radius: 10px;
+  color: var(--naranja-intenso);
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.sidebar-left .list-group-item {
+  background-color: whitesmoke;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--naranja-intenso);
+  border: 4px solid var(--verde-profundo);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  transition: 0.3s ease;
+}
+
+.sidebar-left .list-group-item:hover {
+  background-color: var(--verde-profundo);
+  color: white;
+}
+
+/* 📍 Filtros */
+.filtro-ubicacion label {
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.filtro-ubicacion select {
+  max-width: 300px;
+  margin-top: 0.5rem;
+}
+
+.filtro-tipos label {
+  font-weight: 500;
+  margin-right: 1rem;
+  font-size: 1rem;
+}
+
+/* 📌 Botón */
+.btn-verde {
+  background-color: #3B8024;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-verde:hover {
+  background-color: #055f43;
+}
+
+/* 🗺️ Mapa */
+#map {
+  height: 500px;
+  width: 100%;
+  border: solid 1px #ccc;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+/* 📦 Tarjetas */
+.card {
+  border-radius: 10px;
+  border: 3px solid var(--verde-profundo);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+  object-fit: cover;
+  height: 180px;
+}
+
+.card-title {
+  font-weight: bold;
+  color: var(--verde-profundo);
+}
+
+.card-text {
+  font-size: 0.95rem;
+}
+
+.btn-outline-primary {
+  font-weight: bold;
+  border-radius: 6px;
+  border-color: var(--primary-green);
+  color: var(--primary-green);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary-green);
+  color: white;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .category-header h1 {
+    font-size: 1.1rem;
+    padding: 6px 10px;
+  }
+
+  .header-image {
+    height: 80px;
+  }
+
+  .sidebar-left .list-group-item {
+    font-size: 1rem;
+  }
+}
