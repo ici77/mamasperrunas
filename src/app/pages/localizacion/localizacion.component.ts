@@ -80,19 +80,20 @@ export class LocalizacionComponent implements OnInit {
     this.buscarLugares(centro);
   }
 
-  buscarPorProvincia(): void {
-    if (!this.provinciaSeleccionada) return;
+ buscarPorProvincia(): void {
+  if (!this.provinciaSeleccionada) return;
 
-    const geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ address: this.provinciaSeleccionada }, (result: any, status: any) => {
-      if (status === 'OK') {
-        const ubicacion = result[0].geometry.location;
-        this.cargarMapa(ubicacion);
-      } else {
-        console.error('No se pudo encontrar la provincia:', status);
-      }
-    });
-  }
+  const geocoder = new google.maps.Geocoder();
+  geocoder.geocode({ address: this.provinciaSeleccionada }, (result: any, status: any) => {
+    if (status === 'OK') {
+      const ubicacion = result[0].geometry.location;
+      this.cargarMapa(ubicacion);
+    } else {
+      console.error('No se pudo encontrar la provincia:', status);
+    }
+  });
+}
+
 
   buscarLugares(centro: any): void {
     const servicio = new google.maps.places.PlacesService(this.mapa);
@@ -140,10 +141,32 @@ export class LocalizacionComponent implements OnInit {
     });
   }
 
-  buscar(): void {
-    this.lugaresMostrados = [];
-    this.initMap();
+ buscar(): void {
+  this.lugaresMostrados = [];
+  this.borrarMarcadores();
+
+  if (this.modoUbicacion === 'provincia') {
+    this.buscarPorProvincia();
+  } else {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const ubicacion = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          this.cargarMapa(ubicacion);
+        },
+        () => {
+          console.error("Error al obtener la ubicación");
+        }
+      );
+    } else {
+      console.error("El navegador no admite geolocalización");
+    }
   }
+}
+
 
   borrarMarcadores(): void {
     this.marcadores.forEach(m => m.setMap(null));
