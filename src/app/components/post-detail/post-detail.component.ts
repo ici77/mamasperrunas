@@ -230,10 +230,17 @@ export class PostDetailComponent implements OnInit {
     });
   }
 
-  getImagenUrl(imagen: string): string {
-  return imagen?.startsWith('http')
-    ? imagen
-    : `${environment.imagenUrlBase}${imagen}`;
+  getImagenUrl(ruta: string): string {
+  if (!ruta) return 'assets/images/default-avatar.png';
+  if (ruta.startsWith('http')) return ruta;
+
+  // Elimina cualquier "/uploads/" duplicado
+  const cleanPath = ruta.replace(/^\/?uploads\//, '');
+  return `${environment.imagenUrlBase}${cleanPath}`;
 }
+imgErrorHandler(event: Event): void {
+  (event.target as HTMLImageElement).src = 'assets/images/default-avatar.png';
+}
+
 
 }
