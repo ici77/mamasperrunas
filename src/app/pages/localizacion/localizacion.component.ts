@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 
 declare const google: any;
 
 @Component({
   selector: 'app-localizacion',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterModule],
   templateUrl: './localizacion.component.html',
   styleUrls: ['./localizacion.component.scss']
 })
@@ -103,7 +105,7 @@ export class LocalizacionComponent implements OnInit {
 
         servicio.nearbySearch(request, (resultados: any[], status: any) => {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
-            resultados.slice(0, 8).forEach((lugar: any) => {
+            resultados.slice(0, 6).forEach((lugar: any) => {
               // Tarjeta
               this.lugaresMostrados.push({
                 nombre: lugar.name,
@@ -144,4 +146,47 @@ export class LocalizacionComponent implements OnInit {
     tipo.seleccionado = true;
     this.buscar();
   }
+
+  tarjetasInformativas = [
+  {
+    titulo: '¿Cómo participar?',
+    imagen: 'quedadas.jpeg',
+    descripcion: 'Descubre cómo formar parte de los eventos caninos.',
+    link: '/eventos',
+    boton: 'Ver más'
+  },
+  {
+    titulo: 'Únete a la comunidad',
+    imagen: 'comunidad.png',
+    descripcion: 'Regístrate y accede a todos los beneficios.',
+    link: '/registro',
+    boton: 'Registrarse'
+  },
+  {
+    titulo: 'Eventos solidarios',
+    imagen: 'solidarios.png',
+    descripcion: 'Apoya causas benéficas y de ayuda animal.',
+    link: '/eventos',
+    boton: 'Ver solidarios'
+  }
+];
+ getImagenUrl(imagenUrl: string): string {
+  if (!imagenUrl || imagenUrl.trim() === '') {
+    return 'assets/images/eventos/default.jpg';
+  }
+
+  // ✅ Si ya es una URL completa o assets/
+  if (imagenUrl.startsWith('http') || imagenUrl.startsWith('assets/')) {
+    return imagenUrl;
+  }
+
+  // ✅ Si es una ruta del backend
+  if (imagenUrl.startsWith('uploads/') || imagenUrl.startsWith('/uploads/')) {
+    return 'https://backmp-production.up.railway.app/' + imagenUrl.replace(/^\/?/, '');
+  }
+
+  // ✅ Si es un nombre de imagen del frontend (por ejemplo "quedadas.jpeg")
+  return 'assets/images/eventos/' + imagenUrl;
+}
+
 }

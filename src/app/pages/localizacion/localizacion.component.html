@@ -7,11 +7,18 @@
       <ul class="list-group">
         <li class="list-group-item" *ngFor="let tipo of tiposLugares">
           <a href="#" (click)="seleccionarUnicoTipo(tipo); $event.preventDefault()">
-
             {{ tipo.nombre | uppercase }}
           </a>
         </li>
       </ul>
+
+      <!-- 📌 Tarjetas informativas -->
+      <div class="info-card" *ngFor="let card of tarjetasInformativas">
+        <h4>{{ card.titulo }}</h4>
+        <img [src]="getImagenUrl(card.imagen)" [alt]="card.titulo" />
+        <p>{{ card.descripcion }}</p>
+        <a [routerLink]="card.link" class="btn btn-secondary">{{ card.boton }}</a>
+      </div>
     </aside>
 
     <!-- 📌 Zona principal -->
@@ -57,27 +64,27 @@
           <span class="form-check-label">{{ tipo.nombre }}</span>
         </label>
         <button class="btn btn-verde ms-3" (click)="buscar()">🔍 Buscar</button>
-
       </div>
 
       <!-- 🗺️ Mapa -->
       <div id="map" style="height: 500px; width: 100%; border: solid 1px #ccc; border-radius: 10px;"></div>
+
       <!-- 🐾 Tarjetas de lugares encontrados -->
-<section *ngIf="lugaresMostrados.length > 0" class="mt-5">
-  <h3 class="text-center mb-4">📍 Resultados cercanos</h3>
-  <div class="row">
-    <div *ngFor="let lugar of lugaresMostrados" class="col-md-6 col-lg-4 mb-4">
-      <div class="card h-100">
-        <img [src]="lugar.fotoUrl" class="card-img-top" [alt]="lugar.nombre">
-        <div class="card-body">
-          <h5 class="card-title">{{ lugar.nombre }}</h5>
-          <p class="card-text">{{ lugar.direccion }}</p>
-          <a [href]="lugar.enlaceMaps" target="_blank" class="btn btn-outline-primary btn-sm">🌍 Ver en Google Maps</a>
+      <section *ngIf="lugaresMostrados.length > 0" class="mt-5">
+        <h3 class="text-center mb-4">📍 Resultados cercanos</h3>
+        <div class="row">
+          <div *ngFor="let lugar of lugaresMostrados" class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+              <img [src]="lugar.fotoUrl" class="card-img-top" [alt]="lugar.nombre">
+              <div class="card-body">
+                <h5 class="card-title">{{ lugar.nombre }}</h5>
+                <p class="card-text">{{ lugar.direccion }}</p>
+                <a [href]="lugar.enlaceMaps" target="_blank" class="btn btn-outline-primary btn-sm">🌍 Ver en Google Maps</a>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
     </div>
   </div>
