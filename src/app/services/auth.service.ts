@@ -21,6 +21,13 @@ export class AuthService {
       this.updateUserData();
     }
   }
+  /**
+ * 📌 Registrar un nuevo usuario
+ */
+register(usuario: { nombre: string, email: string, password: string }): Observable<any> {
+  return this.http.post(`${this.apiUrl}/registro`, usuario);
+}
+
 
   /**
    * 📌 Verifica si hay un token en `localStorage` al cargar la app.
