@@ -1,3 +1,7 @@
+/* 🌱 VARIABLES DE COLOR */
+/* (Asegúrate de que las variables estén definidas en :root en styles.scss o en otro sitio común) */
+
+/* 🔹 Ajustes generales */
 .container-fluid {
   max-width: 1400px;
   margin: auto;
@@ -5,14 +9,15 @@
 }
 
 h1, h2, h3, h4, h5, h6, p, a, button, small {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lato', sans-serif !important;
 }
+
 /* 📸 CABECERA DINÁMICA */
 .category-header {
   width: 100%;
   text-align: center;
   position: relative;
-  margin: 0 auto 20px auto;
+  margin-bottom: 20px !important;
   border: 6px solid var(--secondary-green) !important;
   border-radius: 10px !important;
   overflow: hidden;
@@ -22,7 +27,6 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   width: 100%;
   height: 140px !important;
   object-fit: cover !important;
-  display: block;
 }
 
 .category-header h1 {
@@ -31,11 +35,11 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   left: 50%;
   transform: translate(-50%, -50%);
   background: rgba(0, 0, 0, 0.6);
-  color: white;
+  color: white !important;
   padding: 6px 14px;
   border-radius: 4px;
-  font-size: 1.4rem;
-  font-weight: bold;
+  font-size: 1.4rem !important;
+  font-weight: bold !important;
   z-index: 1;
 }
 
@@ -69,12 +73,8 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   font-weight: bold !important;
 }
 
-
-
-
-/* 📌 Títulos de los Menús */
-.sidebar-left h3,
-.sidebar-right h3 {
+/* 📌 Menú lateral izquierdo */
+.sidebar-left h3 {
   color: var(--verde-profundo) !important;
   font-size: 1.8rem !important;
   text-align: center !important;
@@ -82,155 +82,160 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   text-transform: uppercase !important;
   margin-top: 30px !important;
   margin-bottom: 10px !important;
-  text-decoration: underline !important; /* Subrayado */
-  text-decoration-color: var(--naranja-intenso) !important; /* Color del subrayado */
-}
-/* 📌 Cambiar color en hover */
-.create-post-btn:hover {
-  background-color: #6ea97e !important; /* Verde más oscuro en hover */
-  transform: scale(1.05) !important; /* Pequeño zoom */
+  text-decoration: underline !important;
+  text-decoration-color: var(--naranja-intenso) !important;
 }
 
-
-/* 📌 Elementos de las Listas */
-.sidebar-left .list-group-item,
-.sidebar-right .list-group-item {
+.sidebar-left .list-group-item {
   background-color: whitesmoke !important;
-  color: white !important;
+  color: rgb(230, 123, 17) !important;
   font-size: 1.2rem !important;
-  font-weight: 500 !important;
+  font-weight: bold !important;
   padding: 15px 20px !important;
   display: flex !important;
-  align-items: center !important;
-  gap: 10px !important;
-  transition: background 0.3s ease-in-out !important;
-  border-radius: 15px;
-  border: 6px solid #3B8024;
-  cursor: pointer !important;
   justify-content: center !important;
+  align-items: center !important;
+  border-radius: 15px !important;
+  border: 6px solid #3B8024 !important;
+  transition: all 0.3s ease-in-out !important;
 }
 
-/* 📌 Hover en los Menús */
-.sidebar-left .list-group-item:hover,
-.sidebar-right .list-group-item:hover {
-  background: var(--verde-profundo) !important;
+.sidebar-left .list-group-item:hover {
+  background-color: var(--verde-profundo) !important;
+  color: white !important;
   transform: scale(1.05) !important;
 }
 
-/* 📌 Listas dentro del Menú Izquierdo */
-.sidebar-left .list-group {
-  width: 100% !important;
-  border-radius: 10px !important;
-  overflow: hidden !important;
-  color: rgb(230, 123, 17) !important;
-  font-size: 1.8rem !important;
+.sidebar-left .info-card {
+  background: white !important;
+  padding: 15px !important;
+  border-radius: 15px !important;
+  border: 6px solid #3B8024 !important;
   text-align: center !important;
-  font-weight: bold !important;
-  text-transform: uppercase !important;
-  margin-top: 30px !important;
-  margin-bottom: 10px !important;
+  margin-top: 20px !important;
 }
 
-/* 📌 Enlaces dentro del Menú Izquierdo */
-.sidebar-left .list-group-item a {
-  text-decoration: none !important;
-  color: rgb(230, 123, 17) !important; /* Cambia el color del enlace */
+.sidebar-left .info-card img {
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 5px !important;
+}
+
+.sidebar-left .info-card h4 {
+  font-size: 16px !important;
+  margin-top: 10px !important;
+  color: #065f43 !important;
+}
+
+.sidebar-left .info-card p {
+  font-size: 14px !important;
+  color: #555 !important;
+}
+
+.sidebar-left .btn-secondary {
+  background-color: var(--secondary-green) !important;
+  color: white !important;
   font-weight: bold !important;
 }
 
-.sidebar-left .list-group-item a:hover {
-  color: #ff9800 !important; /* Cambia el color cuando el usuario pasa el mouse */
-  text-decoration: underline !important;
+.sidebar-left .btn-secondary:hover {
+  background-color: #055f43 !important;
+}
 
 /* 📍 Filtros */
-.filtro-ubicacion label {
-  font-weight: bold;
-  margin-right: 1rem;
+.filtro-ubicacion label,
+.filtro-tipos label {
+  font-weight: bold !important;
+  margin-right: 1rem !important;
+  font-size: 1rem !important;
 }
 
 .filtro-ubicacion select {
-  max-width: 300px;
-  margin-top: 0.5rem;
+  max-width: 300px !important;
+  margin-top: 0.5rem !important;
 }
 
-.filtro-tipos label {
-  font-weight: 500;
-  margin-right: 1rem;
-  font-size: 1rem;
-}
-
-
-
-/* 📌 Botón */
+/* 🎯 Botón de buscar */
 .btn-verde {
-  background-color: #3B8024;
-  color: white;
-  font-weight: bold;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
+  background-color: #055f43 !important; /* Verde oscuro */
+  color: white !important;
+  font-weight: bold !important;
+  border: none !important;
+  padding: 12px 30px !important;
+  font-size: 1.1rem !important;
+  border-radius: 6px !important;
+  transition: background-color 0.3s ease !important;
+  display: inline-block !important;
 }
 
 .btn-verde:hover {
-  background-color: #055f43;
+  background-color: #043a2e !important;
 }
 
 /* 🗺️ Mapa */
 #map {
-  height: 500px;
-  width: 100%;
-  border: solid 1px #ccc;
-  border-radius: 10px;
-  margin-top: 1rem;
+  height: 500px !important;
+  width: 100% !important;
+  border: solid 1px #ccc !important;
+  border-radius: 10px !important;
+  margin-top: 1rem !important;
 }
 
 /* 📦 Tarjetas */
 .card {
-  border-radius: 10px;
-  border: 3px solid var(--verde-profundo);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px !important;
+  border: 3px solid var(--verde-profundo) !important;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+  overflow: hidden !important;
 }
 
 .card-img-top {
-  object-fit: cover;
-  height: 180px;
+  height: 180px !important;
+  object-fit: cover !important;
 }
 
 .card-title {
-  font-weight: bold;
-  color: var(--verde-profundo);
+  font-weight: bold !important;
+  color: var(--verde-profundo) !important;
+  font-size: 1.2rem !important;
 }
 
 .card-text {
-  font-size: 0.95rem;
+  font-size: 0.95rem !important;
 }
 
 .btn-outline-primary {
-  font-weight: bold;
-  border-radius: 6px;
-  border-color: var(--primary-green);
-  color: var(--primary-green);
+  font-weight: bold !important;
+  border-color: var(--primary-green) !important;
+  color: var(--primary-green) !important;
 }
 
 .btn-outline-primary:hover {
-  background-color: var(--primary-green);
-  color: white;
+  background-color: var(--primary-green) !important;
+  color: white !important;
 }
 
-/* 📱 Responsive */
+/* 📱 RESPONSIVE */
 @media (max-width: 768px) {
   .category-header h1 {
-    font-size: 1.1rem;
-    padding: 6px 10px;
+    font-size: 1.1rem !important;
+    padding: 6px 10px !important;
   }
 
   .header-image {
-    height: 80px;
+    height: 80px !important;
   }
 
   .sidebar-left .list-group-item {
-    font-size: 1rem;
+    font-size: 1rem !important;
   }
-}
+
+  .sidebar-left {
+    margin-bottom: 2rem !important;
+  }
+
+  .btn-verde {
+    width: 100% !important;
+    font-size: 1rem !important;
+  }
 }

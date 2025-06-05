@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-
 declare const google: any;
 
 @Component({
   selector: 'app-localizacion',
   standalone: true,
-  imports: [CommonModule, FormsModule,RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './localizacion.component.html',
   styleUrls: ['./localizacion.component.scss']
 })
@@ -31,7 +30,7 @@ export class LocalizacionComponent implements OnInit {
     { nombre: 'Protectoras', keyword: 'protectoras de animales', seleccionado: true },
     { nombre: 'Tiendas de animales', keyword: 'tienda de mascotas', seleccionado: false },
     { nombre: 'Parques para perros', keyword: 'parque para perros', seleccionado: false },
-    { nombre: 'Residencias caninas', keyword: 'residencia canina', seleccionado: false },
+    { nombre: 'Residencias caninas', keyword: 'guarderia canina', seleccionado: false },
     { nombre: 'Adiestradores', keyword: 'adiestrador de perros', seleccionado: false },
     { nombre: 'Cafeterías dog-friendly', keyword: 'cafetería dog friendly', seleccionado: false },
     { nombre: 'Peluquerías caninas', keyword: 'peluquería canina', seleccionado: false }
@@ -43,8 +42,14 @@ export class LocalizacionComponent implements OnInit {
 
   initMap(): void {
     const mapElement = document.getElementById('map');
+    if (!mapElement) return;
 
-    if (navigator.geolocation && this.modoUbicacion === 'miUbicacion') {
+    if (this.modoUbicacion === 'provincia') {
+      this.buscarPorProvincia();
+      return;
+    }
+
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const ubicacion = {
@@ -53,10 +58,10 @@ export class LocalizacionComponent implements OnInit {
           };
           this.cargarMapa(ubicacion);
         },
-        () => this.buscarPorProvincia()
+        () => {
+          alert("No se pudo obtener la ubicación. Selecciona una provincia.");
+        }
       );
-    } else {
-      this.buscarPorProvincia();
     }
   }
 
@@ -94,46 +99,50 @@ export class LocalizacionComponent implements OnInit {
     this.borrarMarcadores();
     this.lugaresMostrados = [];
 
-    this.tiposLugares
-      .filter(t => t.seleccionado)
-      .forEach(tipo => {
-        const request = {
-          location: centro,
-          radius: 4000,
-          keyword: tipo.keyword
-        };
+    const tiposSeleccionados = this.tiposLugares.filter(t => t.seleccionado);
+    const lugaresTemp: any[] = [];
+    let tiposProcesados = 0;
 
-        servicio.nearbySearch(request, (resultados: any[], status: any) => {
-          if (status === google.maps.places.PlacesServiceStatus.OK) {
-            resultados.slice(0, 6).forEach((lugar: any) => {
-              // Tarjeta
-              this.lugaresMostrados.push({
-                nombre: lugar.name,
-                direccion: lugar.vicinity || 'Dirección no disponible',
-                fotoUrl: lugar.photos?.[0]?.getUrl() ?? 'assets/images/servicios/default.png',
-                enlaceMaps: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(lugar.name)}`
-              });
+    tiposSeleccionados.forEach(tipo => {
+      const request = {
+        location: centro,
+        radius: 4000,
+        keyword: tipo.keyword
+      };
 
-              // Marcador en el mapa
-              const marcador = new google.maps.Marker({
-                position: lugar.geometry.location,
-                map: this.mapa,
-                title: lugar.name
-              });
-              this.marcadores.push(marcador);
+      servicio.nearbySearch(request, (resultados: any[], status: any) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          lugaresTemp.push(...resultados);
+        }
+
+        tiposProcesados++;
+        if (tiposProcesados === tiposSeleccionados.length) {
+          const finales = lugaresTemp.slice(0, 8); // 👉 solo 8 resultados
+
+          finales.forEach((lugar: any) => {
+            this.lugaresMostrados.push({
+              nombre: lugar.name,
+              direccion: lugar.vicinity || 'Dirección no disponible',
+              fotoUrl: lugar.photos?.[0]?.getUrl() ?? 'assets/images/servicios/default.png',
+              enlaceMaps: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(lugar.name)}`
             });
-          }
-        });
+
+            const marcador = new google.maps.Marker({
+              position: lugar.geometry.location,
+              map: this.mapa,
+              title: lugar.name
+            });
+
+            this.marcadores.push(marcador);
+          });
+        }
       });
+    });
   }
 
   buscar(): void {
     this.lugaresMostrados = [];
-    if (this.modoUbicacion === 'miUbicacion') {
-      this.initMap();
-    } else {
-      this.buscarPorProvincia();
-    }
+    this.initMap();
   }
 
   borrarMarcadores(): void {
@@ -148,45 +157,39 @@ export class LocalizacionComponent implements OnInit {
   }
 
   tarjetasInformativas = [
-  {
-    titulo: '¿Cómo participar?',
-    imagen: 'quedadas.jpeg',
-    descripcion: 'Descubre cómo formar parte de los eventos caninos.',
-    link: '/eventos',
-    boton: 'Ver más'
-  },
-  {
-    titulo: 'Únete a la comunidad',
-    imagen: 'comunidad.png',
-    descripcion: 'Regístrate y accede a todos los beneficios.',
-    link: '/registro',
-    boton: 'Registrarse'
-  },
-  {
-    titulo: 'Eventos solidarios',
-    imagen: 'solidarios.png',
-    descripcion: 'Apoya causas benéficas y de ayuda animal.',
-    link: '/eventos',
-    boton: 'Ver solidarios'
-  }
-];
- getImagenUrl(imagenUrl: string): string {
-  if (!imagenUrl || imagenUrl.trim() === '') {
-    return 'assets/images/eventos/default.jpg';
-  }
+    {
+      titulo: '¿Cómo participar?',
+      imagen: 'quedadas.jpeg',
+      descripcion: 'Descubre cómo formar parte de los eventos caninos.',
+      link: '/eventos',
+      boton: 'Ver más'
+    },
+    {
+      titulo: 'Únete a la comunidad',
+      imagen: 'comunidad.png',
+      descripcion: 'Regístrate y accede a todos los beneficios.',
+      link: '/registro',
+      boton: 'Registrarse'
+    },
+    {
+      titulo: 'Eventos solidarios',
+      imagen: 'solidarios.png',
+      descripcion: 'Apoya causas benéficas y de ayuda animal.',
+      link: '/eventos',
+      boton: 'Ver solidarios'
+    }
+  ];
 
-  // ✅ Si ya es una URL completa o assets/
-  if (imagenUrl.startsWith('http') || imagenUrl.startsWith('assets/')) {
-    return imagenUrl;
+  getImagenUrl(imagenUrl: string): string {
+    if (!imagenUrl || imagenUrl.trim() === '') {
+      return 'assets/images/eventos/default.jpg';
+    }
+    if (imagenUrl.startsWith('http') || imagenUrl.startsWith('assets/')) {
+      return imagenUrl;
+    }
+    if (imagenUrl.startsWith('uploads/') || imagenUrl.startsWith('/uploads/')) {
+      return 'https://backmp-production.up.railway.app/' + imagenUrl.replace(/^\/?/, '');
+    }
+    return 'assets/images/eventos/' + imagenUrl;
   }
-
-  // ✅ Si es una ruta del backend
-  if (imagenUrl.startsWith('uploads/') || imagenUrl.startsWith('/uploads/')) {
-    return 'https://backmp-production.up.railway.app/' + imagenUrl.replace(/^\/?/, '');
-  }
-
-  // ✅ Si es un nombre de imagen del frontend (por ejemplo "quedadas.jpeg")
-  return 'assets/images/eventos/' + imagenUrl;
-}
-
 }

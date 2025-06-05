@@ -15,9 +15,9 @@
       <!-- 📌 Tarjetas informativas -->
       <div class="info-card" *ngFor="let card of tarjetasInformativas">
         <h4>{{ card.titulo }}</h4>
-        <img [src]="getImagenUrl(card.imagen)" [alt]="card.titulo" />
+        <img [src]="getImagenUrl(card.imagen)" [alt]="card.titulo" class="img-fluid mb-2" />
         <p>{{ card.descripcion }}</p>
-        <a [routerLink]="card.link" class="btn btn-secondary">{{ card.boton }}</a>
+        <a [routerLink]="card.link" class="btn btn-secondary w-100">{{ card.boton }}</a>
       </div>
     </aside>
 
@@ -25,7 +25,7 @@
     <div class="col-12 col-md-9 col-lg-10 d-flex flex-column">
 
       <!-- 📌 Migas de pan -->
-      <nav aria-label="breadcrumb" class="breadcrumb-container">
+      <nav aria-label="breadcrumb" class="breadcrumb-container mt-3">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a routerLink="/">🏠 Inicio</a></li>
           <li class="breadcrumb-item active" aria-current="page">Servicios</li>
@@ -34,20 +34,20 @@
 
       <!-- 📌 Cabecera con imagen -->
       <div class="header-wrapper">
-        <div class="category-header mb-4">
-          <img src="assets/images/servicios/servicios.png" alt="Cabecera servicios" class="header-image" />
-          <h1>Servicios</h1>
+        <div class="category-header mb-4 position-relative text-center">
+          <img src="assets/images/servicios/servicios.png" alt="Cabecera servicios" class="header-image w-100" />
+          <h1 class="header-title position-absolute top-50 start-50 translate-middle">Servicios</h1>
         </div>
       </div>
 
       <!-- 🌍 Filtro de ubicación -->
       <div class="filtro-ubicacion mb-3">
-        <label>
-          <input type="radio" name="ubicacion" [value]="'miUbicacion'" [(ngModel)]="modoUbicacion">
+        <label class="form-check-label me-3">
+          <input type="radio" class="form-check-input me-1" name="ubicacion" [value]="'miUbicacion'" [(ngModel)]="modoUbicacion">
           Cerca de mí
         </label>
-        <label class="ms-3">
-          <input type="radio" name="ubicacion" [value]="'provincia'" [(ngModel)]="modoUbicacion">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input me-1" name="ubicacion" [value]="'provincia'" [(ngModel)]="modoUbicacion">
           Seleccionar provincia
         </label>
 
@@ -74,12 +74,12 @@
         <h3 class="text-center mb-4">📍 Resultados cercanos</h3>
         <div class="row">
           <div *ngFor="let lugar of lugaresMostrados" class="col-md-6 col-lg-4 mb-4">
-            <div class="card h-100">
+            <div class="card h-100 shadow-sm">
               <img [src]="lugar.fotoUrl" class="card-img-top" [alt]="lugar.nombre">
               <div class="card-body">
                 <h5 class="card-title">{{ lugar.nombre }}</h5>
                 <p class="card-text">{{ lugar.direccion }}</p>
-                <a [href]="lugar.enlaceMaps" target="_blank" class="btn btn-outline-primary btn-sm">🌍 Ver en Google Maps</a>
+                <a [href]="lugar.enlaceMaps" target="_blank" class="btn btn-outline-primary btn-sm w-100">🌍 Ver en Google Maps</a>
               </div>
             </div>
           </div>
