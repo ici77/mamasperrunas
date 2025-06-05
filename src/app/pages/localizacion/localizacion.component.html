@@ -15,9 +15,9 @@
       <!-- 📌 Tarjetas informativas -->
       <div class="info-card" *ngFor="let card of tarjetasInformativas">
         <h4>{{ card.titulo }}</h4>
-        <img [src]="getImagenUrl(card.imagen)" [alt]="card.titulo" class="img-fluid mb-2" />
+        <img [src]="getImagenUrl(card.imagen)" [alt]="card.titulo" />
         <p>{{ card.descripcion }}</p>
-        <a [routerLink]="card.link" class="btn btn-secondary w-100">{{ card.boton }}</a>
+        <a [routerLink]="card.link" class="btn btn-secondary">{{ card.boton }}</a>
       </div>
     </aside>
 
@@ -25,33 +25,33 @@
     <div class="col-12 col-md-9 col-lg-10 d-flex flex-column">
 
       <!-- 📌 Migas de pan -->
-      <nav aria-label="breadcrumb" class="breadcrumb-container mt-3">
+      <nav aria-label="breadcrumb" class="breadcrumb-container">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a routerLink="/">🏠 Inicio</a></li>
           <li class="breadcrumb-item active" aria-current="page">Servicios</li>
         </ol>
       </nav>
 
-      <!-- 📌 Cabecera con imagen -->
+      <!-- 📸 Cabecera -->
       <div class="header-wrapper">
-        <div class="category-header mb-4 position-relative text-center">
-          <img src="assets/images/servicios/servicios.png" alt="Cabecera servicios" class="header-image w-100" />
-          <h1 class="header-title position-absolute top-50 start-50 translate-middle">Servicios</h1>
+        <div class="category-header mb-4">
+          <img src="assets/images/servicios/servicios.png" alt="Cabecera servicios" class="header-image" />
+          <h1>SERVICIOS</h1>
         </div>
       </div>
 
       <!-- 🌍 Filtro de ubicación -->
       <div class="filtro-ubicacion mb-3">
-        <label class="form-check-label me-3">
-          <input type="radio" class="form-check-input me-1" name="ubicacion" [value]="'miUbicacion'" [(ngModel)]="modoUbicacion">
+        <label>
+          <input type="radio" name="ubicacion" [value]="'miUbicacion'" [(ngModel)]="modoUbicacion" (change)="buscar()">
           Cerca de mí
         </label>
-        <label class="form-check-label">
-          <input type="radio" class="form-check-input me-1" name="ubicacion" [value]="'provincia'" [(ngModel)]="modoUbicacion">
+        <label class="ms-3">
+          <input type="radio" name="ubicacion" [value]="'provincia'" [(ngModel)]="modoUbicacion" (change)="buscar()">
           Seleccionar provincia
         </label>
 
-        <select *ngIf="modoUbicacion === 'provincia'" [(ngModel)]="provinciaSeleccionada" class="form-select mt-2">
+        <select *ngIf="modoUbicacion === 'provincia'" [(ngModel)]="provinciaSeleccionada" class="form-select mt-2" (change)="buscar()">
           <option value="">-- Selecciona una provincia --</option>
           <option *ngFor="let provincia of provincias" [value]="provincia">{{ provincia }}</option>
         </select>
@@ -60,26 +60,25 @@
       <!-- 🐾 Filtro por tipo de lugar -->
       <div class="filtro-tipos mb-4">
         <label *ngFor="let tipo of tiposLugares" class="form-check form-check-inline">
-          <input type="checkbox" [(ngModel)]="tipo.seleccionado" class="form-check-input" />
+          <input type="checkbox" [(ngModel)]="tipo.seleccionado" class="form-check-input" (change)="buscar()" />
           <span class="form-check-label">{{ tipo.nombre }}</span>
         </label>
-        <button class="btn btn-verde ms-3" (click)="buscar()">🔍 Buscar</button>
       </div>
 
       <!-- 🗺️ Mapa -->
-      <div id="map" style="height: 500px; width: 100%; border: solid 1px #ccc; border-radius: 10px;"></div>
+      <div id="map" class="map-container"></div>
 
       <!-- 🐾 Tarjetas de lugares encontrados -->
       <section *ngIf="lugaresMostrados.length > 0" class="mt-5">
         <h3 class="text-center mb-4">📍 Resultados cercanos</h3>
         <div class="row">
           <div *ngFor="let lugar of lugaresMostrados" class="col-md-6 col-lg-4 mb-4">
-            <div class="card h-100 shadow-sm">
+            <div class="card h-100">
               <img [src]="lugar.fotoUrl" class="card-img-top" [alt]="lugar.nombre">
               <div class="card-body">
                 <h5 class="card-title">{{ lugar.nombre }}</h5>
                 <p class="card-text">{{ lugar.direccion }}</p>
-                <a [href]="lugar.enlaceMaps" target="_blank" class="btn btn-outline-primary btn-sm w-100">🌍 Ver en Google Maps</a>
+                <a [href]="lugar.enlaceMaps" target="_blank" class="btn btn-outline-primary btn-sm">🌍 Ver en Google Maps</a>
               </div>
             </div>
           </div>

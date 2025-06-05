@@ -37,18 +37,21 @@ export class LocalizacionComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.initMap();
+    this.buscar(); // Empieza cargando según modoUbicacion
   }
 
-  initMap(): void {
-    const mapElement = document.getElementById('map');
-    if (!mapElement) return;
+  buscar(): void {
+    this.lugaresMostrados = [];
+    this.borrarMarcadores();
 
     if (this.modoUbicacion === 'provincia') {
       this.buscarPorProvincia();
-      return;
+    } else {
+      this.buscarUbicacionActual();
     }
+  }
 
+  buscarUbicacionActual(): void {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -65,8 +68,25 @@ export class LocalizacionComponent implements OnInit {
     }
   }
 
+  buscarPorProvincia(): void {
+    if (!this.provinciaSeleccionada) return;
+
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address: this.provinciaSeleccionada }, (result: any, status: any) => {
+      if (status === 'OK') {
+        const ubicacion = result[0].geometry.location;
+        this.cargarMapa(ubicacion);
+      } else {
+        console.error('No se pudo encontrar la provincia:', status);
+      }
+    });
+  }
+
   cargarMapa(centro: any): void {
-    this.mapa = new google.maps.Map(document.getElementById('map'), {
+    const mapEl = document.getElementById('map');
+    if (!mapEl) return;
+
+    this.mapa = new google.maps.Map(mapEl, {
       center: centro,
       zoom: 13
     });
@@ -80,27 +100,14 @@ export class LocalizacionComponent implements OnInit {
     this.buscarLugares(centro);
   }
 
- buscarPorProvincia(): void {
-  if (!this.provinciaSeleccionada) return;
-
-  const geocoder = new google.maps.Geocoder();
-  geocoder.geocode({ address: this.provinciaSeleccionada }, (result: any, status: any) => {
-    if (status === 'OK') {
-      const ubicacion = result[0].geometry.location;
-      this.cargarMapa(ubicacion);
-    } else {
-      console.error('No se pudo encontrar la provincia:', status);
-    }
-  });
-}
-
-
   buscarLugares(centro: any): void {
     const servicio = new google.maps.places.PlacesService(this.mapa);
     this.borrarMarcadores();
     this.lugaresMostrados = [];
 
     const tiposSeleccionados = this.tiposLugares.filter(t => t.seleccionado);
+    const maxTotal = 6;
+    const maxPorTipo = Math.floor(maxTotal / tiposSeleccionados.length);
     const lugaresTemp: any[] = [];
     let tiposProcesados = 0;
 
@@ -113,14 +120,13 @@ export class LocalizacionComponent implements OnInit {
 
       servicio.nearbySearch(request, (resultados: any[], status: any) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          lugaresTemp.push(...resultados);
+          const recortados = resultados.slice(0, maxPorTipo);
+          lugaresTemp.push(...recortados);
         }
 
         tiposProcesados++;
         if (tiposProcesados === tiposSeleccionados.length) {
-          const finales = lugaresTemp.slice(0, 8); // 👉 solo 8 resultados
-
-          finales.forEach((lugar: any) => {
+          lugaresTemp.slice(0, maxTotal).forEach((lugar: any) => {
             this.lugaresMostrados.push({
               nombre: lugar.name,
               direccion: lugar.vicinity || 'Dirección no disponible',
@@ -140,33 +146,6 @@ export class LocalizacionComponent implements OnInit {
       });
     });
   }
-
- buscar(): void {
-  this.lugaresMostrados = [];
-  this.borrarMarcadores();
-
-  if (this.modoUbicacion === 'provincia') {
-    this.buscarPorProvincia();
-  } else {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const ubicacion = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-          this.cargarMapa(ubicacion);
-        },
-        () => {
-          console.error("Error al obtener la ubicación");
-        }
-      );
-    } else {
-      console.error("El navegador no admite geolocalización");
-    }
-  }
-}
-
 
   borrarMarcadores(): void {
     this.marcadores.forEach(m => m.setMap(null));

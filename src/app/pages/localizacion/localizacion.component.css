@@ -1,7 +1,4 @@
-/* 🌱 VARIABLES DE COLOR */
-/* (Asegúrate de que las variables estén definidas en :root en styles.scss o en otro sitio común) */
-
-/* 🔹 Ajustes generales */
+/* 🌱 AJUSTES GENERALES */
 .container-fluid {
   max-width: 1400px;
   margin: auto;
@@ -11,38 +8,40 @@
 h1, h2, h3, h4, h5, h6, p, a, button, small {
   font-family: 'Lato', sans-serif !important;
 }
-* 📸 CABECERA DINÁMICA */
+
+/* 🖼️ CABECERA DINÁMICA */
 .category-header {
-  width: 100%;
-  text-align: center;
-  position: relative;
-  margin: 0 auto 20px auto;
+  width: 100% !important;
+  text-align: center !important;
+  position: relative !important;
+  margin: 0 auto 20px auto !important;
   border: 6px solid var(--secondary-green) !important;
   border-radius: 10px !important;
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 .header-image {
-  width: 100%;
+  width: 100% !important;
   height: 140px !important;
   object-fit: cover !important;
-  display: block;
+  display: block !important;
 }
 
 .category-header h1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
-  padding: 6px 14px;
-  border-radius: 4px;
-  font-size: 1.4rem;
-  font-weight: bold;
-  z-index: 1;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  color: white !important;
+  padding: 6px 14px !important;
+  border-radius: 4px !important;
+  font-size: 1.6rem !important;
+  font-weight: bold !important;
+  z-index: 1 !important;
 }
-/* 🔹 Migas de Pan */
+
+/* 🔹 MIGAS DE PAN */
 .breadcrumb-container {
   padding: 10px 15px !important;
   border-radius: 8px !important;
@@ -72,9 +71,8 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   font-weight: bold !important;
 }
 
-/* 📌 Títulos de los Menús */
-.sidebar-left h3,
-.sidebar-right h3 {
+/* 📌 MENÚ LATERAL IZQUIERDO */
+.sidebar-left h3 {
   color: var(--verde-profundo) !important;
   font-size: 1.8rem !important;
   text-align: center !important;
@@ -82,72 +80,70 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   text-transform: uppercase !important;
   margin-top: 30px !important;
   margin-bottom: 10px !important;
-  text-decoration: underline !important; /* Subrayado */
-  text-decoration-color: var(--naranja-intenso) !important; /* Color del subrayado */
-}
-/* 📌 Cambiar color en hover */
-.create-post-btn:hover {
-  background-color: #6ea97e !important; /* Verde más oscuro en hover */
-  transform: scale(1.05) !important; /* Pequeño zoom */
+  text-decoration: underline !important;
+  text-decoration-color: var(--naranja-intenso) !important;
 }
 
-
-/* 📌 Elementos de las Listas */
-.sidebar-left .list-group-item,
-.sidebar-right .list-group-item {
+.sidebar-left .list-group-item {
   background-color: whitesmoke !important;
-  color: white !important;
+  color: rgb(230, 123, 17) !important;
   font-size: 1.2rem !important;
-  font-weight: 500 !important;
+  font-weight: bold !important;
   padding: 15px 20px !important;
   display: flex !important;
-  align-items: center !important;
-  gap: 10px !important;
-  transition: background 0.3s ease-in-out !important;
-  border-radius: 15px;
-  border: 6px solid #3B8024;
-  cursor: pointer !important;
   justify-content: center !important;
+  align-items: center !important;
+  border-radius: 15px !important;
+  border: 6px solid #3B8024 !important;
+  transition: all 0.3s ease-in-out !important;
 }
 
-/* 📌 Hover en los Menús */
-.sidebar-left .list-group-item:hover,
-.sidebar-right .list-group-item:hover {
-  background: var(--verde-profundo) !important;
+.sidebar-left .list-group-item:hover {
+  background-color: var(--verde-profundo) !important;
+  color: white !important;
   transform: scale(1.05) !important;
 }
 
-/* 📌 Listas dentro del Menú Izquierdo */
-.sidebar-left .list-group {
-  width: 100% !important;
-  border-radius: 10px !important;
-  overflow: hidden !important;
-  color: rgb(230, 123, 17) !important;
-  font-size: 1.8rem !important;
+.sidebar-left .info-card {
+  background: white !important;
+  padding: 15px !important;
+  border-radius: 15px !important;
+  border: 6px solid #3B8024 !important;
   text-align: center !important;
-  font-weight: bold !important;
-  text-transform: uppercase !important;
-  margin-top: 30px !important;
-  margin-bottom: 10px !important;
+  margin-top: 20px !important;
 }
 
-/* 📌 Enlaces dentro del Menú Izquierdo */
-.sidebar-left .list-group-item a {
-  text-decoration: none !important;
-  color: rgb(230, 123, 17) !important; /* Cambia el color del enlace */
-  font-weight: bold !important;
+.sidebar-left .info-card img {
+  width: 100% !important;
+  height: auto !important;
+  border-radius: 5px !important;
 }
 
-.sidebar-left .list-group-item a:hover {
-  color: #ff9800 !important; /* Cambia el color cuando el usuario pasa el mouse */
-  text-decoration: underline !important;
+.sidebar-left .info-card h4 {
+  font-size: 16px !important;
+  margin-top: 10px !important;
+  color: #065f43 !important;
 }
-/* 📍 Filtros */
+
+.sidebar-left .info-card p {
+  font-size: 14px !important;
+  color: #555 !important;
+}
+
+.sidebar-left .btn-secondary {
+  background-color: var(--secondary-green) !important;
+  color: white !important;
+}
+
+.sidebar-left .btn-secondary:hover {
+  background-color: #055f43 !important;
+}
+
+/* 🔎 FILTROS */
 .filtro-ubicacion label,
 .filtro-tipos label {
   font-weight: bold !important;
   margin-right: 1rem !important;
-  font-size: 1rem !important;
 }
 
 .filtro-ubicacion select {
@@ -155,24 +151,24 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   margin-top: 0.5rem !important;
 }
 
-/* 🎯 Botón de buscar */
+/* 🎯 BOTÓN DE BUSCAR */
 .btn-verde {
-  background-color: #055f43 !important; /* Verde oscuro */
+  background-color: #3B8024 !important;
   color: white !important;
   font-weight: bold !important;
   border: none !important;
   padding: 12px 30px !important;
   font-size: 1.1rem !important;
-  border-radius: 6px !important;
+  border-radius: 8px !important;
   transition: background-color 0.3s ease !important;
-  display: inline-block !important;
+  margin-left: 20px !important;
 }
 
 .btn-verde:hover {
-  background-color: #043a2e !important;
+  background-color: #033c2d !important;
 }
 
-/* 🗺️ Mapa */
+/* 🗺️ MAPA */
 #map {
   height: 500px !important;
   width: 100% !important;
@@ -181,7 +177,7 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   margin-top: 1rem !important;
 }
 
-/* 📦 Tarjetas */
+/* 🧩 TARJETAS DE LUGARES */
 .card {
   border-radius: 10px !important;
   border: 3px solid var(--verde-profundo) !important;
@@ -232,10 +228,5 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
 
   .sidebar-left {
     margin-bottom: 2rem !important;
-  }
-
-  .btn-verde {
-    width: 100% !important;
-    font-size: 1rem !important;
   }
 }
