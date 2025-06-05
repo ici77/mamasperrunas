@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { environment } from '../../../environments/environment';
+
 
 @Component({
   standalone: true,
@@ -37,6 +39,17 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   logout(): void {
     this.authService.logout();
   }
+
+getFotoPerfilUrl(): string {
+  if (!this.fotoPerfil) {
+    return 'assets/images/default-avatar.png';
+  }
+
+  return this.fotoPerfil.startsWith('http')
+    ? this.fotoPerfil
+    : `${environment.imagenUrlBase}${this.fotoPerfil}`;
+}
+
 
   /**
    * ✅ Fallback si no carga la foto de perfil

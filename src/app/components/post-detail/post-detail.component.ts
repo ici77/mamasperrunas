@@ -5,6 +5,8 @@ import { PostService } from '../../services/post.service';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-post-detail',
@@ -227,4 +229,11 @@ export class PostDetailComponent implements OnInit {
       error: (err) => console.warn("ℹ️ No se pudo verificar reporte:", err)
     });
   }
+
+  getImagenUrl(imagen: string): string {
+  return imagen?.startsWith('http')
+    ? imagen
+    : `${environment.imagenUrlBase}${imagen}`;
+}
+
 }

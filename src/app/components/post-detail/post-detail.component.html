@@ -39,7 +39,8 @@
       <!-- 📸 Imagen del post -->
       <div class="d-flex justify-content-center mb-3" *ngIf="post?.imagenUrl">
         <img 
-          [src]="'http://localhost:8080' + post.imagenUrl"
+     [src]="getImagenUrl(post.imagenUrl)"
+
           alt="Imagen del post"
           class="img-thumbnail shadow"
           style="max-width: 300px; border-radius: 12px;">

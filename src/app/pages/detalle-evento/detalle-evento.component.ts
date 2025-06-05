@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { EventService, Evento } from '../../services/event.service';
+import { environment } from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-detalle-evento',
@@ -76,10 +78,19 @@ export class DetalleEventoComponent implements OnInit {
   }
 
   getImagenUrl(imagenUrl: string): string {
-    if (!imagenUrl) return 'assets/images/eventos/default.jpg';
-    const ruta = imagenUrl.startsWith('/') ? imagenUrl : '/' + imagenUrl;
-    return imagenUrl.startsWith('http') ? imagenUrl : 'http://localhost:8080' + ruta;
+  if (!imagenUrl) return 'assets/images/eventos/default.jpg';
+
+  if (imagenUrl.startsWith('http')) {
+    return imagenUrl;
   }
+
+  if (imagenUrl.includes('uploads/')) {
+    return environment.imagenUrlBase + imagenUrl.replace(/^\/?uploads\//, '');
+  }
+
+  return 'assets/images/eventos/' + imagenUrl;
+}
+
 
   apuntarse(): void {
     if (!this.evento) return;

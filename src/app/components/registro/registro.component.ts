@@ -6,6 +6,7 @@ import { NgIf } from '@angular/common';
 import { BannerportadaComponent } from '../bannerportada/bannerportada.component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-registro',
@@ -53,37 +54,35 @@ export class RegistroComponent {
     });
   }
 
- onSubmit(): void {
-  if (this.registroForm.valid) {
-    const usuario = {
-      ...this.registroForm.value,
-      fotoPerfil: 'assets/images/default-avatar.png'
-    };
+  onSubmit(): void {
+    if (this.registroForm.valid) {
+      const usuario = {
+        ...this.registroForm.value,
+        foto_perfil: 'assets/images/default-avatar.png' // ✅ Backend espera snake_case
+      };
 
-    console.log('👀 Enviando al backend:', usuario); // 👈 VERIFICAR AQUÍ
-    console.log('Usuario que se va a registrar:', this.registroForm.value);
+      console.log('👀 Enviando al backend:', usuario);
 
-    this.http.post('http://localhost:8080/api/usuarios/registro', usuario, { responseType: 'json' })
-      .subscribe({
-        next: (response) => {
-          console.log('✅ Usuario registrado:', response);
-          this.mensajeExito = 'Registro exitoso. Bienvenida a Mamás Perrunas.';
-          this.mensajeError = null;
-          this.registroForm.reset();
+      this.http.post(`${environment.apiUrl}/usuarios/registro`, usuario, { responseType: 'json' })
+        .subscribe({
+          next: (response) => {
+            console.log('✅ Usuario registrado:', response);
+            this.mensajeExito = 'Registro exitoso. Bienvenida a Mamás Perrunas.';
+            this.mensajeError = null;
+            this.registroForm.reset();
 
-          setTimeout(() => {
-            this.router.navigate(['/inicio']);
-          }, 2000);
-        },
-        error: (err) => {
-          console.error('❌ Error en el registro:', err);
-          this.mensajeError = err.error?.error || 'Error en el registro. Inténtalo nuevamente.';
-          this.mensajeExito = null;
-        }
-      });
+            setTimeout(() => {
+              this.router.navigate(['/inicio']);
+            }, 2000);
+          },
+          error: (err) => {
+            console.error('❌ Error en el registro:', err);
+            this.mensajeError = err.error?.error || 'Error en el registro. Inténtalo nuevamente.';
+            this.mensajeExito = null;
+          }
+        });
+    }
   }
-}
-
 
   getErrorMessage(campo: string): string {
     const control = this.registroForm.get(campo);

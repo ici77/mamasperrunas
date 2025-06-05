@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UsuarioService, PerfilUsuario } from '../../services/usuario.service';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-perfil',
@@ -83,11 +85,17 @@ export class PerfilComponent implements OnInit {
   }
 
   getRutaFotoPerfil(): string {
-    const ruta = this.perfil?.fotoPerfil;
-    if (!ruta) return 'assets/images/default-avatar.png';
-    if (ruta.includes('assets')) return ruta;
-    return 'http://localhost:8080' + ruta;
-  }
+  const ruta = this.perfil?.fotoPerfil;
+
+  if (!ruta) return 'assets/images/default-avatar.png';
+
+  // Si ya es una ruta completa (http) o está en assets, se devuelve tal cual
+  if (ruta.startsWith('http') || ruta.includes('assets')) return ruta;
+
+  // Si es una ruta del backend tipo "/uploads/..." se concatena
+  return environment.imagenUrlBase + ruta.replace(/^\/?uploads\//, '');
+}
+
 
   imgErrorHandler(event: Event): void {
     (event.target as HTMLImageElement).src = 'assets/images/default-avatar.png';

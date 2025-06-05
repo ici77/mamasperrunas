@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
+import { environment } from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-crear-post',
@@ -43,7 +45,8 @@ export class CrearPostComponent implements OnInit {
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    this.http.get<any[]>('http://localhost:8080/api/categories', { headers })
+   this.http.get<any[]>(`${environment.apiUrl}/categories`, { headers })
+
       .subscribe({
         next: (data) => this.categories = data,
         error: (err) => console.error('❌ Error al cargar categorías:', err)
@@ -105,7 +108,8 @@ export class CrearPostComponent implements OnInit {
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    this.http.post('http://localhost:8080/api/posts/crear-con-imagen', formData, { headers })
+   this.http.post(`${environment.apiUrl}/posts/crear-con-imagen`, formData, { headers })
+
       .subscribe({
         next: () => alert('✅ Post creado correctamente'),
         error: (err) => {

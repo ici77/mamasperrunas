@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EventService, Evento } from '../../services/event.service';
 import { RouterModule } from '@angular/router'; 
+import { environment } from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-crear-evento',
@@ -110,8 +112,10 @@ onFileSelected(event: any): void {
 }
 getImagenUrl(ruta: string): string {
   if (!ruta) return '';
-  return ruta.startsWith('http') ? ruta : `http://localhost:8080/${ruta}`;
+  if (ruta.startsWith('http')) return ruta;
+  return environment.imagenUrlBase + ruta.replace(/^\/?uploads\//, '');
 }
+
 
 
 
