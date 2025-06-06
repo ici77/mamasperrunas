@@ -40,6 +40,8 @@ export class LocalizacionComponent implements OnInit {
     this.buscar(); // Empieza cargando según modoUbicacion
   }
 
+  
+
   buscar(): void {
     this.lugaresMostrados = [];
     this.borrarMarcadores();
@@ -69,36 +71,47 @@ export class LocalizacionComponent implements OnInit {
   }
 
   buscarPorProvincia(): void {
-    if (!this.provinciaSeleccionada) return;
+  if (!this.provinciaSeleccionada) return;
 
-    const geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ address: this.provinciaSeleccionada }, (result: any, status: any) => {
-      if (status === 'OK') {
-        const ubicacion = result[0].geometry.location;
-        this.cargarMapa(ubicacion);
-      } else {
-        console.error('No se pudo encontrar la provincia:', status);
-      }
-    });
-  }
+  const geocoder = new google.maps.Geocoder();
+  geocoder.geocode({ address: this.provinciaSeleccionada }, (results: any[], status: any) => {
+    if (status === 'OK' && results.length > 0) {
+      const ubicacion = results[0].geometry.location;
+      this.cargarMapa(ubicacion);
+    } else {
+      console.error('Error al geocodificar la provincia:', this.provinciaSeleccionada, status);
+      alert('No se pudo encontrar la provincia seleccionada. Prueba otra.');
+    }
+  });
+}
+
 
   cargarMapa(centro: any): void {
-    const mapEl = document.getElementById('map');
-    if (!mapEl) return;
+  const mapEl = document.getElementById('map');
+  if (!mapEl) return;
 
+  if (!this.mapa) {
+    // Si no existe, crea el mapa
     this.mapa = new google.maps.Map(mapEl, {
       center: centro,
       zoom: 13
     });
-
-    new google.maps.Marker({
-      position: centro,
-      map: this.mapa,
-      title: 'Ubicación seleccionada'
-    });
-
-    this.buscarLugares(centro);
+  } else {
+    // Si ya existe, simplemente cambia de ubicación
+    this.mapa.setCenter(centro);
+    this.mapa.setZoom(13);
   }
+
+  // Añade marcador central
+  new google.maps.Marker({
+    position: centro,
+    map: this.mapa,
+    title: 'Ubicación seleccionada'
+  });
+
+  this.buscarLugares(centro);
+}
+
 
   buscarLugares(centro: any): void {
     const servicio = new google.maps.places.PlacesService(this.mapa);

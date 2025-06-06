@@ -1,75 +1,105 @@
-/* 🌱 AJUSTES GENERALES */
+:root {
+  --primary-green: #3B8024;
+  --secondary-green: #6ea97e;
+  --verde-profundo: #065f43;
+  --naranja-intenso: #e67b11;
+}
+
+/* ==============================
+   AJUSTES GENERALES
+============================== */
 .container-fluid {
   max-width: 1400px;
   margin: auto;
-  padding: 20px;
+  padding: 32px 16px;
+}
+
+body {
+  font-family: 'Lato', Arial, sans-serif;
+  background: #f7f7f7;
+  color: #222;
 }
 
 h1, h2, h3, h4, h5, h6, p, a, button, small {
-  font-family: 'Lato', sans-serif !important;
+  font-family: inherit;
 }
 
-/* 📸 CABECERA DINÁMICA */
-.category-header {
-  width: 100%;
-  text-align: center;
+/* ==============================
+   CABECERA DINÁMICA
+============================== */
+.category-banner {
   position: relative;
-  margin: 0 auto 20px auto;
-  border: 6px solid var(--secondary-green) !important;
-  border-radius: 10px !important;
-  overflow: hidden;
-}
-
-.header-image {
   width: 100%;
-  height: 140px !important;
-  object-fit: cover !important;
-  display: block;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 4px solid var(--primary-green);
 }
 
-.category-header h1 {
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 16px;
+}
+
+.banner-text {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 6px 18px;
+  border-radius: 6px;
   color: white;
-  padding: 6px 14px;
-  border-radius: 4px;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: bold;
-  z-index: 1;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+  z-index: 2;
 }
 
-/* 🔹 MIGAS DE PAN */
+
+
+/* ==============================
+   MIGAS DE PAN
+============================== */
 .breadcrumb-container {
-  padding: 10px 15px !important;
-  border-radius: 8px !important;
-  margin-bottom: 20px !important;
+  padding: 12px 18px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  background: #f2f7f3;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
 }
 
 .breadcrumb {
-  margin-bottom: 0 !important;
-  padding: 0 !important;
-  background: transparent !important;
+  margin-bottom: 0;
+  padding: 0;
+  background: transparent;
 }
 
 .breadcrumb-item a {
-  text-decoration: none !important;
-  color: var(--primary-green) !important;
-  font-weight: 600 !important;
-  transition: color 0.3s ease !important;
+  text-decoration: none;
+  color: var(--primary-green);
+  font-weight: 600;
+  transition: color 0.3s;
 }
 
 .breadcrumb-item a:hover {
-  color: var(--naranja-intenso) !important;
-  text-decoration: underline !important;
+  color: var(--naranja-intenso);
+  text-decoration: underline;
 }
 
 .breadcrumb-item.active {
-  color: var(--verde-profundo) !important;
-  font-weight: bold !important;
+  color: var(--verde-profundo);
+  font-weight: bold;
 }
+
+/* ==============================
+   MENÚ LATERAL IZQUIERDO
+============================== */
 
 /* 📌 Títulos de los Menús */
 .sidebar-left h3,
@@ -141,132 +171,194 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   color: #ff9800 !important; /* Cambia el color cuando el usuario pasa el mouse */
   text-decoration: underline !important;
 }
-/* 📌 Estilos para Tarjetas en el Menú Izquierdo */
+
+/* Tarjetas informativas */
 .sidebar-left .info-card {
-  background: white;
-  padding: 15px;
-  border-radius: 15px;
-  border: 6px solid #3B8024;
+  background: #fff;
+  padding: 14px;
+  border-radius: 14px;
+  border: 4px solid var(--primary-green);
   text-align: center;
-  margin-top: 20px; /* Espaciado entre el menú y las tarjetas */
+  margin-top: 22px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
 
 .sidebar-left .info-card img {
   width: 100%;
   height: auto;
-  border-radius: 5px;
+  border-radius: 7px;
+  margin-bottom: 10px;
 }
 
 .sidebar-left .info-card h4 {
-  font-size: 16px;
-  margin-top: 10px;
-  color: #065f43;
+  font-size: 1.05rem;
+  margin-top: 6px;
+  color: var(--verde-profundo);
 }
 
 .sidebar-left .info-card p {
-  font-size: 14px;
-  color: #555;
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 10px;
 }
 
 .sidebar-left .btn-secondary {
-background-color: var(--secondary-green) !important;
-  
-  color: white;
+  background: var(--secondary-green);
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 8px 18px;
+  transition: background 0.2s;
 }
 
 .sidebar-left .btn-secondary:hover {
-  background-color: #055f43;
+  background: var(--verde-profundo);
 }
 
-
-/* 🔎 FILTROS */
-.filtro-ubicacion label,
+/* ==============================
+   FILTROS
+============================== */
+.filtros-form label,
 .filtro-tipos label {
-  font-weight: bold !important;
-  margin-right: 1rem !important;
+  font-weight: bold;
+  margin-right: 1rem;
 }
 
-.filtro-ubicacion select {
-  max-width: 300px !important;
-  margin-top: 0.5rem !important;
+.filtros-form select {
+  max-width: 300px;
+  margin-top: 0.5rem;
 }
 
-/* 🎯 BOTÓN DE BUSCAR */
+/* Filtro tipos */
+.filtro-tipos {
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+/* ==============================
+   BOTÓN VERDE
+============================== */
 .btn-verde {
-  background-color: #3B8024 !important;
-  color: white !important;
-  font-weight: bold !important;
-  border: none !important;
-  padding: 12px 30px !important;
-  font-size: 1.1rem !important;
-  border-radius: 8px !important;
-  transition: background-color 0.3s ease !important;
-  margin-left: 20px !important;
+  background: var(--primary-green);
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  transition: background 0.3s;
+  margin-left: 20px;
 }
 
 .btn-verde:hover {
-  background-color: #033c2d !important;
+  background: #033c2d;
 }
 
-/* 🗺️ MAPA */
+/* ==============================
+   MAPA
+============================== */
 #map {
-  height: 500px !important;
-  width: 100% !important;
-  border: solid 1px #ccc !important;
-  border-radius: 10px !important;
-  margin-top: 1rem !important;
+  height: 320px;
+  width: 100%;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  margin-top: 1.5rem;
+  background: #f0f0f0;
 }
 
-/* 🧩 TARJETAS DE LUGARES */
+/* ==============================
+   TARJETAS DE LUGARES
+============================== */
 .card {
-  border-radius: 10px !important;
-  border: 3px solid var(--verde-profundo) !important;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
-  overflow: hidden !important;
+  border-radius: 12px;
+  border: 3px solid var(--verde-profundo);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.09);
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card-img-top {
-  height: 180px !important;
-  object-fit: cover !important;
+  height: 140px;
+  object-fit: cover;
 }
 
 .card-title {
-  font-weight: bold !important;
-  color: var(--verde-profundo) !important;
-  font-size: 1.2rem !important;
+  font-weight: bold;
+  color: var(--verde-profundo);
+  font-size: 1.15rem;
 }
 
 .card-text {
-  font-size: 0.95rem !important;
+  font-size: 1rem;
 }
 
 .btn-outline-primary {
-  font-weight: bold !important;
-  border-color: var(--primary-green) !important;
-  color: var(--primary-green) !important;
+  font-weight: bold;
+  border-color: var(--primary-green);
+  color: var(--primary-green);
+  transition: background 0.2s, color 0.2s;
 }
 
 .btn-outline-primary:hover {
-  background-color: var(--primary-green) !important;
-  color: white !important;
+  background: var(--primary-green);
+  color: #fff;
 }
 
-/* 📱 RESPONSIVE */
-@media (max-width: 768px) {
-  .category-header h1 {
-    font-size: 1.1rem !important;
-    padding: 6px 10px !important;
-  }
-
-  .header-image {
-    height: 80px !important;
-  }
-
-  .sidebar-left .list-group-item {
-    font-size: 1rem !important;
-  }
-
+/* ==============================
+   RESPONSIVE
+============================== */
+@media (max-width: 992px) {
   .sidebar-left {
-    margin-bottom: 2rem !important;
+    min-height: auto;
+    margin-bottom: 32px;
   }
+  .category-header h1 {
+    font-size: 1rem;
+    padding: 5px 10px;
+  }
+  .header-image {
+    height: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-fluid {
+    padding: 12px 4px;
+  }
+  .sidebar-left {
+    margin-bottom: 2rem;
+    padding: 16px 8px;
+  }
+  .category-header h1 {
+    font-size: 0.95rem;
+    padding: 4px 6px;
+  }
+  .header-image {
+    height: 45px;
+  }
+  .sidebar-left .list-group-item {
+    font-size: 0.95rem;
+    padding: 8px 6px;
+  }
+  .card-img-top {
+    height: 90px;
+  }
+}
+
+/* ==============================
+   UTILIDADES Y AJUSTES FINALES
+============================== */
+.main-content {
+  flex-grow: 1;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }

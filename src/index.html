@@ -1,25 +1,24 @@
 <!doctype html>
-<html lang="en">
- <script
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_WaKYBdFVvmW0dBUzSCrhovHqO41wBbI&libraries=places"
-  async
-  defer>
-</script>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Mamas Perrunas</title>
 
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-<head>
-  <meta charset="utf-8">
-  <title>Mamas Perrunas</title> <!-- 📌 Título de la aplicación que aparecerá en la pestaña del navegador -->
-  
-  <base href="/"> <!-- 📌 Define la ruta base de la aplicación Angular -->
+    <!-- ✅ Script de Google Maps correctamente ubicado -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_WaKYBdFVvmW0dBUzSCrhovHqO41wBbI&libraries=places"
+      async
+      defer>
+    </script>
+  </head>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 📌 Configuración para diseño responsive -->
-  <!-- en index.html -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-  <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico"> <!-- 📌 Ícono de la aplicación (favicon) -->
-</head>
-<body>
-  <app-root></app-root> <!-- 📌 Contenedor principal de Angular, donde se renderiza la aplicación -->
-</body>
+  <body>
+    <app-root></app-root>
+  </body>
 </html>
