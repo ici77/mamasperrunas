@@ -87,6 +87,12 @@ getAsistentesEvento(id: number): Observable<{ resumen: string, total: number, no
   return this.http.get<{ resumen: string, total: number, nombres: string[] }>(`${this.apiUrl}/${id}/asistentes`);
 }
 
+// ✅ Obtener todos los eventos (sin filtros)
+getTodos(): Observable<Evento[]> {
+  return this.http.get<Evento[]>(this.apiUrl);
+}
+
+
 
 
 

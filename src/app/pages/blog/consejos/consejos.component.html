@@ -1,0 +1,15 @@
+<section class="consejos-container">
+  <div class="cabecera">
+    <h1>Consejos y Opiniones</h1>
+    <p>Ideas, experiencias y sugerencias para cuidar mejor a tu perrhijo.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card" *ngFor="let consejo of consejos">
+      <img [src]="consejo.imagen" [alt]="consejo.titulo">
+      <h3>{{ consejo.titulo }}</h3>
+      <p>{{ consejo.resumen }}</p>
+      <a [routerLink]="consejo.enlace" class="btn-leer">Leer más</a>
+    </div>
+  </div>
+</section>

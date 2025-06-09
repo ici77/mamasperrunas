@@ -1,3 +1,4 @@
+
 :root {
   --primary-green: #3B8024;
   --secondary-green: #6ea97e;
@@ -6,44 +7,87 @@
 }
 
 /* ==============================
-   AJUSTES GENERALES
+   MENÚ LATERAL IZQUIERDO PERSONALIZADO
 ============================== */
-.container-fluid {
-  max-width: 1400px;
-  margin: auto;
-  padding: 32px 16px;
+.menu-servicios {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
-body {
-  font-family: 'Lato', Arial, sans-serif;
-  background: #f7f7f7;
-  color: #222;
+
+
+.menu-servicios .item-servicio {
+  background-color: #f4f4f4 !important;
+  border: 4px solid var(--secondary-green) !important;
+  border-radius: 15px;
+  border: 6px solid #3B8024;
+  padding: 15px 20px !important;
+  margin-bottom: 12px !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  color: var(--naranja-intenso) !important;
+  cursor: pointer !important;
+  transition: background 0.3s, transform 0.2s !important;
 }
 
-h1, h2, h3, h4, h5, h6, p, a, button, small {
-  font-family: inherit;
+.menu-servicios .item-servicio a {
+  color: var(--naranja-intenso) !important;
+  text-decoration: none !important;
+  display: block !important;
+}
+
+.menu-servicios .item-servicio:hover {
+  background-color: var(--verde-profundo) !important;
+  transform: scale(1.05) !important;
+}
+
+.menu-servicios .item-servicio:hover a {
+  color: #fff !important;
+}
+
+/* 📌 Títulos de los Menús */
+.sidebar-left h3,
+.sidebar-right h3 {
+  color: var(--verde-profundo) !important;
+  font-size: 1.8rem !important;
+  text-align: center !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  margin-top: 30px !important;
+  margin-bottom: 10px !important;
+  text-decoration: underline !important; /* Subrayado */
+  text-decoration-color: var(--naranja-intenso) !important; /* Color del subrayado */
 }
 
 /* ==============================
-   CABECERA DINÁMICA
+   BANNER CABECERA
 ============================== */
+.banner-wrapper {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
 .category-banner {
   position: relative;
+  margin-top: 40px !important; /* Puedes ajustar el valor */
   width: 100%;
-  height: 100px;
+  height: 180px; /* altura fija */
   overflow: hidden;
   border-radius: 16px;
   border: 4px solid var(--primary-green);
 }
 
-.banner-image {
+.category-banner .banner-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   display: block;
-  border-radius: 16px;
 }
+
 
 .banner-text {
   position: absolute;
@@ -60,305 +104,70 @@ h1, h2, h3, h4, h5, h6, p, a, button, small {
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
   z-index: 2;
 }
-
-
-
-/* ==============================
-   MIGAS DE PAN
-============================== */
 .breadcrumb-container {
-  padding: 12px 18px;
-  border-radius: 10px;
-  margin-bottom: 24px;
-  background: #f2f7f3;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  padding: 10px 15px !important;
+  border-radius: 8px !important;
+  margin-bottom: 20px !important;
 }
 
 .breadcrumb {
-  margin-bottom: 0;
-  padding: 0;
-  background: transparent;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
 }
 
 .breadcrumb-item a {
-  text-decoration: none;
-  color: var(--primary-green);
-  font-weight: 600;
-  transition: color 0.3s;
+  text-decoration: none !important;
+  color: var(--primary-green) !important;
+  font-weight: 600 !important;
+  transition: color 0.3s ease !important;
 }
 
 .breadcrumb-item a:hover {
-  color: var(--naranja-intenso);
-  text-decoration: underline;
-}
-
-.breadcrumb-item.active {
-  color: var(--verde-profundo);
-  font-weight: bold;
-}
-
-/* ==============================
-   MENÚ LATERAL IZQUIERDO
-============================== */
-
-/* 📌 Títulos de los Menús */
-.sidebar-left h3,
-.sidebar-right h3 {
-  color: var(--verde-profundo) !important;
-  font-size: 1.8rem !important;
-  text-align: center !important;
-  font-weight: bold !important;
-  text-transform: uppercase !important;
-  margin-top: 30px !important;
-  margin-bottom: 10px !important;
-  text-decoration: underline !important; /* Subrayado */
-  text-decoration-color: var(--naranja-intenso) !important; /* Color del subrayado */
-}
-/* 📌 Cambiar color en hover */
-.create-post-btn:hover {
-  background-color: #6ea97e !important; /* Verde más oscuro en hover */
-  transform: scale(1.05) !important; /* Pequeño zoom */
-}
-
-
-/* 📌 Elementos de las Listas */
-.sidebar-left .list-group-item,
-.sidebar-right .list-group-item {
-  background-color: whitesmoke !important;
-  color: white !important;
-  font-size: 1.2rem !important;
-  font-weight: 500 !important;
-  padding: 15px 20px !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 10px !important;
-  transition: background 0.3s ease-in-out !important;
-  border-radius: 15px;
-  border: 6px solid #3B8024;
-  cursor: pointer !important;
-  justify-content: center !important;
-}
-
-/* 📌 Hover en los Menús */
-.sidebar-left .list-group-item:hover,
-.sidebar-right .list-group-item:hover {
-  background: var(--verde-profundo) !important;
-  transform: scale(1.05) !important;
-}
-
-/* 📌 Listas dentro del Menú Izquierdo */
-.sidebar-left .list-group {
-  width: 100% !important;
-  border-radius: 10px !important;
-  overflow: hidden !important;
-  color: rgb(230, 123, 17) !important;
-  font-size: 1.8rem !important;
-  text-align: center !important;
-  font-weight: bold !important;
-  text-transform: uppercase !important;
-  margin-top: 30px !important;
-  margin-bottom: 10px !important;
-}
-
-/* 📌 Enlaces dentro del Menú Izquierdo */
-.sidebar-left .list-group-item a {
-  text-decoration: none !important;
-  color: rgb(230, 123, 17) !important; /* Cambia el color del enlace */
-  font-weight: bold !important;
-}
-
-.sidebar-left .list-group-item a:hover {
-  color: #ff9800 !important; /* Cambia el color cuando el usuario pasa el mouse */
+  color: var(--naranja-intenso) !important;
   text-decoration: underline !important;
 }
 
-/* Tarjetas informativas */
+.breadcrumb-item.active {
+  color: var(--verde-profundo) !important;
+  font-weight: bold !important;
+}
+
+/* 📌 Estilos para Tarjetas en el Menú Izquierdo */
 .sidebar-left .info-card {
-  background: #fff;
-  padding: 14px;
-  border-radius: 14px;
-  border: 4px solid var(--primary-green);
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  border: 6px solid #3B8024;
   text-align: center;
-  margin-top: 22px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  margin-top: 20px; /* Espaciado entre el menú y las tarjetas */
 }
 
 .sidebar-left .info-card img {
   width: 100%;
   height: auto;
-  border-radius: 7px;
-  margin-bottom: 10px;
+  border-radius: 5px;
 }
 
 .sidebar-left .info-card h4 {
-  font-size: 1.05rem;
-  margin-top: 6px;
-  color: var(--verde-profundo);
+  font-size: 16px;
+  margin-top: 10px;
+  color: #065f43;
 }
 
 .sidebar-left .info-card p {
-  font-size: 0.95rem;
-  color: #444;
-  margin-bottom: 10px;
+  font-size: 14px;
+  color: #555;
 }
 
 .sidebar-left .btn-secondary {
-  background: var(--secondary-green);
-  color: #fff;
-  border: none;
-  font-weight: bold;
-  border-radius: 6px;
-  padding: 8px 18px;
-  transition: background 0.2s;
+background-color: var(--secondary-green) !important;
+  
+  color: white;
 }
 
 .sidebar-left .btn-secondary:hover {
-  background: var(--verde-profundo);
+  background-color: #055f43;
 }
 
-/* ==============================
-   FILTROS
-============================== */
-.filtros-form label,
-.filtro-tipos label {
-  font-weight: bold;
-  margin-right: 1rem;
-}
 
-.filtros-form select {
-  max-width: 300px;
-  margin-top: 0.5rem;
-}
-
-/* Filtro tipos */
-.filtro-tipos {
-  gap: 1.2rem;
-  flex-wrap: wrap;
-}
-
-/* ==============================
-   BOTÓN VERDE
-============================== */
-.btn-verde {
-  background: var(--primary-green);
-  color: #fff;
-  font-weight: bold;
-  border: none;
-  padding: 12px 30px;
-  font-size: 1.1rem;
-  border-radius: 8px;
-  transition: background 0.3s;
-  margin-left: 20px;
-}
-
-.btn-verde:hover {
-  background: #033c2d;
-}
-
-/* ==============================
-   MAPA
-============================== */
-#map {
-  height: 320px;
-  width: 100%;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  margin-top: 1.5rem;
-  background: #f0f0f0;
-}
-
-/* ==============================
-   TARJETAS DE LUGARES
-============================== */
-.card {
-  border-radius: 12px;
-  border: 3px solid var(--verde-profundo);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.09);
-  overflow: hidden;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.card-img-top {
-  height: 140px;
-  object-fit: cover;
-}
-
-.card-title {
-  font-weight: bold;
-  color: var(--verde-profundo);
-  font-size: 1.15rem;
-}
-
-.card-text {
-  font-size: 1rem;
-}
-
-.btn-outline-primary {
-  font-weight: bold;
-  border-color: var(--primary-green);
-  color: var(--primary-green);
-  transition: background 0.2s, color 0.2s;
-}
-
-.btn-outline-primary:hover {
-  background: var(--primary-green);
-  color: #fff;
-}
-
-/* ==============================
-   RESPONSIVE
-============================== */
-@media (max-width: 992px) {
-  .sidebar-left {
-    min-height: auto;
-    margin-bottom: 32px;
-  }
-  .category-header h1 {
-    font-size: 1rem;
-    padding: 5px 10px;
-  }
-  .header-image {
-    height: 60px;
-  }
-}
-
-@media (max-width: 768px) {
-  .container-fluid {
-    padding: 12px 4px;
-  }
-  .sidebar-left {
-    margin-bottom: 2rem;
-    padding: 16px 8px;
-  }
-  .category-header h1 {
-    font-size: 0.95rem;
-    padding: 4px 6px;
-  }
-  .header-image {
-    height: 45px;
-  }
-  .sidebar-left .list-group-item {
-    font-size: 0.95rem;
-    padding: 8px 6px;
-  }
-  .card-img-top {
-    height: 90px;
-  }
-}
-
-/* ==============================
-   UTILIDADES Y AJUSTES FINALES
-============================== */
-.main-content {
-  flex-grow: 1;
-  min-height: 100vh;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}

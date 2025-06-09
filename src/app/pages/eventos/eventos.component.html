@@ -43,13 +43,21 @@
 
 
       <!-- CABECERA -->
-      <div class="header-wrapper">
-        <div class="category-header mb-4">
-          <img [src]="getImagenUrl('assets/images/eventos/miscelanea.png')" alt="Cabecera eventos" class="header-image" />
+<div class="header-wrapper">
+  <div class="category-header mb-4">
+    <img src="assets/images/eventos/miscelanea.png" alt="Cabecera eventos" class="header-image" />
+    <h1>{{ tipoSeleccionado ? nombreCategoriaSeleccionada : 'Eventos' }}</h1>
+  </div>
+</div>
 
-          <h1>{{ tipoSeleccionado ? nombreCategoriaSeleccionada : 'Eventos' }}</h1>
-        </div>
-      </div>
+
+      <!-- 🔁 Vista calendario -->
+<div class="text-center my-4">
+ 
+ <a routerLink="/calendario" class="btn-agenda">📅 Ver agenda</a>
+
+</div>
+
 
       <!-- FILTROS -->
       <form class="row g-3 align-items-end filtros-form">
@@ -90,7 +98,7 @@
           </div>
         </ng-template>
       </div>
-
+      
      <!-- EVENTOS DESTACADOS -->
 <section *ngIf="eventosDestacados.length > 0 && !tipoSeleccionado" class="mt-5 mb-4">
   <h3 class="text-center mb-4">🌟 Eventos Destacados</h3>

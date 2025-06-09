@@ -12,121 +12,132 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Contenido del Navbar -->
     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
       <div class="d-flex flex-grow-1"></div>
       <ul class="navbar-nav me-auto">
 
-  <!-- 🛍️ TIENDA -->
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" id="tiendaDropdown" role="button" data-bs-toggle="dropdown"
-      aria-expanded="false">
-      🛒 Tienda
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="tiendaDropdown">
-      <li><a class="dropdown-item" [routerLink]="['/products']">🛍️ Ver todo</a></li>
-      <li><a class="dropdown-item" [routerLink]="['/products', 'Ropa']">👕 Ropa</a></li>
-      <li><a class="dropdown-item" [routerLink]="['/products', 'Accesorios']">🎀 Accesorios</a></li>
-      <li><a class="dropdown-item" [routerLink]="['/products', 'Juguetes']">🧸 Juguetes</a></li>
-      <li><a class="dropdown-item" [routerLink]="['/products', 'Alimentos']">🥫 Alimentos</a></li>
-      <li><a class="dropdown-item" [routerLink]="['/products', 'Camas']">🛏️ Camas</a></li>
-      <li><a class="dropdown-item" [routerLink]="['/products', 'Paseo']">🚶 Paseo</a></li>
-    </ul>
-  </li>
+        <!-- 🛒 TIENDA -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/products">🛒 Tienda</a>
+        </li>
+        <!--
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="tiendaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            🛒 Tienda
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="tiendaDropdown">
+            <li><a class="dropdown-item" [routerLink]="['/products']">🛍️ Ver todo</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/products', 'Ropa']">👕 Ropa</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/products', 'Accesorios']">🎀 Accesorios</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/products', 'Juguetes']">🧸 Juguetes</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/products', 'Alimentos']">🥫 Alimentos</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/products', 'Camas']">🛏️ Camas</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/products', 'Paseo']">🚶 Paseo</a></li>
+          </ul>
+        </li>
+        -->
 
-  <!-- 🎯 EVENTOS -->
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" id="eventosDropdown" role="button" data-bs-toggle="dropdown"
-      aria-expanded="false">
-      🎯 Eventos
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="eventosDropdown">
-     <li><a class="dropdown-item" href="https://mamasperrunasfront.netlify.app/eventos">📅 Todos los eventos</a></li>
+        <!-- 🎯 EVENTOS -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/eventos">🎯 Eventos</a>
+        </li>
+        <!--
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="eventosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            🎯 Eventos
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="eventosDropdown">
+            <li><a class="dropdown-item" href="/eventos">📅 Todos los eventos</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" [routerLink]="['/eventos']" [queryParams]="{ tipo: 'celebraciones' }">🎉 Celebraciones</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/eventos']" [queryParams]="{ tipo: 'concursos' }">🏆 Concursos</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/eventos']" [queryParams]="{ tipo: 'solidarios' }">❤️ Solidarios</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/eventos']" [queryParams]="{ tipo: 'talleres' }">🧠 Talleres</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/eventos']" [queryParams]="{ tipo: 'quedadas' }">🌳 Quedadas</a></li>
+          </ul>
+        </li>
+        -->
 
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" [routerLink]="['/eventos']" [queryParams]="{ tipo: 'celebraciones' }">🎉 Celebraciones</a></li>
-      <li><a class="dropdown-item" [routerLink]="['/eventos']" [queryParams]="{ tipo: 'concursos' }">🏆 Concursos</a></li>
-      <li><a class="dropdown-item" [routerLink]="['/eventos']" [queryParams]="{ tipo: 'solidarios' }">❤️ Solidarios</a></li>
-      <li><a class="dropdown-item" [routerLink]="['/eventos']" [queryParams]="{ tipo: 'talleres' }">🧠 Talleres</a></li>
-      <li><a class="dropdown-item" [routerLink]="['/eventos']" [queryParams]="{ tipo: 'quedadas' }">🌳 Quedadas</a></li>
-    </ul>
-  </li>
+        <!-- 🧰 SERVICIOS -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/localizacion">🧰 Servicios</a>
+        </li>
+        <!--
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="serviciosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            🧰 Servicios
+          </a>
+          <ul class="dropdown-menu" id="serviciosMenu" aria-labelledby="serviciosDropdown">
+            <li><a class="dropdown-item" [routerLink]="['/localizacion']" [queryParams]="{ tipo: 'veterinario', ubicacion: 'miUbicacion' }">🩺 Veterinaria</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/localizacion']" [queryParams]="{ tipo: 'parque para perros', ubicacion: 'miUbicacion' }">🐾 Parques</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/localizacion']" [queryParams]="{ tipo: 'tienda de mascotas', ubicacion: 'miUbicacion' }">💇 Tiendas</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/localizacion']" [queryParams]="{ tipo: 'guarderia canina', ubicacion: 'miUbicacion' }">🏠 Guarderías</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/localizacion']" [queryParams]="{ tipo: 'adiestrador de perros', ubicacion: 'miUbicacion' }">💬 Asesoramiento</a></li>
+          </ul>
+        </li>
+        -->
 
-  <!-- 🧰 SERVICIOS -->
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" id="serviciosDropdown" role="button" data-bs-toggle="dropdown"
-      aria-expanded="false">
-      🧰 Servicios
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="serviciosDropdown">
-      <li><a class="dropdown-item" href="#">🩺 Veterinaria</a></li>
-      <li><a class="dropdown-item" href="#">🐾 Entrenamiento</a></li>
-      <li><a class="dropdown-item" href="#">💇 Estética</a></li>
-      <li><a class="dropdown-item" href="#">🏠 Guarderías</a></li>
-      <li><a class="dropdown-item" href="#">💬 Asesoramiento</a></li>
-    </ul>
-  </li>
+        <!-- 🐶 COMUNIDAD -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/foro">🐶 Comunidad</a>
+        </li>
+        <!--
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="comunidadDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            🐶 Comunidad
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="comunidadDropdown">
+            <li><a class="dropdown-item" routerLink="/foro">💬 Foros</a></li>
+            <li><a class="dropdown-item" href="#">👥 Grupos</a></li>
+            <li><a class="dropdown-item" href="#">📖 Historias</a></li>
+            <li><a class="dropdown-item" href="#">⭐ Recomendaciones</a></li>
+            <li><a class="dropdown-item" href="#">📊 Encuestas</a></li>
+          </ul>
+        </li>
+        -->
 
-  <!-- 🐶 COMUNIDAD -->
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" id="comunidadDropdown" role="button" data-bs-toggle="dropdown"
-      aria-expanded="false">
-      🐶 Comunidad
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="comunidadDropdown">
-      <li><a class="dropdown-item" routerLink="/foro">💬 Foros</a></li>
-      <li><a class="dropdown-item" href="#">👥 Grupos</a></li>
-      <li><a class="dropdown-item" href="#">📖 Historias</a></li>
-      <li><a class="dropdown-item" href="#">⭐ Recomendaciones</a></li>
-      <li><a class="dropdown-item" href="#">📊 Encuestas</a></li>
-    </ul>
-  </li>
+        <!-- 📰 BLOG -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/blog">📰 Blog</a>
+        </li>
+        <!--
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="blogDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            📰 Blog
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="blogDropdown">
+            <li><a class="dropdown-item" [routerLink]="['/blog']">📰 Ver blog</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/blog/experts']">👩‍⚕️ Nuestros expertos</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/blog/news']">🗞️ Noticias</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/blog/tips']">💡 Consejos</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/blog/life']">🐕 Vida canina</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/razas']">📚 Razas</a></li>
+          </ul>
+        </li>
+        -->
 
-  <!-- 📰 BLOG -->
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" id="blogDropdown" role="button" data-bs-toggle="dropdown"
-      aria-expanded="false">
-      📰 Blog
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="blogDropdown">
-      <li><a class="dropdown-item" [routerLink]="['/blog']">📰 Ver blog</a></li>
-      <li><a class="dropdown-item" [routerLink]="['/blog/experts']">👩‍⚕️ Nuestros expertos</a></li>
-      <li><a class="dropdown-item" [routerLink]="['/blog/news']">🗞️ Noticias</a></li>
-      <li><a class="dropdown-item" [routerLink]="['/blog/tips']">💡 Consejos</a></li>
-      <li><a class="dropdown-item" [routerLink]="['/blog/life']">🐕 Vida canina</a></li>
-      <li><a class="dropdown-item" [routerLink]="['/razas']">📚 Razas</a></li>
-    </ul>
-  </li>
-
-</ul>
-
+      </ul>
 
       <div class="d-flex flex-grow-1"></div>
       <div class="d-flex flex-column align-items-end">
         <a class="small text-white mb-1" routerLink="/business-area">Área Empresas</a>
-      
-        <!-- ✅ Mostrar perfil y botón de cerrar sesión si está autenticado -->
-      <ng-container *ngIf="isAuthenticated; else authButtons">
+
+        <ng-container *ngIf="isAuthenticated; else authButtons">
           <div class="d-flex align-items-center">
-            <!-- Imagen de perfil con enlace -->
             <a routerLink="/perfil">
-             <img
-  [src]="getFotoPerfilUrl()"
-  (error)="setDefaultAvatar($event)"
-  alt="Foto de perfil"
-  width="40"
-  height="40"
-  class="rounded-circle me-2"
-  style="object-fit: cover; cursor: pointer;"
-/>
-
+              <img
+                [src]="getFotoPerfilUrl()"
+                (error)="setDefaultAvatar($event)"
+                alt="Foto de perfil"
+                width="40"
+                height="40"
+                class="rounded-circle me-2"
+                style="object-fit: cover; cursor: pointer;"
+              />
             </a>
-
-            <!-- Nombre con enlace -->
-            <a routerLink="/perfil" class="text-white text-decoration-none me-2" style="cursor: pointer;">
+            <a routerLink="/perfil" class="text-white text-decoration-none me-2">
               ¡Hola, {{ nombreUsuario }}!
             </a>
-
             <button class="btn btn-danger btn-sm" (click)="logout()">Cerrar sesión</button>
           </div>
         </ng-container>

@@ -197,3 +197,25 @@
   color: var(--verde-profundo);
   border: 2px solid var(--verde-profundo);
 }
+
+.btn-agenda {
+  background-color: whitesmoke !important;
+  color: rgb(230, 123, 17) !important; /* Color naranja vivo */
+  font-size: 1.1rem !important;
+  font-weight: bold !important;
+  padding: 15px 25px !important;
+  text-transform: uppercase !important;
+  border-radius: 15px !important;
+  border: 6px solid #3B8024 !important; /* Borde verde oscuro */
+  transition: all 0.3s ease-in-out !important;
+  text-decoration: none !important;
+  display: inline-block;
+}
+
+.btn-agenda:hover {
+  background-color: var(--verde-profundo) !important;
+  color: white !important;
+  transform: scale(1.05) !important;
+  text-decoration: underline !important;
+}
+

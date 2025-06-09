@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 
 declare const google: any;
 
@@ -10,7 +10,7 @@ declare const google: any;
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './localizacion.component.html',
-  styleUrls: ['./localizacion.component.scss']
+  styleUrls: ['./localizacion.component.css']
 })
 export class LocalizacionComponent implements OnInit {
 
@@ -20,14 +20,16 @@ export class LocalizacionComponent implements OnInit {
   marcadores: any[] = [];
   lugaresMostrados: any[] = [];
 
+  constructor(private route: ActivatedRoute) {}
+
   provincias: string[] = [
     'Sevilla', 'Madrid', 'Barcelona', 'Valencia', 'Málaga',
     'Cádiz', 'Granada', 'Zaragoza', 'Bilbao'
   ];
 
   tiposLugares = [
-    { nombre: 'Veterinarios', keyword: 'veterinario', seleccionado: true },
-    { nombre: 'Protectoras', keyword: 'protectoras de animales', seleccionado: true },
+    { nombre: 'Veterinarios', keyword: 'veterinario', seleccionado: false },
+    { nombre: 'Protectoras', keyword: 'protectoras de animales', seleccionado: false },
     { nombre: 'Tiendas de animales', keyword: 'tienda de mascotas', seleccionado: false },
     { nombre: 'Parques para perros', keyword: 'parque para perros', seleccionado: false },
     { nombre: 'Residencias caninas', keyword: 'guarderia canina', seleccionado: false },
@@ -36,11 +38,53 @@ export class LocalizacionComponent implements OnInit {
     { nombre: 'Peluquerías caninas', keyword: 'peluquería canina', seleccionado: false }
   ];
 
-  ngOnInit(): void {
-    this.buscar(); // Empieza cargando según modoUbicacion
-  }
+  tarjetasInformativas = [
+    {
+      titulo: '¿Cómo participar?',
+      imagen: 'quedadas.jpeg',
+      descripcion: 'Descubre cómo formar parte de los eventos caninos.',
+      link: '/eventos',
+      boton: 'Ver más'
+    },
+    {
+      titulo: 'Únete a la comunidad',
+      imagen: 'comunidad.png',
+      descripcion: 'Regístrate y accede a todos los beneficios.',
+      link: '/registro',
+      boton: 'Registrarse'
+    },
+    {
+      titulo: 'Eventos solidarios',
+      imagen: 'solidarios.png',
+      descripcion: 'Apoya causas benéficas y de ayuda animal.',
+      link: '/eventos',
+      boton: 'Ver solidarios'
+    }
+  ];
 
-  
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      const tipo = params['tipo'];
+      const provincia = params['provincia'];
+      const ubicacion = params['ubicacion'];
+
+      if (tipo) {
+        this.tiposLugares.forEach(t => {
+          t.seleccionado = (t.keyword === tipo);
+        });
+      }
+
+      if (provincia) {
+        this.provinciaSeleccionada = provincia;
+      }
+
+      if (ubicacion === 'provincia') {
+        this.modoUbicacion = 'provincia';
+      }
+
+      this.buscar();
+    });
+  }
 
   buscar(): void {
     this.lugaresMostrados = [];
@@ -71,47 +115,42 @@ export class LocalizacionComponent implements OnInit {
   }
 
   buscarPorProvincia(): void {
-  if (!this.provinciaSeleccionada) return;
+    if (!this.provinciaSeleccionada) return;
 
-  const geocoder = new google.maps.Geocoder();
-  geocoder.geocode({ address: this.provinciaSeleccionada }, (results: any[], status: any) => {
-    if (status === 'OK' && results.length > 0) {
-      const ubicacion = results[0].geometry.location;
-      this.cargarMapa(ubicacion);
-    } else {
-      console.error('Error al geocodificar la provincia:', this.provinciaSeleccionada, status);
-      alert('No se pudo encontrar la provincia seleccionada. Prueba otra.');
-    }
-  });
-}
-
-
-  cargarMapa(centro: any): void {
-  const mapEl = document.getElementById('map');
-  if (!mapEl) return;
-
-  if (!this.mapa) {
-    // Si no existe, crea el mapa
-    this.mapa = new google.maps.Map(mapEl, {
-      center: centro,
-      zoom: 13
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address: this.provinciaSeleccionada }, (results: any[], status: any) => {
+      if (status === 'OK' && results.length > 0) {
+        const ubicacion = results[0].geometry.location;
+        this.cargarMapa(ubicacion);
+      } else {
+        console.error('Error al geocodificar la provincia:', this.provinciaSeleccionada, status);
+        alert('No se pudo encontrar la provincia seleccionada. Prueba otra.');
+      }
     });
-  } else {
-    // Si ya existe, simplemente cambia de ubicación
-    this.mapa.setCenter(centro);
-    this.mapa.setZoom(13);
   }
 
-  // Añade marcador central
-  new google.maps.Marker({
-    position: centro,
-    map: this.mapa,
-    title: 'Ubicación seleccionada'
-  });
+  cargarMapa(centro: any): void {
+    const mapEl = document.getElementById('map');
+    if (!mapEl) return;
 
-  this.buscarLugares(centro);
-}
+    if (!this.mapa) {
+      this.mapa = new google.maps.Map(mapEl, {
+        center: centro,
+        zoom: 13
+      });
+    } else {
+      this.mapa.setCenter(centro);
+      this.mapa.setZoom(13);
+    }
 
+    new google.maps.Marker({
+      position: centro,
+      map: this.mapa,
+      title: 'Ubicación seleccionada'
+    });
+
+    this.buscarLugares(centro);
+  }
 
   buscarLugares(centro: any): void {
     const servicio = new google.maps.places.PlacesService(this.mapa);
@@ -119,6 +158,8 @@ export class LocalizacionComponent implements OnInit {
     this.lugaresMostrados = [];
 
     const tiposSeleccionados = this.tiposLugares.filter(t => t.seleccionado);
+    if (tiposSeleccionados.length === 0) return;
+
     const maxTotal = 6;
     const maxPorTipo = Math.floor(maxTotal / tiposSeleccionados.length);
     const lugaresTemp: any[] = [];
@@ -170,30 +211,6 @@ export class LocalizacionComponent implements OnInit {
     tipo.seleccionado = true;
     this.buscar();
   }
-
-  tarjetasInformativas = [
-    {
-      titulo: '¿Cómo participar?',
-      imagen: 'quedadas.jpeg',
-      descripcion: 'Descubre cómo formar parte de los eventos caninos.',
-      link: '/eventos',
-      boton: 'Ver más'
-    },
-    {
-      titulo: 'Únete a la comunidad',
-      imagen: 'comunidad.png',
-      descripcion: 'Regístrate y accede a todos los beneficios.',
-      link: '/registro',
-      boton: 'Registrarse'
-    },
-    {
-      titulo: 'Eventos solidarios',
-      imagen: 'solidarios.png',
-      descripcion: 'Apoya causas benéficas y de ayuda animal.',
-      link: '/eventos',
-      boton: 'Ver solidarios'
-    }
-  ];
 
   getImagenUrl(imagenUrl: string): string {
     if (!imagenUrl || imagenUrl.trim() === '') {

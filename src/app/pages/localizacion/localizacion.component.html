@@ -1,19 +1,20 @@
-<!-- Archivo HTML preparado para copiar y pegar -->
+<!-- Contenedor principal -->
 <div class="container-fluid py-4">
   <div class="row">
 
     <!-- Menú lateral izquierdo -->
-    <aside class="col-12 col-md-3 col-lg-2 sidebar-left mb-4 mb-md-0">
-      <h3 class="mb-4">SERVICIOS</h3>
+    <aside class="col-12 col-md-3 col-lg-2 sidebar-left">
+      <h3>Servicios</h3>
 
-      <!-- Lista de tipos -->
-      <ul class="list-group mb-4">
-        <li class="list-group-item" *ngFor="let tipo of tiposLugares">
-          <a href="#" (click)="seleccionarUnicoTipo(tipo); $event.preventDefault()">
-            {{ tipo.nombre | uppercase }}
-          </a>
-        </li>
-      </ul>
+      <!-- Lista de tipos de lugar -->
+      <ul class="menu-servicios">
+  <li class="item-servicio" *ngFor="let tipo of tiposLugares">
+    <a href="#" (click)="seleccionarUnicoTipo(tipo); $event.preventDefault()">
+      {{ tipo.nombre | uppercase }}
+    </a>
+  </li>
+</ul>
+
 
       <!-- Tarjetas informativas -->
       <div class="info-card mb-4" *ngFor="let card of tarjetasInformativas">
@@ -24,8 +25,15 @@
       </div>
     </aside>
 
-    <!-- Contenido principal -->
-   <div class="col-12 col-md-9 col-lg-10 d-flex flex-column main-content">
+    <!-- Zona central: banner, filtros y resultados -->
+    <div class="col-12 col-md-9 col-lg-10 d-flex flex-column main-content">
+
+      <!-- CABECERA/BANNER -->
+     <div class="category-banner mb-4">
+  <img src="assets/images/servicios/servicios.png" alt="Cabecera servicios" class="banner-image" />
+  <div class="banner-text">SERVICIOS</div>
+</div>
+
 
       <!-- Migas de pan -->
       <nav aria-label="breadcrumb" class="breadcrumb-container mb-3">
@@ -35,18 +43,9 @@
         </ol>
       </nav>
 
-      <!-- CABECERA -->
-<!-- CABECERA TIPO BANNER -->
-<div class="category-banner mb-4">
-  <img src="assets/images/servicios/servicio.png" alt="Cabecera servicios" class="banner-image" />
-  <div class="banner-text">SERVICIOS</div>
-</div>
-
-
-
       <!-- Filtro de ubicación -->
       <form class="row g-3 align-items-end filtros-form mb-4">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <label class="form-label">Ubicación de servicios</label>
           <div>
             <label>
@@ -59,18 +58,17 @@
             </label>
           </div>
           <select *ngIf="modoUbicacion === 'provincia'"
-        [(ngModel)]="provinciaSeleccionada"
-        [ngModelOptions]="{standalone: true}"
-        class="form-select mt-2"
-        (change)="buscar()">
-  <option value="">-- Selecciona una provincia --</option>
-  <option *ngFor="let provincia of provincias" [value]="provincia">{{ provincia }}</option>
-</select>
-
+                  [(ngModel)]="provinciaSeleccionada"
+                  [ngModelOptions]="{standalone: true}"
+                  class="form-select mt-2"
+                  (change)="buscar()">
+            <option value="">-- Selecciona una provincia --</option>
+            <option *ngFor="let provincia of provincias" [value]="provincia">{{ provincia }}</option>
+          </select>
         </div>
       </form>
 
-      <!-- Filtro por tipo de lugar -->
+      <!-- Filtro por tipo de lugar (checkboxes) -->
       <div class="filtro-tipos mb-4 d-flex flex-wrap align-items-center gap-2">
         <label *ngFor="let tipo of tiposLugares" class="form-check form-check-inline me-2">
           <input type="checkbox" [(ngModel)]="tipo.seleccionado" class="form-check-input" (change)="buscar()" />
@@ -78,8 +76,8 @@
         </label>
       </div>
 
-     <!-- Este div debe estar en el HTML y visible -->
-<div id="map" class="mb-5" style="height: 400px;"></div>
+      <!-- Mapa -->
+      <div id="map" class="mb-5" style="height: 400px;"></div>
 
       <!-- Resultados -->
       <section *ngIf="lugaresMostrados.length > 0">
@@ -98,6 +96,6 @@
         </div>
       </section>
 
-    </div> <!-- cierre columna principal -->
-  </div> <!-- cierre row -->
-</div> <!-- cierre container -->
+    </div> <!-- Fin de columna central -->
+  </div> <!-- Fin de row -->
+</div> <!-- Fin de container -->

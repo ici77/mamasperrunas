@@ -1,0 +1,54 @@
+<div class="container-fluid mt-4">
+  <div class="row">
+
+    <!-- 🔙 Migas de pan -->
+    <nav aria-label="breadcrumb" class="breadcrumb-container w-100">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+        <li class="breadcrumb-item"><a routerLink="/eventos">Eventos</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Calendario</li>
+      </ol>
+    </nav>
+
+    <!-- 📌 Menú lateral izquierdo -->
+    <aside class="col-12 col-md-3 sidebar-left">
+      <h3>Te recomendamos</h3>
+
+      <div *ngFor="let evento of eventosRecomendados" class="card card-recomendada mb-3">
+        <img
+          [src]="getImagenUrl(evento.imagenUrl)"
+          alt="{{ evento.titulo }}"
+          class="card-img-top"
+          *ngIf="evento.imagenUrl"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ evento.titulo }}</h5>
+          <p class="card-text">
+            {{ evento.descripcion ? (evento.descripcion | slice: 0: 90) + '...' : 'Evento recomendado' }}
+          </p>
+          <a [routerLink]="['/evento', evento.id]" class="btn btn-verde w-100">Ver más</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 📌 Zona principal (cabecera + calendario) -->
+    <div class="col-12 col-md-9">
+
+      <!-- 📸 CABECERA ESTILO EVENTOS -->
+      <div class="banner-wrapper">
+        <div class="category-banner mb-4">
+          <img [src]="getImagenUrl('miscelanea.png')" alt="Banner Agenda" class="banner-image" />
+          <div class="banner-text">Agenda</div>
+        </div>
+      </div>
+
+      <!-- 🗓️ Calendario -->
+      <div class="contenedor-calendario">
+        <h2 class="titulo-calendario text-center mb-4">🗓️ Calendario de eventos</h2>
+        <full-calendar [options]="calendarOptions"></full-calendar>
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -13,7 +13,7 @@ import { DogListComponent } from './pages/dog-list/dog-list.component';
 import { BlogComponent } from './pages/blog/blog.component';
 import { ExpertsComponent } from './pages/blog/experts/experts.component';
 import { NewsComponent } from './pages/blog/news/news.component';
-import { TipsComponent } from './pages/blog/tips/tips.component';
+
 import { LifeComponent } from './pages/blog/life/life.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { EventosComponent } from './pages/eventos/eventos.component';
@@ -44,6 +44,21 @@ export const appRoutes: Routes = [
       import('./pages/crear-evento/crear-evento.component').then(m => m.CrearEventoComponent)
   },
 
+  {
+  path: 'calendario',
+  loadComponent: () =>
+    import('./pages/calendario-eventos/calendario-eventos.component')
+      .then(m => m.CalendarioEventosComponent)
+},
+
+{
+  path: 'consejos',
+  loadComponent: () => import('./pages/blog/consejos/consejos.component').then(m => m.ConsejosComponent)
+},
+
+
+
+
   // 📌 Ver detalle de evento
   {
     path: 'evento/:id',
@@ -60,18 +75,19 @@ export const appRoutes: Routes = [
 
   // 📌 Blog y secciones
   {
-    path: 'blog',
-    loadComponent: () =>
-      import('./components/blog-layout/blog-layout.component').then(m => m.BlogLayoutComponent),
-    children: [
-      { path: '', component: BlogComponent },
-      { path: 'experts', component: ExpertsComponent },
-      { path: 'news', component: NewsComponent },
-      { path: 'tips', component: TipsComponent },
-      { path: 'life', component: LifeComponent }
-     
-    ]
-  },
+  path: 'blog',
+  loadComponent: () =>
+    import('./components/blog-layout/blog-layout.component').then(m => m.BlogLayoutComponent),
+  children: [
+    { path: '', loadComponent: () => import('./pages/blog/blog.component').then(m => m.BlogComponent) },
+    { path: 'experts', loadComponent: () => import('./pages/blog/experts/experts.component').then(m => m.ExpertsComponent) },
+    { path: 'news', loadComponent: () => import('./pages/blog/news/news.component').then(m => m.NewsComponent) },
+    
+    { path: 'life', loadComponent: () => import('./pages/blog/life/life.component').then(m => m.LifeComponent) },
+    { path: 'consejos', loadComponent: () => import('./pages/blog/consejos/consejos.component').then(m => m.ConsejosComponent) },
+  ]
+},
+
 
   // ❌ Ruta comodín
   { path: '**', redirectTo: 'login', pathMatch: 'full' }

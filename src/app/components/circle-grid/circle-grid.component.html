@@ -1,53 +1,64 @@
-<h3 class="banner-subtitle">Todo lo que buscabas para tu perrhijo</h3>
-<form class="d-flex search-form">
-  <input
-    type="text"
-    class="form-control me-2 wide-input"
-    placeholder="Busca por nombre o por categoría"
-  />
-  <input
-    type="text"
-    class="form-control me-2 wide-input"
-    placeholder="en Dónde"
-  />
-  <button class="btn-accion">Buscar</button>
+<h3 class="banner-subtitle text-center my-4">Todo lo que buscabas para tu perrhijo</h3>
 
+<!-- 🔍 Buscador con selects -->
+<form class="d-flex search-form justify-content-center mb-5" (ngSubmit)="buscarDesdeInicio()" #form="ngForm">
+  <!-- Categorías -->
+  <select class="form-select me-2 wide-input" [(ngModel)]="filtro.tipo" name="tipo">
+    <option value="">Tipo de lugar</option>
+    <option value="parque para perros">Parques Caninos</option>
+    <option value="veterinario">Veterinarias</option>
+    <option value="tienda de mascotas">Tiendas de Mascotas</option>
+    <option value="cafetería dog friendly">Cafeterías Pet Friendly</option>
+  </select>
+
+  <!-- Provincias -->
+  <select class="form-select me-2 wide-input" [(ngModel)]="filtro.provincia" name="provincia">
+    <option value="">Provincia</option>
+    <option>Sevilla</option>
+    <option>Madrid</option>
+    <option>Barcelona</option>
+    <option>Valencia</option>
+    <option>Málaga</option>
+  </select>
+
+  <button type="submit" class="btn-accion">Buscar</button>
 </form>
 
-
-
-<section class="container mt-3 mb-1">
+<!-- 🟢 Cuadrícula de imágenes circulares -->
+<section class="container">
   <div class="row text-center">
-    <!-- Primera Casilla -->
-    <div class="col-md-6 col-lg-3 mb-4">
+
+    <!-- Casilla 1: Parques Caninos -->
+    <div class="col-md-6 col-lg-3 mb-4" (click)="irADetalle('parque para perros')" style="cursor: pointer;">
       <div class="circle shadow-sm mx-auto">
         <img src="assets/images/landing/parque.png" alt="Parques Caninos">
       </div>
       <h5 class="circle-title mt-3">Parques Caninos</h5>
     </div>
 
-    <!-- Segunda Casilla -->
-    <div class="col-md-6 col-lg-3 mb-4">
+    <!-- Casilla 2: Veterinarias -->
+    <div class="col-md-6 col-lg-3 mb-4" (click)="irADetalle('veterinario')" style="cursor: pointer;">
       <div class="circle shadow-sm mx-auto">
         <img src="assets/images/landing/veterinaria.png" alt="Veterinarias">
       </div>
       <h5 class="circle-title mt-3">Veterinarias</h5>
     </div>
 
-    <!-- Tercera Casilla -->
-    <div class="col-md-6 col-lg-3 mb-4">
+    <!-- Casilla 3: Tiendas de Mascotas -->
+    <div class="col-md-6 col-lg-3 mb-4" (click)="irADetalle('tienda de mascotas')" style="cursor: pointer;">
       <div class="circle shadow-sm mx-auto">
         <img src="assets/images/landing/tienda.png" alt="Tiendas de Mascotas">
       </div>
       <h5 class="circle-title mt-3">Tiendas de Mascotas</h5>
     </div>
 
-    <!-- Cuarta Casilla -->
-    <div class="col-md-6 col-lg-3 mb-4">
+    <!-- Casilla 4: Cafeterías -->
+    <div class="col-md-6 col-lg-3 mb-4" (click)="irADetalle('cafetería dog friendly')" style="cursor: pointer;">
       <div class="circle shadow-sm mx-auto">
         <img src="assets/images/landing/cafeteria.png" alt="Cafeterías Pet Friendly">
       </div>
       <h5 class="circle-title mt-3">Cafeterías Pet Friendly</h5>
     </div>
+
   </div>
 </section>
