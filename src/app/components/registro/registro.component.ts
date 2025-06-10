@@ -8,6 +8,14 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
+/**
+ * Componente para gestionar el registro de un nuevo usuario en la aplicación.
+ * Este formulario incluye validaciones para nombre, email y contraseña.
+ * 
+ * @component
+ * @example
+ * <app-registro></app-registro>
+ */
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
@@ -16,16 +24,29 @@ import { environment } from '../../../environments/environment';
   imports: [ReactiveFormsModule, NgIf, CommonModule, BannerportadaComponent]
 })
 export class RegistroComponent {
+  /** Formulario reactivo para el registro */
   registroForm: FormGroup;
+
+  /** Mensaje de éxito al registrar el usuario */
   mensajeExito: string | null = null;
+
+  /** Mensaje de error al intentar registrar el usuario */
   mensajeError: string | null = null;
 
+  /**
+   * Constructor para inicializar el formulario reactivo, el servicio HTTP y el enrutador.
+   * 
+   * @param fb - FormBuilder para crear el formulario reactivo
+   * @param http - HttpClient para hacer solicitudes HTTP
+   * @param router - Router para navegar entre las vistas
+   */
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router
   ) {
     this.registroForm = this.fb.group({
+      /** Nombre del usuario, validado para solo aceptar letras y espacios */
       nombre: [
         '',
         [
@@ -35,6 +56,7 @@ export class RegistroComponent {
           Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$') // Solo letras y espacios
         ]
       ],
+      /** Email del usuario, validado como un email válido */
       email: [
         '',
         [
@@ -42,6 +64,7 @@ export class RegistroComponent {
           Validators.email
         ]
       ],
+      /** Contraseña del usuario, validada para tener al menos una mayúscula, una minúscula y un número */
       password: [
         '',
         [
@@ -54,6 +77,9 @@ export class RegistroComponent {
     });
   }
 
+  /**
+   * Método que se ejecuta cuando el formulario se envía. Realiza el registro del usuario a través de una solicitud HTTP.
+   */
   onSubmit(): void {
     if (this.registroForm.valid) {
       const usuario = {
@@ -84,6 +110,12 @@ export class RegistroComponent {
     }
   }
 
+  /**
+   * Devuelve el mensaje de error correspondiente para un campo específico del formulario.
+   * 
+   * @param campo - El nombre del campo del formulario para el que se quiere obtener el mensaje de error
+   * @returns El mensaje de error del campo
+   */
   getErrorMessage(campo: string): string {
     const control = this.registroForm.get(campo);
     if (!control || !control.errors) return '';

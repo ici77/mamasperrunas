@@ -1,0 +1,651 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  Dog</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/components/dog-breeds/dog-breeds.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#avgWeight" 
+>
+                                            avgWeight
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#image" 
+>
+                                            image
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#name" 
+>
+                                            name
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#origin" 
+>
+                                            origin
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#temperament" 
+>
+                                            temperament
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#weight" 
+>
+                                            weight
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="avgWeight"></a>
+                                        <span class="name "><b>avgWeight</b>
+                                            <a href="#avgWeight">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>avgWeight:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="image"></a>
+                                        <span class="name "><b>image</b>
+                                            <a href="#image">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>image:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="name"></a>
+                                        <span class="name "><b>name</b>
+                                            <a href="#name">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>name:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="origin"></a>
+                                        <span class="name "><b>origin</b>
+                                            <a href="#origin">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>origin:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="temperament"></a>
+                                        <span class="name "><b>temperament</b>
+                                            <a href="#temperament">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>temperament:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="weight"></a>
+                                        <span class="name "><b>weight</b>
+                                            <a href="#weight">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>weight:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, Output, EventEmitter } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { DogApiService } from &#x27;../../services/dog-api.service&#x27;;
+
+/**
+ * @interface Dog
+ * @description Interfaz que representa una raza de perro.
+ * @property {string} name - Nombre de la raza.
+ * @property {string} image - URL de la imagen de la raza.
+ * @property {string} temperament - Temperamento del perro.
+ * @property {string} origin - País de origen de la raza.
+ * @property {string} weight - Peso de la raza en kg.
+ * @property {number} [avgWeight] - Peso medio calculado para facilitar filtros.
+ */
+interface Dog {
+  name: string;
+  image: string;
+  temperament: string;
+  origin: string;
+  weight: string;
+  avgWeight?: number;
+}
+
+/**
+ * @component DogBreedsComponent
+ * @description Componente que muestra un listado de razas de perros obtenidas desde una API.
+ * 
+ * - Obtiene datos desde &#x60;DogApiService&#x60;.
+ * - Filtra los perros según su tamaño.
+ * - Emite eventos para compartir datos con otros componentes.
+ * 
+ * @selector app-dog-breeds
+ * @standalone true
+ * @imports CommonModule
+ */
+@Component({
+  selector: &#x27;app-dog-breeds&#x27;,
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: &#x27;./dog-breeds.component.html&#x27;,
+  styleUrls: [&#x27;./dog-breeds.component.css&#x27;]
+})
+export class DogBreedsComponent implements OnInit {
+  /**
+   * @property {Dog[]} dogBreeds - Lista completa de razas de perros.
+   */
+  dogBreeds: Dog[] &#x3D; [];
+
+  /**
+   * @property {Dog[]} displayedDogs - Lista filtrada de perros a mostrar.
+   */
+  displayedDogs: Dog[] &#x3D; [];
+
+  /**
+   * @property {number} dogsToShow - Número inicial de perros a mostrar.
+   */
+  dogsToShow &#x3D; 8;
+
+  /**
+   * @property {string} selectedSize - Filtro de tamaño de los perros.
+   * - Valores posibles: &#x60;&#x27;all&#x27; | &#x27;mini&#x27; | &#x27;small&#x27; | &#x27;medium&#x27; | &#x27;large&#x27; | &#x27;giant&#x27;&#x60;
+   */
+  selectedSize: string &#x3D; &#x27;all&#x27;;
+
+  /**
+   * @event sendDogs - Evento que emite la lista filtrada de perros a otros componentes.
+   */
+  @Output() sendDogs &#x3D; new EventEmitter&lt;Dog[]&gt;();
+
+  /**
+   * @constructor
+   * @param {DogApiService} dogApiService - Servicio para obtener razas de perros desde la API.
+   */
+  constructor(private dogApiService: DogApiService) {}
+
+  /**
+   * @method ngOnInit
+   * @description Método de inicialización del componente.
+   * - Llama al servicio &#x60;DogApiService&#x60; para obtener las razas de perros.
+   * - Procesa los datos, calcula el peso medio y carga los primeros 8 perros.
+   */
+  ngOnInit(): void {
+    this.dogApiService.getDogBreeds().subscribe(
+      (data: any[]) &#x3D;&gt; {
+        this.dogBreeds &#x3D; data.map((dog) &#x3D;&gt; ({
+          ...dog,
+          image: dog.image ? dog.image.url : &#x27;https://via.placeholder.com/150&#x27;,
+          weight: dog.weight?.metric || &#x27;No disponible&#x27;,
+          avgWeight: this.calculateAverageWeight(dog.weight?.metric)
+        }));
+        this.updateDisplayedDogs();
+      },
+      (error) &#x3D;&gt; {
+        console.error(&#x27;Error al obtener las razas de perros&#x27;, error);
+      }
+    );
+  }
+  
+  /**
+   * @method showMore
+   * @description Muestra más perros al usuario (incrementando de 8 en 8).
+   */
+  showMore(): void {
+    if (this.dogsToShow &lt; this.dogBreeds.length) {
+      this.dogsToShow +&#x3D; 8;
+      this.updateDisplayedDogs();
+    }
+  }
+  
+  /**
+   * @method updateDisplayedDogs
+   * @description Filtra y actualiza la lista de perros a mostrar según el tamaño seleccionado.
+   * También emite la lista de perros filtrada a otros componentes.
+   */
+  updateDisplayedDogs(): void {
+    let filteredDogs &#x3D; this.dogBreeds;
+  
+    if (this.selectedSize !&#x3D;&#x3D; &#x27;all&#x27;) {
+      filteredDogs &#x3D; this.dogBreeds.filter(dog &#x3D;&gt; {
+        const weight &#x3D; dog.avgWeight || 0;
+        return this.sizeFilter(weight);
+      });
+    }
+  
+    this.displayedDogs &#x3D; filteredDogs.slice(0, this.dogsToShow);
+    this.sendDogs.emit(filteredDogs);
+  }
+  
+  /**
+   * @method calculateAverageWeight
+   * @description Calcula el peso medio de un perro a partir de un rango.
+   * @param {string} weight - Rango de peso en formato &#x60;&quot;x - y&quot;&#x60; (ejemplo: &#x60;&quot;5 - 10&quot;&#x60;).
+   * @returns {number} Peso medio calculado.
+   */
+  private calculateAverageWeight(weight: string): number {
+    if (typeof weight !&#x3D;&#x3D; &#x27;string&#x27;) return 0;
+    const weightParts &#x3D; weight.split(&#x27; - &#x27;).map(w &#x3D;&gt; parseFloat(w.trim()));
+    return (weightParts.length &#x3D;&#x3D;&#x3D; 2 &amp;&amp; !isNaN(weightParts[0]) &amp;&amp; !isNaN(weightParts[1]))
+      ? (weightParts[0] + weightParts[1]) / 2
+      : 0;
+  }
+
+  /**
+   * @method sizeFilter
+   * @description Aplica el filtro de tamaño según el peso promedio de la raza.
+   * @param {number} weight - Peso medio del perro.
+   * @returns {boolean} &#x60;true&#x60; si el perro pertenece al tamaño filtrado, &#x60;false&#x60; en caso contrario.
+   */
+  sizeFilter(weight: number): boolean {
+    switch (this.selectedSize) {
+      case &#x27;mini&#x27;: return weight &gt;&#x3D; 1 &amp;&amp; weight &lt;&#x3D; 6;
+      case &#x27;small&#x27;: return weight &gt;&#x3D; 5 &amp;&amp; weight &lt;&#x3D; 25;
+      case &#x27;medium&#x27;: return weight &gt;&#x3D; 14 &amp;&amp; weight &lt;&#x3D; 27;
+      case &#x27;large&#x27;: return weight &gt;&#x3D; 21 &amp;&amp; weight &lt;&#x3D; 39;
+      case &#x27;giant&#x27;: return weight &gt;&#x3D; 34 &amp;&amp; weight &lt;&#x3D; 82;
+      default: return true;
+    }
+  }
+
+  /**
+   * @method onSizeChange
+   * @description Maneja el cambio de filtro de tamaño y actualiza la lista de perros.
+   * @param {Event} event - Evento de selección del usuario.
+   */
+  onSizeChange(event: Event): void {
+    const selectedValue &#x3D; (event.target as HTMLSelectElement).value;
+    this.selectedSize &#x3D; selectedValue;
+    this.dogsToShow &#x3D; 8; 
+    this.updateDisplayedDogs();
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'Dog.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

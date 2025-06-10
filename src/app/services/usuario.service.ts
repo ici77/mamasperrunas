@@ -4,7 +4,26 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 /**
- * 📌 Interfaz que define la estructura del perfil de usuario
+ * 📌 Interfaz que define la estructura del perfil de usuario.
+ * 
+ * @interface
+ * @example
+ * const perfil: PerfilUsuario = {
+ *   nombre: 'Juan Pérez',
+ *   email: 'juan.perez@example.com',
+ *   fotoPerfil: 'url_imagen_perfil',
+ *   gustos: 'Perros, deportes',
+ *   postsCreados: [],
+ *   postsLike: [],
+ *   postsFavoritos: [],
+ *   eventosCreados: [],
+ *   eventosInscrito: [],
+ *   estadisticas: {
+ *     totalPosts: 5,
+ *     totalLikes: 20,
+ *     totalEventos: 3
+ *   }
+ * };
  */
 export interface PerfilUsuario {
   nombre: string;
@@ -26,48 +45,60 @@ export interface PerfilUsuario {
 @Injectable({ providedIn: 'root' })
 export class UsuarioService {
 
-  // ✅ Ruta de API dinámica desde environment (producción o desarrollo)
+  /** URL base de la API de usuarios */
   private apiUrl = `${environment.apiUrl}/usuarios`;
 
-  // 🔧 En local puedes usar esta ruta comentada si lo necesitas:
-  // private apiUrl = 'http://localhost:8080/api/usuarios';
-
+  /** Constructor del servicio, inyecta el servicio HTTP */
   constructor(private http: HttpClient) {}
 
-  // ============================================================================
+  // ============================================================================ 
   // 👤 PERFIL DE USUARIO
   // ============================================================================
 
   /**
-   * 🔍 Obtener los datos del perfil del usuario autenticado
+   * 📌 Obtiene los datos del perfil del usuario autenticado.
+   * 
+   * @returns Observable con los datos del perfil del usuario
    */
   getPerfil(): Observable<PerfilUsuario> {
     return this.http.get<PerfilUsuario>(`${this.apiUrl}/perfil`);
   }
 
   /**
-   * 📷 Subir una imagen de perfil al servidor
+   * 📌 Subir una imagen de perfil al servidor.
+   * 
+   * @param formData - Los datos del formulario que incluyen la imagen
+   * @returns Observable con la respuesta de la API
    */
   subirImagen(formData: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}/imagen`, formData);
   }
 
   /**
-   * ✏️ Actualizar los datos completos del perfil (nombre, gustos, etc.)
+   * 📌 Actualiza los datos completos del perfil (nombre, gustos, etc.).
+   * 
+   * @param perfil - El objeto con los nuevos datos del perfil
+   * @returns Observable con la respuesta de la API
    */
   actualizarPerfil(perfil: PerfilUsuario): Observable<any> {
     return this.http.put(`${this.apiUrl}/perfil`, perfil);
   }
 
   /**
-   * ✏️ Actualizar solo el nombre del usuario
+   * 📌 Actualiza solo el nombre del usuario.
+   * 
+   * @param nombre - El nuevo nombre del usuario
+   * @returns Observable con la respuesta de la API
    */
   actualizarNombre(nombre: string): Observable<any> {
     return this.http.put(`${this.apiUrl}/perfil/nombre`, { nombre });
   }
 
   /**
-   * 🔐 Cambiar la contraseña del usuario
+   * 🔐 Cambia la contraseña del usuario.
+   * 
+   * @param datos - Objeto con las contraseñas actuales y nuevas
+   * @returns Observable con la respuesta de la API
    */
   cambiarPassword(datos: { actual: string, nueva: string }): Observable<any> {
     // Producción:
@@ -78,7 +109,10 @@ export class UsuarioService {
   }
 
   /**
-   * ❌ Cancelar inscripción del usuario autenticado a un evento
+   * ❌ Cancela la inscripción del usuario autenticado a un evento.
+   * 
+   * @param eventoId - ID del evento del que el usuario desea darse de baja
+   * @returns Observable con la respuesta de la API
    */
   cancelarInscripcion(eventoId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/eventos/${eventoId}/cancelar`);

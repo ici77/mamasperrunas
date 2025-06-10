@@ -1,0 +1,1193 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  CalendarioEventosComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/calendario-eventos/calendario-eventos.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Componente que muestra un calendario con los eventos programados.
+El calendario permite visualizar eventos por mes y navegar a la vista detallada de un evento al hacer clic en él.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&lt;app-calendario-eventos&gt;&lt;/app-calendario-eventos&gt;</code></pre></div>
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-calendario-eventos</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>RouterModule</code>
+                            <code>FullCalendarModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./calendario-eventos.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./calendario-eventos.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#calendarOptions" >calendarOptions</a>
+                            </li>
+                            <li>
+                                <a href="#eventosRecomendados" >eventosRecomendados</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cargarEventos" >cargarEventos</a>
+                            </li>
+                            <li>
+                                <a href="#getImagenUrl" >getImagenUrl</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onEventClick" >onEventClick</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(eventService: <a href="../injectables/EventService.html" target="_self">EventService</a>, router: Router)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/calendario-eventos/calendario-eventos.component.ts:37</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor para inicializar el servicio de eventos y el enrutador.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>eventService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/EventService.html" target="_self" >EventService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>Servicio para manejar las operaciones de eventos</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>Enrutador para navegar entre las vistas</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarEventos"></a>
+                    <span class="name">
+                        <span ><b>cargarEventos</b></span>
+                        <a href="#cargarEventos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarEventos()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">src/app/pages/calendario-eventos/calendario-eventos.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Carga los eventos desde el servicio y los asigna al calendario y a la lista de eventos recomendados.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getImagenUrl"></a>
+                    <span class="name">
+                        <span ><b>getImagenUrl</b></span>
+                        <a href="#getImagenUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getImagenUrl(imagenUrl: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="96"
+                                    class="link-to-prism">src/app/pages/calendario-eventos/calendario-eventos.component.ts:96</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene la URL de la imagen del evento.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>imagenUrl</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>URL de la imagen del evento</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>La URL completa de la imagen</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="53"
+                                    class="link-to-prism">src/app/pages/calendario-eventos/calendario-eventos.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Método que se ejecuta al inicializar el componente. Carga los eventos desde el servicio.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onEventClick"></a>
+                    <span class="name">
+                        <span ><b>onEventClick</b></span>
+                        <a href="#onEventClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onEventClick(arg: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="83"
+                                    class="link-to-prism">src/app/pages/calendario-eventos/calendario-eventos.component.ts:83</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Redirige al usuario a la página del evento al hacer clic sobre él.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>arg</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Argumento con los detalles del evento clicado</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calendarOptions"></a>
+                    <span class="name">
+                        <span ><b>calendarOptions</b></span>
+                        <a href="#calendarOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    plugins: [dayGridPlugin], // Plugin para vista de mes
+    initialView: &#x27;dayGridMonth&#x27;, // Vista inicial (mes)
+    locale: esLocale,  // Idioma del calendario
+    events: [],  // Lista de eventos para mostrar en el calendario
+    eventClick: this.onEventClick.bind(this), // Función llamada al hacer clic en un evento
+    height: &#x27;auto&#x27;, // Altura del calendario
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/pages/calendario-eventos/calendario-eventos.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Configuración inicial del calendario</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="eventosRecomendados"></a>
+                    <span class="name">
+                        <span ><b>eventosRecomendados</b></span>
+                        <a href="#eventosRecomendados"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Evento.html" target="_self" >Evento[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/calendario-eventos/calendario-eventos.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Lista de eventos recomendados que se mostrarán en tarjetas</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FullCalendarModule } from &#x27;@fullcalendar/angular&#x27;;
+import dayGridPlugin from &#x27;@fullcalendar/daygrid&#x27;;
+import { RouterModule, Router } from &#x27;@angular/router&#x27;;
+import { EventService, Evento } from &#x27;../../services/event.service&#x27;;
+import esLocale from &#x27;@fullcalendar/core/locales/es&#x27;;
+
+/**
+ * Componente que muestra un calendario con los eventos programados.
+ * El calendario permite visualizar eventos por mes y navegar a la vista detallada de un evento al hacer clic en él.
+ * 
+ * @component
+ * @example
+ * &lt;app-calendario-eventos&gt;&lt;/app-calendario-eventos&gt;
+ */
+@Component({
+  standalone: true,
+  selector: &#x27;app-calendario-eventos&#x27;,
+  imports: [CommonModule, RouterModule, FullCalendarModule],
+  templateUrl: &#x27;./calendario-eventos.component.html&#x27;,
+  styleUrls: [&#x27;./calendario-eventos.component.css&#x27;]
+})
+export class CalendarioEventosComponent implements OnInit {
+
+  /** Configuración inicial del calendario */
+  calendarOptions: any &#x3D; {
+    plugins: [dayGridPlugin], // Plugin para vista de mes
+    initialView: &#x27;dayGridMonth&#x27;, // Vista inicial (mes)
+    locale: esLocale,  // Idioma del calendario
+    events: [],  // Lista de eventos para mostrar en el calendario
+    eventClick: this.onEventClick.bind(this), // Función llamada al hacer clic en un evento
+    height: &#x27;auto&#x27;, // Altura del calendario
+  };
+
+  /** Lista de eventos recomendados que se mostrarán en tarjetas */
+  eventosRecomendados: Evento[] &#x3D; [];
+
+  /**
+   * Constructor para inicializar el servicio de eventos y el enrutador.
+   * 
+   * @param eventService - Servicio para manejar las operaciones de eventos
+   * @param router - Enrutador para navegar entre las vistas
+   */
+  constructor(
+    private eventService: EventService,
+    private router: Router
+  ) {}
+
+  /**
+   * Método que se ejecuta al inicializar el componente. Carga los eventos desde el servicio.
+   */
+  ngOnInit(): void {
+    this.cargarEventos();
+  }
+
+  /**
+   * Carga los eventos desde el servicio y los asigna al calendario y a la lista de eventos recomendados.
+   */
+  cargarEventos(): void {
+    this.eventService.getTodos().subscribe((eventos: Evento[]) &#x3D;&gt; {
+      // 🔹 Cargar eventos en el calendario
+      this.calendarOptions.events &#x3D; eventos.map(evento &#x3D;&gt; ({
+        title: evento.titulo, // Título del evento
+        start: evento.fecha,  // Fecha de inicio (formato ISO)
+        url: &#x60;/evento/${evento.id}&#x60;,  // Enlace a la página del evento
+        color: evento.destacado ? &#x27;#e67b11&#x27; : &#x27;#3B8024&#x27;  // Color según si es destacado
+      }));
+
+      // 🔹 Cargar 3 eventos aleatorios para las tarjetas
+      this.eventosRecomendados &#x3D; eventos
+        .filter(e &#x3D;&gt; !!e.imagenUrl)  // Filtrar eventos con imagen
+        .sort(() &#x3D;&gt; 0.5 - Math.random())  // Aleatorizar el orden
+        .slice(0, 3);  // Tomar los primeros 3
+    });
+  }
+
+  /**
+   * Redirige al usuario a la página del evento al hacer clic sobre él.
+   * 
+   * @param arg - Argumento con los detalles del evento clicado
+   */
+  onEventClick(arg: any): void {
+    if (arg.event.url) {
+      arg.jsEvent.preventDefault();
+      this.router.navigateByUrl(arg.event.url);  // Redirigir al evento
+    }
+  }
+
+  /**
+   * Obtiene la URL de la imagen del evento.
+   * 
+   * @param imagenUrl - URL de la imagen del evento
+   * @returns La URL completa de la imagen
+   */
+  getImagenUrl(imagenUrl: string): string {
+    if (!imagenUrl || imagenUrl.trim() &#x3D;&#x3D;&#x3D; &#x27;&#x27;) {
+      return &#x27;assets/images/eventos/default.jpg&#x27;;  // Imagen por defecto si no tiene imagen
+    }
+
+    if (imagenUrl.startsWith(&#x27;http&#x27;) || imagenUrl.startsWith(&#x27;assets/&#x27;)) {
+      return imagenUrl;  // Si la URL es completa o relativa a assets, la retorna tal cual
+    }
+
+    if (imagenUrl.startsWith(&#x27;uploads/&#x27;) || imagenUrl.startsWith(&#x27;/uploads/&#x27;)) {
+      return &#x27;https://backmp-production.up.railway.app/&#x27; + imagenUrl.replace(/^\/?/, &#x27;&#x27;);  // Ruta base para imágenes subidas
+    }
+
+    return &#x27;assets/images/eventos/&#x27; + imagenUrl;  // Ruta relativa para imágenes
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;container-fluid mt-4&quot;&gt;
+  &lt;div class&#x3D;&quot;row&quot;&gt;
+
+    &lt;!-- 🔙 Migas de pan --&gt;
+    &lt;nav aria-label&#x3D;&quot;breadcrumb&quot; class&#x3D;&quot;breadcrumb-container w-100&quot;&gt;
+      &lt;ol class&#x3D;&quot;breadcrumb&quot;&gt;
+        &lt;li class&#x3D;&quot;breadcrumb-item&quot;&gt;&lt;a routerLink&#x3D;&quot;/&quot;&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+        &lt;li class&#x3D;&quot;breadcrumb-item&quot;&gt;&lt;a routerLink&#x3D;&quot;/eventos&quot;&gt;Eventos&lt;/a&gt;&lt;/li&gt;
+        &lt;li class&#x3D;&quot;breadcrumb-item active&quot; aria-current&#x3D;&quot;page&quot;&gt;Calendario&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/nav&gt;
+
+    &lt;!-- 📌 Menú lateral izquierdo --&gt;
+    &lt;aside class&#x3D;&quot;col-12 col-md-3 sidebar-left&quot;&gt;
+      &lt;h3&gt;Te recomendamos&lt;/h3&gt;
+
+      &lt;div *ngFor&#x3D;&quot;let evento of eventosRecomendados&quot; class&#x3D;&quot;card card-recomendada mb-3&quot;&gt;
+        &lt;img
+          [src]&#x3D;&quot;getImagenUrl(evento.imagenUrl)&quot;
+          alt&#x3D;&quot;{{ evento.titulo }}&quot;
+          class&#x3D;&quot;card-img-top&quot;
+          *ngIf&#x3D;&quot;evento.imagenUrl&quot;
+        /&gt;
+        &lt;div class&#x3D;&quot;card-body&quot;&gt;
+          &lt;h5 class&#x3D;&quot;card-title&quot;&gt;{{ evento.titulo }}&lt;/h5&gt;
+          &lt;p class&#x3D;&quot;card-text&quot;&gt;
+            {{ evento.descripcion ? (evento.descripcion | slice: 0: 90) + &#x27;...&#x27; : &#x27;Evento recomendado&#x27; }}
+          &lt;/p&gt;
+          &lt;a [routerLink]&#x3D;&quot;[&#x27;/evento&#x27;, evento.id]&quot; class&#x3D;&quot;btn btn-verde w-100&quot;&gt;Ver más&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/aside&gt;
+
+    &lt;!-- 📌 Zona principal (cabecera + calendario) --&gt;
+    &lt;div class&#x3D;&quot;col-12 col-md-9&quot;&gt;
+
+      &lt;!-- 📸 CABECERA ESTILO EVENTOS --&gt;
+      &lt;div class&#x3D;&quot;banner-wrapper&quot;&gt;
+        &lt;div class&#x3D;&quot;category-banner mb-4&quot;&gt;
+          &lt;img [src]&#x3D;&quot;getImagenUrl(&#x27;miscelanea.png&#x27;)&quot; alt&#x3D;&quot;Banner Agenda&quot; class&#x3D;&quot;banner-image&quot; /&gt;
+          &lt;div class&#x3D;&quot;banner-text&quot;&gt;Agenda&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- 🗓️ Calendario --&gt;
+      &lt;div class&#x3D;&quot;contenedor-calendario&quot;&gt;
+        &lt;h2 class&#x3D;&quot;titulo-calendario text-center mb-4&quot;&gt;🗓️ Calendario de eventos&lt;/h2&gt;
+        &lt;full-calendar [options]&#x3D;&quot;calendarOptions&quot;&gt;&lt;/full-calendar&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./calendario-eventos.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">:root {
+  --primary-green: #3B8024;
+  --secondary-green: #6ea97e;
+  --verde-profundo: #065f43;
+  --naranja-intenso: #e67b11;
+}
+
+/* 📅 CONTENEDOR CALENDARIO */
+.contenedor-calendario {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  border: 6px solid var(--primary-green);
+  border-radius: 16px;
+  background-color: white;
+}
+
+/* 📌 TÍTULO CALENDARIO */
+.titulo-calendario {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--verde-profundo);
+  text-align: center;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-color: var(--naranja-intenso);
+  font-family: &#x27;Lato&#x27;, sans-serif;
+}
+
+/* 🎨 CALENDARIO INTERNO */
+::ng-deep .fc {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 10px;
+  font-family: &#x27;Lato&#x27;, sans-serif;
+  color: var(--verde-profundo);
+  border: 2px solid var(--primary-green);
+}
+
+::ng-deep .fc-scrollgrid {
+  border-color: var(--primary-green);
+}
+
+::ng-deep .fc td, 
+::ng-deep .fc th {
+  border: 1px solid var(--secondary-green) !important;
+}
+
+/* 🔝 CABECERA CALENDARIO */
+::ng-deep .fc-toolbar-title {
+  text-transform: uppercase; /* ✅ MAYÚSCULAS */
+  font-weight: bold;         /* ✅ NEGRITA */
+  color: var(--verde-profundo);            /* ✅ MÁS OSCURO */
+  font-size: 1.6rem;         /* (opcional) más grande */
+  font-family: &#x27;Lato&#x27;, sans-serif;
+}
+
+::ng-deep .fc-button-primary {
+  background-color: var(--primary-green);
+  border: none;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+::ng-deep .fc-button-primary:hover {
+  background-color: var(--verde-profundo);
+  transform: scale(1.03);
+}
+
+/* 📆 EVENTOS */
+::ng-deep .fc-event {
+  background-color: var(--naranja-intenso) !important;
+  border: 2px solid var(--primary-green) !important;
+  border-radius: 8px !important;
+  font-size: 0.85rem;
+  font-weight: bold;
+  padding: 4px 6px;
+  color: white !important;
+}
+
+::ng-deep .fc-event:hover {
+  filter: brightness(1.1);
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 768px) {
+  .titulo-calendario {
+    font-size: 1.3rem;
+  }
+
+  ::ng-deep .fc-toolbar-title {
+    font-size: 1.2rem;
+  }
+
+  ::ng-deep .fc-button-primary {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+  }
+}
+
+/* 📸 CABECERA DINÁMICA */
+.category-banner {
+  position: relative;
+  width: 100%;
+  height: 140px; /* ✔️ Ajusta la altura aquí */
+  overflow: hidden;
+  border-radius: 10px;
+  border: 6px solid var(--primary-green); /* o secondary-green si prefieres */
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.banner-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+  z-index: 2;
+}
+
+/* 🔹 Migas de Pan */
+.breadcrumb-container {
+  padding: 10px 15px !important;
+  border-radius: 8px !important;
+  margin-bottom: 20px !important;
+}
+
+.breadcrumb {
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+.breadcrumb-item a {
+  text-decoration: none !important;
+  color: var(--primary-green) !important;
+  font-weight: 600 !important;
+  transition: color 0.3s ease !important;
+}
+
+.breadcrumb-item a:hover {
+  color: var(--naranja-intenso) !important;
+  text-decoration: underline !important;
+}
+
+.breadcrumb-item.active {
+  color: var(--verde-profundo) !important;
+  font-weight: bold !important;
+}
+
+/* 🎯 TARJETAS EVENTOS RECOMENDADOS */
+.card-recomendada {
+  background-color: whitesmoke;
+  border: 3px solid var(--primary-green);
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease-in-out;
+  font-family: &#x27;Lato&#x27;, sans-serif;
+}
+
+.card-recomendada:hover {
+  transform: scale(1.02);
+}
+
+.card-recomendada img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 2px solid var(--naranja-intenso);
+}
+
+.card-recomendada .card-body {
+  padding: 15px;
+}
+
+.card-recomendada .card-title {
+  font-size: 1.1rem;
+  color: var(--verde-profundo);
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.card-recomendada .card-text {
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+/* 🎨 BOTÓN VER MÁS */
+.card-recomendada .btn {
+  background-color: var(--verde-profundo) !important;
+  color: white !important;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.card-recomendada .btn:hover {
+  background-color: var(--primary-green) !important;
+  color: white !important;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="container-fluid mt-4">  <div class="row">    <!-- 🔙 Migas de pan -->    <nav aria-label="breadcrumb" class="breadcrumb-container w-100">      <ol class="breadcrumb">        <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>        <li class="breadcrumb-item"><a routerLink="/eventos">Eventos</a></li>        <li class="breadcrumb-item active" aria-current="page">Calendario</li>      </ol>    </nav>    <!-- 📌 Menú lateral izquierdo -->    <aside class="col-12 col-md-3 sidebar-left">      <h3>Te recomendamos</h3>      <div *ngFor="let evento of eventosRecomendados" class="card card-recomendada mb-3">        <img          [src]="getImagenUrl(evento.imagenUrl)"          alt="{{ evento.titulo }}"          class="card-img-top"          *ngIf="evento.imagenUrl"        />        <div class="card-body">          <h5 class="card-title">{{ evento.titulo }}</h5>          <p class="card-text">            {{ evento.descripcion ? (evento.descripcion | slice: 0: 90) + \'...\' : \'Evento recomendado\' }}          </p>          <a [routerLink]="[\'/evento\', evento.id]" class="btn btn-verde w-100">Ver más</a>        </div>      </div>    </aside>    <!-- 📌 Zona principal (cabecera + calendario) -->    <div class="col-12 col-md-9">      <!-- 📸 CABECERA ESTILO EVENTOS -->      <div class="banner-wrapper">        <div class="category-banner mb-4">          <img [src]="getImagenUrl(\'miscelanea.png\')" alt="Banner Agenda" class="banner-image" />          <div class="banner-text">Agenda</div>        </div>      </div>      <!-- 🗓️ Calendario -->      <div class="contenedor-calendario">        <h2 class="titulo-calendario text-center mb-4">🗓️ Calendario de eventos</h2>        <full-calendar [options]="calendarOptions"></full-calendar>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BannerComponent', 'selector': 'app-banner'},{'name': 'BannerportadaComponent', 'selector': 'app-bannerportada'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogLayoutComponent', 'selector': 'app-blog-layout'},{'name': 'CalendarioEventosComponent', 'selector': 'app-calendario-eventos'},{'name': 'CategoryForoComponent', 'selector': 'app-category-foro'},{'name': 'CategoryPageComponent', 'selector': 'app-category-page'},{'name': 'ChatbotComponent', 'selector': 'app-chatbot'},{'name': 'CircleGridComponent', 'selector': 'app-circle-grid'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'ConsejosComponent', 'selector': 'app-consejos'},{'name': 'CrearEventoComponent', 'selector': 'app-crear-evento'},{'name': 'CrearPostComponent', 'selector': 'app-crear-post'},{'name': 'DetalleEventoComponent', 'selector': 'app-detalle-evento'},{'name': 'DogBreedsComponent', 'selector': 'app-dog-breeds'},{'name': 'DogListComponent', 'selector': 'app-dog-list'},{'name': 'EventosComponent', 'selector': 'app-eventos'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ForumGridComponent', 'selector': 'app-forum-grid'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'LandingPageComponent', 'selector': 'app-landing-page'},{'name': 'LifeComponent', 'selector': 'app-life'},{'name': 'LocalizacionComponent', 'selector': 'app-localizacion'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NewsComponent', 'selector': 'app-news'},{'name': 'PerfilComponent', 'selector': 'app-perfil'},{'name': 'PostDetailComponent', 'selector': 'app-post-detail'},{'name': 'ProductListComponent', 'selector': 'app-product-list'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegistroComponent', 'selector': 'app-registro'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'CalendarioEventosComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CalendarioEventosComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

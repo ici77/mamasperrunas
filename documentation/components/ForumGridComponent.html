@@ -120,7 +120,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>src/app/pages/foro/forum-grid/forum-grid.component.ts</code>
+    <code>src/app/components/forum-grid/forum-grid.component.ts</code>
 </p>
 
 
@@ -129,7 +129,7 @@
     </p>
     <p class="comment">
         <p>📌 <code>ForumGridComponent</code></p>
-<p>Este componente muestra una cuadrícula con las diferentes categorías del foro.
+<p>Este componente muestra una cuadrícula con las diferentes categorías del foro y también se integra con el navbar.
 Cada categoría tiene un nombre, una breve descripción y un contador de mensajes.</p>
 <p>ℹ️ <strong>Uso:</strong> Se muestra en la sección de foro para permitir a los usuarios navegar por las categorías.</p>
 
@@ -144,6 +144,10 @@ Cada categoría tiene un nombre, una breve descripción y un contador de mensaje
         <tbody>
 
 
+            <tr>
+                <td class="col-md-3">encapsulation</td>
+                <td class="col-md-9"><code>ViewEncapsulation.None</code></td>
+            </tr>
 
 
 
@@ -168,6 +172,7 @@ Cada categoría tiene un nombre, una breve descripción y un contador de mensaje
                 <td class="col-md-3">imports</td>
                 <td class="col-md-9">
                             <code>CommonModule</code>
+                            <code>RouterModule</code>
                 </td>
             </tr>
 
@@ -253,33 +258,30 @@ Cada categoría tiene un nombre, una breve descripción y un contador de mensaje
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>[
-    { name: &#x27;Salud Canina&#x27;, description: &#x27;Consejos sobre salud y cuidado veterinario.&#x27;, messageCount: 10 },
-    { name: &#x27;Alimentación&#x27;, description: &#x27;Discute sobre dietas y nutrición canina.&#x27;, messageCount: 5 },
-    { name: &#x27;Entrenamiento&#x27;, description: &#x27;Técnicas y consejos para entrenar a tu perro.&#x27;, messageCount: 8 },
-    { name: &#x27;Adopciones&#x27;, description: &#x27;Publica y busca adopciones de perros.&#x27;, messageCount: 12 },
-    { name: &#x27;Eventos&#x27;, description: &#x27;Organiza y participa en eventos.&#x27;, messageCount: 3 },
-    { name: &#x27;Razas&#x27;, description: &#x27;Información y curiosidades sobre razas.&#x27;, messageCount: 7 },
-    { name: &#x27;Cuidados Especiales&#x27;, description: &#x27;Atención a perros con necesidades especiales.&#x27;, messageCount: 4 },
-    { name: &#x27;Productos&#x27;, description: &#x27;Recomendaciones de productos para perros.&#x27;, messageCount: 6 },
-    { name: &#x27;Historias&#x27;, description: &#x27;Comparte historias y experiencias.&#x27;, messageCount: 9 }
+    { name: &#x27;Salud Canina&#x27;, description: &#x27;Consejos sobre salud y cuidado veterinario.&#x27;, messageCount: 10, route: &#x27;salud-canina&#x27; },
+    { name: &#x27;Alimentación&#x27;, description: &#x27;Discute sobre dietas y nutrición canina.&#x27;, messageCount: 5, route: &#x27;alimentacion&#x27; },
+    { name: &#x27;Entrenamiento&#x27;, description: &#x27;Técnicas y consejos para entrenar a tu perro.&#x27;, messageCount: 8, route: &#x27;entrenamiento&#x27; },
+    { name: &#x27;Adopciones&#x27;, description: &#x27;Publica y busca adopciones de perros.&#x27;, messageCount: 12, route: &#x27;adopciones&#x27; },
+    { name: &#x27;Eventos&#x27;, description: &#x27;Organiza y participa en eventos.&#x27;, messageCount: 3, route: &#x27;eventos&#x27; },
+    { name: &#x27;Razas&#x27;, description: &#x27;Información y curiosidades sobre razas.&#x27;, messageCount: 7, route: &#x27;razas&#x27; },
+    { name: &#x27;Cuidados Especiales&#x27;, description: &#x27;Atención a perros con necesidades especiales.&#x27;, messageCount: 4, route: &#x27;cuidados-especiales&#x27; },
+    { name: &#x27;Productos&#x27;, description: &#x27;Recomendaciones de productos para perros.&#x27;, messageCount: 6, route: &#x27;productos&#x27; },
+    { name: &#x27;Historias&#x27;, description: &#x27;Comparte historias y experiencias.&#x27;, messageCount: 9, route: &#x27;historias&#x27; },
+    { name: &#x27;Viajes&#x27;, description: &#x27;Ideas para viajes con nuestros peludos&#x27;, messageCount: 4, route: &#x27;viajes&#x27; },
+    { name: &#x27;Lugares&#x27;, description: &#x27;Nuestros lugares favoritos&#x27;, messageCount: 6, route: &#x27;lugares&#x27; },
+    { name: &#x27;Fotos&#x27;, description: &#x27;Presentando a nuestros perrhijos&#x27;, messageCount: 9, route: &#x27;fotos&#x27; }
   ]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/pages/foro/forum-grid/forum-grid.component.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/components/forum-grid/forum-grid.component.ts:31</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
                     <div class="io-description"><p>📌 Lista de categorías del foro.</p>
-<p>Cada categoría contiene:</p>
-<ul>
-<li><code>name</code> (<strong>string</strong>): Nombre de la categoría.</li>
-<li><code>description</code> (<strong>string</strong>): Breve descripción sobre el tema de discusión.</li>
-<li><code>messageCount</code> (<strong>number</strong>): Cantidad de mensajes en la categoría.</li>
-</ul>
 </div>
                 </td>
             </tr>
@@ -292,13 +294,17 @@ Cada categoría tiene un nombre, una breve descripción y un contador de mensaje
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
-import { CommonModule } from &#x27;@angular/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { RouterModule } from &#x27;@angular/router&#x27;;
+import { Component, ViewEncapsulation } from &#x27;@angular/core&#x27;;
+
+
+
 
 /**
  * 📌 &#x60;ForumGridComponent&#x60;
  *
- * Este componente muestra una cuadrícula con las diferentes categorías del foro.
+ * Este componente muestra una cuadrícula con las diferentes categorías del foro y también se integra con el navbar.
  * Cada categoría tiene un nombre, una breve descripción y un contador de mensajes.
  *
  * ℹ️ **Uso:** Se muestra en la sección de foro para permitir a los usuarios navegar por las categorías.
@@ -306,29 +312,30 @@ import { CommonModule } from &#x27;@angular/common&#x27;;
 @Component({
   selector: &#x27;app-forum-grid&#x27;,
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: &#x27;./forum-grid.component.html&#x27;,
-  styleUrls: [&#x27;./forum-grid.component.css&#x27;]
+  styleUrls: [&#x27;./forum-grid.component.css&#x27;], // Asegurar que este archivo está correctamente vinculado
+  encapsulation: ViewEncapsulation.None // 🔹 Esto permitirá que los estilos se apliquen globalmente
 })
+
 export class ForumGridComponent {
+
   /**
    * 📌 Lista de categorías del foro.
-   *
-   * Cada categoría contiene:
-   * - &#x60;name&#x60; (**string**): Nombre de la categoría.
-   * - &#x60;description&#x60; (**string**): Breve descripción sobre el tema de discusión.
-   * - &#x60;messageCount&#x60; (**number**): Cantidad de mensajes en la categoría.
    */
   categories &#x3D; [
-    { name: &#x27;Salud Canina&#x27;, description: &#x27;Consejos sobre salud y cuidado veterinario.&#x27;, messageCount: 10 },
-    { name: &#x27;Alimentación&#x27;, description: &#x27;Discute sobre dietas y nutrición canina.&#x27;, messageCount: 5 },
-    { name: &#x27;Entrenamiento&#x27;, description: &#x27;Técnicas y consejos para entrenar a tu perro.&#x27;, messageCount: 8 },
-    { name: &#x27;Adopciones&#x27;, description: &#x27;Publica y busca adopciones de perros.&#x27;, messageCount: 12 },
-    { name: &#x27;Eventos&#x27;, description: &#x27;Organiza y participa en eventos.&#x27;, messageCount: 3 },
-    { name: &#x27;Razas&#x27;, description: &#x27;Información y curiosidades sobre razas.&#x27;, messageCount: 7 },
-    { name: &#x27;Cuidados Especiales&#x27;, description: &#x27;Atención a perros con necesidades especiales.&#x27;, messageCount: 4 },
-    { name: &#x27;Productos&#x27;, description: &#x27;Recomendaciones de productos para perros.&#x27;, messageCount: 6 },
-    { name: &#x27;Historias&#x27;, description: &#x27;Comparte historias y experiencias.&#x27;, messageCount: 9 }
+    { name: &#x27;Salud Canina&#x27;, description: &#x27;Consejos sobre salud y cuidado veterinario.&#x27;, messageCount: 10, route: &#x27;salud-canina&#x27; },
+    { name: &#x27;Alimentación&#x27;, description: &#x27;Discute sobre dietas y nutrición canina.&#x27;, messageCount: 5, route: &#x27;alimentacion&#x27; },
+    { name: &#x27;Entrenamiento&#x27;, description: &#x27;Técnicas y consejos para entrenar a tu perro.&#x27;, messageCount: 8, route: &#x27;entrenamiento&#x27; },
+    { name: &#x27;Adopciones&#x27;, description: &#x27;Publica y busca adopciones de perros.&#x27;, messageCount: 12, route: &#x27;adopciones&#x27; },
+    { name: &#x27;Eventos&#x27;, description: &#x27;Organiza y participa en eventos.&#x27;, messageCount: 3, route: &#x27;eventos&#x27; },
+    { name: &#x27;Razas&#x27;, description: &#x27;Información y curiosidades sobre razas.&#x27;, messageCount: 7, route: &#x27;razas&#x27; },
+    { name: &#x27;Cuidados Especiales&#x27;, description: &#x27;Atención a perros con necesidades especiales.&#x27;, messageCount: 4, route: &#x27;cuidados-especiales&#x27; },
+    { name: &#x27;Productos&#x27;, description: &#x27;Recomendaciones de productos para perros.&#x27;, messageCount: 6, route: &#x27;productos&#x27; },
+    { name: &#x27;Historias&#x27;, description: &#x27;Comparte historias y experiencias.&#x27;, messageCount: 9, route: &#x27;historias&#x27; },
+    { name: &#x27;Viajes&#x27;, description: &#x27;Ideas para viajes con nuestros peludos&#x27;, messageCount: 4, route: &#x27;viajes&#x27; },
+    { name: &#x27;Lugares&#x27;, description: &#x27;Nuestros lugares favoritos&#x27;, messageCount: 6, route: &#x27;lugares&#x27; },
+    { name: &#x27;Fotos&#x27;, description: &#x27;Presentando a nuestros perrhijos&#x27;, messageCount: 9, route: &#x27;fotos&#x27; }
   ];
 }
 </code></pre>
@@ -340,14 +347,16 @@ export class ForumGridComponent {
   &lt;h1 class&#x3D;&quot;banner-title&quot;&gt;Bienvenidos al Foro de Mamás Perrunas&lt;/h1&gt;
 &lt;/div&gt;
 
-
 &lt;div class&#x3D;&quot;forum-grid&quot;&gt;
-    &lt;div *ngFor&#x3D;&quot;let category of categories&quot; class&#x3D;&quot;grid-item&quot;&gt;
+  &lt;div *ngFor&#x3D;&quot;let category of categories&quot; class&#x3D;&quot;grid-item&quot;&gt;
+    &lt;a [routerLink]&#x3D;&quot;[&#x27;/foro&#x27;, category.route]&quot; class&#x3D;&quot;category-card&quot;&gt;
       &lt;h3&gt;{{ category.name }}&lt;/h3&gt;
       &lt;p&gt;{{ category.description }}&lt;/p&gt;
-      &lt;span&gt;{{ category.messageCount }} mensajes&lt;/span&gt;
-    &lt;/div&gt;
+      &lt;small&gt;&lt;strong&gt;{{ category.messageCount }}&lt;/strong&gt; mensajes&lt;/small&gt;
+    &lt;/a&gt;
   &lt;/div&gt;
+&lt;/div&gt;
+
   </code></pre>
     </div>
 
@@ -387,27 +396,45 @@ export class ForumGridComponent {
 }
 
 .forum-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .grid-item {
-    background-color: #efd0b8; /* Naranja suave */
-    color: black; /* Letra negra */
-    border: 8px solid #f47b22; /* Borde naranja fuerte */
-    border-radius: 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .grid-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-  }
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  gap: 20px !important;
+  padding: 20px !important;
+}
+/* Cambiar el color de los enlaces dentro de las tarjetas del foro */
+.forum-grid a {
+  color: black !important; /* Asegura que el texto de los enlaces sea negro */
+  text-decoration: none !important; /* Elimina el subrayado de los enlaces */
+}
+
+/* Cambiar el color de los títulos de las categorías */
+.grid-item h3 {
+  color: black !important;
+}
+
+/* Cambiar el color de las descripciones y conteo de mensajes */
+.grid-item p,
+.grid-item small {
+  color: black !important;
+}
+
+
+.grid-item {
+  background-color: #efd0b8 !important;
+  color: black !important;
+  border: 8px solid #f47b22 !important;
+  border-radius: 30px !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  padding: 20px !important;
+  text-align: center !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.grid-item:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
   
  
   
@@ -455,8 +482,8 @@ export class ForumGridComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="banner-container">  <img src="assets/images/landing/foro.jpg" alt="Mamás Perrunas Blog" class="banner-image" />  <h1 class="banner-title">Bienvenidos al Foro de Mamás Perrunas</h1></div><div class="forum-grid">    <div *ngFor="let category of categories" class="grid-item">      <h3>{{ category.name }}</h3>      <p>{{ category.description }}</p>      <span>{{ category.messageCount }} mensajes</span>    </div>  </div>  </div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BannerComponent', 'selector': 'app-banner'},{'name': 'BannerportadaComponent', 'selector': 'app-bannerportada'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'CategoryPageComponent', 'selector': 'app-category-page'},{'name': 'CircleGridComponent', 'selector': 'app-circle-grid'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ForumGridComponent', 'selector': 'app-forum-grid'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'LandingPageComponent', 'selector': 'app-landing-page'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'ProductListComponent', 'selector': 'app-product-list'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegistroComponent', 'selector': 'app-registro'}];
+        var COMPONENT_TEMPLATE = '<div><div class="banner-container">  <img src="assets/images/landing/foro.jpg" alt="Mamás Perrunas Blog" class="banner-image" />  <h1 class="banner-title">Bienvenidos al Foro de Mamás Perrunas</h1></div><div class="forum-grid">  <div *ngFor="let category of categories" class="grid-item">    <a [routerLink]="[\'/foro\', category.route]" class="category-card">      <h3>{{ category.name }}</h3>      <p>{{ category.description }}</p>      <small><strong>{{ category.messageCount }}</strong> mensajes</small>    </a>  </div></div>  </div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BannerComponent', 'selector': 'app-banner'},{'name': 'BannerportadaComponent', 'selector': 'app-bannerportada'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogLayoutComponent', 'selector': 'app-blog-layout'},{'name': 'CalendarioEventosComponent', 'selector': 'app-calendario-eventos'},{'name': 'CategoryForoComponent', 'selector': 'app-category-foro'},{'name': 'CategoryPageComponent', 'selector': 'app-category-page'},{'name': 'ChatbotComponent', 'selector': 'app-chatbot'},{'name': 'CircleGridComponent', 'selector': 'app-circle-grid'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'ConsejosComponent', 'selector': 'app-consejos'},{'name': 'CrearEventoComponent', 'selector': 'app-crear-evento'},{'name': 'CrearPostComponent', 'selector': 'app-crear-post'},{'name': 'DetalleEventoComponent', 'selector': 'app-detalle-evento'},{'name': 'DogBreedsComponent', 'selector': 'app-dog-breeds'},{'name': 'DogListComponent', 'selector': 'app-dog-list'},{'name': 'EventosComponent', 'selector': 'app-eventos'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ForumGridComponent', 'selector': 'app-forum-grid'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'LandingPageComponent', 'selector': 'app-landing-page'},{'name': 'LifeComponent', 'selector': 'app-life'},{'name': 'LocalizacionComponent', 'selector': 'app-localizacion'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NewsComponent', 'selector': 'app-news'},{'name': 'PerfilComponent', 'selector': 'app-perfil'},{'name': 'PostDetailComponent', 'selector': 'app-post-detail'},{'name': 'ProductListComponent', 'selector': 'app-product-list'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegistroComponent', 'selector': 'app-registro'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'ForumGridComponent'};
 </script>

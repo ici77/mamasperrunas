@@ -129,10 +129,9 @@
     </p>
     <p class="comment">
         <p>📌 Componente <code>LoginComponent</code></p>
-<p>Este componente gestiona el formulario de inicio de sesión de los usuarios.
-Se encarga de validar los datos ingresados, realizar la autenticación con el backend
-y almacenar el token JWT en el navegador.</p>
-<p>ℹ️ <strong>Uso:</strong> Se utiliza en la página de inicio de sesión dentro de la aplicación.</p>
+<p>Este componente gestiona el formulario de inicio de sesión de la plataforma Mamás Perrunas.
+Realiza validaciones en los campos email y contraseña, y envía los datos al backend utilizando el servicio <code>AuthService</code>.
+En caso de éxito, redirige al usuario a la página principal.</p>
 
     </p>
 
@@ -231,6 +230,10 @@ y almacenar el token JWT en el navegador.</p>
                                 <a href="#getErrorMessage" >getErrorMessage</a>
                             </li>
                             <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#mostrarErroresFormulario" >mostrarErroresFormulario</a>
+                            </li>
+                            <li>
                                 <a href="#onSubmit" >onSubmit</a>
                             </li>
                         </ul>
@@ -251,18 +254,18 @@ y almacenar el token JWT en el navegador.</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(fb: FormBuilder, http: HttpClient, router: Router)</code>
+<code>constructor(fb: FormBuilder, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, router: Router, viewportScroller: ViewportScroller)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/components/login/login.component.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/components/login/login.component.ts:33</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
-                            <div class="io-description"><p>Constructor del componente.</p>
+                            <div class="io-description"><p>Constructor que inyecta servicios necesarios y configura el formulario.</p>
 </div>
                             <div>
                                     <b>Parameters :</b>
@@ -288,17 +291,15 @@ y almacenar el token JWT en el navegador.</p>
                                                     </td>
                                                     
                                                         <td>
-                                                                <ul>
-<li>Servicio <code>FormBuilder</code> para crear el formulario reactivo.</li>
-</ul>
+                                                                <p>Constructor de formularios</p>
 
                                                         </td>
                                                 </tr>
                                                 <tr>
-                                                        <td>http</td>
+                                                        <td>authService</td>
                                                   
                                                         <td>
-                                                                    <code>HttpClient</code>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -306,9 +307,7 @@ y almacenar el token JWT en el navegador.</p>
                                                     </td>
                                                     
                                                         <td>
-                                                                <ul>
-<li>Servicio <code>HttpClient</code> para realizar la petición de autenticación.</li>
-</ul>
+                                                                <p>Servicio de autenticación</p>
 
                                                         </td>
                                                 </tr>
@@ -324,9 +323,23 @@ y almacenar el token JWT en el navegador.</p>
                                                     </td>
                                                     
                                                         <td>
-                                                                <ul>
-<li>Servicio <code>Router</code> para redirigir al usuario tras el inicio de sesión.</li>
-</ul>
+                                                                <p>Enrutador de Angular para redirigir tras el login</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>viewportScroller</td>
+                                                  
+                                                        <td>
+                                                                    <code>ViewportScroller</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>Utilidad para hacer scroll al inicio tras iniciar sesión</p>
 
                                                         </td>
                                                 </tr>
@@ -368,15 +381,15 @@ y almacenar el token JWT en el navegador.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="79"
-                                    class="link-to-prism">src/app/components/login/login.component.ts:79</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="94"
+                                    class="link-to-prism">src/app/components/login/login.component.ts:94</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>📌 Método para obtener mensajes de error en los campos del formulario.</p>
+                        <div class="io-description"><p>Devuelve el mensaje de error correspondiente a un campo específico del formulario.</p>
 </div>
 
                             <div class="io-description">
@@ -404,9 +417,7 @@ y almacenar el token JWT en el navegador.</p>
 
 
                                             <td>
-                                                    <ul>
-<li>Nombre del campo del formulario (email o password).</li>
-</ul>
+                                                    <p>Nombre del campo del formulario (email o password).</p>
 
                                             </td>
                                         </tr>
@@ -418,9 +429,50 @@ y almacenar el token JWT en el navegador.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>Mensaje de error correspondiente según la validación que haya fallado.</p>
+                                <p>Mensaje de error correspondiente si existe.</p>
 
                             </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mostrarErroresFormulario"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>mostrarErroresFormulario</b></span>
+                        <a href="#mostrarErroresFormulario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>mostrarErroresFormulario()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="83"
+                                    class="link-to-prism">src/app/components/login/login.component.ts:83</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Recorre los campos del formulario y los marca como tocados para mostrar errores de validación.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
                 </td>
             </tr>
         </tbody>
@@ -445,21 +497,17 @@ y almacenar el token JWT en el navegador.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="58"
-                                    class="link-to-prism">src/app/components/login/login.component.ts:58</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="59"
+                                    class="link-to-prism">src/app/components/login/login.component.ts:59</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>📌 Método que se ejecuta al enviar el formulario.</p>
-<ul>
-<li>Verifica que el formulario sea válido.</li>
-<li>Envía los datos al backend para autenticar al usuario.</li>
-<li>Si el inicio de sesión es exitoso, almacena el token JWT y redirige al perfil del usuario.</li>
-<li>Si hay un error, muestra un mensaje indicando que las credenciales son inválidas.</li>
-</ul>
+                        <div class="io-description"><p>Envía los datos del formulario al backend a través de <code>AuthService</code>.
+Si el login es exitoso, redirige a la página principal.
+Si falla, muestra un mensaje de error.</p>
 </div>
 
                         <div class="io-description">
@@ -495,14 +543,13 @@ y almacenar el token JWT en el navegador.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/components/login/login.component.ts:30</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/components/login/login.component.ts:28</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>📌 Formulario de inicio de sesión.
-Contiene los campos de email y contraseña con sus respectivas validaciones.</p>
+                    <div class="io-description"><p>Formulario reactivo que contiene los campos de email y contraseña.</p>
 </div>
                 </td>
             </tr>
@@ -533,13 +580,13 @@ Contiene los campos de email y contraseña con sus respectivas validaciones.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/components/login/login.component.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/components/login/login.component.ts:33</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>📌 Mensaje de error en caso de que las credenciales sean incorrectas.</p>
+                    <div class="io-description"><p>Mensaje de error mostrado si las credenciales son incorrectas.</p>
 </div>
                 </td>
             </tr>
@@ -554,20 +601,18 @@ Contiene los campos de email y contraseña con sus respectivas validaciones.</p>
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
 import { FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
-import { HttpClient } from &#x27;@angular/common/http&#x27;;
-import { Router } from &#x27;@angular/router&#x27;;  
+import { Router } from &#x27;@angular/router&#x27;;
+import { AuthService } from &#x27;../../services/auth.service&#x27;;
 import { ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
 import { NgIf } from &#x27;@angular/common&#x27;;
-import { CommonModule } from &#x27;@angular/common&#x27;;
+import { CommonModule, ViewportScroller } from &#x27;@angular/common&#x27;;
 
 /**
  * 📌 Componente &#x60;LoginComponent&#x60;
  *
- * Este componente gestiona el formulario de inicio de sesión de los usuarios.
- * Se encarga de validar los datos ingresados, realizar la autenticación con el backend
- * y almacenar el token JWT en el navegador.
- *
- * ℹ️ **Uso:** Se utiliza en la página de inicio de sesión dentro de la aplicación.
+ * Este componente gestiona el formulario de inicio de sesión de la plataforma Mamás Perrunas.
+ * Realiza validaciones en los campos email y contraseña, y envía los datos al backend utilizando el servicio &#x60;AuthService&#x60;.
+ * En caso de éxito, redirige al usuario a la página principal.
  */
 @Component({
   selector: &#x27;app-login&#x27;,
@@ -577,24 +622,30 @@ import { CommonModule } from &#x27;@angular/common&#x27;;
   imports: [ReactiveFormsModule, NgIf, CommonModule]
 })
 export class LoginComponent {
+
   /**
-   * 📌 Formulario de inicio de sesión.
-   * Contiene los campos de email y contraseña con sus respectivas validaciones.
+   * Formulario reactivo que contiene los campos de email y contraseña.
    */
   loginForm: FormGroup;
 
   /**
-   * 📌 Mensaje de error en caso de que las credenciales sean incorrectas.
+   * Mensaje de error mostrado si las credenciales son incorrectas.
    */
   mensajeError: string | null &#x3D; null;
 
   /**
-   * Constructor del componente.
-   * @param fb - Servicio &#x60;FormBuilder&#x60; para crear el formulario reactivo.
-   * @param http - Servicio &#x60;HttpClient&#x60; para realizar la petición de autenticación.
-   * @param router - Servicio &#x60;Router&#x60; para redirigir al usuario tras el inicio de sesión.
+   * Constructor que inyecta servicios necesarios y configura el formulario.
+   * @param fb Constructor de formularios
+   * @param authService Servicio de autenticación
+   * @param router Enrutador de Angular para redirigir tras el login
+   * @param viewportScroller Utilidad para hacer scroll al inicio tras iniciar sesión
    */
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private viewportScroller: ViewportScroller
+  ) {
     this.loginForm &#x3D; this.fb.group({
       email: [&#x27;&#x27;, [Validators.required, Validators.email]],
       password: [&#x27;&#x27;, [Validators.required, Validators.minLength(6)]]
@@ -602,36 +653,48 @@ export class LoginComponent {
   }
 
   /**
-   * 📌 Método que se ejecuta al enviar el formulario.
-   *
-   * - Verifica que el formulario sea válido.
-   * - Envía los datos al backend para autenticar al usuario.
-   * - Si el inicio de sesión es exitoso, almacena el token JWT y redirige al perfil del usuario.
-   * - Si hay un error, muestra un mensaje indicando que las credenciales son inválidas.
+   * Envía los datos del formulario al backend a través de &#x60;AuthService&#x60;.
+   * Si el login es exitoso, redirige a la página principal.
+   * Si falla, muestra un mensaje de error.
    */
   onSubmit(): void {
-    if (this.loginForm.valid) {
-      this.http.post(&#x27;http://localhost:8080/auth/login&#x27;, this.loginForm.value, { responseType: &#x27;text&#x27; }).subscribe({
-        next: (token) &#x3D;&gt; {
-          console.log(&#x27;Token recibido:&#x27;, token);
-          localStorage.setItem(&#x27;token&#x27;, token);  // Almacena el token JWT en el localStorage
-          this.router.navigate([&#x27;/profile&#x27;]);  // Redirige al perfil del usuario
-        },
-        error: (err) &#x3D;&gt; {
-          console.error(&#x27;Error en el inicio de sesión:&#x27;, err);
-          this.mensajeError &#x3D; &#x27;Credenciales inválidas. Por favor, intenta nuevamente.&#x27;;
-        }
-      });
+    if (this.loginForm.invalid) {
+      this.mostrarErroresFormulario();
+      return;
     }
+
+    const { email, password } &#x3D; this.loginForm.value;
+
+    this.authService.login({ email, password }).subscribe({
+      next: () &#x3D;&gt; {
+        this.router.navigate([&#x27;/&#x27;]).then(() &#x3D;&gt; {
+          this.viewportScroller.scrollToPosition([0, 0]); // Lleva al principio de la página
+        });
+      },
+      error: (err) &#x3D;&gt; {
+        console.error(&#x27;Error en el inicio de sesión:&#x27;, err);
+        this.mensajeError &#x3D; &#x27;Datos erroneos. Por favor, intenta nuevamente.&#x27;;
+      }
+    });
   }
 
   /**
-   * 📌 Método para obtener mensajes de error en los campos del formulario.
-   * @param campo - Nombre del campo del formulario (email o password).
-   * @returns Mensaje de error correspondiente según la validación que haya fallado.
+   * Recorre los campos del formulario y los marca como tocados para mostrar errores de validación.
+   */
+  private mostrarErroresFormulario(): void {
+    Object.values(this.loginForm.controls).forEach(control &#x3D;&gt; {
+      control.markAsTouched();
+    });
+  }
+
+  /**
+   * Devuelve el mensaje de error correspondiente a un campo específico del formulario.
+   * @param campo Nombre del campo del formulario (email o password).
+   * @returns Mensaje de error correspondiente si existe.
    */
   getErrorMessage(campo: string): string {
     const control &#x3D; this.loginForm.get(campo);
+
     if (control?.hasError(&#x27;required&#x27;)) {
       return &#x27;Este campo es obligatorio&#x27;;
     }
@@ -648,36 +711,46 @@ export class LoginComponent {
     </div>
 
     <div class="tab-pane fade " id="templateData">
-        <pre class="line-numbers"><code class="language-html">
-
-&lt;div class&#x3D;&quot;container-login&quot;&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;container-login&quot;&gt;
   &lt;!-- Imagen decorativa --&gt;
   &lt;div class&#x3D;&quot;login-imagen&quot;&gt;
     &lt;img src&#x3D;&quot;assets/images/login.png&quot; alt&#x3D;&quot;Accede a tu cuenta&quot; /&gt;
-
-    
   &lt;/div&gt;
 
   &lt;!-- Formulario de inicio de sesión --&gt;
   &lt;div class&#x3D;&quot;card-formulario&quot;&gt;
     &lt;h2&gt;Accede a tu cuenta&lt;/h2&gt;
+
     &lt;!-- Mensaje de redirección al registro --&gt;
     &lt;p class&#x3D;&quot;redirect-message&quot;&gt;
-      ¿No dispones de cuenta? &lt;a href&#x3D;&quot;http://localhost:4200/registro&quot;&gt;Regístrate&lt;/a&gt;
+      ¿No dispones de cuenta? &lt;a routerLink&#x3D;&quot;/registro&quot;&gt;Regístrate&lt;/a&gt;
     &lt;/p&gt;
 
-    &lt;!-- Casillas de redes sociales --&gt;
+    &lt;!-- Redes sociales --&gt;
     &lt;div class&#x3D;&quot;social-links&quot;&gt;
-      &lt;span class&#x3D;&quot;social-option&quot;&gt;Inicia sesión con Facebook&lt;/span&gt;
-      &lt;span class&#x3D;&quot;social-option&quot;&gt;Inicia sesión con Google&lt;/span&gt;
-      &lt;span class&#x3D;&quot;social-option&quot;&gt;Inicia sesión con Apple&lt;/span&gt;
+      &lt;a href&#x3D;&quot;https://www.facebook.com&quot; target&#x3D;&quot;_blank&quot; class&#x3D;&quot;btn-social facebook&quot;&gt;
+        &lt;img src&#x3D;&quot;assets/icons/facebook.png&quot; alt&#x3D;&quot;Facebook&quot; /&gt; Continuar con Facebook
+      &lt;/a&gt;
+      &lt;a href&#x3D;&quot;https://www.google.com&quot; target&#x3D;&quot;_blank&quot; class&#x3D;&quot;btn-social google&quot;&gt;
+        &lt;img src&#x3D;&quot;assets/icons/google.png&quot; alt&#x3D;&quot;Google&quot; /&gt; Continuar con Google
+      &lt;/a&gt;
+      &lt;a href&#x3D;&quot;https://www.apple.com&quot; target&#x3D;&quot;_blank&quot; class&#x3D;&quot;btn-social apple&quot;&gt;
+        &lt;img src&#x3D;&quot;assets/icons/apple.png&quot; alt&#x3D;&quot;Apple&quot; /&gt; Continuar con Apple
+      &lt;/a&gt;
     &lt;/div&gt;
 
     &lt;form [formGroup]&#x3D;&quot;loginForm&quot; (ngSubmit)&#x3D;&quot;onSubmit()&quot;&gt;
       &lt;!-- Campo Email --&gt;
       &lt;div class&#x3D;&quot;form-group&quot;&gt;
-        &lt;label for&#x3D;&quot;email&quot;&gt;Email:&lt;/label&gt;
-        &lt;input type&#x3D;&quot;email&quot; id&#x3D;&quot;email&quot; formControlName&#x3D;&quot;email&quot; placeholder&#x3D;&quot;tuemail@email.com&quot; /&gt;
+        &lt;label for&#x3D;&quot;email&quot;&gt;Correo electrónico:&lt;/label&gt;
+        &lt;input 
+          type&#x3D;&quot;email&quot; 
+          id&#x3D;&quot;email&quot; 
+          formControlName&#x3D;&quot;email&quot; 
+          placeholder&#x3D;&quot;tuemail@email.com&quot;
+          aria-label&#x3D;&quot;Introduce tu correo electrónico&quot;
+          [ngClass]&#x3D;&quot;{ &#x27;is-invalid&#x27;: loginForm.get(&#x27;email&#x27;)?.touched &amp;&amp; loginForm.get(&#x27;email&#x27;)?.invalid }&quot;
+        /&gt;
         &lt;small class&#x3D;&quot;mensaje-error&quot; *ngIf&#x3D;&quot;loginForm.get(&#x27;email&#x27;)?.touched &amp;&amp; loginForm.get(&#x27;email&#x27;)?.invalid&quot;&gt;
           {{ getErrorMessage(&#x27;email&#x27;) }}
         &lt;/small&gt;
@@ -686,14 +759,23 @@ export class LoginComponent {
       &lt;!-- Campo Contraseña --&gt;
       &lt;div class&#x3D;&quot;form-group&quot;&gt;
         &lt;label for&#x3D;&quot;password&quot;&gt;Contraseña:&lt;/label&gt;
-        &lt;input type&#x3D;&quot;password&quot; id&#x3D;&quot;password&quot; formControlName&#x3D;&quot;password&quot; placeholder&#x3D;&quot;Tu contraseña&quot; /&gt;
+        &lt;input 
+          type&#x3D;&quot;password&quot; 
+          id&#x3D;&quot;password&quot; 
+          formControlName&#x3D;&quot;password&quot; 
+          placeholder&#x3D;&quot;Tu contraseña&quot;
+          aria-label&#x3D;&quot;Introduce tu contraseña&quot;
+          [ngClass]&#x3D;&quot;{ &#x27;is-invalid&#x27;: loginForm.get(&#x27;password&#x27;)?.touched &amp;&amp; loginForm.get(&#x27;password&#x27;)?.invalid }&quot;
+        /&gt;
         &lt;small class&#x3D;&quot;mensaje-error&quot; *ngIf&#x3D;&quot;loginForm.get(&#x27;password&#x27;)?.touched &amp;&amp; loginForm.get(&#x27;password&#x27;)?.invalid&quot;&gt;
           {{ getErrorMessage(&#x27;password&#x27;) }}
         &lt;/small&gt;
       &lt;/div&gt;
 
       &lt;!-- Botón de Iniciar Sesión --&gt;
-      &lt;button type&#x3D;&quot;submit&quot; [disabled]&#x3D;&quot;loginForm.invalid&quot; class&#x3D;&quot;btn-accion&quot;&gt;Iniciar Sesión&lt;/button&gt;
+      &lt;button type&#x3D;&quot;submit&quot; [disabled]&#x3D;&quot;loginForm.invalid&quot; class&#x3D;&quot;btn-accion&quot;&gt;
+        Iniciar Sesión
+      &lt;/button&gt;
 
       &lt;!-- Mensajes de error --&gt;
       &lt;p *ngIf&#x3D;&quot;mensajeError&quot; class&#x3D;&quot;mensaje-error&quot;&gt;{{ mensajeError }}&lt;/p&gt;
@@ -741,15 +823,58 @@ h1 {
   margin-bottom: 20px;
 }
 
-.social-option {
-  background-color: #fff;
-  color: var(--secondary-green);
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-weight: bold;
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 25px;
 }
+
+.btn-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-social img {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+/* Estilos personalizados por red */
+.facebook {
+  background-color: #3b5998;
+}
+
+.facebook:hover {
+  background-color: #2d4373;
+}
+
+.google {
+  background-color: #db4437;
+}
+
+.google:hover {
+  background-color: #c23321;
+}
+
+.apple {
+  background-color: #333333;
+}
+
+.apple:hover {
+  background-color: #000000;
+}
+
+
 
 .form-box {
   display: flex;
@@ -799,6 +924,24 @@ button:hover {
   height: auto;
   border-radius: 10px;
 }
+
+.is-invalid {
+  border: 1px solid red;
+}
+
+.mensaje-error {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+button.btn-accion:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
 </code></pre>
     </div>
 
@@ -827,8 +970,8 @@ button:hover {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="container-login">  <!-- Imagen decorativa -->  <div class="login-imagen">    <img src="assets/images/login.png" alt="Accede a tu cuenta" />      </div>  <!-- Formulario de inicio de sesión -->  <div class="card-formulario">    <h2>Accede a tu cuenta</h2>    <!-- Mensaje de redirección al registro -->    <p class="redirect-message">      ¿No dispones de cuenta? <a href="http://localhost:4200/registro">Regístrate</a>    </p>    <!-- Casillas de redes sociales -->    <div class="social-links">      <span class="social-option">Inicia sesión con Facebook</span>      <span class="social-option">Inicia sesión con Google</span>      <span class="social-option">Inicia sesión con Apple</span>    </div>    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">      <!-- Campo Email -->      <div class="form-group">        <label for="email">Email:</label>        <input type="email" id="email" formControlName="email" placeholder="tuemail@email.com" />        <small class="mensaje-error" *ngIf="loginForm.get(\'email\')?.touched && loginForm.get(\'email\')?.invalid">          {{ getErrorMessage(\'email\') }}        </small>      </div>      <!-- Campo Contraseña -->      <div class="form-group">        <label for="password">Contraseña:</label>        <input type="password" id="password" formControlName="password" placeholder="Tu contraseña" />        <small class="mensaje-error" *ngIf="loginForm.get(\'password\')?.touched && loginForm.get(\'password\')?.invalid">          {{ getErrorMessage(\'password\') }}        </small>      </div>      <!-- Botón de Iniciar Sesión -->      <button type="submit" [disabled]="loginForm.invalid" class="btn-accion">Iniciar Sesión</button>      <!-- Mensajes de error -->      <p *ngIf="mensajeError" class="mensaje-error">{{ mensajeError }}</p>    </form>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BannerComponent', 'selector': 'app-banner'},{'name': 'BannerportadaComponent', 'selector': 'app-bannerportada'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'CategoryPageComponent', 'selector': 'app-category-page'},{'name': 'CircleGridComponent', 'selector': 'app-circle-grid'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ForumGridComponent', 'selector': 'app-forum-grid'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'LandingPageComponent', 'selector': 'app-landing-page'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'ProductListComponent', 'selector': 'app-product-list'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegistroComponent', 'selector': 'app-registro'}];
+        var COMPONENT_TEMPLATE = '<div><div class="container-login">  <!-- Imagen decorativa -->  <div class="login-imagen">    <img src="assets/images/login.png" alt="Accede a tu cuenta" />  </div>  <!-- Formulario de inicio de sesión -->  <div class="card-formulario">    <h2>Accede a tu cuenta</h2>    <!-- Mensaje de redirección al registro -->    <p class="redirect-message">      ¿No dispones de cuenta? <a routerLink="/registro">Regístrate</a>    </p>    <!-- Redes sociales -->    <div class="social-links">      <a href="https://www.facebook.com" target="_blank" class="btn-social facebook">        <img src="assets/icons/facebook.png" alt="Facebook" /> Continuar con Facebook      </a>      <a href="https://www.google.com" target="_blank" class="btn-social google">        <img src="assets/icons/google.png" alt="Google" /> Continuar con Google      </a>      <a href="https://www.apple.com" target="_blank" class="btn-social apple">        <img src="assets/icons/apple.png" alt="Apple" /> Continuar con Apple      </a>    </div>    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">      <!-- Campo Email -->      <div class="form-group">        <label for="email">Correo electrónico:</label>        <input           type="email"           id="email"           formControlName="email"           placeholder="tuemail@email.com"          aria-label="Introduce tu correo electrónico"          [ngClass]="{ \'is-invalid\': loginForm.get(\'email\')?.touched && loginForm.get(\'email\')?.invalid }"        />        <small class="mensaje-error" *ngIf="loginForm.get(\'email\')?.touched && loginForm.get(\'email\')?.invalid">          {{ getErrorMessage(\'email\') }}        </small>      </div>      <!-- Campo Contraseña -->      <div class="form-group">        <label for="password">Contraseña:</label>        <input           type="password"           id="password"           formControlName="password"           placeholder="Tu contraseña"          aria-label="Introduce tu contraseña"          [ngClass]="{ \'is-invalid\': loginForm.get(\'password\')?.touched && loginForm.get(\'password\')?.invalid }"        />        <small class="mensaje-error" *ngIf="loginForm.get(\'password\')?.touched && loginForm.get(\'password\')?.invalid">          {{ getErrorMessage(\'password\') }}        </small>      </div>      <!-- Botón de Iniciar Sesión -->      <button type="submit" [disabled]="loginForm.invalid" class="btn-accion">        Iniciar Sesión      </button>      <!-- Mensajes de error -->      <p *ngIf="mensajeError" class="mensaje-error">{{ mensajeError }}</p>    </form>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BannerComponent', 'selector': 'app-banner'},{'name': 'BannerportadaComponent', 'selector': 'app-bannerportada'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogLayoutComponent', 'selector': 'app-blog-layout'},{'name': 'CalendarioEventosComponent', 'selector': 'app-calendario-eventos'},{'name': 'CategoryForoComponent', 'selector': 'app-category-foro'},{'name': 'CategoryPageComponent', 'selector': 'app-category-page'},{'name': 'ChatbotComponent', 'selector': 'app-chatbot'},{'name': 'CircleGridComponent', 'selector': 'app-circle-grid'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'ConsejosComponent', 'selector': 'app-consejos'},{'name': 'CrearEventoComponent', 'selector': 'app-crear-evento'},{'name': 'CrearPostComponent', 'selector': 'app-crear-post'},{'name': 'DetalleEventoComponent', 'selector': 'app-detalle-evento'},{'name': 'DogBreedsComponent', 'selector': 'app-dog-breeds'},{'name': 'DogListComponent', 'selector': 'app-dog-list'},{'name': 'EventosComponent', 'selector': 'app-eventos'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ForumGridComponent', 'selector': 'app-forum-grid'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'LandingPageComponent', 'selector': 'app-landing-page'},{'name': 'LifeComponent', 'selector': 'app-life'},{'name': 'LocalizacionComponent', 'selector': 'app-localizacion'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NewsComponent', 'selector': 'app-news'},{'name': 'PerfilComponent', 'selector': 'app-perfil'},{'name': 'PostDetailComponent', 'selector': 'app-post-detail'},{'name': 'ProductListComponent', 'selector': 'app-product-list'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegistroComponent', 'selector': 'app-registro'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'LoginComponent'};
 </script>

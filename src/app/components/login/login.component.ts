@@ -9,8 +9,9 @@ import { CommonModule, ViewportScroller } from '@angular/common';
 /**
  * 📌 Componente `LoginComponent`
  *
- * Este componente gestiona el formulario de inicio de sesión, validando los datos ingresados
- * y enviando la petición al backend a través del `AuthService`.
+ * Este componente gestiona el formulario de inicio de sesión de la plataforma Mamás Perrunas.
+ * Realiza validaciones en los campos email y contraseña, y envía los datos al backend utilizando el servicio `AuthService`.
+ * En caso de éxito, redirige al usuario a la página principal.
  */
 @Component({
   selector: 'app-login',
@@ -20,14 +21,29 @@ import { CommonModule, ViewportScroller } from '@angular/common';
   imports: [ReactiveFormsModule, NgIf, CommonModule]
 })
 export class LoginComponent {
+
+  /**
+   * Formulario reactivo que contiene los campos de email y contraseña.
+   */
   loginForm: FormGroup;
+
+  /**
+   * Mensaje de error mostrado si las credenciales son incorrectas.
+   */
   mensajeError: string | null = null;
 
+  /**
+   * Constructor que inyecta servicios necesarios y configura el formulario.
+   * @param fb Constructor de formularios
+   * @param authService Servicio de autenticación
+   * @param router Enrutador de Angular para redirigir tras el login
+   * @param viewportScroller Utilidad para hacer scroll al inicio tras iniciar sesión
+   */
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private viewportScroller: ViewportScroller // ✅ scroll al principio
+    private viewportScroller: ViewportScroller
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -36,7 +52,9 @@ export class LoginComponent {
   }
 
   /**
-   * 📌 Envía los datos del formulario al backend a través de `AuthService`.
+   * Envía los datos del formulario al backend a través de `AuthService`.
+   * Si el login es exitoso, redirige a la página principal.
+   * Si falla, muestra un mensaje de error.
    */
   onSubmit(): void {
     if (this.loginForm.invalid) {
@@ -49,7 +67,7 @@ export class LoginComponent {
     this.authService.login({ email, password }).subscribe({
       next: () => {
         this.router.navigate(['/']).then(() => {
-          this.viewportScroller.scrollToPosition([0, 0]); // ✅ Lleva al principio de la página
+          this.viewportScroller.scrollToPosition([0, 0]); // Lleva al principio de la página
         });
       },
       error: (err) => {
@@ -60,7 +78,7 @@ export class LoginComponent {
   }
 
   /**
-   * 📌 Recorre los campos del formulario y marca los errores.
+   * Recorre los campos del formulario y los marca como tocados para mostrar errores de validación.
    */
   private mostrarErroresFormulario(): void {
     Object.values(this.loginForm.controls).forEach(control => {
@@ -69,8 +87,9 @@ export class LoginComponent {
   }
 
   /**
-   * 📌 Devuelve el mensaje de error de un campo del formulario.
-   * @param campo - Nombre del campo del formulario (email o password).
+   * Devuelve el mensaje de error correspondiente a un campo específico del formulario.
+   * @param campo Nombre del campo del formulario (email o password).
+   * @returns Mensaje de error correspondiente si existe.
    */
   getErrorMessage(campo: string): string {
     const control = this.loginForm.get(campo);

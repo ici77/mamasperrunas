@@ -168,6 +168,7 @@ y el pie de página (<code>FooterComponent</code>).</p>
                             <code>RouterOutlet</code>
                                 <code><a href="../components/NavbarComponent.html" target="_self" >NavbarComponent</a></code>
                                 <code><a href="../components/FooterComponent.html" target="_self" >FooterComponent</a></code>
+                                <code><a href="../components/ChatbotComponent.html" target="_self" >ChatbotComponent</a></code>
                 </td>
             </tr>
 
@@ -181,6 +182,7 @@ y el pie de página (<code>FooterComponent</code>).</p>
                 <td class="col-md-3">template</td>
                 <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;app-navbar&gt;&lt;/app-navbar&gt; &lt;!-- Navbar siempre visible --&gt;
 &lt;router-outlet&gt;&lt;/router-outlet&gt; &lt;!-- Renderiza la ruta activa --&gt;
+&lt;app-chatbot&gt;&lt;/app-chatbot&gt;
 &lt;app-footer&gt;&lt;/app-footer&gt; &lt;!-- Footer siempre visible --&gt;
 </code></pre></td>
             </tr>
@@ -260,7 +262,7 @@ y el pie de página (<code>FooterComponent</code>).</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/app.component.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/app.component.ts:34</a></div>
                         </td>
                     </tr>
 
@@ -285,6 +287,7 @@ import { CommonModule } from &#x27;@angular/common&#x27;;
 import { RouterOutlet } from &#x27;@angular/router&#x27;;
 import { NavbarComponent } from &#x27;./shared/navbar/navbar.component&#x27;;
 import { FooterComponent } from &#x27;./shared/footer/footer.component&#x27;;
+import { ChatbotComponent } from &#x27;./components/chatbot/chatbot.component&#x27;;
 
 /**
  * 📌 Componente &#x60;AppComponent&#x60;
@@ -298,10 +301,11 @@ import { FooterComponent } from &#x27;./shared/footer/footer.component&#x27;;
 @Component({
   selector: &#x27;app-root&#x27;,
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent],
+  imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent, ChatbotComponent],
   template: &#x60;
     &lt;app-navbar&gt;&lt;/app-navbar&gt; &lt;!-- Navbar siempre visible --&gt;
     &lt;router-outlet&gt;&lt;/router-outlet&gt; &lt;!-- Renderiza la ruta activa --&gt;
+    &lt;app-chatbot&gt;&lt;/app-chatbot&gt;
     &lt;app-footer&gt;&lt;/app-footer&gt; &lt;!-- Footer siempre visible --&gt;
   &#x60;,
   styleUrls: [&#x27;./app.component.css&#x27;],
@@ -349,8 +353,8 @@ export class AppComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><app-navbar></app-navbar> <!-- Navbar siempre visible --><router-outlet></router-outlet> <!-- Renderiza la ruta activa --><app-footer></app-footer> <!-- Footer siempre visible --></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BannerComponent', 'selector': 'app-banner'},{'name': 'BannerportadaComponent', 'selector': 'app-bannerportada'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'CategoryPageComponent', 'selector': 'app-category-page'},{'name': 'CircleGridComponent', 'selector': 'app-circle-grid'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ForumGridComponent', 'selector': 'app-forum-grid'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'LandingPageComponent', 'selector': 'app-landing-page'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'ProductListComponent', 'selector': 'app-product-list'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegistroComponent', 'selector': 'app-registro'}];
+        var COMPONENT_TEMPLATE = '<div><app-navbar></app-navbar> <!-- Navbar siempre visible --><router-outlet></router-outlet> <!-- Renderiza la ruta activa --><app-chatbot></app-chatbot><app-footer></app-footer> <!-- Footer siempre visible --></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BannerComponent', 'selector': 'app-banner'},{'name': 'BannerportadaComponent', 'selector': 'app-bannerportada'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogLayoutComponent', 'selector': 'app-blog-layout'},{'name': 'CalendarioEventosComponent', 'selector': 'app-calendario-eventos'},{'name': 'CategoryForoComponent', 'selector': 'app-category-foro'},{'name': 'CategoryPageComponent', 'selector': 'app-category-page'},{'name': 'ChatbotComponent', 'selector': 'app-chatbot'},{'name': 'CircleGridComponent', 'selector': 'app-circle-grid'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'ConsejosComponent', 'selector': 'app-consejos'},{'name': 'CrearEventoComponent', 'selector': 'app-crear-evento'},{'name': 'CrearPostComponent', 'selector': 'app-crear-post'},{'name': 'DetalleEventoComponent', 'selector': 'app-detalle-evento'},{'name': 'DogBreedsComponent', 'selector': 'app-dog-breeds'},{'name': 'DogListComponent', 'selector': 'app-dog-list'},{'name': 'EventosComponent', 'selector': 'app-eventos'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ForumGridComponent', 'selector': 'app-forum-grid'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'LandingPageComponent', 'selector': 'app-landing-page'},{'name': 'LifeComponent', 'selector': 'app-life'},{'name': 'LocalizacionComponent', 'selector': 'app-localizacion'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NewsComponent', 'selector': 'app-news'},{'name': 'PerfilComponent', 'selector': 'app-perfil'},{'name': 'PostDetailComponent', 'selector': 'app-post-detail'},{'name': 'ProductListComponent', 'selector': 'app-product-list'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegistroComponent', 'selector': 'app-registro'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'AppComponent'};
 </script>

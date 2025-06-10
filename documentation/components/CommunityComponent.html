@@ -128,7 +128,7 @@
         <h3>Description</h3>
     </p>
     <p class="comment">
-        <p>📌 Componente <code>CommunityComponent</code></p>
+        <p>📌 Componente <code>CommunityComponent</code> de la landing page</p>
 <p>Este componente muestra una lista de publicaciones dentro de la comunidad,
 permitiendo a los usuarios explorar artículos con consejos, experiencias
 y recomendaciones sobre la convivencia con mascotas.</p>
@@ -302,7 +302,7 @@ Cada objeto representa un post con su título, descripción breve, autor y foto 
 import { CommonModule } from &#x27;@angular/common&#x27;; 
 
 /**
- * 📌 Componente &#x60;CommunityComponent&#x60;
+ * 📌 Componente &#x60;CommunityComponent&#x60; de la landing page
  *
  * Este componente muestra una lista de publicaciones dentro de la comunidad, 
  * permitiendo a los usuarios explorar artículos con consejos, experiencias 
@@ -372,7 +372,7 @@ export class CommunityComponent {
   
       &lt;!-- Botón --&gt;
       &lt;div class&#x3D;&quot;text-center mt-4&quot;&gt;
-        &lt;a href&#x3D;&quot;#&quot; class&#x3D;&quot;btn btn-custom&quot;&gt;Únete a la Comunidad&lt;/a&gt;
+        &lt;a href&#x3D;&quot;/foro&quot; class&#x3D;&quot;btn btn-custom&quot;&gt;Únete a la Comunidad&lt;/a&gt;
       &lt;/div&gt;
     &lt;/div&gt;
   &lt;/section&gt;
@@ -516,8 +516,8 @@ export class CommunityComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><section class="comunidad-section">    <div class="container">      <!-- Título y subtítulo -->      <h2 class="section-title">Con amigos es mejor 🐶</h2>      <p class="section-subtitle">        Únete a nuestra comunidad y comparte experiencias con otros amantes de los perros.      </p>            <!-- Tarjetas dinámicas -->      <div class="row justify-content-center">        <div class="col-md-4 mb-4" *ngFor="let post of communityPosts">          <div class="post-card">            <h5 class="post-title">{{ post.title }}</h5>            <p class="post-excerpt">{{ post.excerpt }}</p>            <div class="post-author">              <img [src]="post.authorImage" alt="{{ post.author }}" class="author-image">              <span>Publicado por {{ post.author }}</span>            </div>          </div>        </div>      </div>        <!-- Botón -->      <div class="text-center mt-4">        <a href="#" class="btn btn-custom">Únete a la Comunidad</a>      </div>    </div>  </section>  </div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BannerComponent', 'selector': 'app-banner'},{'name': 'BannerportadaComponent', 'selector': 'app-bannerportada'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'CategoryPageComponent', 'selector': 'app-category-page'},{'name': 'CircleGridComponent', 'selector': 'app-circle-grid'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ForumGridComponent', 'selector': 'app-forum-grid'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'LandingPageComponent', 'selector': 'app-landing-page'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'ProductListComponent', 'selector': 'app-product-list'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegistroComponent', 'selector': 'app-registro'}];
+        var COMPONENT_TEMPLATE = '<div><section class="comunidad-section">    <div class="container">      <!-- Título y subtítulo -->      <h2 class="section-title">Con amigos es mejor 🐶</h2>      <p class="section-subtitle">        Únete a nuestra comunidad y comparte experiencias con otros amantes de los perros.      </p>            <!-- Tarjetas dinámicas -->      <div class="row justify-content-center">        <div class="col-md-4 mb-4" *ngFor="let post of communityPosts">          <div class="post-card">            <h5 class="post-title">{{ post.title }}</h5>            <p class="post-excerpt">{{ post.excerpt }}</p>            <div class="post-author">              <img [src]="post.authorImage" alt="{{ post.author }}" class="author-image">              <span>Publicado por {{ post.author }}</span>            </div>          </div>        </div>      </div>        <!-- Botón -->      <div class="text-center mt-4">        <a href="/foro" class="btn btn-custom">Únete a la Comunidad</a>      </div>    </div>  </section>  </div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BannerComponent', 'selector': 'app-banner'},{'name': 'BannerportadaComponent', 'selector': 'app-bannerportada'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogLayoutComponent', 'selector': 'app-blog-layout'},{'name': 'CalendarioEventosComponent', 'selector': 'app-calendario-eventos'},{'name': 'CategoryForoComponent', 'selector': 'app-category-foro'},{'name': 'CategoryPageComponent', 'selector': 'app-category-page'},{'name': 'ChatbotComponent', 'selector': 'app-chatbot'},{'name': 'CircleGridComponent', 'selector': 'app-circle-grid'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'ConsejosComponent', 'selector': 'app-consejos'},{'name': 'CrearEventoComponent', 'selector': 'app-crear-evento'},{'name': 'CrearPostComponent', 'selector': 'app-crear-post'},{'name': 'DetalleEventoComponent', 'selector': 'app-detalle-evento'},{'name': 'DogBreedsComponent', 'selector': 'app-dog-breeds'},{'name': 'DogListComponent', 'selector': 'app-dog-list'},{'name': 'EventosComponent', 'selector': 'app-eventos'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ForumGridComponent', 'selector': 'app-forum-grid'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'LandingPageComponent', 'selector': 'app-landing-page'},{'name': 'LifeComponent', 'selector': 'app-life'},{'name': 'LocalizacionComponent', 'selector': 'app-localizacion'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NewsComponent', 'selector': 'app-news'},{'name': 'PerfilComponent', 'selector': 'app-perfil'},{'name': 'PostDetailComponent', 'selector': 'app-post-detail'},{'name': 'ProductListComponent', 'selector': 'app-product-list'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegistroComponent', 'selector': 'app-registro'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'CommunityComponent'};
 </script>

@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+/**
+ * Componente del chatbot.
+ * Este componente muestra una ventana de chat interactiva en la que el usuario puede hacer preguntas
+ * relacionadas con las funcionalidades del sitio, como eventos, posts, perfil o registro.
+ */
 @Component({
   selector: 'app-chatbot',
   standalone: true,
@@ -10,23 +15,46 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./chatbot.component.css']
 })
 export class ChatbotComponent implements OnInit {
+
+  /** Estado del chat: abierto o cerrado */
   isChatOpen = false;
+
+  /** Mensaje que el usuario está escribiendo */
   userMessage = '';
+
+  /** Muestra el mensaje de bienvenida inicial */
   showWelcomeMessage = true;
+
+  /** Nombre introducido por el usuario */
   usuarioNombre: string = '';
+
+  /** Indica si ya se ha mostrado el saludo personalizado */
   saludoMostrado = false;
+
+  /** Lista de mensajes del chat, tanto del bot como del usuario */
   messages: { sender: 'bot' | 'user', text: string }[] = [];
 
+  /**
+   * Al iniciar el componente, oculta el mensaje de bienvenida después de 1 segundo.
+   */
   ngOnInit(): void {
     setTimeout(() => {
       this.showWelcomeMessage = false;
     }, 1000);
   }
 
+  /**
+   * Abre o cierra la ventana del chat.
+   */
   toggleChat() {
     this.isChatOpen = !this.isChatOpen;
   }
 
+  /**
+   * Envía el mensaje del usuario al chat.
+   * Si es el primer mensaje, se considera como nombre del usuario y muestra un saludo.
+   * En caso contrario, el mensaje se analiza y el bot responde con base en palabras clave.
+   */
   sendMessage() {
     if (!this.userMessage.trim()) return;
     this.messages.push({ sender: 'user', text: this.userMessage });
@@ -44,12 +72,21 @@ export class ChatbotComponent implements OnInit {
     this.userMessage = '';
   }
 
+  /**
+   * Envía una respuesta directa del bot al hacer clic en un botón de opción.
+   * @param opcion Texto del botón seleccionado
+   */
   respuestaDirecta(opcion: string) {
     const respuesta = this.getBotReply(opcion.toLowerCase());
     this.messages.push({ sender: 'user', text: opcion });
     this.messages.push({ sender: 'bot', text: respuesta });
   }
 
+  /**
+   * Genera la respuesta automática del bot en función del contenido del mensaje.
+   * @param msg Mensaje escrito por el usuario
+   * @returns Texto de la respuesta del bot
+   */
   getBotReply(msg: string): string {
     if (msg.includes('evento')) {
       return `📅 Puedes ver los eventos en la sección "Eventos" del menú principal.

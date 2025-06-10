@@ -6,7 +6,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { environment } from '../../../environments/environment';
 
-
+/**
+ * Componente para crear un nuevo post en la aplicación.
+ * El usuario puede escribir un título, contenido, seleccionar una categoría, y agregar una imagen.
+ * 
+ * @component
+ * @example
+ * <app-crear-post></app-crear-post>
+ */
 @Component({
   selector: 'app-crear-post',
   standalone: true,
@@ -15,7 +22,7 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./crear-post.component.css']
 })
 export class CrearPostComponent implements OnInit {
-  // 📝 Datos del post a enviar
+  /** Datos del nuevo post a enviar al backend */
   post = {
     title: '',
     content: '',
@@ -23,20 +30,38 @@ export class CrearPostComponent implements OnInit {
     tags: []
   };
 
+  /** Imagen seleccionada por el usuario */
   imagenSeleccionada: File | null = null;
+
+  /** Lista de categorías para elegir al crear un post */
   categories: any[] = [];
 
-  // 🔢 Límite de caracteres y contador
+  /** Límite máximo de caracteres para el contenido del post */
   maxContentLength = 500;
+
+  /** Contador de caracteres restantes para el contenido */
   remainingCharacters = this.maxContentLength;
 
+  /**
+   * Constructor para inicializar el servicio HTTP y el servicio de autenticación.
+   * 
+   * @param http - Servicio HTTP para realizar solicitudes al backend
+   * @param authService - Servicio para manejar la autenticación del usuario
+   */
   constructor(private http: HttpClient, private authService: AuthService) {}
 
+  /**
+   * Método que se ejecuta al inicializar el componente.
+   * Carga las categorías disponibles desde el backend.
+   */
   ngOnInit() {
     this.loadCategories();
   }
 
-  // 📥 Cargar categorías desde el backend
+  /**
+   * Carga las categorías desde el backend para que el usuario pueda seleccionarlas al crear un post.
+   * Si no hay un token de autenticación, muestra un error en consola.
+   */
   loadCategories() {
     const token = this.authService.getToken();
     if (!token) {
@@ -45,15 +70,18 @@ export class CrearPostComponent implements OnInit {
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-   this.http.get<any[]>(`${environment.apiUrl}/categories`, { headers })
-
+    this.http.get<any[]>(`${environment.apiUrl}/categories`, { headers })
       .subscribe({
         next: (data) => this.categories = data,
         error: (err) => console.error('❌ Error al cargar categorías:', err)
       });
   }
 
-  // 🖼️ Manejar selección de imagen
+  /**
+   * Método que maneja la selección de una imagen para el post.
+   * 
+   * @param event - Evento de cambio al seleccionar un archivo
+   */
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -62,7 +90,11 @@ export class CrearPostComponent implements OnInit {
     }
   }
 
-  // 📝 Control de longitud del contenido
+  /**
+   * Método que controla la longitud del contenido del post.
+   * Si el contenido excede el límite de caracteres, se recorta automáticamente.
+   * Actualiza el contador de caracteres restantes.
+   */
   onContentChange() {
     const content = this.post.content || '';
     if (content.length > this.maxContentLength) {
@@ -71,7 +103,10 @@ export class CrearPostComponent implements OnInit {
     this.remainingCharacters = this.maxContentLength - this.post.content.length;
   }
 
-  // 🚀 Enviar el post al backend
+  /**
+   * Método que envía el nuevo post al backend.
+   * Realiza validaciones antes de enviar el post y muestra mensajes de error o éxito.
+   */
   submitPost() {
     const token = this.authService.getToken();
     if (!token) {
@@ -108,8 +143,7 @@ export class CrearPostComponent implements OnInit {
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-   this.http.post(`${environment.apiUrl}/posts/crear-con-imagen`, formData, { headers })
-
+    this.http.post(`${environment.apiUrl}/posts/crear-con-imagen`, formData, { headers })
       .subscribe({
         next: () => alert('✅ Post creado correctamente'),
         error: (err) => {
@@ -119,7 +153,12 @@ export class CrearPostComponent implements OnInit {
       });
   }
 
-  // ✏️ Aplicar formato (opcional si usas execCommand)
+  /**
+   * Método para aplicar formato de texto al contenido del post. 
+   * Este método es opcional y usa `execCommand` para aplicar cambios en el formato.
+   * 
+   * @param command - El comando de formato a aplicar
+   */
   applyFormat(command: string) {
     document.execCommand(command, false);
   }

@@ -187,7 +187,7 @@ Se encarga de obtener la categoría de la URL y mostrar los productos correspond
   &lt;a routerLink&#x3D;&quot;/products&quot;&gt;Tienda&lt;/a&gt; &amp;gt;
   &lt;span&gt;{{ category }}&lt;/span&gt;
 &lt;/nav&gt;
-&lt;h1&gt;{{ category }}&lt;/h1&gt;
+&lt;h1&gt;{{ category | titlecase }}&lt;/h1&gt;
 &lt;div class&#x3D;&quot;product-grid&quot;&gt;
   &lt;div *ngFor&#x3D;&quot;let product of products&quot; class&#x3D;&quot;product-card&quot;&gt;
     &lt;img [src]&#x3D;&quot;product.image&quot; [alt]&#x3D;&quot;product.name&quot; /&gt;
@@ -241,6 +241,9 @@ Se encarga de obtener la categoría de la URL y mostrar los productos correspond
                 <tr>
                     <td class="col-md-4">
                         <ul class="index-list">
+                            <li>
+                                <a href="#loadProducts" >loadProducts</a>
+                            </li>
                             <li>
                                 <a href="#ngOnInit" >ngOnInit</a>
                             </li>
@@ -345,6 +348,49 @@ Se encarga de obtener la categoría de la URL y mostrar los productos correspond
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="loadProducts"></a>
+                    <span class="name">
+                        <span ><b>loadProducts</b></span>
+                        <a href="#loadProducts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadProducts()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">src/app/components/category-page/category-page.component.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>📌 Método <code>loadProducts()</code></p>
+<ul>
+<li>Carga productos desde el archivo <code>products.json</code> basado en la categoría actual.</li>
+<li>Maneja errores en la carga de productos.</li>
+</ul>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="ngOnInit"></a>
                     <span class="name">
                         <span ><b>ngOnInit</b></span>
@@ -361,8 +407,8 @@ Se encarga de obtener la categoría de la URL y mostrar los productos correspond
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="63"
-                                    class="link-to-prism">src/app/components/category-page/category-page.component.ts:63</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="62"
+                                    class="link-to-prism">src/app/components/category-page/category-page.component.ts:62</a></div>
                         </td>
                     </tr>
 
@@ -371,9 +417,8 @@ Se encarga de obtener la categoría de la URL y mostrar los productos correspond
                 <td class="col-md-4">
                         <div class="io-description"><p>🔹 Método <code>ngOnInit()</code></p>
 <ul>
-<li>Obtiene la categoría desde la URL.</li>
-<li>Carga los productos desde <code>assets/products.json</code> según la categoría.</li>
-<li>Maneja errores en la carga de productos.</li>
+<li>Se suscribe a los cambios en la URL para detectar cambios de categoría.</li>
+<li>Carga los productos desde <code>assets/products.json</code> según la categoría seleccionada.</li>
 </ul>
 </div>
 
@@ -496,7 +541,7 @@ import { RouterModule } from &#x27;@angular/router&#x27;;
       &lt;a routerLink&#x3D;&quot;/products&quot;&gt;Tienda&lt;/a&gt; &amp;gt;
       &lt;span&gt;{{ category }}&lt;/span&gt;
     &lt;/nav&gt;
-    &lt;h1&gt;{{ category }}&lt;/h1&gt;
+    &lt;h1&gt;{{ category | titlecase }}&lt;/h1&gt;
     &lt;div class&#x3D;&quot;product-grid&quot;&gt;
       &lt;div *ngFor&#x3D;&quot;let product of products&quot; class&#x3D;&quot;product-card&quot;&gt;
         &lt;img [src]&#x3D;&quot;product.image&quot; [alt]&#x3D;&quot;product.name&quot; /&gt;
@@ -529,12 +574,23 @@ export class CategoryPageComponent implements OnInit {
   /**
    * 🔹 Método &#x60;ngOnInit()&#x60;
    *
-   * - Obtiene la categoría desde la URL.
-   * - Carga los productos desde &#x60;assets/products.json&#x60; según la categoría.
-   * - Maneja errores en la carga de productos.
+   * - Se suscribe a los cambios en la URL para detectar cambios de categoría.
+   * - Carga los productos desde &#x60;assets/products.json&#x60; según la categoría seleccionada.
    */
   ngOnInit(): void {
-    this.category &#x3D; this.route.snapshot.paramMap.get(&#x27;category&#x27;) || &#x27;&#x27;;
+    this.route.paramMap.subscribe((params) &#x3D;&gt; {
+      this.category &#x3D; params.get(&#x27;category&#x27;) || &#x27;&#x27;;
+      this.loadProducts(); // Recargar productos cada vez que cambia la URL
+    });
+  }
+
+  /**
+   * 📌 Método &#x60;loadProducts()&#x60;
+   *
+   * - Carga productos desde el archivo &#x60;products.json&#x60; basado en la categoría actual.
+   * - Maneja errores en la carga de productos.
+   */
+  loadProducts() {
     this.http.get&lt;any[]&gt;(&#x27;assets/products.json&#x27;).subscribe({
       next: (data) &#x3D;&gt; {
         const categoryData &#x3D; data.find((c) &#x3D;&gt; c.category &#x3D;&#x3D;&#x3D; this.category);
@@ -689,8 +745,8 @@ export class CategoryPageComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><nav class="breadcrumbs">  <a routerLink="/products">Tienda</a> &gt;  <span>{{ category }}</span></nav><h1>{{ category }}</h1><div class="product-grid">  <div *ngFor="let product of products" class="product-card">    <img [src]="product.image" [alt]="product.name" />    <h3>{{ product.name }}</h3>    <p>{{ product.description }}</p>    <a [href]="product.affiliateLink" target="_blank" class="btn btn-primary">Comprar</a>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BannerComponent', 'selector': 'app-banner'},{'name': 'BannerportadaComponent', 'selector': 'app-bannerportada'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'CategoryPageComponent', 'selector': 'app-category-page'},{'name': 'CircleGridComponent', 'selector': 'app-circle-grid'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ForumGridComponent', 'selector': 'app-forum-grid'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'LandingPageComponent', 'selector': 'app-landing-page'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'ProductListComponent', 'selector': 'app-product-list'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegistroComponent', 'selector': 'app-registro'}];
+        var COMPONENT_TEMPLATE = '<div><nav class="breadcrumbs">  <a routerLink="/products">Tienda</a> &gt;  <span>{{ category }}</span></nav><h1>{{ category | titlecase }}</h1><div class="product-grid">  <div *ngFor="let product of products" class="product-card">    <img [src]="product.image" [alt]="product.name" />    <h3>{{ product.name }}</h3>    <p>{{ product.description }}</p>    <a [href]="product.affiliateLink" target="_blank" class="btn btn-primary">Comprar</a>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BannerComponent', 'selector': 'app-banner'},{'name': 'BannerportadaComponent', 'selector': 'app-bannerportada'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogLayoutComponent', 'selector': 'app-blog-layout'},{'name': 'CalendarioEventosComponent', 'selector': 'app-calendario-eventos'},{'name': 'CategoryForoComponent', 'selector': 'app-category-foro'},{'name': 'CategoryPageComponent', 'selector': 'app-category-page'},{'name': 'ChatbotComponent', 'selector': 'app-chatbot'},{'name': 'CircleGridComponent', 'selector': 'app-circle-grid'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'ConsejosComponent', 'selector': 'app-consejos'},{'name': 'CrearEventoComponent', 'selector': 'app-crear-evento'},{'name': 'CrearPostComponent', 'selector': 'app-crear-post'},{'name': 'DetalleEventoComponent', 'selector': 'app-detalle-evento'},{'name': 'DogBreedsComponent', 'selector': 'app-dog-breeds'},{'name': 'DogListComponent', 'selector': 'app-dog-list'},{'name': 'EventosComponent', 'selector': 'app-eventos'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ForumGridComponent', 'selector': 'app-forum-grid'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'LandingPageComponent', 'selector': 'app-landing-page'},{'name': 'LifeComponent', 'selector': 'app-life'},{'name': 'LocalizacionComponent', 'selector': 'app-localizacion'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NewsComponent', 'selector': 'app-news'},{'name': 'PerfilComponent', 'selector': 'app-perfil'},{'name': 'PostDetailComponent', 'selector': 'app-post-detail'},{'name': 'ProductListComponent', 'selector': 'app-product-list'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegistroComponent', 'selector': 'app-registro'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'CategoryPageComponent'};
 </script>

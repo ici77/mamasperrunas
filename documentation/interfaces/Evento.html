@@ -1,0 +1,926 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  Evento</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/services/event.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interfaz para representar un evento en la aplicación.
+Define las propiedades y relaciones de un evento.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">const evento: Evento = {
+  id: 1,
+  titulo: &#39;Evento de perros&#39;,
+  descripcion: &#39;Descripción del evento&#39;,
+  fecha: &#39;2022-12-31&#39;,
+  lugar: &#39;Madrid&#39;,
+  esDePago: false,
+  imagenUrl: &#39;url_de_imagen&#39;,
+  tipoEvento: &#39;celebración&#39;,
+  destacado: true,
+```html
+  apuntados: 50,
+  yaInscrito: false
+};</code></pre></div>
+            </p>
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#apuntados" 
+>
+                                            apuntados
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#descripcion" 
+>
+                                            descripcion
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#destacado" 
+>
+                                            destacado
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#esDePago" 
+>
+                                            esDePago
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#fecha" 
+>
+                                            fecha
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#id" 
+>
+                                            id
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#imagenUrl" 
+>
+                                            imagenUrl
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#lugar" 
+>
+                                            lugar
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#tipoEvento" 
+>
+                                            tipoEvento
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#titulo" 
+>
+                                            titulo
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#usuario" 
+>
+                                            usuario
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#yaInscrito" 
+>
+                                            yaInscrito
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="apuntados"></a>
+                                        <span class="name "><b>apuntados</b>
+                                            <a href="#apuntados">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>apuntados:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="descripcion"></a>
+                                        <span class="name "><b>descripcion</b>
+                                            <a href="#descripcion">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>descripcion:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="destacado"></a>
+                                        <span class="name "><b>destacado</b>
+                                            <a href="#destacado">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>destacado:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="esDePago"></a>
+                                        <span class="name "><b>esDePago</b>
+                                            <a href="#esDePago">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>esDePago:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="fecha"></a>
+                                        <span class="name "><b>fecha</b>
+                                            <a href="#fecha">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>fecha:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name "><b>id</b>
+                                            <a href="#id">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="imagenUrl"></a>
+                                        <span class="name "><b>imagenUrl</b>
+                                            <a href="#imagenUrl">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>imagenUrl:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="lugar"></a>
+                                        <span class="name "><b>lugar</b>
+                                            <a href="#lugar">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>lugar:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="tipoEvento"></a>
+                                        <span class="name "><b>tipoEvento</b>
+                                            <a href="#tipoEvento">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>tipoEvento:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="titulo"></a>
+                                        <span class="name "><b>titulo</b>
+                                            <a href="#titulo">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>titulo:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="usuario"></a>
+                                        <span class="name "><b>usuario</b>
+                                            <a href="#usuario">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>usuario:     <code>literal type</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>literal type</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="yaInscrito"></a>
+                                        <span class="name "><b>yaInscrito</b>
+                                            <a href="#yaInscrito">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>yaInscrito:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient, HttpParams } from &#x27;@angular/common/http&#x27;;
+import { Injectable } from &#x27;@angular/core&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+import { environment } from &#x27;../../environments/environment&#x27;;
+
+/**
+ * Interfaz para representar un evento en la aplicación.
+ * Define las propiedades y relaciones de un evento.
+ * 
+ * @interface
+ * @example
+ * const evento: Evento &#x3D; {
+ *   id: 1,
+ *   titulo: &#x27;Evento de perros&#x27;,
+ *   descripcion: &#x27;Descripción del evento&#x27;,
+ *   fecha: &#x27;2022-12-31&#x27;,
+ *   lugar: &#x27;Madrid&#x27;,
+ *   esDePago: false,
+ *   imagenUrl: &#x27;url_de_imagen&#x27;,
+ *   tipoEvento: &#x27;celebración&#x27;,
+ *   destacado: true,
+ *   usuario: { id: 1, nombre: &#x27;Juan&#x27;, email: &#x27;juan@example.com&#x27; },
+ *   apuntados: 50,
+ *   yaInscrito: false
+ * };
+ */
+export interface Evento {
+  id: number;
+  titulo: string;
+  descripcion: string;
+  fecha: string;
+  lugar: string;
+  esDePago: boolean;
+  imagenUrl: string;
+  tipoEvento: string;
+  destacado: boolean;
+
+  // Relación con el creador del evento
+  usuario?: {
+    id: number;
+    nombre: string;
+    email: string;
+  };
+
+  // Información auxiliar (frontend)
+  apuntados?: number;
+  yaInscrito?: boolean;
+}
+
+/**
+ * Servicio para gestionar los eventos en la aplicación.
+ * Proporciona métodos para crear, buscar, obtener detalles y gestionar la inscripción de eventos.
+ * 
+ * @service
+ * @example
+ * eventService.buscarEventos(&#x27;celebración&#x27;, &#x27;todos&#x27;, true);
+ */
+@Injectable({
+  providedIn: &#x27;root&#x27;
+})
+export class EventService {
+
+  /** URL base de la API de eventos */
+  private apiUrl &#x3D; &#x60;${environment.apiUrl}/eventos&#x60;;
+
+  /**
+   * Constructor para inicializar el servicio de eventos.
+   * 
+   * @param http - Servicio HTTP para hacer peticiones a la API
+   */
+  constructor(private http: HttpClient) {}
+
+  /**
+   * 📌 Obtiene los eventos destacados.
+   * 
+   * @returns Observable con la lista de eventos destacados
+   */
+  getDestacados(): Observable&lt;Evento[]&gt; {
+    return this.http.get&lt;Evento[]&gt;(&#x60;${this.apiUrl}/destacados&#x60;);
+  }
+
+  /**
+   * 📌 Busca eventos filtrados por tipo, si son de pago, y si son destacados.
+   * 
+   * @param tipo - Tipo de evento a filtrar
+   * @param pago - Si los eventos son de pago o gratuitos
+   * @param destacado - Si los eventos son destacados o no
+   * @returns Observable con los eventos filtrados
+   */
+  buscarEventos(tipo: string, pago: string, destacado: boolean): Observable&lt;Evento[]&gt; {
+    const params &#x3D; new HttpParams()
+      .set(&#x27;tipo&#x27;, tipo || &#x27;&#x27;)
+      .set(&#x27;pago&#x27;, pago || &#x27;todos&#x27;)
+      .set(&#x27;destacado&#x27;, destacado.toString());
+
+    return this.http.get&lt;Evento[]&gt;(&#x60;${this.apiUrl}/buscar&#x60;, { params });
+  }
+
+  /**
+   * 📌 Obtiene el número de apuntados por evento.
+   * 
+   * @returns Observable con el conteo de apuntados por evento
+   */
+  getConteoApuntados(): Observable&lt;{ [eventoId: number]: number }&gt; {
+    return this.http.get&lt;{ [eventoId: number]: number }&gt;(&#x60;${this.apiUrl}/apuntados&#x60;);
+  }
+
+  /**
+   * 📌 Apunta al usuario al evento.
+   * 
+   * @param evento - Evento al que el usuario desea apuntarse
+   * @returns Observable con la respuesta de la API
+   */
+  apuntarseAEvento(evento: Evento): Observable&lt;any&gt; {
+    return this.http.post(&#x60;${this.apiUrl}/${evento.id}/apuntarse&#x60;, {});
+  }
+
+  /**
+   * 📌 Verifica si el usuario ya está inscrito a un evento.
+   * 
+   * @param eventoId - ID del evento
+   * @returns Observable que indica si el usuario está inscrito
+   */
+  estaInscrito(eventoId: number): Observable&lt;boolean&gt; {
+    return this.http.get&lt;boolean&gt;(&#x60;${this.apiUrl}/${eventoId}/esta-inscrito&#x60;);
+  }
+
+  /**
+   * 📌 Crea un nuevo evento (sin imagen).
+   * 
+   * @param evento - Objeto con los datos del evento a crear
+   * @returns Observable con la respuesta de la API
+   */
+  crearEvento(evento: Partial&lt;Evento&gt;): Observable&lt;any&gt; {
+    return this.http.post(&#x60;${this.apiUrl}&#x60;, evento);
+  }
+
+  /**
+   * 📌 Crea un nuevo evento (con imagen).
+   * 
+   * @param formData - Datos del evento en formato &#x60;FormData&#x60; (incluye imagen)
+   * @returns Observable con el evento creado
+   */
+  crearEventoConImagen(formData: FormData): Observable&lt;Evento&gt; {
+    return this.http.post&lt;Evento&gt;(this.apiUrl, formData, {
+      reportProgress: false,
+      observe: &#x27;body&#x27;
+    });
+  }
+
+  /**
+   * 📌 Obtiene los detalles de un evento por su ID.
+   * 
+   * @param id - ID del evento
+   * @returns Observable con los datos del evento
+   */
+  getEventoPorId(id: number): Observable&lt;Evento&gt; {
+    return this.http.get&lt;Evento&gt;(&#x60;${this.apiUrl}/${id}&#x60;);
+  }
+
+  /**
+   * 📌 Obtiene la lista de asistentes a un evento.
+   * 
+   * @param id - ID del evento
+   * @returns Observable con los datos de los asistentes (resumen, total y nombres)
+   */
+  getAsistentesEvento(id: number): Observable&lt;{ resumen: string, total: number, nombres: string[] }&gt; {
+    return this.http.get&lt;{ resumen: string, total: number, nombres: string[] }&gt;(&#x60;${this.apiUrl}/${id}/asistentes&#x60;);
+  }
+
+  /**
+   * 📌 Obtiene todos los eventos sin filtros.
+   * 
+   * @returns Observable con la lista de todos los eventos
+   */
+  getTodos(): Observable&lt;Evento[]&gt; {
+    return this.http.get&lt;Evento[]&gt;(this.apiUrl);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'Evento.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

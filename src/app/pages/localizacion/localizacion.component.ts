@@ -5,6 +5,16 @@ import { RouterModule, ActivatedRoute } from '@angular/router';
 
 declare const google: any;
 
+/**
+ * Componente para mostrar un mapa interactivo con la posibilidad de buscar lugares relacionados con perros
+ * como veterinarios, tiendas de mascotas, parques para perros, entre otros.
+ * Los usuarios pueden buscar por su ubicación actual o por provincia.
+ * 
+ * @component
+ * @example
+ * <app-localizacion></app-localizacion>
+ */
+
 @Component({
   selector: 'app-localizacion',
   standalone: true,
@@ -21,11 +31,14 @@ export class LocalizacionComponent implements OnInit {
   lugaresMostrados: any[] = [];
 
   constructor(private route: ActivatedRoute) {}
+   /** Lista de provincias disponibles para buscar */
 
   provincias: string[] = [
     'Sevilla', 'Madrid', 'Barcelona', 'Valencia', 'Málaga',
     'Cádiz', 'Granada', 'Zaragoza', 'Bilbao'
   ];
+
+  /** Tipos de lugares relacionados con perros disponibles para buscar */
 
   tiposLugares = [
     { nombre: 'Veterinarios', keyword: 'veterinario', seleccionado: false },
@@ -37,6 +50,8 @@ export class LocalizacionComponent implements OnInit {
     { nombre: 'Cafeterías dog-friendly', keyword: 'cafetería dog friendly', seleccionado: false },
     { nombre: 'Peluquerías caninas', keyword: 'peluquería canina', seleccionado: false }
   ];
+
+   /** Tarjetas informativas para mostrar en la interfaz */
 
   tarjetasInformativas = [
     {
@@ -62,6 +77,11 @@ export class LocalizacionComponent implements OnInit {
     }
   ];
 
+    /**
+   * Método que se ejecuta al inicializar el componente.
+   * Obtiene los parámetros de la URL para configurar el modo de ubicación y los filtros de búsqueda.
+   */
+
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       const tipo = params['tipo'];
@@ -85,7 +105,10 @@ export class LocalizacionComponent implements OnInit {
       this.buscar();
     });
   }
-
+/**
+   * Método para iniciar la búsqueda de lugares.
+   * Dependiendo del modo de ubicación seleccionado, busca por ubicación actual o por provincia.
+   */
   buscar(): void {
     this.lugaresMostrados = [];
     this.borrarMarcadores();

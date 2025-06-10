@@ -1,0 +1,2651 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  PostDetailComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/post-detail/post-detail.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Componente para mostrar los detalles de un post, incluidos los likes, dislikes, respuestas y recomendaciones.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&lt;app-post-detail&gt;&lt;/app-post-detail&gt;</code></pre></div>
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-post-detail</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>RouterModule</code>
+                            <code>HttpClientModule</code>
+                            <code>FormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./post-detail.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./post-detail.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#errorMessage" >errorMessage</a>
+                            </li>
+                            <li>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                <a href="#post" >post</a>
+                            </li>
+                            <li>
+                                <a href="#postId" >postId</a>
+                            </li>
+                            <li>
+                                <a href="#recentPosts" >recentPosts</a>
+                            </li>
+                            <li>
+                                <a href="#respuestas" >respuestas</a>
+                            </li>
+                            <li>
+                                <a href="#respuestaTexto" >respuestaTexto</a>
+                            </li>
+                            <li>
+                                <a href="#totalDislikes" >totalDislikes</a>
+                            </li>
+                            <li>
+                                <a href="#totalLikes" >totalLikes</a>
+                            </li>
+                            <li>
+                                <a href="#usuarioId" >usuarioId</a>
+                            </li>
+                            <li>
+                                <a href="#yaDioDislike" >yaDioDislike</a>
+                            </li>
+                            <li>
+                                <a href="#yaDioLike" >yaDioLike</a>
+                            </li>
+                            <li>
+                                <a href="#yaEsFavorito" >yaEsFavorito</a>
+                            </li>
+                            <li>
+                                <a href="#yaReportado" >yaReportado</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cargarRecomendados" >cargarRecomendados</a>
+                            </li>
+                            <li>
+                                <a href="#cargarRespuestas" >cargarRespuestas</a>
+                            </li>
+                            <li>
+                                <a href="#getImagenUrl" >getImagenUrl</a>
+                            </li>
+                            <li>
+                                <a href="#imgErrorHandler" >imgErrorHandler</a>
+                            </li>
+                            <li>
+                                <a href="#loadPost" >loadPost</a>
+                            </li>
+                            <li>
+                                <a href="#marcarFavorito" >marcarFavorito</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#reportarPost" >reportarPost</a>
+                            </li>
+                            <li>
+                                <a href="#responder" >responder</a>
+                            </li>
+                            <li>
+                                <a href="#toggleDislike" >toggleDislike</a>
+                            </li>
+                            <li>
+                                <a href="#toggleLike" >toggleLike</a>
+                            </li>
+                            <li>
+                                <a href="#verificarFavorito" >verificarFavorito</a>
+                            </li>
+                            <li>
+                                <a href="#verificarReporte" >verificarReporte</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(route: ActivatedRoute, postService: <a href="../injectables/PostService.html" target="_self">PostService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:65</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor para inicializar el servicio de rutas y el servicio de posts.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                    <code>ActivatedRoute</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>Activador de rutas para obtener parámetros</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>postService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PostService.html" target="_self" >PostService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>Servicio para manejar la lógica de posts</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarRecomendados"></a>
+                    <span class="name">
+                        <span ><b>cargarRecomendados</b></span>
+                        <a href="#cargarRecomendados"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarRecomendados(categoria: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="133"
+                                    class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:133</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Carga posts recomendados según la categoría del post actual.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>categoria</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Nombre de la categoría para filtrar los posts recomendados</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarRespuestas"></a>
+                    <span class="name">
+                        <span ><b>cargarRespuestas</b></span>
+                        <a href="#cargarRespuestas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarRespuestas()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="230"
+                                    class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:230</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Carga las respuestas asociadas al post.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getImagenUrl"></a>
+                    <span class="name">
+                        <span ><b>getImagenUrl</b></span>
+                        <a href="#getImagenUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getImagenUrl(ruta: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="317"
+                                    class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:317</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Devuelve la URL de la imagen, manejando rutas relativas y absolutas.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ruta</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Ruta de la imagen</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>URL de la imagen procesada</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="imgErrorHandler"></a>
+                    <span class="name">
+                        <span ><b>imgErrorHandler</b></span>
+                        <a href="#imgErrorHandler"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>imgErrorHandler(event: Event)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="330"
+                                    class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:330</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Manejador de error para imágenes que no se cargan correctamente.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>Event</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Evento de error al cargar imagen</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadPost"></a>
+                    <span class="name">
+                        <span ><b>loadPost</b></span>
+                        <a href="#loadPost"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadPost()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="100"
+                                    class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:100</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Carga el post completo desde el servicio.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="marcarFavorito"></a>
+                    <span class="name">
+                        <span ><b>marcarFavorito</b></span>
+                        <a href="#marcarFavorito"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>marcarFavorito()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="245"
+                                    class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:245</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Alterna el estado de &quot;Favorito&quot; para el post actual.
+Si el usuario no está autenticado, muestra un mensaje de alerta.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="82"
+                                    class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:82</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Método llamado al inicializar el componente. Recupera el ID del post desde los parámetros de la URL
+y carga el post si el ID es válido.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reportarPost"></a>
+                    <span class="name">
+                        <span ><b>reportarPost</b></span>
+                        <a href="#reportarPost"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>reportarPost()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="280"
+                                    class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:280</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Alterna el estado de &quot;Reportado&quot; para el post actual.
+Si el usuario no está autenticado, muestra un mensaje de alerta.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="responder"></a>
+                    <span class="name">
+                        <span ><b>responder</b></span>
+                        <a href="#responder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>responder()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="191"
+                                    class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:191</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Envía una respuesta al post actual.
+La respuesta debe tener entre 50 y 300 caracteres.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleDislike"></a>
+                    <span class="name">
+                        <span ><b>toggleDislike</b></span>
+                        <a href="#toggleDislike"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleDislike()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="166"
+                                    class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:166</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Alterna el estado de &quot;No me gusta&quot; para el post actual.
+Si el usuario no está autenticado, muestra un mensaje de alerta.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleLike"></a>
+                    <span class="name">
+                        <span ><b>toggleLike</b></span>
+                        <a href="#toggleLike"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleLike()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="143"
+                                    class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:143</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Alterna el estado de &quot;Me gusta&quot; para el post actual.
+Si el usuario no está autenticado, muestra un mensaje de alerta.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="verificarFavorito"></a>
+                    <span class="name">
+                        <span ><b>verificarFavorito</b></span>
+                        <a href="#verificarFavorito"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>verificarFavorito()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="266"
+                                    class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:266</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Verifica si el post actual ya es favorito del usuario.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="verificarReporte"></a>
+                    <span class="name">
+                        <span ><b>verificarReporte</b></span>
+                        <a href="#verificarReporte"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>verificarReporte()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="301"
+                                    class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:301</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Verifica si el post actual ha sido reportado por el usuario.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errorMessage"></a>
+                    <span class="name">
+                        <span ><b>errorMessage</b></span>
+                        <a href="#errorMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Mensaje de error en caso de fallo</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading"></a>
+                    <span class="name">
+                        <span ><b>isLoading</b></span>
+                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Estado de carga de los datos</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="post"></a>
+                    <span class="name">
+                        <span ><b>post</b></span>
+                        <a href="#post"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Detalles del post</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="postId"></a>
+                    <span class="name">
+                        <span ><b>postId</b></span>
+                        <a href="#postId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>ID del post actual</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="recentPosts"></a>
+                    <span class="name">
+                        <span ><b>recentPosts</b></span>
+                        <a href="#recentPosts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Lista de posts recomendados por categoría</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="respuestas"></a>
+                    <span class="name">
+                        <span ><b>respuestas</b></span>
+                        <a href="#respuestas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:65</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Respuestas al post</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="respuestaTexto"></a>
+                    <span class="name">
+                        <span ><b>respuestaTexto</b></span>
+                        <a href="#respuestaTexto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Texto de la respuesta del usuario</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalDislikes"></a>
+                    <span class="name">
+                        <span ><b>totalDislikes</b></span>
+                        <a href="#totalDislikes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Total de dislikes del post</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalLikes"></a>
+                    <span class="name">
+                        <span ><b>totalLikes</b></span>
+                        <a href="#totalLikes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Total de likes del post</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="usuarioId"></a>
+                    <span class="name">
+                        <span ><b>usuarioId</b></span>
+                        <a href="#usuarioId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>ID del usuario autenticado</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="yaDioDislike"></a>
+                    <span class="name">
+                        <span ><b>yaDioDislike</b></span>
+                        <a href="#yaDioDislike"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Estado si el usuario ha dado dislike al post</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="yaDioLike"></a>
+                    <span class="name">
+                        <span ><b>yaDioLike</b></span>
+                        <a href="#yaDioLike"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Estado si el usuario ha dado like al post</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="yaEsFavorito"></a>
+                    <span class="name">
+                        <span ><b>yaEsFavorito</b></span>
+                        <a href="#yaEsFavorito"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Estado si el post es favorito del usuario</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="yaReportado"></a>
+                    <span class="name">
+                        <span ><b>yaReportado</b></span>
+                        <a href="#yaReportado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/components/post-detail/post-detail.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Estado si el post ha sido reportado por el usuario</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { PostService } from &#x27;../../services/post.service&#x27;;
+import { RouterModule } from &#x27;@angular/router&#x27;;
+import { HttpClientModule } from &#x27;@angular/common/http&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { environment } from &#x27;../../../environments/environment&#x27;;
+
+/**
+ * Componente para mostrar los detalles de un post, incluidos los likes, dislikes, respuestas y recomendaciones.
+ * 
+ * @component
+ * @example
+ * &lt;app-post-detail&gt;&lt;/app-post-detail&gt;
+ */
+@Component({
+  selector: &#x27;app-post-detail&#x27;,
+  standalone: true,
+  imports: [CommonModule, RouterModule, HttpClientModule, FormsModule],
+  templateUrl: &#x27;./post-detail.component.html&#x27;,
+  styleUrls: [&#x27;./post-detail.component.css&#x27;]
+})
+export class PostDetailComponent implements OnInit {
+  /** Detalles del post */
+  post: any &#x3D; null;
+
+  /** ID del post actual */
+  postId: number &#x3D; 0;
+
+  /** Estado de carga de los datos */
+  isLoading: boolean &#x3D; true;
+
+  /** Mensaje de error en caso de fallo */
+  errorMessage: string &#x3D; &#x27;&#x27;;
+
+  /** ID del usuario autenticado */
+  usuarioId: number &#x3D; 0;
+
+  /** Total de likes del post */
+  totalLikes: number &#x3D; 0;
+
+  /** Estado si el usuario ha dado like al post */
+  yaDioLike: boolean &#x3D; false;
+
+  /** Total de dislikes del post */
+  totalDislikes: number &#x3D; 0;
+
+  /** Estado si el usuario ha dado dislike al post */
+  yaDioDislike: boolean &#x3D; false;
+
+  /** Estado si el post es favorito del usuario */
+  yaEsFavorito: boolean &#x3D; false;
+
+  /** Estado si el post ha sido reportado por el usuario */
+  yaReportado: boolean &#x3D; false;
+
+  /** Lista de posts recomendados por categoría */
+  recentPosts: any[] &#x3D; [];
+
+  /** Texto de la respuesta del usuario */
+  respuestaTexto: string &#x3D; &#x27;&#x27;;
+
+  /** Respuestas al post */
+  respuestas: any[] &#x3D; [];
+
+  /**
+   * Constructor para inicializar el servicio de rutas y el servicio de posts.
+   * 
+   * @param route - Activador de rutas para obtener parámetros
+   * @param postService - Servicio para manejar la lógica de posts
+   */
+  constructor(
+    private route: ActivatedRoute,
+    private postService: PostService
+  ) {}
+
+  /**
+   * Método llamado al inicializar el componente. Recupera el ID del post desde los parámetros de la URL
+   * y carga el post si el ID es válido.
+   */
+  ngOnInit() {
+    const storedUser &#x3D; localStorage.getItem(&#x27;usuario&#x27;);
+    if (storedUser) {
+      const usuario &#x3D; JSON.parse(storedUser);
+      this.usuarioId &#x3D; usuario.id;
+    }
+
+    this.route.paramMap.subscribe(params &#x3D;&gt; {
+      this.postId &#x3D; Number(params.get(&#x27;id&#x27;));
+      if (this.postId) {
+        this.loadPost();
+      }
+    });
+  }
+
+  /**
+   * Carga el post completo desde el servicio.
+   */
+  loadPost() {
+    this.postService.getPostById(this.postId).subscribe({
+      next: (response) &#x3D;&gt; {
+        this.post &#x3D; response.post;
+        this.totalLikes &#x3D; response.totalLikes ?? 0;
+        this.totalDislikes &#x3D; response.totalDislikes ?? 0;
+        this.isLoading &#x3D; false;
+
+        this.yaDioLike &#x3D; response.liked ?? false;
+        this.yaDioDislike &#x3D; response.disliked ?? false;
+
+        this.cargarRespuestas();
+
+        if (this.post?.category?.name) {
+          this.cargarRecomendados(this.post.category.name);
+        }
+
+        this.verificarFavorito();
+        this.verificarReporte();
+      },
+      error: (error) &#x3D;&gt; {
+        console.error(&#x27;❌ Error al cargar el post:&#x27;, error);
+        this.errorMessage &#x3D; &#x27;No se pudo cargar el post. Intenta nuevamente.&#x27;;
+        this.isLoading &#x3D; false;
+      }
+    });
+  }
+
+  /**
+   * Carga posts recomendados según la categoría del post actual.
+   * 
+   * @param categoria - Nombre de la categoría para filtrar los posts recomendados
+   */
+  cargarRecomendados(categoria: string): void {
+    this.postService.getRandomPostsByCategory(categoria, 6).subscribe((data) &#x3D;&gt; {
+      this.recentPosts &#x3D; data.filter(p &#x3D;&gt; p.id !&#x3D;&#x3D; this.post.id);
+    });
+  }
+
+  /**
+   * Alterna el estado de &quot;Me gusta&quot; para el post actual.
+   * Si el usuario no está autenticado, muestra un mensaje de alerta.
+   */
+  toggleLike() {
+    const token &#x3D; localStorage.getItem(&#x27;auth_token&#x27;);
+    if (!token) {
+      alert(&quot;⚠️ Debes iniciar sesión para dar &#x27;Me gusta&#x27;&quot;);
+      return;
+    }
+
+    this.postService.toggleLike(this.postId).subscribe({
+      next: (respuesta: any) &#x3D;&gt; {
+        this.totalLikes &#x3D; respuesta.totalLikes ?? this.totalLikes;
+        this.yaDioLike &#x3D; respuesta.liked ?? !this.yaDioLike;
+      },
+      error: (error) &#x3D;&gt; {
+        console.error(&quot;❌ Error al enviar el like:&quot;, error);
+        alert(&quot;No se pudo procesar el &#x27;Me gusta&#x27;.&quot;);
+      }
+    });
+  }
+
+  /**
+   * Alterna el estado de &quot;No me gusta&quot; para el post actual.
+   * Si el usuario no está autenticado, muestra un mensaje de alerta.
+   */
+  toggleDislike() {
+    const token &#x3D; localStorage.getItem(&#x27;auth_token&#x27;);
+    if (!token) {
+      alert(&quot;⚠️ Debes iniciar sesión para dar &#x27;No me gusta&#x27;&quot;);
+      return;
+    }
+
+    this.postService.toggleDislike(this.postId).subscribe({
+      next: (respuesta: any) &#x3D;&gt; {
+        this.totalDislikes &#x3D; respuesta.totalDislikes ?? this.totalDislikes;
+        this.yaDioDislike &#x3D; respuesta.disliked ?? !this.yaDioDislike;
+      },
+      error: (error) &#x3D;&gt; {
+        console.error(&quot;❌ Error al enviar el dislike:&quot;, error);
+        alert(&quot;No se pudo procesar el &#x27;No me gusta&#x27;.&quot;);
+      }
+    });
+  }
+
+  /**
+   * Envía una respuesta al post actual.
+   * La respuesta debe tener entre 50 y 300 caracteres.
+   * 
+   * @param texto - Contenido de la respuesta
+   */
+  responder() {
+    const token &#x3D; localStorage.getItem(&#x27;auth_token&#x27;);
+    if (!token) {
+      alert(&quot;⚠️ Debes iniciar sesión para responder.&quot;);
+      return;
+    }
+
+    const texto &#x3D; this.respuestaTexto.trim();
+
+    if (texto.length &lt; 50) {
+      alert(&quot;⚠️ La respuesta debe tener al menos 50 caracteres.&quot;);
+      return;
+    }
+
+    if (texto.length &gt; 300) {
+      alert(&quot;⚠️ La respuesta no puede superar los 300 caracteres.&quot;);
+      return;
+    }
+
+    const nuevaRespuesta &#x3D; {
+      content: texto,
+      postId: this.postId
+    };
+
+    this.postService.createReply(nuevaRespuesta).subscribe({
+      next: () &#x3D;&gt; {
+        this.respuestaTexto &#x3D; &#x27;&#x27;;
+        this.cargarRespuestas();
+      },
+      error: (err) &#x3D;&gt; {
+        console.error(&quot;❌ Error al responder:&quot;, err);
+        alert(&quot;No se pudo publicar la respuesta.&quot;);
+      }
+    });
+  }
+
+  /**
+   * Carga las respuestas asociadas al post.
+   */
+  cargarRespuestas() {
+    this.postService.getRepliesByPost(this.postId).subscribe({
+      next: (respuestas) &#x3D;&gt; {
+        this.respuestas &#x3D; respuestas.content || respuestas;
+      },
+      error: (err) &#x3D;&gt; {
+        console.error(&quot;❌ Error al cargar respuestas:&quot;, err);
+      }
+    });
+  }
+
+  /**
+   * Alterna el estado de &quot;Favorito&quot; para el post actual.
+   * Si el usuario no está autenticado, muestra un mensaje de alerta.
+   */
+  marcarFavorito() {
+    const token &#x3D; localStorage.getItem(&#x27;auth_token&#x27;);
+    if (!token) {
+      alert(&quot;⚠️ Debes iniciar sesión para usar favoritos.&quot;);
+      return;
+    }
+
+    this.postService.toggleFavorito(this.postId).subscribe({
+      next: (res) &#x3D;&gt; {
+        this.yaEsFavorito &#x3D; res.favorito ?? !this.yaEsFavorito;
+      },
+      error: (err) &#x3D;&gt; {
+        console.error(&quot;❌ Error al alternar favorito:&quot;, err);
+        alert(&quot;Hubo un error al guardar/actualizar el favorito.&quot;);
+      }
+    });
+  }
+
+  /**
+   * Verifica si el post actual ya es favorito del usuario.
+   */
+  verificarFavorito() {
+    const token &#x3D; localStorage.getItem(&#x27;auth_token&#x27;);
+    if (!token) return;
+
+    this.postService.hasUserFavorited(this.postId).subscribe({
+      next: (res) &#x3D;&gt; this.yaEsFavorito &#x3D; res,
+      error: (err) &#x3D;&gt; console.warn(&quot;ℹ️ No se pudo verificar favoritos:&quot;, err)
+    });
+  }
+
+  /**
+   * Alterna el estado de &quot;Reportado&quot; para el post actual.
+   * Si el usuario no está autenticado, muestra un mensaje de alerta.
+   */
+  reportarPost() {
+    const token &#x3D; localStorage.getItem(&#x27;auth_token&#x27;);
+    if (!token) {
+      alert(&quot;⚠️ Debes iniciar sesión para reportar.&quot;);
+      return;
+    }
+
+    this.postService.toggleReport(this.postId).subscribe({
+      next: (res) &#x3D;&gt; {
+        this.yaReportado &#x3D; res.reportado ?? !this.yaReportado;
+      },
+      error: (err) &#x3D;&gt; {
+        console.error(&quot;❌ Error al alternar reporte:&quot;, err);
+        alert(&quot;Hubo un error al reportar/quitar reporte.&quot;);
+      }
+    });
+  }
+
+  /**
+   * Verifica si el post actual ha sido reportado por el usuario.
+   */
+  verificarReporte() {
+    const token &#x3D; localStorage.getItem(&#x27;auth_token&#x27;);
+    if (!token) return;
+
+    this.postService.hasUserReported(this.postId).subscribe({
+      next: (res) &#x3D;&gt; this.yaReportado &#x3D; res,
+      error: (err) &#x3D;&gt; console.warn(&quot;ℹ️ No se pudo verificar reporte:&quot;, err)
+    });
+  }
+
+  /**
+   * Devuelve la URL de la imagen, manejando rutas relativas y absolutas.
+   * 
+   * @param ruta - Ruta de la imagen
+   * @returns URL de la imagen procesada
+   */
+  getImagenUrl(ruta: string): string {
+    if (!ruta) return &#x27;assets/images/default-avatar.png&#x27;;
+    if (ruta.startsWith(&#x27;http&#x27;)) return ruta;
+
+    const cleanPath &#x3D; ruta.replace(/^\/?uploads\//, &#x27;&#x27;);
+    return &#x60;${environment.imagenUrlBase}${cleanPath}&#x60;;
+  }
+
+  /**
+   * Manejador de error para imágenes que no se cargan correctamente.
+   * 
+   * @param event - Evento de error al cargar imagen
+   */
+  imgErrorHandler(event: Event): void {
+    (event.target as HTMLImageElement).src &#x3D; &#x27;assets/images/default-avatar.png&#x27;;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- 📌 Contenedor principal --&gt;
+&lt;div class&#x3D;&quot;container-fluid mt-4&quot; *ngIf&#x3D;&quot;post&quot;&gt;
+  &lt;div class&#x3D;&quot;row d-flex align-items-stretch&quot;&gt;
+
+    &lt;!-- 📌 Menú Lateral Izquierdo --&gt;
+    &lt;aside class&#x3D;&quot;col-12 col-md-3 col-lg-2 sidebar-left&quot;&gt;
+      &lt;h3&gt;Foro&lt;/h3&gt;
+
+      &lt;!-- 📌 Tarjetas debajo del Menú Izquierdo --&gt;
+      &lt;div class&#x3D;&quot;info-card&quot; *ngFor&#x3D;&quot;let i of [1,2,3]&quot;&gt;
+        &lt;h4&gt;Información Importante&lt;/h4&gt;
+        &lt;img src&#x3D;&quot;assets/images/categoria-fondo.jpg&quot; alt&#x3D;&quot;Información destacada&quot;&gt;
+        &lt;p&gt;Lee las últimas novedades en el foro.&lt;/p&gt;
+        &lt;a href&#x3D;&quot;/foro&quot; class&#x3D;&quot;btn btn-secondary&quot;&gt;Más detalles&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/aside&gt;
+
+    &lt;!-- 📌 Zona Principal del Post --&gt;
+    &lt;div class&#x3D;&quot;col-12 col-md-6 col-lg-7 d-flex flex-column&quot;&gt;
+
+      &lt;!-- 📌 Migas de pan --&gt;
+      &lt;nav aria-label&#x3D;&quot;breadcrumb&quot; class&#x3D;&quot;breadcrumb-container&quot;&gt;
+        &lt;ol class&#x3D;&quot;breadcrumb&quot;&gt;
+          &lt;li class&#x3D;&quot;breadcrumb-item&quot;&gt;&lt;a routerLink&#x3D;&quot;/&quot;&gt;🏠 Inicio&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;breadcrumb-item&quot;&gt;&lt;a routerLink&#x3D;&quot;/foro&quot;&gt;📢 Foro&lt;/a&gt;&lt;/li&gt;
+          &lt;li class&#x3D;&quot;breadcrumb-item&quot;&gt;
+            &lt;a [routerLink]&#x3D;&quot;[&#x27;/foro&#x27;, post?.category?.name]&quot;&gt;🐾 {{ post?.category?.name || &#x27;Categoría&#x27; }}&lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li class&#x3D;&quot;breadcrumb-item active&quot; aria-current&#x3D;&quot;page&quot;&gt;📄 Post&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/nav&gt;
+
+      &lt;!-- 📌 Cabecera con Imagen --&gt;
+      &lt;header class&#x3D;&quot;category-header col-12&quot;&gt;
+        &lt;img src&#x3D;&quot;assets/images/categoria-fondo.jpg&quot; alt&#x3D;&quot;Categoría {{ post?.category?.name }}&quot; class&#x3D;&quot;header-image&quot;&gt;
+        &lt;h1&gt;{{ post?.category?.name | titlecase }}&lt;/h1&gt;
+      &lt;/header&gt;
+
+      &lt;!-- 📸 Imagen del post --&gt;
+      &lt;div class&#x3D;&quot;d-flex justify-content-center mb-3&quot; *ngIf&#x3D;&quot;post?.imagenUrl&quot;&gt;
+        &lt;img 
+     [src]&#x3D;&quot;getImagenUrl(post.imagenUrl)&quot;
+
+          alt&#x3D;&quot;Imagen del post&quot;
+          class&#x3D;&quot;img-thumbnail shadow&quot;
+          style&#x3D;&quot;max-width: 300px; border-radius: 12px;&quot;&gt;
+      &lt;/div&gt;
+
+      &lt;!-- 📌 Contenido del post --&gt;
+      &lt;div class&#x3D;&quot;card post-detail&quot;&gt;
+        &lt;div class&#x3D;&quot;card-body&quot;&gt;
+          &lt;h2 class&#x3D;&quot;post-title mb-3 text-success-emphasis&quot;&gt;{{ post.title }}&lt;/h2&gt;
+          &lt;p class&#x3D;&quot;card-text&quot;&gt;{{ post.content }}&lt;/p&gt;
+          &lt;p class&#x3D;&quot;text-muted mt-3 d-flex align-items-center&quot;&gt;
+  &lt;img 
+    *ngIf&#x3D;&quot;post.user?.fotoPerfil&quot;
+    [src]&#x3D;&quot;getImagenUrl(post.user.fotoPerfil)&quot;
+    alt&#x3D;&quot;Foto de {{ post.user.nombre }}&quot;
+    class&#x3D;&quot;me-2 rounded-circle&quot;
+    style&#x3D;&quot;width: 30px; height: 30px; object-fit: cover; border: 1px solid #ccc;&quot;
+    (error)&#x3D;&quot;imgErrorHandler($event)&quot;
+  /&gt;
+  🧑 Publicado por &lt;strong class&#x3D;&quot;ms-1&quot;&gt;{{ post.user?.nombre || &#x27;Anónimo&#x27; }}&lt;/strong&gt;
+  el {{ post.createdAt | date:&#x27;short&#x27; }}
+&lt;/p&gt;
+
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- 📌 Estado de carga / error --&gt;
+      &lt;div *ngIf&#x3D;&quot;isLoading&quot; class&#x3D;&quot;alert alert-info mt-3&quot;&gt;
+        ⏳ Cargando post...
+      &lt;/div&gt;
+      &lt;div *ngIf&#x3D;&quot;errorMessage&quot; class&#x3D;&quot;alert alert-danger mt-3&quot;&gt;
+        ❌ {{ errorMessage }}
+      &lt;/div&gt;
+
+     &lt;!-- 📌 Acciones --&gt;
+&lt;div class&#x3D;&quot;post-actions d-flex flex-wrap align-items-center gap-2 mt-3&quot; *ngIf&#x3D;&quot;!isLoading&quot;&gt;
+
+  &lt;!-- 👍 Like con corazón dinámico --&gt;
+  &lt;button class&#x3D;&quot;btn btn-outline-danger&quot; (click)&#x3D;&quot;toggleLike()&quot;&gt;
+    &lt;i class&#x3D;&quot;fa&quot; [ngClass]&#x3D;&quot;yaDioLike ? &#x27;fa-heart text-danger&#x27; : &#x27;fa-heart-o text-secondary&#x27;&quot;&gt;&lt;/i&gt;
+    &lt;span [ngClass]&#x3D;&quot;yaDioLike ? &#x27;text-danger fw-bold&#x27; : &#x27;text-dark&#x27;&quot;&gt;{{ totalLikes }}&lt;/span&gt;
+  &lt;/button&gt;
+
+  &lt;!-- 👎 Dislike --&gt;
+  &lt;button class&#x3D;&quot;btn btn-outline-secondary&quot; (click)&#x3D;&quot;toggleDislike()&quot;&gt;
+    👎 &lt;span class&#x3D;&quot;badge bg-light text-dark&quot;&gt;{{ totalDislikes }}&lt;/span&gt;
+  &lt;/button&gt;
+
+  &lt;!-- ⭐ Favorito: alterna añadir/quitar --&gt;
+  &lt;button 
+    class&#x3D;&quot;btn btn-outline-warning&quot;
+    (click)&#x3D;&quot;marcarFavorito()&quot;&gt;
+    &lt;i class&#x3D;&quot;fa fa-star&quot; [ngClass]&#x3D;&quot;yaEsFavorito ? &#x27;text-warning&#x27; : &#x27;text-secondary&#x27;&quot;&gt;&lt;/i&gt;
+    {{ yaEsFavorito ? &#x27; Guardado&#x27; : &#x27; Añadir a favoritos&#x27; }}
+  &lt;/button&gt;
+
+  &lt;!-- 🚩 Reportar: alterna añadir/quitar --&gt;
+  &lt;button 
+    class&#x3D;&quot;btn btn-outline-danger&quot;
+    (click)&#x3D;&quot;reportarPost()&quot;&gt;
+    &lt;i class&#x3D;&quot;fa fa-flag&quot;&gt;&lt;/i&gt; {{ yaReportado ? &#x27; Reportado&#x27; : &#x27; Reportar&#x27; }}
+  &lt;/button&gt;
+&lt;/div&gt;
+
+
+
+     &lt;!-- 📌 Formulario de respuesta --&gt;
+&lt;div class&#x3D;&quot;card mt-4 respuesta-form&quot; *ngIf&#x3D;&quot;!isLoading&quot;&gt;
+  &lt;div class&#x3D;&quot;card-header bg-light&quot;&gt;
+    &lt;h4 class&#x3D;&quot;mb-0&quot;&gt;Tu respuesta&lt;/h4&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;card-body&quot;&gt;
+    &lt;textarea 
+      [(ngModel)]&#x3D;&quot;respuestaTexto&quot; 
+      placeholder&#x3D;&quot;Escribe tu respuesta...&quot;
+      class&#x3D;&quot;form-control&quot;
+      rows&#x3D;&quot;4&quot;
+      maxlength&#x3D;&quot;300&quot;
+      name&#x3D;&quot;respuestaTexto&quot;&gt;
+    &lt;/textarea&gt;
+
+    &lt;!-- Contador dinámico con clases --&gt;
+&lt;p class&#x3D;&quot;mt-2 text-end&quot;
+   [ngClass]&#x3D;&quot;{
+     &#x27;contador-rojo&#x27;: (respuestaTexto || &#x27;&#x27;).length &gt;&#x3D; 300,
+     &#x27;contador-gris&#x27;: (respuestaTexto || &#x27;&#x27;).length &lt; 50,
+     &#x27;contador-verde&#x27;: (respuestaTexto || &#x27;&#x27;).length &gt;&#x3D; 50 &amp;&amp; (respuestaTexto || &#x27;&#x27;).length &lt; 300
+   }&quot;&gt;
+  {{ (respuestaTexto || &#x27;&#x27;).length }}/300 caracteres
+  &lt;span *ngIf&#x3D;&quot;(respuestaTexto || &#x27;&#x27;).length &lt; 50&quot; class&#x3D;&quot;text-muted ms-2&quot;&gt;(mínimo 50 caracteres)&lt;/span&gt;
+&lt;/p&gt;
+
+
+
+    &lt;!-- Botón deshabilitado si menos de 50 o más de 300 --&gt;
+    &lt;button 
+      class&#x3D;&quot;btn btn-success mt-2&quot;
+      (click)&#x3D;&quot;responder()&quot;
+      [disabled]&#x3D;&quot;!respuestaTexto || respuestaTexto.trim().length &lt; 50 || respuestaTexto.length &gt; 300&quot;&gt;
+      📨 Responder
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+      &lt;!-- 📌 Lista de respuestas --&gt;
+      &lt;div class&#x3D;&quot;mt-4&quot; *ngIf&#x3D;&quot;respuestas.length &gt; 0&quot;&gt;
+        &lt;h3 class&#x3D;&quot;mb-3&quot;&gt;💬 Respuestas&lt;/h3&gt;
+        &lt;div *ngFor&#x3D;&quot;let r of respuestas&quot; class&#x3D;&quot;card mb-3 respuesta&quot;&gt;
+          &lt;div class&#x3D;&quot;card-body&quot;&gt;
+            &lt;p class&#x3D;&quot;mb-1&quot;&gt;&lt;strong&gt;{{ r.user?.nombre || &#x27;Usuario&#x27; }}&lt;/strong&gt; dijo:&lt;/p&gt;
+            &lt;p class&#x3D;&quot;mb-0&quot;&gt;{{ r.content || r.texto }}&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- 📌 Sidebar derecho: Recomendados --&gt;
+    &lt;aside class&#x3D;&quot;col-12 col-md-3 col-lg-3 sidebar-right&quot;&gt;
+      &lt;div class&#x3D;&quot;info-card recomendados mt-3&quot; *ngIf&#x3D;&quot;recentPosts.length &gt; 0&quot;&gt;
+        &lt;h4&gt;👀 Te puede interesar&lt;/h4&gt;
+        &lt;div class&#x3D;&quot;d-flex flex-column gap-2&quot;&gt;
+          &lt;div *ngFor&#x3D;&quot;let recomendado of recentPosts&quot; class&#x3D;&quot;post-recomendado-box&quot;&gt;
+            &lt;a [routerLink]&#x3D;&quot;[&#x27;/post&#x27;, recomendado.id]&quot;&gt;🐶 {{ recomendado.title }}&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Tarjetas adicionales --&gt;
+      &lt;div class&#x3D;&quot;info-card&quot; *ngFor&#x3D;&quot;let i of [1,2]&quot;&gt;
+        &lt;h4&gt;Información Importante&lt;/h4&gt;
+        &lt;img src&#x3D;&quot;assets/images/categoria-fondo.jpg&quot; alt&#x3D;&quot;Información destacada&quot;&gt;
+        &lt;p&gt;Lee las últimas novedades en el foro.&lt;/p&gt;
+        &lt;a href&#x3D;&quot;/foro&quot; class&#x3D;&quot;btn btn-secondary&quot;&gt;Más detalles&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/aside&gt;
+
+  &lt;/div&gt; &lt;!-- Fin .row --&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./post-detail.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">/* post-detail.component.scss */
+/* &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; */
+/* 🔸 Estilos para el detalle de un post con estructura clara y diseño atractivo */
+
+/* ─────────────────────────────── */
+/* 📌 Migas de pan */
+.breadcrumb-container {
+  background-color: #efd0b8 !important;
+  border: 4px solid #f47b22 !important;
+  padding: 12px 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.breadcrumb {
+  margin: 0;
+  background-color: transparent;
+  padding: 0;
+}
+
+.breadcrumb-item {
+  font-weight: 600;
+  color: #3B8024;
+}
+
+.breadcrumb-item a {
+  color: #3B8024;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover,
+.breadcrumb-item.active {
+  color: #3B8024;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* ─────────────────────────────── */
+/* 📌 Cabecera de categoría */
+.category-header {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.header-image {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.category-header h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 2rem;
+}
+
+/* ─────────────────────────────── */
+/* 📌 Contenedor del post */
+.post-detail {
+  border-radius: 12px;
+  border: 4px solid #f47b22 !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+  background-color: #fff;
+}
+
+/* 📌 Título del post */
+.post-title {
+  color: #3B8024;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* ─────────────────────────────── */
+/* 📌 Acciones del post */
+.post-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.post-actions button {
+  background-color: #84c390;
+  border: 2px solid black;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.post-actions button:hover {
+  background-color: #6ea97e;
+}
+button.liked i {
+  color: red;
+}
+
+
+/* ─────────────────────────────── */
+/* 📌 Formulario de respuesta */
+.respuesta-form {
+  margin-top: 30px;
+  padding: 20px;
+  border: 2px dashed #3B8024;
+  border-radius: 20px;
+  background-color: #d4f8e8;
+}
+
+.respuesta-form textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  margin-bottom: 10px;
+}
+
+.respuesta-form button {
+  background-color: #2d7814;
+  color: white;
+  padding: 8px 16px;
+  border: 8px  #4fc74d;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+.respuesta-form button:hover {
+  background-color: #055f43;
+}
+
+/* ─────────────────────────────── */
+/* 📌 Respuestas */
+.respuestas-container {
+  margin-top: 20px;
+}
+
+.respuesta {
+  padding: 15px;
+  background-color: 84c390;
+  background-color: #84c390;
+  border-left: 4px solid #3B8024;
+  margin-bottom: 18px;
+  border-radius: 5px;
+}
+
+/* Estilo general del textarea */
+textarea.form-control {
+  resize: vertical;
+  transition: border-color 0.2s ease-in-out;
+}
+
+/* Colores según el estado del texto */
+p.text-end {
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+/* Colores dinámicos del contador */
+p.text-end.red {
+  color: red;
+}
+
+p.text-end.gray {
+  color: gray;
+}
+
+p.text-end.green {
+  color: green;
+}
+
+/* Botón responder deshabilitado */
+.respuesta-form button:disabled {
+  background-color: #ccc !important; /* fondo gris claro */
+  color: #666 !important;            /* texto gris oscuro */
+  border: 2px solid #999 !important; /* borde gris */
+  cursor: not-allowed;
+  opacity: 1; /* mantener opacidad alta para buena visibilidad */
+}
+
+.contador-rojo {
+  color: red;
+}
+
+.contador-verde {
+  color: green;
+}
+
+.contador-gris {
+  color: black(8, 0, 0);
+}
+
+
+
+/* ─────────────────────────────── */
+/* 📌 Sidebar izquierdo */
+.sidebar-left {
+  padding: 10px;
+}
+
+.sidebar-left h3 {
+  color: #3B8024;
+  font-size: 1.6rem;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-color: #f47b22;
+}
+
+.sidebar-left .list-group {
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.sidebar-left .list-group-item {
+  background-color: #84c390;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  border: 4px solid #3B8024;
+  border-radius: 10px;
+  transition: transform 0.2s ease;
+}
+
+.sidebar-left .list-group-item:hover {
+  transform: scale(1.03);
+  background-color: #6ea97e;
+}
+
+.sidebar-left .list-group-item a {
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar-left .info-card {
+  background-color: white;
+  border: 4px solid #3B8024;
+  border-radius: 10px;
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+.sidebar-left .info-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.sidebar-left .info-card h4 {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #065f43;
+}
+
+.sidebar-left .info-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+.sidebar-left .btn-secondary {
+  background-color: #63af71;
+  color: white;
+  font-weight: bold;
+}
+
+.sidebar-left .btn-secondary:hover {
+  background-color: #055f43;
+}
+
+/* ─────────────────────────────── */
+/* 📌 Sidebar derecho */
+.sidebar-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-card {
+  border: 4px solid #3B8024;
+  background-color: white;
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.info-card img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.info-card h4 {
+  color: #3B8024;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.info-card p {
+  font-size: 14px;
+  color: #333;
+}
+
+/* 📌 Caja individual de cada post recomendado */
+.post-recomendado-box {
+  border: 4px solid #3B8024;
+  background-color: #f0fff4;
+  font-weight: 600;
+  color: #3B8024;
+  text-align: left;
+  border-radius: 10px;
+  padding: 10px 14px;
+  transition: transform 0.2s ease;
+}
+
+.post-recomendado-box a {
+  color: #3B8024;
+  text-decoration: none;
+  display: block;
+}
+
+.post-recomendado-box:hover {
+  transform: scale(1.02);
+  background-color: #d4f8e8;
+}
+
+/* ─────────────────────────────── */
+/* 📱 Diseño responsivo */
+@media (max-width: 768px) {
+  .category-header h1 {
+    font-size: 1.5rem;
+    padding: 6px 12px;
+  }
+
+  .sidebar-left,
+  .sidebar-right {
+    margin-top: 20px;
+    padding: 1rem !important;
+    text-align: center;
+  }
+
+  .sidebar-left .list-group-item {
+    font-size: 0.9rem;
+  }
+
+  .post-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .respuesta-form {
+    padding: 15px;
+  }
+
+  .breadcrumb-container {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  /* 🔴 Botón de &quot;Me gusta&quot; cuando está activo */
+.post-actions .btn-outline-danger.liked,
+.post-actions .btn-outline-danger.active {
+  background-color: #f47b22;
+  color: white;
+  border-color: #c24300;
+}
+
+.post-actions .btn-outline-warning:disabled {
+  background-color: #ffc107;
+  color: white;
+  border-color: #c79a00;
+  cursor: not-allowed;
+}
+
+
+/* 🚩 Botón de &quot;Reportar&quot; ya hecho (disabled) */
+.post-actions .btn-outline-danger:disabled {
+  background-color: #d9534f;
+  color: white;
+  border-color: #a94442;
+  cursor: not-allowed;
+}
+
+/* ❤️ Transición y color para botones marcados */
+.post-actions button {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Si usas directamente .liked en el botón */
+button.liked {
+  color: red;
+  background-color: #ffe2e2;
+  border-color: #cc0000;
+}
+/* ❤️ Efecto de latido para el botón de &quot;Me gusta&quot; */
+.post-actions .fa-heart {
+  animation: beat 0.3s ease-in-out;
+  transform-origin: center;
+}
+
+/* ⭐ Efecto de brillo para la estrella de favoritos */
+.post-actions .fa-star.text-warning {
+  animation: pulseGlow 1.2s ease-out;
+}
+
+@keyframes beat {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+@keyframes pulseGlow {
+  0% {
+    text-shadow: 0 0 0px #ffc107;
+  }
+  50% {
+    text-shadow: 0 0 12px #ffc107;
+  }
+  100% {
+    text-shadow: 0 0 0px #ffc107;
+  }
+}
+
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- 📌 Contenedor principal --><div class="container-fluid mt-4" *ngIf="post">  <div class="row d-flex align-items-stretch">    <!-- 📌 Menú Lateral Izquierdo -->    <aside class="col-12 col-md-3 col-lg-2 sidebar-left">      <h3>Foro</h3>      <!-- 📌 Tarjetas debajo del Menú Izquierdo -->      <div class="info-card" *ngFor="let i of [1,2,3]">        <h4>Información Importante</h4>        <img src="assets/images/categoria-fondo.jpg" alt="Información destacada">        <p>Lee las últimas novedades en el foro.</p>        <a href="/foro" class="btn btn-secondary">Más detalles</a>      </div>    </aside>    <!-- 📌 Zona Principal del Post -->    <div class="col-12 col-md-6 col-lg-7 d-flex flex-column">      <!-- 📌 Migas de pan -->      <nav aria-label="breadcrumb" class="breadcrumb-container">        <ol class="breadcrumb">          <li class="breadcrumb-item"><a routerLink="/">🏠 Inicio</a></li>          <li class="breadcrumb-item"><a routerLink="/foro">📢 Foro</a></li>          <li class="breadcrumb-item">            <a [routerLink]="[\'/foro\', post?.category?.name]">🐾 {{ post?.category?.name || \'Categoría\' }}</a>          </li>          <li class="breadcrumb-item active" aria-current="page">📄 Post</li>        </ol>      </nav>      <!-- 📌 Cabecera con Imagen -->      <header class="category-header col-12">        <img src="assets/images/categoria-fondo.jpg" alt="Categoría {{ post?.category?.name }}" class="header-image">        <h1>{{ post?.category?.name | titlecase }}</h1>      </header>      <!-- 📸 Imagen del post -->      <div class="d-flex justify-content-center mb-3" *ngIf="post?.imagenUrl">        <img      [src]="getImagenUrl(post.imagenUrl)"          alt="Imagen del post"          class="img-thumbnail shadow"          style="max-width: 300px; border-radius: 12px;">      </div>      <!-- 📌 Contenido del post -->      <div class="card post-detail">        <div class="card-body">          <h2 class="post-title mb-3 text-success-emphasis">{{ post.title }}</h2>          <p class="card-text">{{ post.content }}</p>          <p class="text-muted mt-3 d-flex align-items-center">  <img     *ngIf="post.user?.fotoPerfil"    [src]="getImagenUrl(post.user.fotoPerfil)"    alt="Foto de {{ post.user.nombre }}"    class="me-2 rounded-circle"    style="width: 30px; height: 30px; object-fit: cover; border: 1px solid #ccc;"    (error)="imgErrorHandler($event)"  />  🧑 Publicado por <strong class="ms-1">{{ post.user?.nombre || \'Anónimo\' }}</strong>  el {{ post.createdAt | date:\'short\' }}</p>        </div>      </div>      <!-- 📌 Estado de carga / error -->      <div *ngIf="isLoading" class="alert alert-info mt-3">        ⏳ Cargando post...      </div>      <div *ngIf="errorMessage" class="alert alert-danger mt-3">        ❌ {{ errorMessage }}      </div>     <!-- 📌 Acciones --><div class="post-actions d-flex flex-wrap align-items-center gap-2 mt-3" *ngIf="!isLoading">  <!-- 👍 Like con corazón dinámico -->  <button class="btn btn-outline-danger" (click)="toggleLike()">    <i class="fa" [ngClass]="yaDioLike ? \'fa-heart text-danger\' : \'fa-heart-o text-secondary\'"></i>    <span [ngClass]="yaDioLike ? \'text-danger fw-bold\' : \'text-dark\'">{{ totalLikes }}</span>  </button>  <!-- 👎 Dislike -->  <button class="btn btn-outline-secondary" (click)="toggleDislike()">    👎 <span class="badge bg-light text-dark">{{ totalDislikes }}</span>  </button>  <!-- ⭐ Favorito: alterna añadir/quitar -->  <button     class="btn btn-outline-warning"    (click)="marcarFavorito()">    <i class="fa fa-star" [ngClass]="yaEsFavorito ? \'text-warning\' : \'text-secondary\'"></i>    {{ yaEsFavorito ? \' Guardado\' : \' Añadir a favoritos\' }}  </button>  <!-- 🚩 Reportar: alterna añadir/quitar -->  <button     class="btn btn-outline-danger"    (click)="reportarPost()">    <i class="fa fa-flag"></i> {{ yaReportado ? \' Reportado\' : \' Reportar\' }}  </button></div>     <!-- 📌 Formulario de respuesta --><div class="card mt-4 respuesta-form" *ngIf="!isLoading">  <div class="card-header bg-light">    <h4 class="mb-0">Tu respuesta</h4>  </div>  <div class="card-body">    <textarea       [(ngModel)]="respuestaTexto"       placeholder="Escribe tu respuesta..."      class="form-control"      rows="4"      maxlength="300"      name="respuestaTexto">    </textarea>    <!-- Contador dinámico con clases --><p class="mt-2 text-end"   [ngClass]="{     \'contador-rojo\': (respuestaTexto || \'\').length >= 300,     \'contador-gris\': (respuestaTexto || \'\').length < 50,     \'contador-verde\': (respuestaTexto || \'\').length >= 50 && (respuestaTexto || \'\').length < 300   }">  {{ (respuestaTexto || \'\').length }}/300 caracteres  <span *ngIf="(respuestaTexto || \'\').length < 50" class="text-muted ms-2">(mínimo 50 caracteres)</span></p>    <!-- Botón deshabilitado si menos de 50 o más de 300 -->    <button       class="btn btn-success mt-2"      (click)="responder()"      [disabled]="!respuestaTexto || respuestaTexto.trim().length < 50 || respuestaTexto.length > 300">      📨 Responder    </button>  </div></div>      <!-- 📌 Lista de respuestas -->      <div class="mt-4" *ngIf="respuestas.length > 0">        <h3 class="mb-3">💬 Respuestas</h3>        <div *ngFor="let r of respuestas" class="card mb-3 respuesta">          <div class="card-body">            <p class="mb-1"><strong>{{ r.user?.nombre || \'Usuario\' }}</strong> dijo:</p>            <p class="mb-0">{{ r.content || r.texto }}</p>          </div>        </div>      </div>    </div>    <!-- 📌 Sidebar derecho: Recomendados -->    <aside class="col-12 col-md-3 col-lg-3 sidebar-right">      <div class="info-card recomendados mt-3" *ngIf="recentPosts.length > 0">        <h4>👀 Te puede interesar</h4>        <div class="d-flex flex-column gap-2">          <div *ngFor="let recomendado of recentPosts" class="post-recomendado-box">            <a [routerLink]="[\'/post\', recomendado.id]">🐶 {{ recomendado.title }}</a>          </div>        </div>      </div>      <!-- Tarjetas adicionales -->      <div class="info-card" *ngFor="let i of [1,2]">        <h4>Información Importante</h4>        <img src="assets/images/categoria-fondo.jpg" alt="Información destacada">        <p>Lee las últimas novedades en el foro.</p>        <a href="/foro" class="btn btn-secondary">Más detalles</a>      </div>    </aside>  </div> <!-- Fin .row --></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BannerComponent', 'selector': 'app-banner'},{'name': 'BannerportadaComponent', 'selector': 'app-bannerportada'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogLayoutComponent', 'selector': 'app-blog-layout'},{'name': 'CalendarioEventosComponent', 'selector': 'app-calendario-eventos'},{'name': 'CategoryForoComponent', 'selector': 'app-category-foro'},{'name': 'CategoryPageComponent', 'selector': 'app-category-page'},{'name': 'ChatbotComponent', 'selector': 'app-chatbot'},{'name': 'CircleGridComponent', 'selector': 'app-circle-grid'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'ConsejosComponent', 'selector': 'app-consejos'},{'name': 'CrearEventoComponent', 'selector': 'app-crear-evento'},{'name': 'CrearPostComponent', 'selector': 'app-crear-post'},{'name': 'DetalleEventoComponent', 'selector': 'app-detalle-evento'},{'name': 'DogBreedsComponent', 'selector': 'app-dog-breeds'},{'name': 'DogListComponent', 'selector': 'app-dog-list'},{'name': 'EventosComponent', 'selector': 'app-eventos'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ForumGridComponent', 'selector': 'app-forum-grid'},{'name': 'GridComponent', 'selector': 'app-grid'},{'name': 'LandingPageComponent', 'selector': 'app-landing-page'},{'name': 'LifeComponent', 'selector': 'app-life'},{'name': 'LocalizacionComponent', 'selector': 'app-localizacion'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NewsComponent', 'selector': 'app-news'},{'name': 'PerfilComponent', 'selector': 'app-perfil'},{'name': 'PostDetailComponent', 'selector': 'app-post-detail'},{'name': 'ProductListComponent', 'selector': 'app-product-list'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegistroComponent', 'selector': 'app-registro'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'PostDetailComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'PostDetailComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
