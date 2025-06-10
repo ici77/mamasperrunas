@@ -1,0 +1,445 @@
+/* post-detail.component.scss */
+/* =========================== */
+/* 🔸 Estilos para el detalle de un post con estructura clara y diseño atractivo */
+
+/* ─────────────────────────────── */
+/* 📌 Migas de pan */
+.breadcrumb-container {
+  background-color: #efd0b8 !important;
+  border: 4px solid #f47b22 !important;
+  padding: 12px 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.breadcrumb {
+  margin: 0;
+  background-color: transparent;
+  padding: 0;
+}
+
+.breadcrumb-item {
+  font-weight: 600;
+  color: #3B8024;
+}
+
+.breadcrumb-item a {
+  color: #3B8024;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover,
+.breadcrumb-item.active {
+  color: #3B8024;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* ─────────────────────────────── */
+/* 📌 Cabecera de categoría */
+.category-header {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.header-image {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.category-header h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 2rem;
+}
+
+/* ─────────────────────────────── */
+/* 📌 Contenedor del post */
+.post-detail {
+  border-radius: 12px;
+  border: 4px solid #f47b22 !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+  background-color: #fff;
+}
+
+/* 📌 Título del post */
+.post-title {
+  color: #3B8024;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* ─────────────────────────────── */
+/* 📌 Acciones del post */
+.post-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.post-actions button {
+  background-color: #84c390;
+  border: 2px solid black;
+  font-weight: bold;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.post-actions button:hover {
+  background-color: #6ea97e;
+}
+button.liked i {
+  color: red;
+}
+
+
+/* ─────────────────────────────── */
+/* 📌 Formulario de respuesta */
+.respuesta-form {
+  margin-top: 30px;
+  padding: 20px;
+  border: 2px dashed #3B8024;
+  border-radius: 20px;
+  background-color: #d4f8e8;
+}
+
+.respuesta-form textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  margin-bottom: 10px;
+}
+
+.respuesta-form button {
+  background-color: #2d7814;
+  color: white;
+  padding: 8px 16px;
+  border: 8px  #4fc74d;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+.respuesta-form button:hover {
+  background-color: #055f43;
+}
+
+/* ─────────────────────────────── */
+/* 📌 Respuestas */
+.respuestas-container {
+  margin-top: 20px;
+}
+
+.respuesta {
+  padding: 15px;
+  background-color: 84c390;
+  background-color: #84c390;
+  border-left: 4px solid #3B8024;
+  margin-bottom: 18px;
+  border-radius: 5px;
+}
+
+/* Estilo general del textarea */
+textarea.form-control {
+  resize: vertical;
+  transition: border-color 0.2s ease-in-out;
+}
+
+/* Colores según el estado del texto */
+p.text-end {
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+/* Colores dinámicos del contador */
+p.text-end.red {
+  color: red;
+}
+
+p.text-end.gray {
+  color: gray;
+}
+
+p.text-end.green {
+  color: green;
+}
+
+/* Botón responder deshabilitado */
+.respuesta-form button:disabled {
+  background-color: #ccc !important; /* fondo gris claro */
+  color: #666 !important;            /* texto gris oscuro */
+  border: 2px solid #999 !important; /* borde gris */
+  cursor: not-allowed;
+  opacity: 1; /* mantener opacidad alta para buena visibilidad */
+}
+
+.contador-rojo {
+  color: red;
+}
+
+.contador-verde {
+  color: green;
+}
+
+.contador-gris {
+  color: black(8, 0, 0);
+}
+
+
+
+/* ─────────────────────────────── */
+/* 📌 Sidebar izquierdo */
+.sidebar-left {
+  padding: 10px;
+}
+
+.sidebar-left h3 {
+  color: #3B8024;
+  font-size: 1.6rem;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-color: #f47b22;
+}
+
+.sidebar-left .list-group {
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.sidebar-left .list-group-item {
+  background-color: #84c390;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  border: 4px solid #3B8024;
+  border-radius: 10px;
+  transition: transform 0.2s ease;
+}
+
+.sidebar-left .list-group-item:hover {
+  transform: scale(1.03);
+  background-color: #6ea97e;
+}
+
+.sidebar-left .list-group-item a {
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar-left .info-card {
+  background-color: white;
+  border: 4px solid #3B8024;
+  border-radius: 10px;
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+.sidebar-left .info-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.sidebar-left .info-card h4 {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #065f43;
+}
+
+.sidebar-left .info-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+.sidebar-left .btn-secondary {
+  background-color: #63af71;
+  color: white;
+  font-weight: bold;
+}
+
+.sidebar-left .btn-secondary:hover {
+  background-color: #055f43;
+}
+
+/* ─────────────────────────────── */
+/* 📌 Sidebar derecho */
+.sidebar-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-card {
+  border: 4px solid #3B8024;
+  background-color: white;
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.info-card img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.info-card h4 {
+  color: #3B8024;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.info-card p {
+  font-size: 14px;
+  color: #333;
+}
+
+/* 📌 Caja individual de cada post recomendado */
+.post-recomendado-box {
+  border: 4px solid #3B8024;
+  background-color: #f0fff4;
+  font-weight: 600;
+  color: #3B8024;
+  text-align: left;
+  border-radius: 10px;
+  padding: 10px 14px;
+  transition: transform 0.2s ease;
+}
+
+.post-recomendado-box a {
+  color: #3B8024;
+  text-decoration: none;
+  display: block;
+}
+
+.post-recomendado-box:hover {
+  transform: scale(1.02);
+  background-color: #d4f8e8;
+}
+
+/* ─────────────────────────────── */
+/* 📱 Diseño responsivo */
+@media (max-width: 768px) {
+  .category-header h1 {
+    font-size: 1.5rem;
+    padding: 6px 12px;
+  }
+
+  .sidebar-left,
+  .sidebar-right {
+    margin-top: 20px;
+    padding: 1rem !important;
+    text-align: center;
+  }
+
+  .sidebar-left .list-group-item {
+    font-size: 0.9rem;
+  }
+
+  .post-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .respuesta-form {
+    padding: 15px;
+  }
+
+  .breadcrumb-container {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  /* 🔴 Botón de "Me gusta" cuando está activo */
+.post-actions .btn-outline-danger.liked,
+.post-actions .btn-outline-danger.active {
+  background-color: #f47b22;
+  color: white;
+  border-color: #c24300;
+}
+
+.post-actions .btn-outline-warning:disabled {
+  background-color: #ffc107;
+  color: white;
+  border-color: #c79a00;
+  cursor: not-allowed;
+}
+
+
+/* 🚩 Botón de "Reportar" ya hecho (disabled) */
+.post-actions .btn-outline-danger:disabled {
+  background-color: #d9534f;
+  color: white;
+  border-color: #a94442;
+  cursor: not-allowed;
+}
+
+/* ❤️ Transición y color para botones marcados */
+.post-actions button {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Si usas directamente .liked en el botón */
+button.liked {
+  color: red;
+  background-color: #ffe2e2;
+  border-color: #cc0000;
+}
+/* ❤️ Efecto de latido para el botón de "Me gusta" */
+.post-actions .fa-heart {
+  animation: beat 0.3s ease-in-out;
+  transform-origin: center;
+}
+
+/* ⭐ Efecto de brillo para la estrella de favoritos */
+.post-actions .fa-star.text-warning {
+  animation: pulseGlow 1.2s ease-out;
+}
+
+@keyframes beat {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+@keyframes pulseGlow {
+  0% {
+    text-shadow: 0 0 0px #ffc107;
+  }
+  50% {
+    text-shadow: 0 0 12px #ffc107;
+  }
+  100% {
+    text-shadow: 0 0 0px #ffc107;
+  }
+}
+
+
+}

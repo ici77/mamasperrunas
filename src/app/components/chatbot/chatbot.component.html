@@ -1,0 +1,48 @@
+<!-- BURBUJA flotante del asistente -->
+<div class="chatbot-bubble" (click)="toggleChat()">
+  <div class="chatbot-message" *ngIf="showWelcomeMessage">
+    Hola, soy tu asistente. ¿En qué puedo ayudarte?
+  </div>
+  <img src="assets/images/default-avatar.png" alt="Asistente" class="avatar-icon" />
+</div>
+
+<!-- VENTANA emergente del chat -->
+<div class="chatbot-window" *ngIf="isChatOpen">
+  <div class="chatbot-header">
+    🐾 Asistente virtual
+    <span class="close-btn" (click)="toggleChat()">×</span>
+  </div>
+
+  <div class="chatbot-messages">
+    <!-- Saludo inicial si no se ha puesto nombre -->
+    <div *ngIf="!usuarioNombre" class="bot">
+      ¡Hola! 😊 ¿Cómo te llamas?
+    </div>
+
+    <!-- Saludo personalizado -->
+    <div *ngIf="usuarioNombre && !saludoMostrado" class="bot">
+      Encantado/a, {{ usuarioNombre }} 👋<br />
+      ¿Sobre qué quieres saber más?
+    </div>
+
+    <!-- Índice visual con botones -->
+    <div *ngIf="usuarioNombre" class="bot-buttons">
+      <button (click)="respuestaDirecta('registro')">📝 Registro</button>
+      <button (click)="respuestaDirecta('eventos')">📅 Eventos</button>
+      <button (click)="respuestaDirecta('post')">📰 Posts</button>
+      <button (click)="respuestaDirecta('perfil')">👤 Perfil</button>
+      <button (click)="respuestaDirecta('ayuda')">❓ Ayuda general</button>
+    </div>
+
+    <!-- Historial de mensajes -->
+    <div *ngFor="let msg of messages" [ngClass]="msg.sender">
+      {{ msg.text }}
+    </div>
+  </div>
+
+  <!-- Campo de entrada -->
+  <div class="chatbot-input">
+    <input type="text" [(ngModel)]="userMessage" (keydown.enter)="sendMessage()" placeholder="Escribe tu mensaje..." />
+    <button (click)="sendMessage()">Enviar</button>
+  </div>
+</div>

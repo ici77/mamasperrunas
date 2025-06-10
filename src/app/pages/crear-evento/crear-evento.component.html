@@ -1,0 +1,117 @@
+<div class="container-fluid">
+  <div class="row d-flex align-items-start">
+
+    <!-- 📌 Menú lateral izquierdo -->
+    <aside class="col-12 col-md-3 col-lg-2 sidebar-left">
+      <h3>Eventos</h3>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let categoria of categorias">
+          <a [routerLink]="['/eventos']" [queryParams]="{ tipo: categoria.tipo }">
+            {{ categoria.nombre | uppercase }}
+          </a>
+        </li>
+      </ul>
+
+      <!-- 📌 Tarjetas informativas -->
+      <div class="info-card" *ngFor="let card of tarjetasInformativas">
+        <h4>{{ card.titulo }}</h4>
+        <img [src]="getImagenUrl(card.imagen)" [alt]="card.titulo" />
+        <p>{{ card.descripcion }}</p>
+        <a [routerLink]="card.link" class="btn btn-secondary">{{ card.boton }}</a>
+      </div>
+    </aside>
+
+    <!-- 📌 Columna central: Imagen + Formulario -->
+    <div class="col-12 col-md-8 col-lg-9 d-flex flex-column">
+
+
+
+      <!-- 🖼 Imagen superior con margen -->
+<div class="text-center w-100" style="margin-top: 40px; margin-bottom: 20px;">
+  <img src="assets/images/eventos/creaevento.png"
+       alt="Crear evento"
+       class="img-fluid rounded shadow-sm"
+       style="max-width: 400px; height: auto;" />
+</div>
+
+
+      <!-- 📋 Formulario enmarcado -->
+      <div class="formulario-crear-evento w-100" style="max-width: 600px;">
+        <h2 class="mb-4 text-center">🎉 Crea tu  evento</h2>
+
+        <form (ngSubmit)="crearEvento()" #form="ngForm" class="p-4 border border-success rounded bg-white shadow-sm">
+
+          <!-- Título -->
+          <div class="mb-3">
+            <label class="form-label">Título</label>
+            <input type="text" class="form-control" [(ngModel)]="nuevoEvento.titulo" name="titulo" required />
+          </div>
+
+          <!-- Descripción -->
+          <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <textarea class="form-control" [(ngModel)]="nuevoEvento.descripcion" name="descripcion" rows="4"></textarea>
+          </div>
+
+          <!-- Fecha -->
+          <div class="mb-3">
+            <label class="form-label">Fecha</label>
+            <input type="date" class="form-control" [(ngModel)]="nuevoEvento.fecha" name="fecha" required />
+          </div>
+
+          <!-- Lugar -->
+          <div class="mb-3">
+            <label class="form-label">Lugar</label>
+            <input type="text" class="form-control" [(ngModel)]="nuevoEvento.lugar" name="lugar" />
+          </div>
+
+          <!-- Tipo de evento -->
+          <div class="mb-3">
+            <label class="form-label">Tipo de evento</label>
+            <select class="form-select" [(ngModel)]="nuevoEvento.tipoEvento" name="tipoEvento" required>
+              <option value="">Seleccione...</option>
+              <option value="celebraciones">🎉 Celebraciones</option>
+              <option value="concursos">🏆 Concursos</option>
+              <option value="solidarios">❤️ Solidarios</option>
+              <option value="talleres">🧠 Talleres</option>
+              <option value="quedadas">🌳 Quedadas</option>
+              <option value="miscelanea">🧩 Miscelánea</option>
+            </select>
+          </div>
+
+          <!-- Imagen -->
+          <div class="mb-3">
+            <label class="form-label">Imagen del evento</label>
+            <input type="file" class="form-control" (change)="onFileSelected($event)" />
+            <div *ngIf="imagenPreviewUrl" class="mt-3">
+              <label class="form-label">Vista previa:</label><br />
+              <img [src]="imagenPreviewUrl" alt="Vista previa"
+                   class="img-thumbnail rounded shadow-sm"
+                   style="max-width: 150px; height: auto;" />
+            </div>
+          </div>
+
+          <!-- ¿Es de pago? -->
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox"
+                   [(ngModel)]="nuevoEvento.esDePago" name="esDePago" id="esDePagoCheck" />
+            <label class="form-check-label" for="esDePagoCheck">¿Es de pago?</label>
+          </div>
+
+          <!-- ¿Destacado? -->
+          <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox"
+                   [(ngModel)]="nuevoEvento.destacado" name="destacado" id="destacadoCheck" />
+            <label class="form-check-label" for="destacadoCheck">¿Evento destacado?</label>
+          </div>
+
+          <!-- Botón centrado -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-success">✅ Crear evento</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
